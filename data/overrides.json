@@ -1,0 +1,27 @@
+[
+  {
+    "key": "anthropic/claude-fable-5",
+    "mode": "standard",
+    "input": "10.00",
+    "output": "50.00"
+  },
+  {
+    "key": "anthropic/claude-opus-5",
+    "mode": "standard",
+    "input": "5.00",
+    "output": "25.00"
+  },
+  {
+    "key": "anthropic/claude-sonnet-5",
+    "mode": "standard",
+    "input": "3.00",
+    "output": "15.00",
+    "promo": { "input": "2.00", "output": "10.00", "until": "2026-08-31" }
+  },
+  {
+    "key": "anthropic/claude-haiku-4.5",
+    "mode": "standard",
+    "input": "1.00",
+    "output": "5.00"
+  }
+]

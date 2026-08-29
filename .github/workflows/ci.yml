@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Install cargo-leptos
+        run: cargo install cargo-leptos --locked
+
+      - name: Test lmo-core
+        run: cargo test -p lmo-core
+
+      - name: Build (server + WASM bundle)
+        run: cargo leptos build --release
+
+      - name: Build container image
+        run: docker build -t lmomnibus:ci .

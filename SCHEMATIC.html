@@ -1,0 +1,1345 @@
+<title>LMOmnibus Schematic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:wght@400;500;600&display=swap">
+
+<style>
+/* ─────────────────────────────────────────────────────────────
+   TOKENS — complete light palette on bare :root
+   ───────────────────────────────────────────────────────────── */
+:root {
+  --ground:     #E7EAE4;
+  --surface:    #F2F4EE;
+  --sunk:       #DCE1D6;
+  --ink:        #10150F;
+  --ink-2:      #545B4E;
+  --ink-3:      #7C8474;
+  --rule:       #C6CCBD;
+  --rule-soft:  #D5DACC;
+
+  --accent:     #0B5D4A;   /* deep pine — the single bold colour */
+  --accent-hi:  #0E7A61;
+  --accent-ink: #F2F4EE;
+  --accent-wash:#D5E3DC;
+
+  --up:         #A63B23;   /* price up   — semantic, not brand */
+  --up-wash:    #F0DED8;
+  --down:       #0B5D4A;   /* price down — brand doubles as "cheaper" */
+
+  --focus:      #0E7A61;
+
+  --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --f-body:    "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --f-mono:    "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --shell: 1180px;
+  --prose: 72ch;
+  --r: 3px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground:     #0C110E;
+    --surface:    #141A16;
+    --sunk:       #1B221D;
+    --ink:        #E4E9DF;
+    --ink-2:      #98A192;
+    --ink-3:      #737C6E;
+    --rule:       #2A332C;
+    --rule-soft:  #212A23;
+
+    --accent:     #4FBF9B;
+    --accent-hi:  #6FD4B3;
+    --accent-ink: #06110D;
+    --accent-wash:#152A23;
+
+    --up:         #E2724F;
+    --up-wash:    #2C1A14;
+    --down:       #4FBF9B;
+
+    --focus:      #6FD4B3;
+  }
+}
+
+:root[data-theme="dark"] {
+  --ground:     #0C110E;
+  --surface:    #141A16;
+  --sunk:       #1B221D;
+  --ink:        #E4E9DF;
+  --ink-2:      #98A192;
+  --ink-3:      #737C6E;
+  --rule:       #2A332C;
+  --rule-soft:  #212A23;
+
+  --accent:     #4FBF9B;
+  --accent-hi:  #6FD4B3;
+  --accent-ink: #06110D;
+  --accent-wash:#152A23;
+
+  --up:         #E2724F;
+  --up-wash:    #2C1A14;
+  --down:       #4FBF9B;
+
+  --focus:      #6FD4B3;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   BASE
+   ───────────────────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.62;
+  margin: 0;
+  padding: 0 24px 96px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.shell { max-width: var(--shell); margin: 0 auto; }
+
+h1, h2, h3, h4 {
+  font-family: var(--f-display);
+  font-variation-settings: "wdth" 105;
+  text-wrap: balance;
+  margin: 0;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+}
+
+p { margin: 0; max-width: var(--prose); }
+ul, ol { margin: 0; padding-left: 1.15em; max-width: var(--prose); }
+li { margin-bottom: 6px; }
+li::marker { color: var(--ink-3); }
+
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--accent-hi); }
+
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 2px; }
+
+code, kbd { font-family: var(--f-mono); font-size: 0.875em; }
+
+.mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.num  { font-family: var(--f-mono); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+
+/* ─────────────────────────────────────────────────────────────
+   MASTHEAD
+   ───────────────────────────────────────────────────────────── */
+.masthead { padding: 72px 0 0; }
+
+.wordmark {
+  font-family: var(--f-display);
+  font-variation-settings: "wdth" 118;
+  font-weight: 800;
+  font-size: clamp(44px, 8.5vw, 92px);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  margin: 0;
+}
+.wordmark .lm { color: var(--accent); }
+
+.thesis {
+  font-family: var(--f-display);
+  font-variation-settings: "wdth" 100;
+  font-weight: 400;
+  font-size: clamp(19px, 2.4vw, 25px);
+  line-height: 1.38;
+  color: var(--ink-2);
+  max-width: 34ch;
+  margin-top: 20px;
+}
+
+.meta-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-top: 40px;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.meta-cell {
+  flex: 1 1 190px;
+  padding: 14px 18px 14px 0;
+  border-right: 1px solid var(--rule-soft);
+}
+.meta-cell:last-child { border-right: 0; }
+.meta-cell dt {
+  font-size: 10.5px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.11em; color: var(--ink-3); margin-bottom: 3px;
+}
+.meta-cell dd { margin: 0; font-family: var(--f-mono); font-size: 13.5px; color: var(--ink); }
+
+/* ─────────────────────────────────────────────────────────────
+   METER RULE — the signature divider: a measuring scale
+   ───────────────────────────────────────────────────────────── */
+.meter {
+  height: 9px;
+  border-bottom: 1px solid var(--rule);
+  background-image: repeating-linear-gradient(
+    to right, var(--rule) 0 1px, transparent 1px 13px);
+  margin: 0;
+}
+
+section { padding-top: 26px; }
+
+.sec-head { margin-bottom: 26px; }
+.eyebrow {
+  display: block;
+  font-family: var(--f-mono);
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.14em; color: var(--accent);
+  margin-bottom: 9px;
+}
+.sec-head h2 {
+  font-weight: 700;
+  font-size: clamp(27px, 3.6vw, 38px);
+  font-variation-settings: "wdth" 108;
+}
+.sec-head .standfirst {
+  margin-top: 12px; color: var(--ink-2); font-size: 17px;
+}
+
+h3 {
+  font-weight: 650;
+  font-size: 20px;
+  margin: 34px 0 12px;
+  font-variation-settings: "wdth" 102;
+}
+h4 {
+  font-weight: 600; font-size: 15px; margin: 24px 0 8px;
+  font-variation-settings: "wdth" 100;
+}
+
+.stack   { display: flex; flex-direction: column; gap: 16px; }
+.stack-l { display: flex; flex-direction: column; gap: 28px; }
+
+/* ─────────────────────────────────────────────────────────────
+   PANELS / TABLES / CODE
+   ───────────────────────────────────────────────────────────── */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  padding: 20px 22px;
+}
+.panel-tight { padding: 0; overflow: hidden; }
+
+.scroll-x { overflow-x: auto; border: 1px solid var(--rule); border-radius: var(--r); background: var(--surface); }
+
+table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 16px; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+thead th {
+  background: var(--sunk);
+  font-family: var(--f-mono); font-size: 10.5px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-2);
+  border-bottom: 1px solid var(--rule); white-space: nowrap;
+}
+tbody tr:last-child td { border-bottom: 0; }
+td.n, th.n { text-align: right; font-family: var(--f-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+td strong { font-weight: 600; }
+.tbl-note { font-size: 13px; color: var(--ink-2); margin-top: 8px; }
+
+pre {
+  margin: 0;
+  background: var(--sunk);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  padding: 16px 18px;
+  overflow-x: auto;
+  font-family: var(--f-mono);
+  font-size: 12.8px;
+  line-height: 1.66;
+  color: var(--ink);
+  tab-size: 2;
+}
+pre .c  { color: var(--ink-3); font-style: normal; }
+pre .k  { color: var(--accent); font-weight: 500; }
+pre .s  { color: var(--up); }
+pre .t  { color: var(--ink); font-weight: 500; }
+
+.filename {
+  font-family: var(--f-mono); font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.09em;
+  color: var(--ink-3); margin-bottom: 7px; display: block;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   CALLOUT
+   ───────────────────────────────────────────────────────────── */
+.callout {
+  border: 1px solid var(--accent);
+  border-left-width: 3px;
+  border-radius: var(--r);
+  background: var(--accent-wash);
+  padding: 16px 20px;
+}
+.callout .lbl {
+  font-family: var(--f-mono); font-size: 10.5px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent);
+  display: block; margin-bottom: 6px;
+}
+.callout p { font-size: 15px; }
+
+/* ─────────────────────────────────────────────────────────────
+   FIGURE / DIAGRAM
+   ───────────────────────────────────────────────────────────── */
+figure { margin: 0; }
+.figbox {
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  background: var(--surface);
+  padding: 22px 20px 14px;
+  overflow-x: auto;
+}
+.figbox svg { display: block; max-width: 100%; height: auto; min-width: 720px; color: var(--ink); }
+figcaption { font-size: 13.5px; color: var(--ink-2); margin-top: 12px; max-width: 64ch; }
+
+.d-box   { fill: var(--surface); stroke: var(--ink-2); stroke-width: 1; }
+.d-box-a { fill: var(--accent-wash); stroke: var(--accent); stroke-width: 1.5; }
+.d-box-g { fill: none; stroke: var(--ink-3); stroke-width: 1; stroke-dasharray: 4 3; }
+.d-t     { fill: var(--ink); font-family: "Public Sans", sans-serif; font-size: 12.5px; font-weight: 600; }
+.d-t2    { fill: var(--ink-2); font-family: "IBM Plex Mono", monospace; font-size: 10.5px; }
+.d-ta    { fill: var(--accent); font-family: "Public Sans", sans-serif; font-size: 12.5px; font-weight: 700; }
+.d-lbl   { fill: var(--ink-2); font-family: "IBM Plex Mono", monospace; font-size: 10px; }
+.d-line  { stroke: var(--ink-2); stroke-width: 1.2; fill: none; }
+.d-line-a{ stroke: var(--accent); stroke-width: 1.8; fill: none; }
+.d-line-g{ stroke: var(--ink-3); stroke-width: 1; fill: none; stroke-dasharray: 4 3; }
+.mk      { fill: var(--ink-2); }
+.mk-a    { fill: var(--accent); }
+.mk-g    { fill: var(--ink-3); }
+
+/* ─────────────────────────────────────────────────────────────
+   MOCKUP
+   ───────────────────────────────────────────────────────────── */
+.mock {
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  background: var(--surface);
+  overflow: hidden;
+}
+.mock-bar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 14px; background: var(--sunk);
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--f-mono); font-size: 11px; color: var(--ink-2);
+}
+.mock-bar .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--rule); }
+.mock-body { padding: 22px; display: flex; flex-direction: column; gap: 20px; }
+
+.searchfield {
+  display: flex; align-items: center; gap: 12px;
+  border: 1.5px solid var(--accent);
+  border-radius: var(--r);
+  background: var(--ground);
+  padding: 13px 16px;
+}
+.searchfield .q { font-family: var(--f-mono); font-size: 16px; color: var(--ink); }
+.searchfield .caret {
+  width: 1.5px; height: 19px; background: var(--accent); display: inline-block;
+  animation: blink 1.15s steps(1) infinite;
+}
+@keyframes blink { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
+.searchfield .hint { margin-left: auto; font-family: var(--f-mono); font-size: 11px; color: var(--ink-3); }
+
+.chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.chip {
+  font-family: var(--f-mono); font-size: 11.5px;
+  border: 1px solid var(--rule); border-radius: 2px;
+  padding: 4px 9px; color: var(--ink-2); background: var(--ground);
+  white-space: nowrap;
+}
+.chip.on { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 500; }
+.chip.axis { border-style: dashed; color: var(--ink-3); }
+
+.results { border: 1px solid var(--rule); border-radius: var(--r); overflow: hidden; }
+.res-row {
+  display: grid;
+  grid-template-columns: 1fr 88px 78px 78px 34px;
+  gap: 12px; align-items: center;
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--rule-soft);
+  font-size: 13.5px;
+  background: var(--ground);
+  transition: background 140ms ease;
+}
+.res-row:last-child { border-bottom: 0; }
+.res-row:hover { background: var(--accent-wash); }
+.res-row.hdr {
+  background: var(--sunk); font-family: var(--f-mono); font-size: 10px;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-2);
+  border-bottom: 1px solid var(--rule);
+}
+.res-row .nm { font-weight: 600; }
+.res-row .vd { color: var(--ink-3); font-size: 11.5px; font-family: var(--f-mono); }
+.res-row .n { text-align: right; font-family: var(--f-mono); font-variant-numeric: tabular-nums; font-size: 12.5px; }
+.res-row .add {
+  text-align: center; font-family: var(--f-mono); color: var(--accent);
+  border: 1px solid var(--accent); border-radius: 2px; font-size: 13px; line-height: 1.3;
+}
+
+.bench-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+.bench-card {
+  border: 1px solid var(--rule); border-radius: var(--r);
+  background: var(--ground); padding: 13px 15px;
+}
+.bench-card.best { border-color: var(--accent); border-width: 1.5px; }
+.bench-card .bn { font-weight: 600; font-size: 14px; }
+.bench-card .bv { font-family: var(--f-mono); font-size: 11px; color: var(--ink-3); margin-bottom: 10px; }
+.figure-big {
+  font-family: var(--f-mono); font-variant-numeric: tabular-nums;
+  font-size: 27px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1;
+}
+.figure-unit { font-size: 11px; font-weight: 500; color: var(--ink-3); letter-spacing: 0.04em; margin-left: 2px; }
+.delta { font-family: var(--f-mono); font-size: 12px; margin-top: 5px; }
+.delta.up   { color: var(--up); }
+.delta.down { color: var(--down); font-weight: 600; }
+
+.inputs-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+.inp { border: 1px solid var(--rule); border-radius: var(--r); background: var(--ground); padding: 9px 12px; }
+.inp .il { font-family: var(--f-mono); font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-3); }
+.inp .iv { font-family: var(--f-mono); font-variant-numeric: tabular-nums; font-size: 16px; font-weight: 500; margin-top: 2px; }
+
+/* ─────────────────────────────────────────────────────────────
+   DESIGN SPECIMEN
+   ───────────────────────────────────────────────────────────── */
+.swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr)); gap: 0; border: 1px solid var(--rule); border-radius: var(--r); overflow: hidden; }
+.sw { padding: 0; border-right: 1px solid var(--rule); }
+.sw:last-child { border-right: 0; }
+.sw .chipblock { height: 72px; border-bottom: 1px solid var(--rule); }
+.sw .swmeta { padding: 9px 11px; background: var(--surface); }
+.sw .swname { font-size: 12px; font-weight: 600; }
+.sw .swhex { font-family: var(--f-mono); font-size: 10.5px; color: var(--ink-3); }
+
+.typespec { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--rule); border-radius: var(--r); overflow: hidden; }
+.tsrow { padding: 16px 20px; border-bottom: 1px solid var(--rule-soft); background: var(--surface); display: flex; flex-wrap: wrap; gap: 16px; align-items: baseline; }
+.tsrow:last-child { border-bottom: 0; }
+.tsrole { font-family: var(--f-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.11em; color: var(--ink-3); width: 116px; flex-shrink: 0; }
+.ts-display { font-family: var(--f-display); font-variation-settings: "wdth" 118; font-weight: 800; font-size: 31px; letter-spacing: -0.03em; }
+.ts-body { font-family: var(--f-body); font-size: 17px; }
+.ts-mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; font-size: 19px; font-weight: 500; }
+
+.avoid-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: var(--r); overflow: hidden; }
+.avoid-item { background: var(--surface); padding: 13px 16px; }
+.avoid-item .no { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--up); display: block; margin-bottom: 4px; }
+.avoid-item .yes { font-size: 13.5px; color: var(--ink-2); }
+.avoid-item .yes b { color: var(--ink); font-weight: 600; }
+
+/* ─────────────────────────────────────────────────────────────
+   TOOL ROADMAP
+   ───────────────────────────────────────────────────────────── */
+.tool { display: grid; grid-template-columns: 60px 1fr; gap: 0 22px; padding: 20px 0; border-bottom: 1px solid var(--rule-soft); }
+.tool:last-child { border-bottom: 0; }
+.tool-idx {
+  font-family: var(--f-mono); font-size: 12px; font-weight: 600; color: var(--accent);
+  padding-top: 3px; letter-spacing: 0.03em;
+}
+.tool-idx .ship { display: block; font-size: 9px; letter-spacing: 0.1em; color: var(--ink-3); margin-top: 3px; text-transform: uppercase; }
+.tool h3 { margin: 0 0 4px; font-size: 19px; }
+.tool .asks { color: var(--ink); font-size: 15px; margin-bottom: 8px; }
+.tool .feeds { font-family: var(--f-mono); font-size: 11.5px; color: var(--ink-3); }
+.tool .feeds b { color: var(--ink-2); font-weight: 500; }
+
+/* ─────────────────────────────────────────────────────────────
+   MILESTONES
+   ───────────────────────────────────────────────────────────── */
+.ms { display: grid; grid-template-columns: 92px 1fr; gap: 0 20px; padding: 15px 0; border-bottom: 1px solid var(--rule-soft); }
+.ms:last-child { border-bottom: 0; }
+.ms-tag { font-family: var(--f-mono); font-size: 11px; font-weight: 600; color: var(--accent); letter-spacing: 0.04em; padding-top: 2px; }
+.ms-what { font-size: 15px; }
+.ms-what b { font-weight: 600; }
+.ms-what .gate { display: block; font-family: var(--f-mono); font-size: 11.5px; color: var(--ink-3); margin-top: 3px; }
+
+/* ─────────────────────────────────────────────────────────────
+   TWO-COL
+   ───────────────────────────────────────────────────────────── */
+.cols2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+
+.foot {
+  margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--rule);
+  font-family: var(--f-mono); font-size: 11.5px; color: var(--ink-3);
+  display: flex; flex-wrap: wrap; gap: 6px 24px;
+}
+
+@media (max-width: 640px) {
+  body { padding: 0 16px 64px; }
+  .masthead { padding-top: 44px; }
+  .tool { grid-template-columns: 1fr; gap: 8px; }
+  .ms { grid-template-columns: 1fr; gap: 4px; }
+  .res-row { grid-template-columns: 1fr 70px 34px; }
+  .res-row .ctx, .res-row .rel { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+</style>
+
+<div class="shell">
+
+<!-- ══════════════════ MASTHEAD ══════════════════ -->
+<header class="masthead">
+  <h1 class="wordmark"><span class="lm">LM</span>Omnibus</h1>
+  <p class="thesis">A workbench of instruments for pricing, comparing, and choosing language models.</p>
+
+  <dl class="meta-strip">
+    <div class="meta-cell"><dt>Document</dt><dd>Build schematic v1</dd></div>
+    <div class="meta-cell"><dt>Stack</dt><dd>Rust · Leptos 0.8 · Axum 0.8</dd></div>
+    <div class="meta-cell"><dt>Catalog</dt><dd>415 models · 42 vendors</dd></div>
+    <div class="meta-cell"><dt>Ships first</dt><dd>Tool 01 — Cost Calculator</dd></div>
+  </dl>
+</header>
+
+<!-- ══════════════════ PREMISE ══════════════════ -->
+<div class="meter"></div>
+<section>
+  <div class="sec-head">
+    <span class="eyebrow">Premise</span>
+    <h2>One catalog, many instruments</h2>
+    <p class="standfirst">Every tool on this site is a different lens over the same normalized model catalog. That constraint is the product strategy: once ingest is right, each new tool is a view, not a project.</p>
+  </div>
+
+  <div class="stack-l">
+    <p>The reference point is the familiar per-token cost calculator: type in token counts, read a table of every model. It works, but it hands you a 400-row wall and asks you to find yourself in it. LMOmnibus inverts that — <strong>you name what you're looking for first</strong>, by vendor, by name, or by when it shipped, and the tool answers only about the handful of models you actually care about.</p>
+
+    <p>Below the surface, the harder difference is that most calculators model pricing as two numbers per model. Real pricing is not two numbers. It is tiered by prompt length, discounted by batch mode, surcharged by fast mode, split between cache reads and cache writes, and — for some vendors right now — temporarily promotional. Getting those right is the reason to build this rather than use what exists.</p>
+
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr><th>Pricing reality</th><th>How often</th><th>What a two-number model gets wrong</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Long-context tiers</strong><br><span class="mono" style="font-size:12px;color:var(--ink-3)">pricing.overrides</span></td>
+            <td class="n">60 / 415</td>
+            <td>GPT-5.6 Sol bills <span class="mono">$2.50/$15</span> up to 272K prompt tokens and <span class="mono">$5.00/$22.50</span> above it. A flat-rate estimate is <strong>half the real bill</strong> on long-context work.</td>
+          </tr>
+          <tr>
+            <td><strong>Cache read / write split</strong><br><span class="mono" style="font-size:12px;color:var(--ink-3)">input_cache_read · _write</span></td>
+            <td class="n">246 / 415</td>
+            <td>Caching is not free. Opus 5 reads cache at <span class="mono">$0.50</span> but writes it at <span class="mono">$6.25</span> — above the <span class="mono">$5.00</span> base rate. Below a break-even hit rate, caching <em>costs</em> money.</td>
+          </tr>
+          <tr>
+            <td><strong>Billing modes as separate rows</strong><br><span class="mono" style="font-size:12px;color:var(--ink-3)">:batch · -fast</span></td>
+            <td class="n">~40%</td>
+            <td>Anthropic alone occupies 28 catalog rows for about 13 real models. Batch and fast are <em>modes of one model</em>, not rivals to it, and listing them as peers makes every comparison noisy.</td>
+          </tr>
+          <tr>
+            <td><strong>Promotional rates</strong><br><span class="mono" style="font-size:12px;color:var(--ink-3)">time-boxed</span></td>
+            <td class="n">occasional</td>
+            <td>Aggregators list Claude Sonnet 5 at <span class="mono">$2/$10</span>. That is an introductory rate expiring 2026-08-31; list price is <span class="mono">$3/$15</span>. A year-long budget built on it is <strong>50% light</strong>.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tbl-note">Counts measured against the live aggregate feed on 19 Aug 2026. These four cases are the entire justification for the normalization layer in §&nbsp;Catalog.</p>
+  </div>
+</section>
+
+<!-- ══════════════════ ARCHITECTURE ══════════════════ -->
+<div class="meter"></div>
+<section>
+  <div class="sec-head">
+    <span class="eyebrow">Architecture</span>
+    <h2>Where the data goes</h2>
+    <p class="standfirst">The load-bearing decision: search crosses the network, arithmetic does not.</p>
+  </div>
+
+  <figure>
+    <div class="figbox">
+      <svg viewBox="0 0 1020 316" role="img" aria-label="Data flow: the aggregate model feed and curated vendor price files are merged by the ingest binary into an append-only snapshot and an in-memory catalog. Search and model lookup server functions read the catalog and send small payloads to browser islands, where all cost arithmetic runs locally without further network calls.">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path class="mk" d="M 0 0 L 10 5 L 0 10 z"></path>
+          </marker>
+          <marker id="ara" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path class="mk-a" d="M 0 0 L 10 5 L 0 10 z"></path>
+          </marker>
+          <marker id="arg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path class="mk-g" d="M 0 0 L 10 5 L 0 10 z"></path>
+          </marker>
+        </defs>
+
+        <!-- sources -->
+        <rect class="d-box" x="6" y="28" width="186" height="50" rx="2"></rect>
+        <text class="d-t" x="20" y="49">OpenRouter feed</text>
+        <text class="d-t2" x="20" y="66">/api/v1/models · 415</text>
+
+        <rect class="d-box" x="6" y="100" width="186" height="50" rx="2"></rect>
+        <text class="d-t" x="20" y="121">Curated rates</text>
+        <text class="d-t2" x="20" y="138">data/providers/*.toml</text>
+
+        <!-- ingest -->
+        <rect class="d-box" x="232" y="64" width="142" height="50" rx="2"></rect>
+        <text class="d-t" x="246" y="85">lmo-ingest</text>
+        <text class="d-t2" x="246" y="102">normalize · merge</text>
+
+        <!-- catalog -->
+        <rect class="d-box-a" x="414" y="64" width="176" height="50" rx="2"></rect>
+        <text class="d-ta" x="428" y="85">Catalog</text>
+        <text class="d-t2" x="428" y="102">ArcSwap&lt;Arc&lt;_&gt;&gt; · RAM</text>
+
+        <!-- snapshot -->
+        <rect class="d-box" x="232" y="206" width="142" height="50" rx="2"></rect>
+        <text class="d-t" x="246" y="227">Snapshots</text>
+        <text class="d-t2" x="246" y="244">git · append-only</text>
+
+        <!-- server fns -->
+        <rect class="d-box" x="630" y="28" width="166" height="50" rx="2"></rect>
+        <text class="d-t" x="644" y="49">search_models()</text>
+        <text class="d-t2" x="644" y="66">fuzzy + facets</text>
+
+        <rect class="d-box" x="630" y="100" width="166" height="50" rx="2"></rect>
+        <text class="d-t" x="644" y="121">get_models()</text>
+        <text class="d-t2" x="644" y="138">full rate cards</text>
+
+        <rect class="d-box-g" x="630" y="206" width="166" height="50" rx="2"></rect>
+        <text class="d-t2" x="644" y="227" style="font-size:12px">price_history()</text>
+        <text class="d-t2" x="644" y="244">Tool 05 · later</text>
+
+        <!-- islands -->
+        <rect class="d-box" x="836" y="28" width="178" height="50" rx="2"></rect>
+        <text class="d-t" x="850" y="49">Search island</text>
+        <text class="d-t2" x="850" y="66">WASM</text>
+
+        <rect class="d-box-a" x="836" y="100" width="178" height="50" rx="2"></rect>
+        <text class="d-ta" x="850" y="121">Calculator island</text>
+        <text class="d-t2" x="850" y="138">WASM · lmo-core</text>
+
+        <rect class="d-box-g" x="836" y="206" width="178" height="50" rx="2"></rect>
+        <text class="d-t2" x="850" y="234" style="font-size:12px">Ledger island</text>
+
+        <!-- edges: sources -> ingest -->
+        <polyline class="d-line" points="192,53 212,53 212,89 232,89" marker-end="url(#ar)"></polyline>
+        <polyline class="d-line" points="192,125 212,125 212,89 232,89" marker-end="url(#ar)"></polyline>
+        <text class="d-lbl" x="196" y="24">poll 6h</text>
+        <text class="d-lbl" x="196" y="168">read + watch</text>
+
+        <!-- ingest -> catalog -->
+        <line class="d-line" x1="374" y1="89" x2="410" y2="89" marker-end="url(#ar)"></line>
+        <text class="d-lbl" x="376" y="82">swap</text>
+
+        <!-- ingest -> snapshot -->
+        <line class="d-line" x1="303" y1="114" x2="303" y2="202" marker-end="url(#ar)"></line>
+        <text class="d-lbl" x="310" y="164">append daily</text>
+
+        <!-- catalog -> server fns -->
+        <polyline class="d-line" points="590,84 610,84 610,53 626,53" marker-end="url(#ar)"></polyline>
+        <polyline class="d-line" points="590,96 610,96 610,125 626,125" marker-end="url(#ar)"></polyline>
+
+        <!-- snapshot -> price_history -->
+        <line class="d-line-g" x1="374" y1="231" x2="626" y2="231" marker-end="url(#arg)"></line>
+
+        <!-- server fns -> islands -->
+        <line class="d-line" x1="796" y1="53" x2="832" y2="53" marker-end="url(#ar)"></line>
+        <text class="d-lbl" x="798" y="46">25 cards</text>
+        <line class="d-line-a" x1="796" y1="125" x2="832" y2="125" marker-end="url(#ara)"></line>
+        <text class="d-lbl" x="798" y="118" style="fill:var(--accent)">once</text>
+        <line class="d-line-g" x1="796" y1="231" x2="832" y2="231" marker-end="url(#arg)"></line>
+
+        <!-- self loop: local recompute -->
+        <path class="d-line-a" d="M 878 150 C 878 180 996 180 996 154" marker-end="url(#ara)"></path>
+        <text class="d-lbl" x="937" y="196" text-anchor="middle" style="fill:var(--accent)">recompute · 0 requests</text>
+      </svg>
+    </div>
+    <figcaption>Search hits the server once per debounced query and returns ~25 compact cards. Selecting a model pulls its full rate card down once; from then on every keystroke in the token fields recomputes in WebAssembly, using the same <span class="mono">lmo-core</span> code the server compiled.</figcaption>
+  </figure>
+
+  <div class="callout" style="margin-top:26px">
+    <span class="lbl">Why this shape</span>
+    <p>A 415-model catalog is only ~25 KB gzipped, so shipping all of it to the browser is tempting. Don't: search quality is where this product competes, and fuzzy ranking, facet counts, and vendor aliasing all want to live server-side where they can change without a redeploy of the WASM bundle. Ship the <em>ranking</em> from the server and the <em>arithmetic</em> to the client — each where it belongs.</p>
+  </div>
+</section>
+
+<!-- ══════════════════ STACK ══════════════════ -->
+<div class="meter"></div>
+<section>
+  <div class="sec-head">
+    <span class="eyebrow">Stack</span>
+    <h2>Crates and the reasons for them</h2>
+  </div>
+
+  <div class="scroll-x">
+    <table>
+      <thead>
+        <tr><th>Layer</th><th>Choice</th><th class="n">Version</th><th>Reasoning</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>UI framework</td><td><strong>leptos</strong> <span class="mono" style="color:var(--ink-3)">(islands)</span></td><td class="n">0.8.20</td><td>Fine-grained reactivity, SSR + selective hydration. Islands mean the marketing and index pages ship zero WASM while the calculator gets a real reactive runtime.</td></tr>
+        <tr><td>Server</td><td><strong>axum</strong> + <strong>leptos_axum</strong></td><td class="n">0.8.9 / 0.8.10</td><td>Tower middleware for compression, caching headers, and rate limiting on the search endpoint.</td></tr>
+        <tr><td>Routing</td><td><strong>leptos_router</strong></td><td class="n">0.8.15</td><td>URL <em>is</em> the state container for a shareable calculator scenario.</td></tr>
+        <tr><td>Runtime</td><td><strong>tokio</strong></td><td class="n">1.53.1</td><td>Background refresh task on a 6-hour interval.</td></tr>
+        <tr><td>Money</td><td><strong>rust_decimal</strong></td><td class="n">1.42.1</td><td>Non-negotiable. Compiles to <span class="mono">wasm32</span>, so the client recomputes with identical semantics to the server.</td></tr>
+        <tr><td>Dates</td><td><strong>jiff</strong></td><td class="n">0.2.35</td><td>Civil dates for release months and retirement countdowns. No timezone ambiguity in "released 2026-07".</td></tr>
+        <tr><td>Fuzzy search</td><td><strong>nucleo-matcher</strong></td><td class="n">0.3.1</td><td>The matcher behind Helix. Handles <span class="mono">"op5"</span> → <span class="mono">"claude-opus-5"</span> without an index or a search server.</td></tr>
+        <tr><td>Hot swap</td><td><strong>arc-swap</strong></td><td class="n">1.7</td><td>Catalog refresh with no lock contention on the read path and no restart.</td></tr>
+        <tr><td>HTTP client</td><td><strong>reqwest</strong></td><td class="n">0.13.4</td><td>Ingest only; never on a request path.</td></tr>
+        <tr><td>Errors / logs</td><td><strong>thiserror</strong> · <strong>tracing</strong></td><td class="n">2.0.20 / 0.1.44</td><td>Typed errors in <span class="mono">lmo-core</span>, structured spans across ingest.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Deliberately absent</h3>
+  <ul>
+    <li><strong>No database.</strong> The catalog is a file. Snapshots are files in git. A database buys nothing until there are user accounts, and it costs an operational surface from day one. Revisit at Tool 05, not before.</li>
+    <li><strong>No JavaScript framework and no Tailwind.</strong> Hand-authored CSS against the token set in §&nbsp;Design. The visual identity is the differentiator; a utility framework's defaults pull straight back toward the look this site is defined against.</li>
+    <li><strong>No client-side Tailwind-style runtime, no CDN anything.</strong> Fonts self-hosted in <span class="mono">public/fonts</span>, subset to Latin.</li>
+  </ul>
+</section>
+
+<!-- ══════════════════ REPOSITORY ══════════════════ -->
+<div class="meter"></div>
+<section>
+  <div class="sec-head">
+    <span class="eyebrow">Repository</span>
+    <h2>Workspace layout</h2>
+    <p class="standfirst">The split exists to enforce one rule: <span class="mono">lmo-core</span> has no I/O, so it compiles to both the server and the browser.</p>
+  </div>
+
+  <pre><span class="c">lmomnibus/</span>
+├── Cargo.toml              <span class="c"># workspace root</span>
+├── crates/
+│   ├── <span class="k">lmo-core</span>/           <span class="c"># domain + cost engine + search scoring</span>
+│   │   └── src/            <span class="c">#   NO I/O. Compiles to wasm32 and native.</span>
+│   │       ├── model.rs    <span class="c">#   Model, RateCard, RateTier, Vendor</span>
+│   │       ├── cost.rs     <span class="c">#   Workload -&gt; CostBreakdown</span>
+│   │       ├── query.rs    <span class="c">#   Query, MonthRange, scoring</span>
+│   │       └── url.rs      <span class="c">#   scenario &lt;-&gt; querystring codec</span>
+│   ├── <span class="k">lmo-catalog</span>/        <span class="c"># server-only: fetch, normalize, snapshot</span>
+│   │   └── src/
+│   │       ├── openrouter.rs
+│   │       ├── overrides.rs <span class="c">#  reads data/providers/*.toml</span>
+│   │       ├── normalize.rs <span class="c">#  the four fixes from § Premise</span>
+│   │       └── snapshot.rs
+│   ├── <span class="k">lmo-web</span>/            <span class="c"># Leptos: routes, islands, components</span>
+│   │   └── src/
+│   │       ├── tools/cost/ <span class="c">#  Tool 01</span>
+│   │       ├── islands/    <span class="c">#  search_box.rs, bench.rs</span>
+│   │       └── ui/         <span class="c">#  meter_rule.rs, figure.rs, chip.rs</span>
+│   └── <span class="k">lmo-server</span>/         <span class="c"># axum binary; owns ArcSwap&lt;Arc&lt;Catalog&gt;&gt;</span>
+├── data/
+│   ├── providers/          <span class="c"># hand-maintained, one file per vendor</span>
+│   │   ├── anthropic.toml
+│   │   ├── openai.toml
+│   │   └── google.toml
+│   └── snapshots/          <span class="c"># YYYY-MM-DD.json — the price history corpus</span>
+├── style/
+│   ├── tokens.css          <span class="c"># § Design, verbatim</span>
+│   └── main.css
+└── public/fonts/           <span class="c"># Archivo, Public Sans, IBM Plex Mono (subset)</span></pre>
+
+  <p style="margin-top:20px">Committing <span class="mono">data/snapshots/</span> to git is a design decision, not laziness. Daily JSON diffs of a 415-model catalog are small, and the repository history becomes the price-history dataset that Tool 05 needs — for free, starting the day you first run ingest.</p>
+</section>
+
+<!-- ══════════════════ DOMAIN ══════════════════ -->
+<div class="meter"></div>
+<section>
+  <div class="sec-head">
+    <span class="eyebrow">Domain</span>
+    <h2>The model, in types</h2>
+  </div>
+
+  <span class="filename">crates/lmo-core/src/model.rs</span>
+  <pre><span class="k">use</span> jiff::civil::Date;
+<span class="k">use</span> rust_decimal::Decimal;
+<span class="k">use</span> std::collections::BTreeMap;
+
+<span class="c">/// USD per 1,000,000 tokens. Never f64 — money is Decimal, everywhere.</span>
+<span class="k">pub type</span> <span class="t">UsdPerMTok</span> = Decimal;
+
+<span class="k">pub struct</span> <span class="t">Model</span> {
+    <span class="k">pub</span> key: ModelKey,              <span class="c">// "anthropic/claude-opus-5"</span>
+    <span class="k">pub</span> display_name: String,       <span class="c">// "Claude Opus 5"</span>
+    <span class="k">pub</span> vendor: Vendor,
+    <span class="k">pub</span> released: Date,             <span class="c">// &lt;- the third search axis</span>
+    <span class="k">pub</span> retires_on: Option&lt;Date&gt;,   <span class="c">// drives the Tool 05 countdown</span>
+    <span class="k">pub</span> knowledge_cutoff: Option&lt;Date&gt;,
+    <span class="k">pub</span> context_tokens: u32,
+    <span class="k">pub</span> max_output_tokens: Option&lt;u32&gt;,
+    <span class="k">pub</span> modalities: Modalities,
+    <span class="k">pub</span> capabilities: Capabilities, <span class="c">// tools, structured output, reasoning efforts</span>
+    <span class="k">pub</span> scores: Option&lt;Scores&gt;,     <span class="c">// intelligence / coding / agentic</span>
+    <span class="c">/// Standard is always present. Batch, Fast, Priority are optional</span>
+    <span class="c">/// *modes of this model* — never separate catalog entries.</span>
+    <span class="k">pub</span> rates: BTreeMap&lt;RateMode, RateCard&gt;,
+    <span class="k">pub</span> provenance: Provenance,
+}
+
+<span class="k">pub enum</span> <span class="t">RateMode</span> { Standard, Batch, Fast, Priority }
+
+<span class="k">pub struct</span> <span class="t">RateCard</span> {
+    <span class="k">pub</span> input:          UsdPerMTok,
+    <span class="k">pub</span> output:         UsdPerMTok,
+    <span class="k">pub</span> cache_read:     Option&lt;UsdPerMTok&gt;,
+    <span class="k">pub</span> cache_write_5m: Option&lt;UsdPerMTok&gt;,
+    <span class="k">pub</span> cache_write_1h: Option&lt;UsdPerMTok&gt;,
+    <span class="k">pub</span> reasoning:      Option&lt;UsdPerMTok&gt;, <span class="c">// billed apart by some vendors</span>
+    <span class="k">pub</span> image_input:    Option&lt;Decimal&gt;,    <span class="c">// USD per image</span>
+    <span class="k">pub</span> web_search:     Option&lt;Decimal&gt;,    <span class="c">// USD per call</span>
+    <span class="c">/// Long-context tiers, ascending. Empty means a flat rate.</span>
+    <span class="k">pub</span> tiers:          Vec&lt;RateTier&gt;,
+    <span class="c">/// Time-boxed promo that supersedes the above while live.</span>
+    <span class="k">pub</span> promo:          Option&lt;Promo&gt;,
+}
+
+<span class="k">pub struct</span> <span class="t">RateTier</span> {
+    <span class="k">pub</span> above_input_tokens: u32,
+    <span class="k">pub</span> input:  UsdPerMTok,
+    <span class="k">pub</span> output: UsdPerMTok,
+    <span class="k">pub</span> cache_read: Option&lt;UsdPerMTok&gt;,
+}
+
+<span class="k">pub enum</span> <span class="t">Provenance</span> {
+    <span class="c">/// Transcribed from the vendor's own pricing page. Wins on conflict.</span>
+    FirstParty { checked: Date },
+    <span class="c">/// Derived from the aggregate feed. Broad coverage, weaker authority.</span>
+    Aggregate  { fetched: Date },
+}</pre>
+
+  <h3>The tier rule, which is easy to get wrong</h3>
+  <p>Vendors price the <em>whole</em> request at whichever tier its prompt lands in. It is not marginal like a tax bracket — crossing 272K tokens does not price the first 272K at the low rate. Encode that once, in one place:</p>
+
+  <span class="filename">crates/lmo-core/src/cost.rs</span>
+  <pre><span class="k">impl</span> <span class="t">RateCard</span> {
+    <span class="c">/// Whole-request tiering: the highest threshold the prompt clears</span>
+    <span class="c">/// prices every token in the request, input and output alike.</span>
+    <span class="k">pub fn</span> <span class="t">tier_for</span>(&amp;<span class="k">self</span>, prompt_tokens: u32) -&gt; Rates&lt;<span class="k">'_</span>&gt; {
+        <span class="k">self</span>.tiers
+            .iter()
+            .rev()
+            .find(|t| prompt_tokens &gt; t.above_input_tokens)
+            .map(Rates::Tier)
+            .unwrap_or(Rates::Base(<span class="k">self</span>))
+    }
+}</pre>
+
+  <div class="callout" style="margin-top:22px">
+    <span class="lbl">Property test worth writing on day one</span>
+    <p>For every model with tiers, cost must be monotonic in prompt length: adding one token can never lower the bill. That single property catches inverted comparisons, off-by-one thresholds, and tier lists that were never sorted.</p>
+  </div>
+</section>
+
+<!-- ══════════════════ CATALOG ══════════════════ -->
+<div class="meter"></div>
+<section>
+  <div class="sec-head">
+    <span class="eyebrow">Catalog</span>
+    <h2>Ingest, and the override layer</h2>
+    <p class="standfirst">Broad coverage from the aggregate feed; authority from files you maintain by hand.</p>
+  </div>
+
+  <div class="stack-l">
+    <p>The aggregate feed gives 415 models across 42 vendors with release timestamps, context lengths, modality flags, cache pricing, and capability benchmarks — every field the eight tools in §&nbsp;Roadmap need, from a single unauthenticated endpoint. What it does not give is authority. It reports what a reseller currently charges, which is not always what the vendor lists.</p>
+
+    <p>So ingest runs a merge, and curated files win on conflict. This is where the Sonnet 5 case gets handled:</p>
+
+    <span class="filename">data/providers/anthropic.toml</span>
+    <pre><span class="c">[[model]]</span>
+key      = <span class="s">"anthropic/claude-sonnet-5"</span>
+released = <span class="s">"2026-06-10"</span>
+
+<span class="c"># List price. The aggregate feed currently reports 2.00/10.00, which is</span>
+<span class="c"># the introductory rate — correct today, wrong for any annual budget.</span>
+<span class="c">[model.rates.standard]</span>
+input          = <span class="s">3.00</span>
+output         = <span class="s">15.00</span>
+cache_read     = <span class="s">0.30</span>
+cache_write_5m = <span class="s">3.75</span>
+
+<span class="c">[model.rates.standard.promo]</span>
+input  = <span class="s">2.00</span>
+output = <span class="s">10.00</span>
+until  = <span class="s">"2026-08-31"</span>
+
+<span class="c">[model.rates.batch]</span>
+input  = <span class="s">1.50</span>
+output = <span class="s">7.50</span></pre>
+
+    <p>The calculator then shows the promotional rate as the default with the list rate one toggle away, and annualized projections quietly use the list rate. That behaviour is the whole point of the override layer, and it is not something an aggregator can do for you.</p>
+
+    <h3>Normalization steps, in order</h3>
+    <ol>
+      <li><strong>Collapse mode suffixes.</strong> <span class="mono">:batch</span> and <span class="mono">-fast</span> variants fold into their parent's <span class="mono">rates</span> map instead of becoming rivals in the result list.</li>
+      <li><strong>Resolve aliases.</strong> Pointer entries (<span class="mono">alias_target</span>) collapse onto their target so <span class="mono">"latest"</span>-style handles do not appear twice.</li>
+      <li><strong>Convert units.</strong> Feed prices are USD per token as strings. Parse to <span class="mono">Decimal</span>, multiply by 1e6, store as <span class="mono">UsdPerMTok</span>. Parse, never <span class="mono">f64::from_str</span>.</li>
+      <li><strong>Derive release month.</strong> The <span class="mono">created</span> timestamp becomes a civil date; the canonical slug's date suffix (<span class="mono">…-20260723</span>) corrects it where they disagree.</li>
+      <li><strong>Apply overrides.</strong> Curated files replace matching fields and stamp <span class="mono">Provenance::FirstParty</span>.</li>
+      <li><strong>Validate, then swap.</strong> Reject the whole batch if any model has zero rate modes or an unsorted tier list. A bad refresh must never replace a good catalog.</li>
+    </ol>
+
+    <div class="callout">
+      <span class="lbl">Failure posture</span>
+      <p>The upstream feed is a third-party dependency on your critical path. Ingest never touches the live catalog until validation passes, and the server boots from the newest snapshot on disk. If the feed is down for a week, the site serves last-known-good prices with a visible "as of" date rather than an error.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ SEARCH ══════════════════ -->
+<div class="meter"></div>
+<section>
+  <div class="sec-head">
+    <span class="eyebrow">Search</span>
+    <h2>Three axes, one field</h2>
+    <p class="standfirst">Provider, name, and release window — combinable, and none of them mandatory.</p>
+  </div>
+
+  <span class="filename">crates/lmo-core/src/query.rs</span>
+  <pre><span class="k">pub struct</span> <span class="t">Query</span> {
+    <span class="c">/// Fuzzy across display_name + key + vendor. "op5", "sonnet",</span>
+    <span class="c">/// "gpt 5.6 sol" all resolve.</span>
+    <span class="k">pub</span> text: String,
+    <span class="c">/// OR within the facet, AND against the others.</span>
+    <span class="k">pub</span> vendors: Vec&lt;Vendor&gt;,
+    <span class="c">/// Inclusive, month granularity: (2026, 1)..=(2026, 8)</span>
+    <span class="k">pub</span> released: Option&lt;MonthRange&gt;,
+    <span class="k">pub</span> min_context: Option&lt;u32&gt;,
+    <span class="k">pub</span> modes: Vec&lt;RateMode&gt;,
+    <span class="k">pub</span> limit: usize,               <span class="c">// default 25</span>
+}
+
+<span class="c">/// Fuzzy score is the spine; recency is a gentle multiplier so a 2024</span>
+<span class="c">/// model never outranks its 2026 successor on an equally good match.</span>
+<span class="c">/// Capped at 1.35x — recency must not override an exact name match.</span>
+<span class="k">pub fn</span> <span class="t">rank</span>(fuzzy: u16, age_months: u32) -&gt; f32 {
+    <span class="k">let</span> recency = <span class="s">1.0</span> + <span class="s">0.35</span> * (-(age_months <span class="k">as</span> f32) / <span class="s">18.0</span>).exp();
+    fuzzy <span class="k">as</span> f32 * recency
+}</pre>
+
+  <h3>Server function</h3>
+  <span class="filename">crates/lmo-web/src/tools/cost/api.rs</span>
+  <pre><span class="c">/// Debounced at 120ms client-side. Returns compact cards, not full</span>
+<span class="c">/// models — roughly 180 bytes each, so 25 results is one small packet.</span>
+<span class="k">#[server]</span>
+<span class="k">pub async fn</span> <span class="t">search_models</span>(q: Query) -&gt; Result&lt;SearchPage, ServerFnError&gt; {
+    <span class="k">let</span> catalog = expect_context::&lt;CatalogHandle&gt;().load();
+    Ok(catalog.search(&amp;q))   <span class="c">// pure fn from lmo-core</span>
+}
+
+<span class="c">/// Called once per model added to the bench. Everything after this</span>
+<span class="c">/// is local arithmetic.</span>
+<span class="k">#[server]</span>
+<span class="k">pub async fn</span> <span class="t">get_models</span>(keys: Vec&lt;ModelKey&gt;) -&gt; Result&lt;Vec&lt;Model&gt;, ServerFnError&gt; { <span class="c">/* … */</span> }
+
+<span class="k">pub struct</span> <span class="t">SearchPage</span> {
+    <span class="k">pub</span> hits: Vec&lt;ModelCard&gt;,
+    <span class="c">/// Facet counts for the vendor chips and the year histogram —</span>
+    <span class="c">/// computed against the *other* facets, so counts never read as zero.</span>
+    <span class="k">pub</span> vendor_counts: Vec&lt;(Vendor, u32)&gt;,
+    <span class="k">pub</span> month_counts: Vec&lt;((i16, u8), u32)&gt;,
+    <span class="k">pub</span> total: u32,
+}</pre>
+
+  <p style="margin-top:20px">Facet counts computed against the other active facets are what make the release-date filter feel like an instrument rather than a form control: dragging the year range shows the vendor chips re-weighting live, and a filter that would return nothing is visibly dimmed before you click it.</p>
+</section>
+
+<!-- ══════════════════ TOOL 01 ══════════════════ -->
+<div class="meter"></div>
+<section>
+  <div class="sec-head">
+    <span class="eyebrow">Tool 01</span>
+    <h2>Cost Calculator</h2>
+    <p class="standfirst">Empty by default. You search, you bench, you compare.</p>
+  </div>
+
+  <div class="mock">
+    <div class="mock-bar">
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      <span style="margin-left:6px">lmomnibus.dev/tools/cost</span>
+    </div>
+    <div class="mock-body">
+
+      <div class="searchfield">
+        <span class="q">opus<span class="caret"></span></span>
+        <span class="hint">↑↓ navigate · ⏎ add to bench</span>
+      </div>
+
+      <div class="chips">
+        <span class="chip on">Anthropic 6</span>
+        <span class="chip">OpenAI 94</span>
+        <span class="chip">Google 41</span>
+        <span class="chip">Qwen 51</span>
+        <span class="chip">Mistral 18</span>
+        <span class="chip axis">Released 2026-02 → 2026-08</span>
+        <span class="chip axis">Context ≥ 200K</span>
+      </div>
+
+      <div class="results">
+        <div class="res-row hdr">
+          <span>Model</span><span class="n rel">Released</span><span class="n">In /MTok</span><span class="n ctx">Out /MTok</span><span></span>
+        </div>
+        <div class="res-row">
+          <span><span class="nm">Claude Opus 5</span> <span class="vd">anthropic</span></span>
+          <span class="n rel">2026-07</span><span class="n">$5.00</span><span class="n ctx">$25.00</span><span class="add">+</span>
+        </div>
+        <div class="res-row">
+          <span><span class="nm">Claude Opus 4.8</span> <span class="vd">anthropic</span></span>
+          <span class="n rel">2026-05</span><span class="n">$5.00</span><span class="n ctx">$25.00</span><span class="add">+</span>
+        </div>
+        <div class="res-row">
+          <span><span class="nm">Claude Opus 4.7</span> <span class="vd">anthropic</span></span>
+          <span class="n rel">2026-04</span><span class="n">$5.00</span><span class="n ctx">$25.00</span><span class="add">+</span>
+        </div>
+        <div class="res-row">
+          <span><span class="nm">Claude Opus 4.6</span> <span class="vd">anthropic</span></span>
+          <span class="n rel">2026-02</span><span class="n">$5.00</span><span class="n ctx">$25.00</span><span class="add">+</span>
+        </div>
+      </div>
+
+      <div class="inputs-row">
+        <div class="inp"><div class="il">Input / request</div><div class="iv">12,000</div></div>
+        <div class="inp"><div class="il">Output / request</div><div class="iv">1,800</div></div>
+        <div class="inp"><div class="il">Requests / month</div><div class="iv">40,000</div></div>
+        <div class="inp"><div class="il">Cached prefix</div><div class="iv">0%</div></div>
+        <div class="inp"><div class="il">Mode</div><div class="iv">standard</div></div>
+      </div>
+
+      <div class="bench-grid">
+        <div class="bench-card">
+          <div class="bn">Claude Opus 5</div>
+          <div class="bv">anthropic · 2026-07</div>
+          <div class="figure-big">$4,200<span class="figure-unit">/mo</span></div>
+          <div class="delta up">▲ $2,520 vs cheapest</div>
+          <div class="delta" style="color:var(--ink-3)">$7.61 blended /MTok</div>
+        </div>
+        <div class="bench-card">
+          <div class="bn">GPT-5.6 Sol</div>
+          <div class="bv">openai · 2026-07</div>
+          <div class="figure-big">$2,280<span class="figure-unit">/mo</span></div>
+          <div class="delta up">▲ $600 vs cheapest</div>
+          <div class="delta" style="color:var(--ink-3)">$4.13 blended /MTok</div>
+        </div>
+        <div class="bench-card best">
+          <div class="bn">Claude Sonnet 5</div>
+          <div class="bv">anthropic · 2026-06</div>
+          <div class="figure-big">$1,680<span class="figure-unit">/mo</span></div>
+          <div class="delta down">◆ cheapest on bench</div>
+          <div class="delta" style="color:var(--up)">promo rate — $2,520 from Sep</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <p class="tbl-note" style="margin-top:14px">Figures are live catalog rates at 12,000 in / 1,800 out over 40,000 requests — 480 MTok in, 72 MTok out per month. The Sonnet 5 card is the override layer earning its keep.</p>
+
+  <h3>Interaction states</h3>
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>State</th><th>What is on screen</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Cold</strong></td><td>Search field, focused. Vendor chips with counts. Nothing else.</td><td>The requirement. No 400-row wall.</td></tr>
+        <tr><td><strong>Searching</strong></td><td>Up to 25 ranked hits; facet counts re-weight as you type.</td><td>Results are a menu to pick from, not the answer.</td></tr>
+        <tr><td><strong>Benched (1)</strong></td><td>Workload inputs appear. One cost card. Mode toggles for that model only.</td><td>Inputs are meaningless before a model exists to apply them to.</td></tr>
+        <tr><td><strong>Benched (2–6)</strong></td><td>Cards sort ascending by cost. Cheapest marked; others show delta against it.</td><td>The question is almost always "how much more than the cheap one".</td></tr>
+        <tr><td><strong>Long context</strong></td><td>Tier badge appears on any model whose threshold the prompt crosses, with both rates shown.</td><td>The single most expensive thing a flat calculator hides.</td></tr>
+        <tr><td><strong>Shared</strong></td><td>URL carries bench + workload; page SSRs with figures already rendered.</td><td>A shared link that needs WASM to boot before showing a number is a broken link.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>URL as state</h3>
+  <span class="filename">crates/lmo-core/src/url.rs</span>
+  <pre><span class="c">/// /tools/cost?m=anthropic:claude-opus-5,openai:gpt-5.6-sol&amp;i=12000&amp;o=1800&amp;r=40000</span>
+<span class="c">///</span>
+<span class="c">/// Readable, diffable, and forgeable by hand. Resist base64: a person</span>
+<span class="c">/// pasting this into Slack should be able to see what it says, and you</span>
+<span class="c">/// should be able to fix a support question by editing one number.</span>
+<span class="k">pub fn</span> <span class="t">to_query</span>(s: &amp;Scenario) -&gt; String;
+<span class="k">pub fn</span> <span class="t">from_query</span>(q: &amp;str) -&gt; Result&lt;Scenario, ParseError&gt;;</pre>
+</section>
+
+<!-- ══════════════════ ROADMAP ══════════════════ -->
+<div class="meter"></div>
+<section>
+  <div class="sec-head">
+    <span class="eyebrow">Roadmap</span>
+    <h2>The other seven instruments</h2>
+    <p class="standfirst">Each is a question a person actually asks out loud, answered from catalog fields already on disk. None needs a new data source.</p>
+  </div>
+
+  <div class="tools">
+
+    <div class="tool">
+      <div class="tool-idx">01<span class="ship">shipping</span></div>
+      <div>
+        <h3>Cost Calculator</h3>
+        <p class="asks">"What will this workload cost on each of these models?"</p>
+        <p class="feeds"><b>Feeds on:</b> rates · tiers · modes · promo</p>
+      </div>
+    </div>
+
+    <div class="tool">
+      <div class="tool-idx">02<span class="ship">next</span></div>
+      <div>
+        <h3>Price–Capability Frontier</h3>
+        <p class="asks">"What is the cheapest model that still clears the capability bar I need?" A scatter of benchmark index against blended cost, with the Pareto frontier drawn as a line — everything below it is strictly dominated and should never be chosen.</p>
+        <p class="feeds"><b>Feeds on:</b> scores.intelligence · coding · agentic (168 of 415 models scored) · blended rate from Tool 01</p>
+      </div>
+    </div>
+
+    <div class="tool">
+      <div class="tool-idx">03</div>
+      <div>
+        <h3>Context Fit</h3>
+        <p class="asks">"My prompts run 400K tokens. Which models hold that, and what does the long-context tier do to my bill?" Paste a document or set a token count; get the models that fit, sorted by cost <em>at that length</em> — which reorders the list versus cost at short length.</p>
+        <p class="feeds"><b>Feeds on:</b> context_tokens · max_output_tokens · tiers</p>
+      </div>
+    </div>
+
+    <div class="tool">
+      <div class="tool-idx">04</div>
+      <div>
+        <h3>Spec Diff</h3>
+        <p class="asks">"If I switch from this model to that one, what breaks?" Side-by-side of modalities, tool-calling and structured-output support, reasoning effort levels, tokenizer family, knowledge cutoff, and caching — with differences highlighted and matching rows collapsed by default.</p>
+        <p class="feeds"><b>Feeds on:</b> modalities · capabilities · knowledge_cutoff</p>
+      </div>
+    </div>
+
+    <div class="tool">
+      <div class="tool-idx">05</div>
+      <div>
+        <h3>Price Ledger</h3>
+        <p class="asks">"What changed?" Diffs the snapshot archive: price cuts and rises with dates, models added, and a retirement countdown for anything with a published end-of-life. The one tool that gets better purely by the site having existed longer.</p>
+        <p class="feeds"><b>Feeds on:</b> data/snapshots/*.json · retires_on</p>
+      </div>
+    </div>
+
+    <div class="tool">
+      <div class="tool-idx">06</div>
+      <div>
+        <h3>Switch Planner</h3>
+        <p class="asks">"I spend $4,200/month on Opus 5. Rank my alternatives by what I'd save and what I'd give up." Composes 01, 02, and 04: savings on the left, capability delta and breaking spec changes on the right, so the tradeoff is one row per candidate.</p>
+        <p class="feeds"><b>Feeds on:</b> Tools 01 + 02 + 04</p>
+      </div>
+    </div>
+
+    <div class="tool">
+      <div class="tool-idx">07</div>
+      <div>
+        <h3>Cache Break-even</h3>
+        <p class="asks">"At what cache hit rate does prompt caching start paying for itself?" Cache writes cost more than base input — Opus 5 writes at $6.25 against a $5.00 base — so there is a real hit rate below which caching loses money. Solve for it and plot it.</p>
+        <p class="feeds"><b>Feeds on:</b> cache_read · cache_write_5m · cache_write_1h (246 models)</p>
+      </div>
+    </div>
+
+    <div class="tool">
+      <div class="tool-idx">08</div>
+      <div>
+        <h3>Tokenizer Bench</h3>
+        <p class="asks">"How many tokens is my actual prompt?" The same text tokenizes differently per family, and a 35% swing between families moves the whole cost comparison. Counts across families, then hands the result straight to Tool 01 instead of making you guess an input size.</p>
+        <p class="feeds"><b>Feeds on:</b> architecture.tokenizer · local tokenizer crates compiled to WASM</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="callout" style="margin-top:26px">
+    <span class="lbl">The omnibus argument</span>
+    <p>Tools 02 through 08 need no ingest work that Tool 01 has not already paid for. That is what makes a suite viable for one person to maintain — and it is worth resisting any tool proposal that would break the pattern by demanding its own data pipeline.</p>
+  </div>
+</section>
+
+<!-- ══════════════════ DESIGN ══════════════════ -->
+<div class="meter"></div>
+<section>
+  <div class="sec-head">
+    <span class="eyebrow">Design</span>
+    <h2>Instrument, not dashboard</h2>
+    <p class="standfirst">The identity comes from where the subject actually lives: commodity price boards, metering, spec sheets. Tokens are sold by the million, like a utility — so the site is built to look like something that measures, not something that predicts.</p>
+  </div>
+
+  <h3>Palette</h3>
+  <div class="swatches">
+    <div class="sw">
+      <div class="chipblock" style="background:#E7EAE4"></div>
+      <div class="swmeta"><div class="swname">Ground</div><div class="swhex">#E7EAE4</div></div>
+    </div>
+    <div class="sw">
+      <div class="chipblock" style="background:#F2F4EE"></div>
+      <div class="swmeta"><div class="swname">Surface</div><div class="swhex">#F2F4EE</div></div>
+    </div>
+    <div class="sw">
+      <div class="chipblock" style="background:#10150F"></div>
+      <div class="swmeta"><div class="swname">Ink</div><div class="swhex">#10150F</div></div>
+    </div>
+    <div class="sw">
+      <div class="chipblock" style="background:#C6CCBD"></div>
+      <div class="swmeta"><div class="swname">Hairline</div><div class="swhex">#C6CCBD</div></div>
+    </div>
+    <div class="sw">
+      <div class="chipblock" style="background:#0B5D4A"></div>
+      <div class="swmeta"><div class="swname">Accent · down</div><div class="swhex">#0B5D4A</div></div>
+    </div>
+    <div class="sw">
+      <div class="chipblock" style="background:#A63B23"></div>
+      <div class="swmeta"><div class="swname">Up</div><div class="swhex">#A63B23</div></div>
+    </div>
+  </div>
+
+  <div class="cols2" style="margin-top:20px">
+    <p><strong>The neutrals are biased, not grey.</strong> Ground and ink both carry a faint green cast pulled from the accent. A pure neutral reads as unconsidered; a neutral tuned toward the accent reads as chosen, and it makes the pine accent sit in the page rather than on top of it.</p>
+    <p><strong>The accent is semantically loaded.</strong> On a price board green means down and red means up. Making the brand colour also mean "cheaper" means the primary action, the active filter, and the best-value card are all the same colour — one bold hue doing three jobs, and every other element staying quiet.</p>
+  </div>
+
+  <h3>Typography</h3>
+  <div class="typespec">
+    <div class="tsrow">
+      <div class="tsrole">Display</div>
+      <div><div class="ts-display">Claude Opus 5</div><div style="font-family:var(--f-mono);font-size:11.5px;color:var(--ink-3);margin-top:4px">Archivo · variable width 75–125 · headings set expanded, like board signage</div></div>
+    </div>
+    <div class="tsrow">
+      <div class="tsrole">Body</div>
+      <div><div class="ts-body">Cache writes cost more than base input, so there is a hit rate below which caching loses money.</div><div style="font-family:var(--f-mono);font-size:11.5px;color:var(--ink-3);margin-top:4px">Public Sans · utilitarian, high x-height, no personality competing with the display face</div></div>
+    </div>
+    <div class="tsrow">
+      <div class="tsrole">Data</div>
+      <div><div class="ts-mono">$5.00 · $25.00 · 1,000,000 · 2026-07</div><div style="font-family:var(--f-mono);font-size:11.5px;color:var(--ink-3);margin-top:4px">IBM Plex Mono · tabular figures on every number, everywhere, without exception</div></div>
+    </div>
+  </div>
+
+  <h3>Geometry and motion</h3>
+  <div class="cols2">
+    <ul>
+      <li><strong>3px radius, maximum.</strong> Never pills, never <span class="mono">rounded-2xl</span>. Instruments have edges.</li>
+      <li><strong>Elevation is a hairline,</strong> not a shadow. One border and a surface shift. No blur, no glow, no glass.</li>
+      <li><strong>The meter rule</strong> — a tick-marked divider — separates major sections. It is the one ornament, and it is a measuring scale.</li>
+      <li><strong>8px baseline grid.</strong> Dense tables, generous section gaps.</li>
+    </ul>
+    <ul>
+      <li><strong>Everything left-aligned.</strong> Centred columns are for marketing pages, not spec sheets.</li>
+      <li><strong>Numbers get the emphasis:</strong> large mono figure, small muted unit suffix. The unit is never the same size as the value.</li>
+      <li><strong>Motion is 140ms and functional</strong> — hover feedback, a figure tweening when a number changes. Nothing reveals on scroll.</li>
+      <li><strong>Light theme is the default.</strong> Dark is fully designed, not inverted.</li>
+    </ul>
+  </div>
+
+  <h3>What this is defined against</h3>
+  <p style="margin-bottom:16px">The house style of AI product sites is specific and recognizable. Each of these is a deliberate rejection, not an oversight:</p>
+  <div class="avoid-list">
+    <div class="avoid-item"><span class="no">Not</span><div class="yes">Violet-to-indigo gradient on near-black slate → <b>biased warm-green neutrals, one pine accent</b></div></div>
+    <div class="avoid-item"><span class="no">Not</span><div class="yes">Glassmorphic cards with backdrop blur and glow → <b>hairline borders on flat surfaces</b></div></div>
+    <div class="avoid-item"><span class="no">Not</span><div class="yes">Inter, or Space Grotesk as the "safe" alternative → <b>Archivo / Public Sans / IBM Plex Mono</b></div></div>
+    <div class="avoid-item"><span class="no">Not</span><div class="yes">Emoji as section markers → <b>typographic eyebrows and the meter rule</b></div></div>
+    <div class="avoid-item"><span class="no">Not</span><div class="yes">Everything centred under a full-viewport hero → <b>left-aligned spec-sheet composition</b></div></div>
+    <div class="avoid-item"><span class="no">Not</span><div class="yes">Dark-first with a lone acid-green pop → <b>light-first, with dark designed separately</b></div></div>
+  </div>
+</section>
+
+<!-- ══════════════════ ROUTES ══════════════════ -->
+<div class="meter"></div>
+<section>
+  <div class="sec-head">
+    <span class="eyebrow">Surface</span>
+    <h2>Routes</h2>
+  </div>
+
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>Path</th><th>Rendering</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">/</td><td>SSR, zero WASM</td><td>Tool index. Static until a tool is opened.</td></tr>
+        <tr><td class="mono">/tools/cost</td><td>SSR shell + 2 islands</td><td>Search island, bench island. Tool 01.</td></tr>
+        <tr><td class="mono">/tools/cost?m=…&amp;i=…&amp;o=…</td><td>SSR with figures rendered</td><td>Shared scenario. Numbers visible before hydration.</td></tr>
+        <tr><td class="mono">/models/:vendor/:slug</td><td>SSR, cached 6h</td><td>Per-model spec sheet. The organic search surface — 415 of them.</td></tr>
+        <tr><td class="mono">/catalog.json</td><td>Static, ETag + immutable</td><td>The normalized catalog, published openly. Cheap goodwill, and it makes the normalization auditable.</td></tr>
+        <tr><td class="mono">/api/search_models</td><td>Server fn, POST</td><td>Rate-limited via tower. The only hot path.</td></tr>
+        <tr><td class="mono">/health</td><td>Plain</td><td>Reports catalog age and snapshot date, not just 200 OK.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══════════════════ BUILD ORDER ══════════════════ -->
+<div class="meter"></div>
+<section>
+  <div class="sec-head">
+    <span class="eyebrow">Sequence</span>
+    <h2>Build order</h2>
+    <p class="standfirst">Ordered by dependency, not by appeal. Each milestone has an exit condition you can actually check.</p>
+  </div>
+
+  <div class="ms">
+    <div class="ms-tag">M1</div>
+    <div class="ms-what"><b>lmo-core, headless.</b> Types, cost engine, tier logic, search scoring. No web, no server, no HTML.
+      <span class="gate">Exit: <span class="mono">cargo test</span> green, including the monotonic-cost property test, and <span class="mono">cargo check --target wasm32-unknown-unknown</span> passes.</span></div>
+  </div>
+  <div class="ms">
+    <div class="ms-tag">M2</div>
+    <div class="ms-what"><b>Ingest.</b> Fetch, normalize the four cases from §&nbsp;Premise, merge overrides, write a snapshot.
+      <span class="gate">Exit: a committed snapshot where the four normalizations are individually asserted in tests — batch folded, alias resolved, tier parsed, Sonnet 5 promo split from list.</span></div>
+  </div>
+  <div class="ms">
+    <div class="ms-tag">M3</div>
+    <div class="ms-what"><b>Design system.</b> tokens.css and main.css, both themes, on a static page that exercises every component before any of them is dynamic.
+      <span class="gate">Exit: light and dark both legible in all three theme states, including OS-dark with no explicit choice stamped.</span></div>
+  </div>
+  <div class="ms">
+    <div class="ms-tag">M4</div>
+    <div class="ms-what"><b>Server + search.</b> Axum, ArcSwap catalog, boot-from-snapshot, the two server functions, the refresh task.
+      <span class="gate">Exit: <span class="mono">"op5"</span> returns Claude Opus 5 first; a failed refresh leaves the old catalog serving and logs loudly.</span></div>
+  </div>
+  <div class="ms">
+    <div class="ms-tag">M5</div>
+    <div class="ms-what"><b>Tool 01.</b> Search island, bench island, workload inputs, URL codec, all six interaction states.
+      <span class="gate">Exit: a shared URL renders correct figures with JavaScript disabled.</span></div>
+  </div>
+  <div class="ms">
+    <div class="ms-tag">M6</div>
+    <div class="ms-what"><b>Model pages + open catalog.</b> 415 SSR spec sheets and the public <span class="mono">/catalog.json</span>.
+      <span class="gate">Exit: sitemap generated from the catalog at build time; every page is reachable and cached.</span></div>
+  </div>
+  <div class="ms">
+    <div class="ms-tag">M7</div>
+    <div class="ms-what"><b>Tool 02.</b> Price–Capability Frontier — the first proof that a second tool costs a view, not a project.
+      <span class="gate">Exit: shipped with no changes to <span class="mono">lmo-catalog</span>. If that constraint breaks, the architecture claim was wrong and it is cheap to find out here.</span></div>
+  </div>
+</section>
+
+<!-- ══════════════════ OPEN ══════════════════ -->
+<div class="meter"></div>
+<section>
+  <div class="sec-head">
+    <span class="eyebrow">Open</span>
+    <h2>Decisions still yours</h2>
+  </div>
+
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>Question</th><th>Recommendation</th><th>Why it matters now</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>How much of the catalog do you curate by hand?</strong></td>
+          <td>Start with the five vendors people actually budget against; let the aggregate feed cover the long tail with a visible "aggregate" provenance badge.</td>
+          <td>Curation is the ongoing maintenance cost of this site. Five vendors is roughly an hour a month; forty is a job.</td>
+        </tr>
+        <tr>
+          <td><strong>Hosting shape?</strong></td>
+          <td>A single small VM or container. The catalog lives in RAM and the app is one binary — this does not want serverless, where cold starts would reload the catalog per invocation.</td>
+          <td>Decides M4's boot sequence and whether snapshots ship inside the image.</td>
+        </tr>
+        <tr>
+          <td><strong>Do model pages get editorial notes?</strong></td>
+          <td>Yes, eventually — a paragraph of human judgement per major model is the thing an aggregator structurally cannot copy.</td>
+          <td>Changes whether M6 pages are generated or authored, which is hard to reverse later.</td>
+        </tr>
+        <tr>
+          <td><strong>Is <span class="mono">lmomnibus.dev</span> the domain?</strong></td>
+          <td>Check availability before the wordmark hardens.</td>
+          <td>Cheap now, annoying after the design system is built around it.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="foot">
+  <span>LMOmnibus build schematic v1</span>
+  <span>19 Aug 2026</span>
+  <span>Catalog measured live: 415 models · 42 vendors</span>
+  <span>Crate versions current at time of writing</span>
+</div>
+
+</div>
