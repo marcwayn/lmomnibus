@@ -12,22 +12,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
+      - uses: actions/setup-node@v4
         with:
-          targets: wasm32-unknown-unknown
+          node-version: 24
+          cache: npm
 
-      - name: Cache cargo
-        uses: Swatinem/rust-cache@v2
+      - run: npm ci
 
-      - name: Install cargo-leptos
-        run: cargo install cargo-leptos --locked
+      - name: Test
+        run: npm test
 
-      - name: Test lmo-core
-        run: cargo test -p lmo-core
-
-      - name: Build (server + WASM bundle)
-        run: cargo leptos build --release
-
-      - name: Build container image
-        run: docker build -t lmomnibus:ci .
+      - name: Typecheck + build
+        run: npm run build
