@@ -50,20 +50,98 @@ export function CostTool() {
         </p>
       </div>
 
-      <div className="searchfield">
-        <input
-          type="text"
-          placeholder={'Search by model or vendor - try "opus" or "gpt"'}
-          value={queryText}
-          onChange={(e) => setQueryText(e.target.value)}
-        />
-        <span className="count">
-          {results.totalMatching} match{results.totalMatching === 1 ? "" : "es"}
-        </span>
-      </div>
+      <section className="section" aria-label="Find models">
+        <div className="searchfield">
+          <input
+            type="text"
+            aria-label="Search models"
+            placeholder={'Search by model or vendor — try "opus" or "gpt"'}
+            value={queryText}
+            onChange={(e) => setQueryText(e.target.value)}
+          />
+          <span className="count">
+            {results.totalMatching} match{results.totalMatching === 1 ? "" : "es"}
+          </span>
+        </div>
 
-      <div className="workload">
-        <h2>Workload</h2>
+        <div className="filters-row">
+          <div className="filter-group">
+            <label className="filter-label" htmlFor="released-year">
+              Released
+            </label>
+            <select
+              id="released-year"
+              value={releasedYear ?? ""}
+              onChange={(e) => setReleasedYear(e.target.value === "" ? null : Number(e.target.value))}
+            >
+              <option value="">Any year</option>
+              {YEARS.map((y) => (
+                <option key={y} value={y}>
+                  {y}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div className="chips">
+          {results.vendorCounts.slice(0, 10).map(({ vendorKey, vendorName, count }) => {
+            const on = selectedVendors.includes(vendorKey);
+            return (
+              <button
+                key={`${vendorKey}/${vendorName}`}
+                type="button"
+                className={on ? "chip on" : "chip"}
+                aria-pressed={on}
+                onClick={() => toggleVendor(vendorKey)}
+              >
+                {`${vendorName} ${count}`}
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="results">
+          <div className="res-row hdr">
+            <span>Model</span>
+            <span className="n rel">Released</span>
+            <span className="n">In /MTok</span>
+            <span className="n out-rate">Out /MTok</span>
+            <span></span>
+          </div>
+          {results.hits.map((model) => {
+            const card = primaryCard(model);
+            return (
+              <button
+                key={model.key}
+                type="button"
+                className="res-row"
+                aria-label={`Add ${model.displayName} to bench`}
+                onClick={() => addToBench(model.key)}
+              >
+                <span>
+                  <span className="nm">{model.displayName}</span>
+                  <span className="vd">{model.vendorName}</span>
+                </span>
+                <span className="n rel">{yearMonth(model.released)}</span>
+                <span className="n">{fmtRate(card.input)}</span>
+                <span className="n out-rate">{fmtRate(card.output)}</span>
+                <span className="add">+</span>
+              </button>
+            );
+          })}
+          {results.hits.length === 0 && (
+            <div className="empty-note">No models match. Try a different name, vendor, or year.</div>
+          )}
+        </div>
+      </section>
+
+      <div className="meter section-break" aria-hidden="true" />
+
+      <section className="section" aria-label="Compare">
+        <div className="section-title">
+          <h2>Workload</h2>
+        </div>
         <div className="inputs-row">
           <NumberField label="Input tokens / request" value={workload.inputTokens} onChange={setField("inputTokens")} min={0} step={100} limit={U32_MAX} />
           <NumberField label="Output tokens / request" value={workload.outputTokens} onChange={setField("outputTokens")} min={0} step={100} limit={U32_MAX} />
@@ -78,100 +156,32 @@ export function CostTool() {
             limit={255}
           />
         </div>
-      </div>
 
-      <div className="filters-row">
-        <div className="filter-group">
-          <span className="filter-label">Released</span>
-          <select
-            value={releasedYear ?? ""}
-            onChange={(e) => setReleasedYear(e.target.value === "" ? null : Number(e.target.value))}
-          >
-            <option value="">Any year</option>
-            {YEARS.map((y) => (
-              <option key={y} value={y}>
-                {y}
-              </option>
+        <div className="section-title bench-head" style={{ marginTop: 32 }}>
+          <h2>Bench ({bench.length})</h2>
+          {bench.length > 0 && (
+            <button className="clear" onClick={() => setBench([])}>
+              Clear bench
+            </button>
+          )}
+        </div>
+
+        {bench.length === 0 ? (
+          <div className="empty-bench">Search above and add a model to see what it costs.</div>
+        ) : (
+          <div className="bench-grid">
+            {benchCosts.map(([model, breakdown]) => (
+              <BenchCard
+                key={model.key}
+                model={model}
+                breakdown={breakdown}
+                cheapest={cheapest}
+                onRemove={() => removeFromBench(model.key)}
+              />
             ))}
-          </select>
-        </div>
-      </div>
-
-      <div className="chips">
-        {results.vendorCounts.slice(0, 10).map(({ vendorKey, vendorName, count }, i) => {
-          const on = selectedVendors.includes(vendorKey);
-          return (
-            <button
-              key={`${vendorKey}/${vendorName}`}
-              type="button"
-              className={`chip p${(i % 4) + 1}${on ? " on" : ""}`}
-              aria-pressed={on}
-              onClick={() => toggleVendor(vendorKey)}
-            >
-              {`${vendorName} ${count}`}
-            </button>
-          );
-        })}
-      </div>
-
-      <div className="results">
-        <div className="res-row hdr">
-          <span>Model</span>
-          <span className="n">Released</span>
-          <span className="n">In /MTok</span>
-          <span className="n out-rate">Out /MTok</span>
-          <span></span>
-        </div>
-        {results.hits.map((model) => {
-          const card = primaryCard(model);
-          return (
-            <button
-              key={model.key}
-              type="button"
-              className="res-row"
-              aria-label={`Add ${model.displayName} to bench`}
-              onClick={() => addToBench(model.key)}
-            >
-              <span>
-                <span className="nm">{model.displayName}</span>
-                <span className="vd">{model.vendorName}</span>
-              </span>
-              <span className="n">{yearMonth(model.released)}</span>
-              <span className="n">{fmtRate(card.input)}</span>
-              <span className="n out-rate">{fmtRate(card.output)}</span>
-              <span className="add">+</span>
-            </button>
-          );
-        })}
-        {results.hits.length === 0 && (
-          <div className="empty-note">No models match. Try a different name, vendor, or year.</div>
+          </div>
         )}
-      </div>
-
-      <div className="bench-head">
-        <h2>Bench ({bench.length})</h2>
-        {bench.length > 0 && (
-          <button className="clear" onClick={() => setBench([])}>
-            Clear bench
-          </button>
-        )}
-      </div>
-
-      {bench.length === 0 ? (
-        <div className="empty-bench">Search above and add a model to see what it costs.</div>
-      ) : (
-        <div className="bench-grid">
-          {benchCosts.map(([model, breakdown]) => (
-            <BenchCard
-              key={model.key}
-              model={model}
-              breakdown={breakdown}
-              cheapest={cheapest}
-              onRemove={() => removeFromBench(model.key)}
-            />
-          ))}
-        </div>
-      )}
+      </section>
 
       <div className="foot">
         <span className="mono">{allModels().length} models tracked</span>
@@ -195,13 +205,13 @@ function BenchCard({ model, breakdown, cheapest, onRemove }: BenchCardProps) {
   const released = yearMonth(model.released);
   const byline =
     breakdown.mode === "Standard"
-      ? `${model.vendorName} - ${released}`
-      : `${model.vendorName} - ${released} - ${breakdown.mode} rate only`;
+      ? `${model.vendorName} · ${released}`
+      : `${model.vendorName} · ${released} · ${breakdown.mode.toLowerCase()} rate only`;
 
   return (
     <div className={`bench-card${isCheapest ? " best" : ""}`}>
       <button className="rm" aria-label={`Remove ${model.displayName} from bench`} onClick={onRemove}>
-        x
+        ×
       </button>
       <div className="bn">{model.displayName}</div>
       <div className="bv">{byline}</div>
@@ -210,15 +220,20 @@ function BenchCard({ model, breakdown, cheapest, onRemove }: BenchCardProps) {
         <span className="figure-unit">/mo</span>
       </div>
       {isCheapest ? (
-        <div className="delta down">cheapest on bench</div>
+        <div className="delta down">◆ cheapest on bench</div>
       ) : cheapest !== null ? (
-        <div className="delta up">{`+${fmtMoney(breakdown.monthlyCost.minus(cheapest))} vs cheapest`}</div>
-      ) : (
-        <div></div>
-      )}
-      {breakdown.tierCrossed && <div className="tier-badge">long-context tier applied</div>}
-      {breakdown.usesPromo && (
-        <div className="promo-badge">{`promo rate - list is ${fmtRate(card.input)}/${fmtRate(card.output)}`}</div>
+        <div className="delta up">{`▲ ${fmtMoney(breakdown.monthlyCost.minus(cheapest))} vs cheapest`}</div>
+      ) : null}
+      <div className="delta muted">{`${fmtMoney(breakdown.blendedPerMTok)} blended /MTok`}</div>
+      {(breakdown.tierCrossed || breakdown.usesPromo) && (
+        <div className="card-notes">
+          {breakdown.tierCrossed && (
+            <div className="card-note">{`long-context tier: ${fmtRate(breakdown.effectiveInputRate)} in / ${fmtRate(breakdown.effectiveOutputRate)} out`}</div>
+          )}
+          {breakdown.usesPromo && (
+            <div className="card-note">{`promo rate until ${card.promo!.until} · list ${fmtRate(card.input)} / ${fmtRate(card.output)}`}</div>
+          )}
+        </div>
       )}
     </div>
   );
