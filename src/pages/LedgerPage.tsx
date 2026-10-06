@@ -28,7 +28,8 @@ function Move({ pair }: { pair: [string, string] }) {
   const cls = rel === null || rel === 0 ? "" : rel < 0 ? "down" : "up";
   return (
     <span className={`move ${cls}`}>
-      {fmtRate(new Big(pair[0]))} → {fmtRate(new Big(pair[1]))}
+      {fmtRate(new Big(pair[0]))}
+      <Mark kind="to" /> {fmtRate(new Big(pair[1]))}
       {rel !== null && rel !== 0 && (
         <span className="move-pct">
           {" "}
@@ -141,7 +142,8 @@ export function LedgerPage() {
                 <span className="ledger-moves">
                   {m.retiresOn} ({daysBetween(today, m.retiresOn!)} days) ·{" "}
                   <Link to={`/tools/switch?from=${encodeKey(m.key)}`} state={INTERNAL}>
-                    plan a switch →
+                    plan a switch
+                    <Mark kind="to" />
                   </Link>
                 </span>
               </li>

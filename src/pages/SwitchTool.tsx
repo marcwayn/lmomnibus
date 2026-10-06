@@ -7,7 +7,7 @@ import type { Rate, Workload } from "../core/cost.ts";
 import { daysBetween, todayIso } from "../core/date.ts";
 import { fmtMoney, fmtUsd } from "../core/fmt.ts";
 import { INDEX_LABEL, priceAll, scoreOf, type Index } from "../core/frontier.ts";
-import { matchingPreset, type PresetId } from "../core/presets.ts";
+import { DEFAULT_PRESET, matchingPreset, type PresetId } from "../core/presets.ts";
 import { search } from "../core/query.ts";
 import { decodeKey, decodeScenario, encodeKey, encodeScenario, hasScenario } from "../core/share.ts";
 import { SCORE_TOLERANCE, switchCandidates } from "../core/switch.ts";
@@ -32,7 +32,7 @@ export function SwitchTool() {
   const [workload, setWorkload] = useState<Workload>(init.workload);
   const [rate, setRate] = useState<Rate>(init.rate);
   const [preset, setPreset] = useState<PresetId | null>(
-    () => init.preset ?? matchingPreset(init.workload, init.rate)?.id ?? null,
+    () => init.preset ?? matchingPreset(init.workload, init.rate)?.id ?? DEFAULT_PRESET.id,
   );
   const [index, setIndex] = useState<Index>(init.index);
   const [query, setQuery] = useState("");
@@ -146,7 +146,8 @@ export function SwitchTool() {
           onChange={(w, r, p) => {
             setWorkload(w);
             setRate(r);
-            setPreset(p);
+            // A custom workload keeps its last preset as the URL's base.
+            setPreset((prev) => p ?? prev);
           }}
         />
       </section>
@@ -215,7 +216,8 @@ export function SwitchTool() {
                             onClick={() => trackEvent("Switch", "Compare", c.point.model.key)}
                             aria-label={`Compare ${from.model.displayName} and ${c.point.model.displayName} on the bench`}
                           >
-                            compare →
+                            compare
+                            <Mark kind="to" />
                           </Link>
                         </td>
                       </tr>

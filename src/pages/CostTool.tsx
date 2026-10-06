@@ -525,7 +525,7 @@ export function CostTool() {
 
         {since && since.length > 0 && (
           <div className="since-strip" role="status">
-            <strong>Since you last looked</strong> ({lastAsOf} → {CATALOG_META.asOf}):
+            <strong>Since you last looked</strong> ({lastAsOf} to {CATALOG_META.asOf}):
             <ul>
               {since.map((c, i) => (
                 <li key={`${c.key}-${c.kind}-${i}`}>{describeChange(c)}</li>
@@ -767,7 +767,8 @@ function BenchCard(props: BenchCardProps) {
         <div className="retire-line">
           Retires {model.retiresOn} ({daysBetween(today, model.retiresOn)} days) ·{" "}
           <Link to={`/tools/switch?from=${encodeKey(model.key)}`} state={{ internal: true }}>
-            Plan a switch →
+            Plan a switch
+            <Mark kind="to" />
           </Link>
         </div>
       )}
