@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useId, useMemo, useRef, type PointerEvent as ReactPointerEvent } from "react";
+import { forwardRef, useEffect, useId, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { Link } from "react-router";
 import { trackEvent } from "../../analytics.ts";
 import { FallbackMark, Mark, SourceTag } from "../../components.tsx";
@@ -74,6 +74,8 @@ export function PriceScoreChart(props: PriceScoreChartProps) {
     return () => els.forEach((el) => el.removeEventListener("touchstart", stop));
   }, []);
   const dragging = useRef(false);
+  /** The y-domain while the rule is being dragged, so the scale doesn't move under the pointer. */
+  const [frozen, setFrozen] = useState<{ min: number; max: number } | null>(null);
 
   const all = [...plotted.closed, ...plotted.open];
   const costs = all.map((p) => p.cost);
@@ -84,8 +86,8 @@ export function PriceScoreChart(props: PriceScoreChartProps) {
   const fitMax = scores.length ? Math.min(100, Math.ceil((Math.max(...scores) + 2) / 5) * 5) : 100;
   // A target outside the scores stretches the axis to it, so the rule sits at its true height.
   // (Dragging stops at the plot's edge, which is never beyond it, so a drag can't keep stretching it.)
-  const yMin = target < fitMin ? Math.floor(target / 5) * 5 : fitMin;
-  const yMax = target > fitMax ? Math.min(100, Math.ceil(target / 5) * 5) : fitMax;
+  const yMin = frozen?.min ?? (target < fitMin ? Math.floor(target / 5) * 5 : fitMin);
+  const yMax = frozen?.max ?? (target > fitMax ? Math.min(100, Math.ceil(target / 5) * 5) : fitMax);
 
   const x = (c: number) => M.left + ((Math.log10(c) - Math.log10(xMin)) / (Math.log10(xMax) - Math.log10(xMin))) * PW;
   const y = (s: number) => M.top + (1 - (s - yMin) / (yMax - yMin)) * PH;
@@ -159,7 +161,8 @@ export function PriceScoreChart(props: PriceScoreChartProps) {
       ps.flatMap((p) => {
         if (!p || seen.has(p.model.key)) return [];
         seen.add(p.model.key);
-        return [{ key: p.model.key, x: x(p.cost), y: y(scoreOf(p.model, index)!), text: p.model.displayName, r: answerKeys.has(p.model.key) ? 8.5 : 5 }];
+        const answer = answerKeys.has(p.model.key);
+        return [{ key: p.model.key, x: x(p.cost), y: y(scoreOf(p.model, index)!), text: p.model.displayName, r: answer ? 8.5 : 5, must: answer }];
       });
     const answerLabels = placeLabels(requests([answers.open, answers.closed]), area, labelFont, taken);
 
@@ -233,7 +236,7 @@ export function PriceScoreChart(props: PriceScoreChartProps) {
     const labels = new Map([...answerLabels, ...placeLabels(requests(steps), area, labelFont, taken)]);
     return { rule, notes, band, ratio, labels };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [plotted, fronts, answers, index, narrow, target, zone]);
+  }, [plotted, fronts, answers, index, narrow, target, zone, yMin, yMax]);
   const { labels } = layout;
 
   const setFromPointer = (clientY: number) => {
@@ -243,9 +246,15 @@ export function PriceScoreChart(props: PriceScoreChartProps) {
     const py = ((clientY - rect.top) / rect.height) * H;
     onTarget(yInv(Math.min(Math.max(py, M.top), M.top + PH)));
   };
+  const endDrag = () => {
+    if (!dragging.current) return;
+    dragging.current = false;
+    setFrozen(null);
+  };
   const startDrag = (e: ReactPointerEvent<SVGElement>) => {
     e.preventDefault();
     dragging.current = true;
+    setFrozen({ min: yMin, max: yMax });
     (e.target as Element).setPointerCapture?.(e.pointerId);
     setFromPointer(e.clientY);
   };
@@ -267,9 +276,9 @@ export function PriceScoreChart(props: PriceScoreChartProps) {
         aria-labelledby={props.labelledBy}
         aria-describedby={props.describedBy}
         onPointerMove={(e) => dragging.current && setFromPointer(e.clientY)}
-        onPointerUp={() => (dragging.current = false)}
-        onPointerCancel={() => (dragging.current = false)}
-        onPointerLeave={() => (dragging.current = false)}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+        onPointerLeave={endDrag}
       >
         <defs>
           <pattern id={hatchId} width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">

@@ -81,8 +81,9 @@ export function ContextChart({
   ].join(" ");
   const first = sel.pts[0].need.mid;
   const at128 = sel.pts.find((p) => p.ctx >= Math.min(limit, 128 * 1024)) ?? sel.pts[sel.pts.length - 1];
-  // The budget as the load sheet and the answer print it (23.99 GiB, not a rounded-up 24.0).
-  const budgetText = capText(budget / GiB);
+  // The budget as the load sheet and the answer print it: a driver-reported capacity to two
+  // decimals (23.99, not a rounded-up 24.0); an engine budget or macOS cap to one (22.1, 48.0).
+  const budgetText = s.engine === "vllm" ? `${g2(budget)} GiB` : s.device.cls === "unified" ? `${g1(budget)} GiB` : capText(s.device.usableGiB);
   const crosses = sel.max.limitedBy === "memory" ? `; crosses ${budgetText} at about ${fmtCtx(sel.max.tokens)}` : sel.max.limitedBy === "weights" ? "; above the budget at every context" : "; stays under the budget up to the model's maximum";
   const summary = `Need rises from ${g1(first)} GiB at 1K to ${g1(at128.need.mid)} GiB at ${fmtCtx(at128.ctx)} with ${kvLabel(s.engine, sel.kv)} KV cache${crosses}.`;
 

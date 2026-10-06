@@ -217,6 +217,8 @@ export interface LabelRequest {
   text: string;
   /** How far the point's mark (or ring) reaches from its centre. */
   r?: number;
+  /** Always drawn (headline names): takes the least-covering spot rather than being dropped. */
+  must?: boolean;
 }
 
 export interface PlacedLabel {
@@ -261,10 +263,12 @@ export function placeLabels(reqs: readonly LabelRequest[], area: Box, fontPx: nu
       beside(far, -20),
       beside(near, 28),
       beside(far, 28),
+      // Further out, for headline labels in a crowded corner: try these before covering a mark.
+      ...(r.must ? [beside(near, -33), beside(far, -33), beside(near, 41), beside(far, 41), ...across(r.y - reach - 18), ...across(r.y + reach + 17 + 0.9 * fontPx)] : []),
     ];
     const box = (c: PlacedLabel) => textBox(c.x, c.y, r.text.length, fontPx, c.anchor);
     const { pick, cost } = cheapest(candidates, (c) => coverCost(box(c), area, placed, r.key));
-    if (cost >= 100) continue;
+    if (cost >= 100 && !r.must) continue;
     placed.push(box(pick));
     out.set(r.key, pick);
   }

@@ -214,6 +214,8 @@ button, input, select { font-family: inherit; font-size: inherit; color: inherit
 }
 .searchfield input::placeholder { color: var(--ink-3); }
 .count { font-family: var(--f-mono); font-size: 11px; color: var(--ink-3); white-space: nowrap; }
+/* Long Hugging Face repo ids must wrap rather than widen a phone page. */
+.count.repo-link { white-space: normal; overflow-wrap: anywhere; }
 
 .filters-row { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 14px; align-items: center; }
 .filter-group { display: flex; align-items: center; gap: 8px; }

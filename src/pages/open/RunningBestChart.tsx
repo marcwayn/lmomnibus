@@ -134,9 +134,10 @@ export const RunningBestChart = memo(function RunningBestChart({ models, index, 
       const pick = narrow ? recs.slice(-1) : recs.slice(-4).reverse();
       for (const r of pick) reqs.push({ key: r.model.key, x: x(r.listedOn), y: y(r.score), text: r.model.displayName });
     }
-    // Each side's current best is placed before older records.
+    // Each side's current best is placed before older records, and is never left out.
     const isBest = (k: string) => Number(k === best.open?.model.key || k === best.closed?.model.key);
     reqs.sort((a, b) => isBest(b.key) - isBest(a.key));
+    for (const r of reqs) if (isBest(r.key)) r.must = true;
     return { lag: lagSpot, labels: placeLabels(reqs, area, narrow ? 10 : 11, taken) };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [records, rated, all, lag, narrow, t0, yMax, index, snapshot]);
@@ -225,7 +226,7 @@ export const RunningBestChart = memo(function RunningBestChart({ models, index, 
             <path
               d={`M${xt(t1) + 4},${y(best.closed.score)} H${xt(t1) + 9} V${y(best.open.score)} H${xt(t1) + 4}`}
             />
-            <text x={xt(t1) + 13} y={(y(best.closed.score) + y(best.open.score)) / 2 + 4}>
+            <text className="oc-bracket-text" x={xt(t1) + 13} y={(y(best.closed.score) + y(best.open.score)) / 2 + 4}>
               {narrow ? fmtScore(Math.abs(gap)) : gap > 0 ? `gap ${fmtScore(gap)}` : `open +${fmtScore(-gap)}`}
             </text>
           </g>

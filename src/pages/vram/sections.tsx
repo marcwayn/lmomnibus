@@ -87,7 +87,7 @@ export function Working({
           config.json (<span className="mono">{repo}</span>, read {rec.checkedOn})
         </>
       )}{" "}
-      · tensor groups: {rec.groups.source === "headers" ? "safetensors headers" : "config arithmetic (range widened ±2%)"} · KV plan:{" "}
+      · vision, MTP and lookup sizes: {rec.groups.source === "headers" ? "safetensors headers" : "config arithmetic (range widened ±2%)"}; embedding, head and experts: config.json · KV plan:{" "}
       {kvFamilyLabel(plan.family)} ({plan.confidence} confidence)
     </>
   );

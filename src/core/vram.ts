@@ -190,7 +190,8 @@ export interface FormatOption {
   file?: { name: string; bytes: number };
 }
 
-const nativeBits = (m: VramModel) => (m.native.format === "gguf" ? 16 : m.native.bits || 16);
+/** Bits per weight as served: F32 checkpoints are served at 16. */
+const nativeBits = (m: VramModel) => (m.native.format === "gguf" ? 16 : m.native.bits > 20 ? m.native.bits / 2 : m.native.bits || 16);
 
 /** Formats the engine can run, hiding upcasts (more than half a bit above how the weights ship). */
 export function formatOptions(m: VramModel, engine: Engine, device: Device | null): FormatOption[] {
@@ -313,8 +314,10 @@ export function weightBytes(m: VramModel, s: VramSettings): WeightSplit {
     // Hidden size not a multiple of 256: most tensors fall back to a larger block type.
     const hiddenFallback = m.dims.hidden % 256 !== 0 && t.fallback > bodyBits;
     if (hiddenFallback) bodyBits = t.fallback;
-    // Experts published in MXFP4 stay MXFP4 in every GGUF (gpt-oss); only the rest is requantized.
-    const keepMx = m.native.format === "mxfp4";
+    // gpt-oss: with a hidden size that isn't a multiple of 256, every K-quant falls back to a
+    // 4.5-bit-or-larger block, so converters keep the published MXFP4 experts and requantize
+    // only the rest. Elsewhere (Kimi K3) the experts are requantized like any other tensor.
+    const keepMx = m.native.format === "mxfp4" && m.dims.hidden % 256 !== 0;
     let extra = 0;
     if (!hiddenFallback && t.downFallback) {
       const d = downParams(m);
@@ -483,15 +486,21 @@ export function kvBytes(m: VramModel, s: VramSettings, ctx = s.ctx): KvResult {
   let perRank = 0;
   let total = 0;
   let perToken = 0;
-  // vLLM's FP8 sparse-MLA layout (fp8_ds_mla): latent at 1 byte, RoPE dims at 2, plus four fp32 scales.
-  const dsMla = s.engine === "vllm" && s.kv === "fp8" && plan.indexers.length > 0;
+  // vLLM's sparse-MLA kernels (DeepSeek-V3.2-style indexer models) cache the latent as fp8_ds_mla
+  // whatever the KV setting: 1 byte per latent dim, 2 per RoPE dim, plus 16 bytes of scales.
+  const dsMla = s.engine === "vllm" && plan.indexers.length > 0 && plan.groups.some((g) => g.kind === "latent" && (g.rope ?? 0) > 0);
+  const dsBytes = (g: { headElems: number; rope?: number }) => g.headElems - (g.rope ?? 0) + 2 * (g.rope ?? 0) + 16;
+  if (dsMla) {
+    const latent = plan.groups.find((g) => g.kind === "latent" && (g.rope ?? 0) > 0)!;
+    notes.push(`vLLM stores this model's latent cache as fp8_ds_mla (${dsBytes(latent)} bytes per token per layer) whatever the KV setting.`);
+  }
   for (const g of plan.groups) {
     // Gemma 4's K=V global layers cache one tensor, but vLLM stores K and V separately.
     const headElems = g.kEqV && s.engine === "vllm" ? g.headElems * 2 : g.headElems;
     const elems = g.heads * headElems;
     const rankElems = g.kind === "latent" ? elems : Math.ceil(g.heads / tp) * headElems;
     const tokens = g.kind === "window" ? windowTokens(g.window ?? 0, Boolean(g.chunked)) : fullTokens;
-    const perElem = (e: number) => (g.kind === "latent" && dsMla ? e - (g.rope ?? 0) + (g.rope ?? 0) * 2 + 16 : e * b);
+    const perElem = (e: number) => (g.kind === "latent" && dsMla && (g.rope ?? 0) > 0 ? dsBytes(g) * (e / g.headElems) : e * b);
     total += g.layers * perElem(elems) * tokens;
     perRank += g.layers * perElem(rankElems) * tokens;
     if (g.kind !== "window" || tokens === fullTokens) perToken += g.layers * perElem(elems) * seqs;
@@ -524,12 +533,19 @@ export function kvBytes(m: VramModel, s: VramSettings, ctx = s.ctx): KvResult {
   const stateRank = state / tp;
   const perSeq = (perRank + stateRank) / seqs;
 
+  // The arithmetic for the first group, with the same per-element bytes used above.
   const g0 = plan.groups[0];
-  const formula = g0
-    ? g0.kind === "latent"
-      ? `${g0.layers} layers × ${g0.headElems} latent dims × ${b.toFixed(b % 1 ? 3 : 0)} B × ${fmtTok(fullTokens)} tokens${plan.groups.length > 1 || plan.indexers.length ? " (+ other layers)" : ""}`
-      : `${g0.layers} layers × ${g0.heads} KV heads × ${g0.headElems} (K+V) × ${b.toFixed(b % 1 ? 3 : 0)} B × ${fmtTok(g0.kind === "window" ? windowTokens(g0.window ?? 0, Boolean(g0.chunked)) : fullTokens)} tokens${plan.groups.length > 1 || plan.compressed.length || plan.indexers.length ? " + other layers" : ""}`
-    : "no attention cache";
+  const bStr = b.toFixed(b % 1 ? 3 : 0);
+  const more = (n: number) => (n > 1 || plan.compressed.length || plan.indexers.length ? " + other layers" : "");
+  let formula = "no attention cache";
+  if (g0?.kind === "latent") {
+    const per = dsMla && (g0.rope ?? 0) > 0 ? `${dsBytes(g0)} B (fp8_ds_mla)` : `${g0.headElems} latent dims × ${bStr} B`;
+    formula = `${g0.layers} layers × ${per} × ${fmtTok(fullTokens)} tokens${more(plan.groups.length)}`;
+  } else if (g0) {
+    const kv2 = g0.kEqV && s.engine === "vllm";
+    const tokens = g0.kind === "window" ? windowTokens(g0.window ?? 0, Boolean(g0.chunked)) : fullTokens;
+    formula = `${g0.layers} layers × ${g0.heads} KV heads × ${kv2 ? `${g0.headElems * 2} (K and V stored separately)` : `${g0.headElems} (K+V)`} × ${bStr} B × ${fmtTok(tokens)} tokens${more(plan.groups.length)}`;
+  }
   return { perRank: perRank + stateRank, total: total + state, state, perToken, perSeq, formula, notes };
 }
 

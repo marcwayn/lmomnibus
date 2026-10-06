@@ -321,7 +321,7 @@ function WeightsCell({ model }: { model: Model }) {
   if (model.weightsStatus === "unverified") {
     return (
       <>
-        unverified <span className="rank">· repo couldn't be opened</span>
+        unverified <span className="rank">· {model.weights ? "repo couldn't be opened" : "repo not read yet"}</span>
       </>
     );
   }
@@ -496,7 +496,7 @@ function WeightsSection({ model, view }: { model: Model; view: WeightsView | nul
       <div className="section-title">
         <h2 id="weights-h">Weights</h2>
         {model.hfId && (
-          <a className="count" href={hfUrl(r?.resolvedId ?? model.hfId)} rel="noopener">
+          <a className="count repo-link" href={hfUrl(r?.resolvedId ?? model.hfId)} rel="noopener">
             {r?.resolvedId ?? model.hfId} on Hugging Face
           </a>
         )}
@@ -576,8 +576,9 @@ function WeightsSection({ model, view }: { model: Model; view: WeightsView | nul
           </span>
           , read {r.checkedOn}
           {via === "mirror" && !viaNoted ? `, config from the public copy ${viaId} (same parameter total)` : ""}
-          {via === "donor" && !viaNoted ? `, layout from ${viaId} (the same weights in another format)` : ""}. Tensor groups
-          from {r.groups.source === "headers" ? "the safetensors headers" : "config.json arithmetic"}.
+          {via === "donor" && !viaNoted ? `, layout from ${viaId} (the same weights in another format)` : ""}. Vision, MTP
+          and lookup sizes {r.groups.source === "headers" ? "from the safetensors headers" : "estimated from config.json"};
+          embedding, head and expert sizes from config.json.
           {view?.kv ? ` ${view.kv}` : ""}
           {r.notes.length ? ` ${r.notes.join(" ")}` : ""}
           {w.moe && " Vendors count active parameters differently."}

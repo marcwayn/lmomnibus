@@ -18,6 +18,7 @@ import {
   modelMaxContext,
   VERDICT_LABEL,
   VLLM_UTIL,
+  weightBytes,
   type FormatOption,
   type Range,
   type VramModel,
@@ -52,7 +53,12 @@ export function pickFormat(vm: VramModel, sq: SelfFormat): FormatOption | null {
   const exact = opts.find((o) => o.id === sq);
   // A type that isn't offered would be an upcast of the published weights, so it's bigger still.
   const published = opts.find((o) => o.id === "mxfp4");
-  if (published && (!exact || published.bits <= exact.bits)) return published;
+  // Compare estimated sizes, not nominal bits: gpt-oss's K-quants keep its MXFP4 experts.
+  const size = (o: FormatOption) => {
+    const w = weightBytes(vm, selfSettings(o, 8192));
+    return w.gpu.mid + w.host.mid;
+  };
+  if (published && (!exact || size(published) <= size(exact))) return published;
   if (exact) return exact;
   for (const id of GGUF_ORDER.slice(GGUF_ORDER.indexOf(sq) + 1)) {
     const o = opts.find((x) => x.id === id);

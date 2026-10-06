@@ -1,35 +1,45 @@
 import { describe, expect, it } from "vitest";
-import { modelByKey } from "../../core/catalog.ts";
+import { allModels } from "../../core/catalog.ts";
+import type { Model } from "../../core/model.ts";
+import { formatOptions, weightBytes, type FormatOption, type VramModel } from "../../core/vram.ts";
 import { selfHostTable } from "../../core/selfhost.ts";
 import { vramModelFor } from "../../weightsData.ts";
-import { pageFigure, pickFormat, selfEstimate } from "./SelfHost.tsx";
+import { pageFigure, pickFormat, selfEstimate, selfSettings } from "./SelfHost.tsx";
 import { markBox, placeLabels, placeText, textBox, type Box } from "./shared.tsx";
 
-const model = (key: string) => {
-  const m = modelByKey(key);
-  if (!m) throw new Error(`no ${key} in the catalog`);
-  return m;
+// Models are picked by property, never by key: the daily refresh can delist any model.
+const OPEN = allModels().filter((m) => m.openWeights && vramModelFor(m));
+const find = (f: (vm: VramModel, m: Model) => boolean) => OPEN.find((m) => f(vramModelFor(m)!, m)) ?? null;
+const gptOssLike = find((vm) => vm.native.format === "mxfp4" && vm.dims.hidden % 256 !== 0);
+const denseBf16 = find((vm) => vm.native.format === "bf16" && !vm.moe && !vm.ggufFiles);
+const moe = find((vm) => Boolean(vm.moe) && !vm.ggufFiles);
+const weightsSize = (vm: VramModel, o: FormatOption) => {
+  const w = weightBytes(vm, selfSettings(o, 8192));
+  return w.gpu.mid + w.host.mid;
 };
 
 describe("§D's format", () => {
-  it("runs MXFP4-published weights as published unless a smaller GGUF type is asked for", () => {
-    const vm = vramModelFor(model("openai/gpt-oss-20b"))!;
-    expect(pickFormat(vm, "q4_k_m")?.id).toBe("mxfp4");
-    expect(pickFormat(vm, "iq4_xs")?.id).toBe("mxfp4");
-    expect(pickFormat(vm, "q8_0")?.id).toBe("mxfp4");
-    expect(pickFormat(vm, "q3_k_m")?.id).toBe("q3_k_m");
+  it.skipIf(!gptOssLike)("runs MXFP4-published weights as published unless the type asked for is smaller", () => {
+    const vm = vramModelFor(gptOssLike!)!;
+    const opts = formatOptions(vm, "llamacpp", null);
+    const published = opts.find((o) => o.id === "mxfp4")!;
+    for (const sq of ["q8_0", "q4_k_m", "iq4_xs", "q3_k_m"] as const) {
+      const pick = pickFormat(vm, sq)!;
+      const exact = opts.find((o) => o.id === sq);
+      if (pick.id === "mxfp4") expect(!exact || weightsSize(vm, published) <= weightsSize(vm, exact)).toBe(true);
+      else expect(weightsSize(vm, pick)).toBeLessThan(weightsSize(vm, published));
+    }
   });
 
-  it("keeps the type asked for on BF16 weights", () => {
-    const vm = vramModelFor(model("cohere/command-r-08-2024"))!;
-    expect(pickFormat(vm, "q4_k_m")?.id).toBe("q4_k_m");
+  it.skipIf(!denseBf16)("keeps the type asked for on BF16 weights", () => {
+    expect(pickFormat(vramModelFor(denseBf16!)!, "q4_k_m")?.id).toBe("q4_k_m");
   });
 });
 
 describe("§B's Run it yourself", () => {
-  it("names the model page's figure and smallest setup (headless), not §D's display-attached one", () => {
-    for (const key of ["cohere/command-r-08-2024", "openai/gpt-oss-120b"]) {
-      const m = model(key);
+  const cases = [denseBf16, moe].filter((m): m is Model => m !== null);
+  it.skipIf(!cases.length)("names the model page's figure and smallest setup (headless), not §D's display-attached one", () => {
+    for (const m of cases) {
       const fig = pageFigure(m, "q4_k_m", 32 * 1024)!;
       const table = selfHostTable(vramModelFor(m)!, m.contextTokens);
       const row = table.rows.find((r) => r.engine === "llamacpp" && r.format === fig.format.id)!;
@@ -62,6 +72,12 @@ describe("chart text placement", () => {
     const open: Box[] = [];
     placeLabels([{ key: "q", x: 100, y: 100, text: "Quiet" }], area, 11, open);
     expect(open).toHaveLength(1);
+  });
+
+  it("always places a label marked must, even where every spot covers a mark", () => {
+    const taken: Box[] = [];
+    for (let x = 0; x <= 400; x += 8) for (let y = 0; y <= 300; y += 8) taken.push(markBox(x, y, 3, `${x},${y}`));
+    expect(placeLabels([{ key: "best", x: 200, y: 150, text: "Headline", must: true }], area, 11, taken).size).toBe(1);
   });
 
   it("always places an annotation: the first clear spot, else the one covering least", () => {

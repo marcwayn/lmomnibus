@@ -171,7 +171,7 @@ function writeOpenData(outDir: string, facts: CatalogFacts, weights: Weights) {
         "tiers: long-context tiers price the whole request at the tier the prompt clears.",
         "Artificial Analysis capability indices are omitted from this file.",
         "hf_id: the Hugging Face repo OpenRouter (or our hand-checked openness list, see openness_source) links for the weights.",
-        "weights_status: open (we could open the repo), closed (API only) or unverified (the linked repo can't be opened; left out of open-weight comparisons).",
+        "weights_status: open (we could open the repo), closed (API only) or unverified (the linked repo can't be opened, or hasn't been read yet; left out of open-weight comparisons).",
         "licence_class: permissive, custom, noncommercial or unclassified, from the licence named on Hugging Face; not legal advice.",
         "params_total, params_active: parameter counts from Hugging Face (active per token for mixture-of-experts models; null when unknown or dense).",
       ],

@@ -334,5 +334,10 @@ describe("placement and format fixes (review round 1)", () => {
   it("offers no partial offload on unified memory, where RAM is the same pool", () => {
     expect(partialOffloadLayers(model("llama-3.1-8b", 70e9), base({ device: dev("mac-mini-m6-32gb") }))).toBeNull();
   });
+  it("Kimi K3-shaped MXFP4 models (hidden a multiple of 256) requantize their experts like any tensor", () => {
+    const k3: VramModel = { ...qwen30a3, native: { format: "mxfp4", bits: 4.49 } };
+    const mx = weightBytes(k3, base({ format: "mxfp4" }));
+    const q2 = weightBytes(k3, base({ format: "q2_k" }));
+    expect(q2.gpu.mid + q2.host.mid).toBeLessThan(0.75 * (mx.gpu.mid + mx.host.mid));
+  });
 });
-
