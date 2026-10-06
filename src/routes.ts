@@ -50,6 +50,30 @@ export const ROUTES: readonly RouteInfo[] = [
     description: () => "Feel what a token throughput means: pick a rate and an output length, then watch a response stream at that pace.",
     ogImage: "/og/speed.png",
   },
+  {
+    path: "/changes",
+    nav: { num: "04", label: "Ledger" },
+    title: "Price Ledger — LMOmnibus",
+    description: (f) =>
+      `What changed in language-model prices: vendor list-price moves, new listings, delistings and retirements, snapshot by snapshot. Latest ${f.as_of}.`,
+    ogImage: "/og/ledger.png",
+  },
+  {
+    path: "/tools/switch",
+    nav: { num: "05", label: "Switch" },
+    title: "Switch Planner — LMOmnibus",
+    description: () =>
+      "Leaving a language model? Ranked replacements at your workload: the saving, the score change, and what you'd give up.",
+    ogImage: "/og/switch.png",
+  },
+  {
+    path: "/tools/agent",
+    nav: { num: "06", label: "Agent" },
+    title: "Agent Loop — LMOmnibus",
+    description: () =>
+      "What an agent session costs as its context grows turn by turn, per model, and how much prompt caching saves.",
+    ogImage: "/og/agent.png",
+  },
 ];
 
 export const SITE_ORIGIN = "https://lmomnibus.pages.dev";

@@ -19,6 +19,8 @@ interface RawRateCard {
   cache_write: string | null;
   tiers: { above_input_tokens: number; input: string; output: string; cache_read: string | null }[];
   promo: { input: string; output: string; until: string } | null;
+  cache_write_1h?: string | null;
+  checked?: boolean;
 }
 
 interface RawModel {
@@ -34,6 +36,11 @@ interface RawModel {
   scores: { intelligence: number | null; coding: number | null; agentic: number | null } | null;
   rates: [RateMode, RawRateCard][];
   provenance: "FirstParty" | "Aggregate";
+  knowledge_cutoff?: string | null;
+  listed_on?: string;
+  retires_on?: string | null;
+  open_weights?: boolean;
+  reasoning_mandatory?: boolean;
 }
 
 const big = (s: string) => new Big(s);
@@ -52,6 +59,8 @@ function parseCard(c: RawRateCard): RateCard {
       cacheRead: bigOrNull(t.cache_read),
     })),
     promo: c.promo && { input: big(c.promo.input), output: big(c.promo.output), until: c.promo.until },
+    cacheWrite1h: bigOrNull(c.cache_write_1h ?? null),
+    checked: c.checked === true,
   };
 }
 
@@ -73,6 +82,11 @@ export function parseModel(m: RawModel): Model {
     scores: m.scores,
     rates: m.rates.map(([mode, card]) => [mode, parseCard(card)]),
     provenance: m.provenance,
+    listedOn: m.listed_on ?? null,
+    knowledgeCutoff: m.knowledge_cutoff ?? null,
+    retiresOn: m.retires_on ?? null,
+    openWeights: m.open_weights ?? false,
+    reasoningMandatory: m.reasoning_mandatory ?? false,
   };
 }
 

@@ -7,3 +7,7 @@
 # Link-preview cards change with each catalog refresh; a day is plenty.
 /og/*
   Cache-Control: public, max-age=86400
+
+# Open data: refreshed with each catalog update.
+/catalog.json
+  Cache-Control: public, max-age=3600

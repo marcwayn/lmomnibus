@@ -13,6 +13,8 @@ export function card(overrides: Partial<RateCard> = {}): RateCard {
     cacheWrite: null,
     tiers: [],
     promo: null,
+    cacheWrite1h: null,
+    checked: false,
     ...overrides,
   };
 }
@@ -31,6 +33,11 @@ export function fixtureModel(overrides: Partial<Model> = {}): Model {
     scores: null,
     rates: [["Standard", card()]],
     provenance: "Aggregate",
+    listedOn: null,
+    knowledgeCutoff: null,
+    retiresOn: null,
+    openWeights: false,
+    reasoningMandatory: false,
     ...overrides,
   };
 }

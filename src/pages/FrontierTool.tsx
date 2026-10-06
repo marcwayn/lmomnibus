@@ -22,7 +22,7 @@ import {
   type Index,
   type Priced,
 } from "../core/frontier.ts";
-import { inputModalities, type Model } from "../core/model.ts";
+import { inputModalities, rateCard, type Model } from "../core/model.ts";
 import { DEFAULT_PRESET, matchingPreset, presetById, type PresetId } from "../core/presets.ts";
 import { decodeFrontier, encodeFrontier, encodeScenario, hasScenario, MAX_BENCH } from "../core/share.ts";
 import { NumberField } from "../NumberField.tsx";
@@ -30,7 +30,7 @@ import { titleFor } from "../routes.ts";
 
 const MODELS = allModels();
 /** "Fits my request" is always applied here: a model that can't take the request isn't an answer. */
-const SHOWN_FILTERS: Filter[] = ["img", "aud", "tools", "reasoning"];
+const SHOWN_FILTERS: Filter[] = ["img", "aud", "tools", "reasoning", "open"];
 /** The bar a first visit starts from: the 75th-percentile score on this index, rounded down. */
 const defaultMinFor = (index: Index) => Math.floor(percentileScore(MODELS, index, 75) ?? 0);
 const clampScore = (v: number) => Math.round(Math.min(Math.max(v, 0), 100));
@@ -140,7 +140,7 @@ export function FrontierTool() {
         (s) =>
           `| ${s.point.model.displayName}${s.point.breakdown.notes.includes("batch-unavailable") ? " (no batch rate)" : ""} | ${scoreOf(s.point.model, index)!.toFixed(1)} | ${fmtUsd(s.point.per1k)} | ${
             s.costMultiple === null ? "cheapest" : `×${s.costMultiple.toFixed(1)} for +${s.scoreGain!.toFixed(1)}`
-          } | ${s.point.model.provenance === "FirstParty" ? "vendor list" : "via OpenRouter"} |`,
+          } | ${rateCard(s.point.model, s.point.breakdown.mode)?.checked ? "vendor list" : "via OpenRouter"} |`,
       ),
       "",
       `Workload: ${workloadLine(workload, rate, true)}`,
@@ -190,7 +190,7 @@ export function FrontierTool() {
             <span className="mono">{fmtUsd(answer.per1k)}</span> per 1K requests (
             <span className="mono">{fmtMoney(answer.breakdown.monthlyCost)}</span>/mo at{" "}
             <span className="mono">{fmtCompact(workload.requestsPerMonth)}</span> req){" "}
-            <SourceTag model={answer.model} /> <FallbackMark breakdown={answer.breakdown} />
+            <SourceTag model={answer.model} mode={answer.breakdown.mode} /> <FallbackMark breakdown={answer.breakdown} />
           </>
         ) : (
           <>
@@ -355,7 +355,7 @@ export function FrontierTool() {
                     <td>
                       <span className="nm">{s.point.model.displayName}</span>
                       <span className="vd">
-                        {s.point.model.vendorName} <SourceTag model={s.point.model} />
+                        {s.point.model.vendorName} <SourceTag model={s.point.model} mode={s.point.breakdown.mode} />
                       </span>
                     </td>
                     <td className={`n${clears ? "" : " na"}`}>{scoreOf(s.point.model, index)!.toFixed(1)}</td>
@@ -695,7 +695,7 @@ const PointReadout = forwardRef<
       <div className="readout-kicker">{KICKER[state]}</div>
       <div className="bn">{m.displayName}</div>
       <div className="bv">
-        {m.vendorName} <SourceTag model={m} />
+        {m.vendorName} <SourceTag model={m} mode={point.breakdown.mode} />
       </div>
       <dl className="spec">
         <dt>AA {INDEX_LABEL[index]}</dt>
@@ -711,6 +711,10 @@ const PointReadout = forwardRef<
         <dd>{fmtCompact(m.contextTokens)}</dd>
         <dt>Supports</dt>
         <dd>{flagText(m)}</dd>
+        <dt>Cutoff</dt>
+        <dd>{m.knowledgeCutoff ?? "—"}</dd>
+        <dt>Weights</dt>
+        <dd>{m.openWeights ? "open" : "closed"}</dd>
       </dl>
       {dom ? (
         <p className="verdict-line">
@@ -780,7 +784,7 @@ function AllPlotted({
                       {p.model.displayName}
                     </button>
                     <span className="vd">
-                      {p.model.vendorName} <SourceTag model={p.model} />
+                      {p.model.vendorName} <SourceTag model={p.model} mode={p.breakdown.mode} />
                     </span>
                   </td>
                   <td className="n">{scoreOf(p.model, index)!.toFixed(1)}</td>

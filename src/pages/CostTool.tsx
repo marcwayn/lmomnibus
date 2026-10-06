@@ -1,11 +1,22 @@
 import type Big from "big.js";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useLocation, useNavigate, useSearchParams } from "react-router";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
 import { trackEvent } from "../analytics.ts";
-import { CopyButton, FallbackMark, Mark, Meter, NotRated, SourceTag, WorkloadPanel, workloadLine } from "../components.tsx";
+import {
+  CopyButton,
+  FallbackMark,
+  Mark,
+  Meter,
+  NotRated,
+  RetireTag,
+  SourceTag,
+  WorkloadPanel,
+  workloadLine,
+} from "../components.tsx";
 import { allModels, CATALOG_META, modelByKey } from "../core/catalog.ts";
 import { costFor, NOTE_TEXT, type Rate, type Workload } from "../core/cost.ts";
-import { todayIso } from "../core/date.ts";
+import { changesFor, relChange, type Change } from "../core/changes.ts";
+import { daysBetween, daysLabel, todayIso } from "../core/date.ts";
 import { fmtCompact, fmtMoney, fmtRate, fmtUsd } from "../core/fmt.ts";
 import {
   alternatives,
@@ -22,12 +33,22 @@ import {
 import { compareReleased, inputModalities, rateCard, yearMonth, type Model, type RateMode } from "../core/model.ts";
 import { DEFAULT_PRESET, matchingPreset, type PresetId } from "../core/presets.ts";
 import { availableYears, search } from "../core/query.ts";
-import { decodeScenario, encodeScenario, hasScenario, MAX_BENCH, type Scenario } from "../core/share.ts";
+import { decodeScenario, encodeKey, encodeScenario, hasScenario, MAX_BENCH, type Scenario } from "../core/share.ts";
 import { titleFor } from "../routes.ts";
 
 const MODELS = allModels();
 const YEARS = availableYears(MODELS);
 const STORAGE_KEY = "lmo:bench:v1";
+/** The snapshot date the remembered bench was last priced at, for "since you last looked". */
+const ASOF_KEY = "lmo:bench-asof:v1";
+
+function readAsOf(): string | null {
+  try {
+    return localStorage.getItem(ASOF_KEY);
+  } catch {
+    return null;
+  }
+}
 const VENDOR_CHIPS = 10;
 
 type SortKey = "relevance" | "newest" | "cost" | "score" | "context";
@@ -49,8 +70,13 @@ function readStorage(): string | null {
 
 function writeStorage(value: string | null) {
   try {
-    if (value === null) localStorage.removeItem(STORAGE_KEY);
-    else localStorage.setItem(STORAGE_KEY, value);
+    if (value === null) {
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(ASOF_KEY);
+    } else {
+      localStorage.setItem(STORAGE_KEY, value);
+      localStorage.setItem(ASOF_KEY, CATALOG_META.asOf);
+    }
   } catch {
     // Storage blocked or full: the page works the same without it.
   }
@@ -101,6 +127,37 @@ export function CostTool() {
   const [hideDominated, setHideDominated] = useState(false);
   const [allVendors, setAllVendors] = useState(false);
 
+  // "Since you last looked": a remembered bench priced at an older snapshot
+  // gets a strip of what changed for its models. The tape loads on demand.
+  const [lastAsOf] = useState(() => (init.source === "storage" ? readAsOf() : null));
+  const [since, setSince] = useState<Change[] | null>(null);
+  // Models still on the bench, plus delisted ones from the link (they left the
+  // bench at load, but their delisting is exactly what changed).
+  const sinceOnBench = (since ?? []).filter((c) => bench.includes(c.key) || missing.includes(c.key));
+  useEffect(() => {
+    if (!lastAsOf || lastAsOf >= CATALOG_META.asOf) return;
+    let live = true;
+    import("../tape.ts").then(({ TAPE }) => {
+      if (!live) return;
+      const found = changesFor(TAPE, new Set(init.scenario.models), lastAsOf);
+      setSince(found);
+      if (found.length) trackEvent("Bench", "Repriced strip shown");
+    });
+    return () => {
+      live = false;
+    };
+  }, [lastAsOf, init]);
+  // Pricing the bench at today's snapshot counts as having looked.
+  useEffect(() => {
+    if (lastAsOf && lastAsOf < CATALOG_META.asOf && init.source === "storage") {
+      try {
+        localStorage.setItem(ASOF_KEY, CATALOG_META.asOf);
+      } catch {
+        // Not remembered; the strip shows again next time.
+      }
+    }
+  }, [lastAsOf, init]);
+
   useEffect(() => {
     if (init.source === "url" && init.scenario.models.length && !internalArrival) trackEvent("Share", "Opened shared link");
     if (init.source === "storage") trackEvent("Bench", "Restored");
@@ -125,12 +182,14 @@ export function CostTool() {
       // entry still isn't counted as a shared link.
       navigate(
         { pathname, search: encoded ? `?${encoded}` : "" },
-        { replace: true, state: internalArrival ? { internal: true } : null },
+        // Any arrival was counted once on mount; the calculator's own URL
+        // updates are never a new shared-link arrival (Back to them included).
+        { replace: true, state: { internal: true } },
       );
       if (benchEdited.current) writeStorage(bench.length ? encoded : null);
     }, 300);
     return () => clearTimeout(t);
-  }, [encoded, bench.length, navigate, pathname, internalArrival]);
+  }, [encoded, bench.length, navigate, pathname]);
 
   const shareUrl = () => `${window.location.origin}/tools/cost?${encoded}`;
 
@@ -247,6 +306,7 @@ export function CostTool() {
   };
   const clearBench = () => {
     benchEdited.current = true;
+    setSince(null);
     setBench([]);
     setModes(new Map());
     setRestored(false);
@@ -261,7 +321,7 @@ export function CostTool() {
           ? `+${fmtMoney(p.breakdown.monthlyCost.minus(cheapest))}`
           : "cheapest";
       const mode = p.breakdown.mode === "Standard" ? "" : ` (${p.breakdown.mode})`;
-      const src = p.model.provenance === "FirstParty" ? "vendor list" : "via OpenRouter";
+      const src = rateCard(p.model, p.breakdown.mode)?.checked ? "vendor list" : "via OpenRouter";
       return `| ${p.model.displayName}${mode} | ${fmtMoney(p.breakdown.monthlyCost)} | ${fmtUsd(p.per1k)} | ${d} | ${src} |`;
     });
     return [
@@ -423,6 +483,7 @@ export function CostTool() {
         </div>
 
         <MarketTable
+          today={today}
           hits={results.hits}
           byKey={byKey}
           bench={bench}
@@ -439,8 +500,9 @@ export function CostTool() {
           </p>
         )}
         <p className="fine">
-          Flags are unions across providers: T tools · R reasoning · S structured output · img / aud image / audio
-          input. “via OR” prices are OpenRouter aggregates; “list” prices are checked against the vendor.
+          Flags are unions across providers: T tools · R reasoning (R+ always reasons, so expect extra output) · S
+          structured output · img / aud image / audio input · open published weights. “via OR” prices are OpenRouter
+          aggregates; “list” prices are checked against the vendor.
         </p>
       </section>
 
@@ -467,6 +529,16 @@ export function CostTool() {
           )}
         </div>
 
+        {sinceOnBench.length > 0 && (
+          <div className="since-strip" role="status">
+            <strong>Since you last looked</strong> ({lastAsOf} to {CATALOG_META.asOf}):
+            <ul>
+              {sinceOnBench.map((c, i) => (
+                <li key={`${c.key}-${c.kind}-${i}`}>{describeChange(c)}</li>
+              ))}
+            </ul>
+          </div>
+        )}
         {restored && bench.length > 0 && (
           <p className="quiet-note">
             Restored your last bench ·{" "}
@@ -505,6 +577,7 @@ export function CostTool() {
                   benched={bench}
                   benchFull={bench.length >= MAX_BENCH}
                   today={today}
+                  scenarioQuery={encodeScenario({ models: [], preset, workload, rate, modes: new Map(), index })}
                 />
               ))}
             </div>
@@ -522,6 +595,7 @@ export function CostTool() {
 // ---------------------------------------------------------------------------
 
 interface MarketTableProps {
+  today: string;
   hits: Model[];
   byKey: Map<string, Priced>;
   bench: string[];
@@ -539,16 +613,17 @@ function flags(m: Model): string {
   const inputs = inputModalities(m);
   return [
     m.capabilities.tools && "T",
-    m.capabilities.reasoning && "R",
+    m.capabilities.reasoning && (m.reasoningMandatory ? "R+" : "R"),
     m.capabilities.structuredOutput && "S",
     inputs.includes("image") && "img",
     inputs.includes("audio") && "aud",
+    m.openWeights && "open",
   ]
     .filter(Boolean)
     .join(" ");
 }
 
-function MarketTable({ hits, byKey, bench, index, workload, sort, onSort, onToggle, benchFull }: MarketTableProps) {
+function MarketTable({ today, hits, byKey, bench, index, workload, sort, onSort, onToggle, benchFull }: MarketTableProps) {
   const th = (s: SortKey | null, label: string, className: string) => {
     if (!s) return <th className={className}>{label}</th>;
     const active = sort === s;
@@ -590,10 +665,13 @@ function MarketTable({ hits, byKey, bench, index, workload, sort, onSort, onTogg
             return (
               <tr key={model.key} className={benched ? "benched" : undefined}>
                 <td className="col-model">
-                  <span className="nm">{model.displayName}</span>
+                  <Link className="nm row-link" to={`/models/${model.key}`} state={{ internal: true }}>
+                    {model.displayName}
+                  </Link>
                   <span className="vd">
-                    {model.vendorName} · {yearMonth(model.released)} <SourceTag model={model} />
+                    {model.vendorName} · {yearMonth(model.released)} <SourceTag model={model} mode={b.mode} />
                     {b.mode !== "Standard" && <span className="mode-tag">{b.mode.toLowerCase()}</span>}
+                    <RetireTag model={model} today={today} />
                   </span>
                 </td>
                 <td className="n col-ctx">{fmtCompact(model.contextTokens)}</td>
@@ -660,6 +738,8 @@ interface BenchCardProps {
   benched: string[];
   benchFull: boolean;
   today: string;
+  /** The bench's workload as URL params, so "Plan a switch" keeps it. */
+  scenarioQuery: string;
 }
 
 const BREAKDOWN: { name: string; cls: string; pick: (p: Priced) => Big }[] = [
@@ -670,7 +750,7 @@ const BREAKDOWN: { name: string; cls: string; pick: (p: Priced) => Big }[] = [
 ];
 
 function BenchCard(props: BenchCardProps) {
-  const { point, cheapest, pool, index, workload, rate, onMode, onRemove, onAdd, benched, benchFull, today } = props;
+  const { point, cheapest, pool, index, workload, rate, onMode, onRemove, onAdd, benched, benchFull, today, scenarioQuery } = props;
   const { model, breakdown: b } = point;
   const isCheapest = cheapest !== null && b.monthlyCost.eq(cheapest);
   const card = rateCard(model, b.mode)!;
@@ -689,10 +769,24 @@ function BenchCard(props: BenchCardProps) {
       <button className="rm" aria-label={`Remove ${model.displayName} from bench`} onClick={onRemove}>
         ×
       </button>
-      <div className="bn">{model.displayName}</div>
-      <div className="bv">
-        {model.vendorName} · listed {yearMonth(model.released)} <SourceTag model={model} />
+      <div className="bn">
+        <Link className="row-link inline" to={`/models/${model.key}`} state={{ internal: true }}>
+          {model.displayName}
+        </Link>
       </div>
+      <div className="bv">
+        {model.vendorName} · listed {yearMonth(model.released)}
+        {model.knowledgeCutoff ? ` · cutoff ${model.knowledgeCutoff.slice(0, 7)}` : ""} <SourceTag model={model} mode={b.mode} />
+      </div>
+      {model.retiresOn && daysBetween(today, model.retiresOn) >= 0 && (
+        <div className="retire-line">
+          Retires {model.retiresOn} ({daysLabel(daysBetween(today, model.retiresOn))}) ·{" "}
+          <Link to={`/tools/switch?from=${encodeKey(model.key)}&${scenarioQuery}`} state={{ internal: true }}>
+            Plan a switch
+            <Mark kind="to" />
+          </Link>
+        </div>
+      )}
 
       {modes.length > 1 && (
         <div className="seg seg-small" role="group" aria-label={`Price list for ${model.displayName}`}>
@@ -776,7 +870,7 @@ function BenchCard(props: BenchCardProps) {
                     <span className="mono">
                       {fmtMoney(save)}/mo (−{pct}%)
                     </span>{" "}
-                    <SourceTag model={a.model} />
+                    <SourceTag model={a.model} mode={a.breakdown.mode} />
                     {!benched.includes(a.model.key) && !benchFull && (
                       <>
                         {" "}
@@ -817,4 +911,42 @@ function BenchCard(props: BenchCardProps) {
       )}
     </article>
   );
+}
+
+function pct(pair: [string, string] | undefined): string {
+  const r = pair ? relChange(pair) : null;
+  if (r === null || r === 0) return "";
+  return `${r < 0 ? "−" : "+"}${Math.abs(Math.round(r * 100))}%`;
+}
+
+/** One line per change for the "since you last looked" strip. */
+function describeChange(c: Change): string {
+  switch (c.kind) {
+    case "list_price":
+      return `${c.name}: list price ${c.mode} in ${pct(c.input) || "same"}, out ${pct(c.output) || "same"}`;
+    case "list_correction":
+      return `${c.name}: now a hand-checked list price (in ${pct(c.input) || "same"}, out ${pct(c.output) || "same"})`;
+    case "promo_permanent":
+      return `${c.name}: promo price made permanent (price in force unchanged)`;
+    case "promo_change":
+      return `${c.name}: promo terms changed, until ${c.until}`;
+    case "tier_change":
+      return `${c.name}: long-context tier prices changed`;
+    case "aggregate_move":
+      return `${c.name}: OpenRouter aggregate price moved (in ${pct(c.input) || "same"}, out ${pct(c.output) || "same"}${c.cache_read ? `, cache read ${pct(c.cache_read)}` : ""})`;
+    case "removed":
+      return `${c.name}: no longer listed`;
+    case "retirement_scheduled":
+      return `${c.name}: retires ${c.retires_on}`;
+    case "promo_start":
+      return `${c.name}: promo started, until ${c.until}`;
+    case "promo_end":
+      return `${c.name}: promo ended`;
+    case "mode_added":
+      return `${c.name}: ${c.mode} price list added`;
+    case "mode_removed":
+      return `${c.name}: ${c.mode} price list removed`;
+    default:
+      return c.name;
+  }
 }

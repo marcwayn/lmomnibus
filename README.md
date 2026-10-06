@@ -10,6 +10,11 @@ Everything is priced at **your** workload — input and output per request, requ
 - **Tool 01: Cost Calculator.** Workload presets; the whole market ranked by $ per 1,000 requests with capability filters and "hide dominated"; a bench of cost cards with a cost breakdown, per-model Batch/Fast pricing, and "cheaper at the same score" verdicts. The bench lives in a readable URL (`?m=anthropic:claude-opus-5.5,openai:gpt-6-sol&p=agent`), is remembered locally, and copies as a link or a Markdown table.
 - **Tool 02: Price–Capability Frontier.** Every scored model on cost (log) × AA Intelligence / Coding / Agentic, the stepped frontier, a draggable minimum-score bar with a one-line answer ("cheapest model scoring ≥ 45…"), and the step-up ladder.
 - **Tool 03: Token Speed Simulator.** Watch a response stream at a chosen rate (illustrative; ~0.75 words per token).
+- **Tool 04: Price Ledger** (`/changes`). What changed between snapshots — vendor list-price moves kept apart from OpenRouter aggregate drift, new listings, delistings, promos, retirements — with an Atom feed (`/changes.xml`) and JSON (`/changes.json`). A remembered bench shows "since you last looked".
+- **Tool 05: Switch Planner** (`/tools/switch?from=…`). Replacements for a model you're leaving, at your workload: the saving, the score change, and what the switch gives up.
+- **Tool 06: Agent Loop** (`/tools/agent`). What a whole agent session costs as context grows each turn, with prompt caching off, 5-minute or 1-hour, and how many reads earn back a cache write.
+- **Model pages** (`/models/<vendor>/<slug>`). A spec sheet per model — price lists, tiers, scores with ranks, cost at each preset — and a "no longer listed" page for delisted ones.
+- **Open data.** `/catalog.json` (rate cards as exact decimal strings) and `/llms.txt` (the instruments and the URL grammar, for coding assistants).
 
 Every price says where it comes from ("list" = checked against the vendor, "via OR" = OpenRouter's aggregate), and every page shows the date the prices were fetched.
 
@@ -27,7 +32,10 @@ src/
     board.ts     the home board and readings
     query.ts     tokenised search, filters and sorting
     share.ts     the readable URL format for scenarios
-  pages/       Home, Cost Calculator, Frontier, Speed Simulator
+    changes.ts   the change tape: diffing snapshots, vendor vs aggregate
+    switch.ts    replacement candidates for the Switch Planner
+    agent.ts     multi-turn session cost and cache break-even
+  pages/       Home, the six tools, model pages
   components.tsx  workload panel, price-source tags, copy buttons, footer
   routes.ts    the one route table (pages, titles, descriptions, preview cards)
   styles.css   the whole stylesheet (the price-board design system)
@@ -35,13 +43,18 @@ scripts/
   ingest.ts    fetches the OpenRouter model catalog, normalizes it, applies
                data/overrides.json, writes data/catalog.json and
                data/catalog-meta.json (with the fetch date).
-  og.ts        draws the link-preview cards and touch icon after the build.
+  changes.ts   appends what changed since the previous snapshot to
+               data/changes.jsonl (append-only).
+  refresh.ts   `npm run refresh`: ingest, then changes, in one step.
+  og.ts        draws the link-preview cards (site and per model) and the
+               touch icon after the build.
 data/
   catalog.json       the committed, normalized snapshot — bundled into the
                      app, so the site makes no network calls for data.
   catalog-meta.json  when the feed was fetched, and coverage counts.
-  overrides.json     hand-checked vendor list prices that win over the feed,
-                     each with verified_on and source.
+  overrides.json     hand-checked vendor list prices (input and output) that
+                     win over the feed, each with verified_on and source.
+  changes.jsonl      the change tape, one JSON line per change.
 public/
   _headers     Cloudflare Pages cache rules.
   favicon.svg  the meter-rule mark.
@@ -74,21 +87,34 @@ npm test           # cost engine, formatting, search, catalog sanity
 npm run build      # typecheck + production build into dist/
 ```
 
-## Refreshing the catalog
+## Daily refresh
+
+`.github/workflows/refresh.yml` runs every day at 06:00 UTC (and on demand):
+ingest, append what changed to `data/changes.jsonl` (`scripts/changes.ts`),
+run the tests and the build, and commit the snapshot — git history is the archive of daily
+snapshots. It deploys too when the repository has a `CLOUDFLARE_API_TOKEN`
+secret (a Cloudflare API token with Pages edit permission); without one, the
+snapshot still lands and the next `npm run deploy` publishes it. Scheduled
+workflows only run from the default branch.
+
+## Refreshing the catalog by hand
 
 The app never fetches live pricing at runtime — it's built from
-`data/catalog.json`. To pull current prices from OpenRouter and rebuild the
-snapshot:
+`data/catalog.json`. To pull current prices from OpenRouter, record what
+changed, and rebuild the snapshot:
 
 ```bash
-npm run ingest
+npm run refresh
 ```
 
-This overwrites `data/catalog.json` and `data/catalog-meta.json`. Review
-the diff (added, removed, re-priced models), run `npm test`, then commit and
-redeploy. Curated corrections live in `data/overrides.json` — add an entry
-there (matched by model key) for anything the aggregate feed gets wrong, such
-as a temporary promotional rate.
+This runs `scripts/ingest.ts` (overwrites `data/catalog.json` and
+`data/catalog-meta.json`; refuses a feed that shrinks the catalog by more
+than 20% unless you pass `-- --allow-shrink`) and then `scripts/changes.ts`
+(appends the diff to `data/changes.jsonl`, which feeds the Ledger, the feeds
+and the delisted-model pages). Review the diff, run `npm test`, then commit
+and redeploy. Hand-checked list prices live in `data/overrides.json` — add
+an entry there (matched by model key and price list) for anything the
+aggregate feed gets wrong; ingest marks that price list `checked: true`.
 
 ## Deploying (Cloudflare Pages)
 
@@ -113,12 +139,17 @@ edge-cache refresh on deploy.
 
 Caching: Vite content-hashes every file under `/assets`, so `_headers` marks
 them `immutable` for a year. HTML keeps Pages' default of revalidating on
-every request, so a new deploy is picked up immediately.
+every request, so a new deploy is picked up within seconds (a freshly
+deployed route can serve the previous page for about 20 seconds).
 
 ## What's deliberately not here yet
 
-- **No price history yet** — the catalog is one snapshot; a scheduled
-  ingest that keeps dated snapshots is the next step (see the roadmap).
-- **No database, no live-refresh background task** — the catalog is a file,
-  refreshed by re-running ingest and redeploying.
-- **Tools 02–08** from the roadmap in `SCHEMATIC.html` — none are built yet.
+- **No database and no runtime fetches** — the catalog and the change tape
+  are files, refreshed daily by the workflow (or `npm run refresh`) and
+  shipped with each deploy.
+- **No score history** — Artificial Analysis rescales its indices between
+  versions, so the tape records prices, listings and promos, never scores.
+- **No cost per task** — every figure is list-price cost at a workload;
+  how many requests a task takes depends on the model and isn't modelled.
+- **Cache prices aren't hand-checked** — overrides cover input and output
+  only; cache-read and cache-write prices are always OpenRouter's.

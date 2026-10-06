@@ -23,6 +23,9 @@ const QUESTIONS: Record<string, string> = {
   "/tools/cost": "What will my workload cost on each model?",
   "/tools/frontier": "What's the cheapest model that clears my bar?",
   "/tools/speed": "What does N tokens per second feel like?",
+  "/changes": "What changed in model prices since I last looked?",
+  "/tools/switch": "My model is retiring or too pricey — what replaces it?",
+  "/tools/agent": "What does a whole agent session cost, and what does caching save?",
 };
 
 function rememberedPreset(): PresetId | null {
@@ -171,7 +174,7 @@ export function HomePage() {
                         {p.model.displayName}
                       </Link>
                       <span className="vd">
-                        {p.model.vendorName} <SourceTag model={p.model} />
+                        {p.model.vendorName} <SourceTag model={p.model} mode={p.breakdown.mode} />
                       </span>
                     </td>
                     <td className="n">{scoreOf(p.model, "intelligence")!.toFixed(1)}</td>
@@ -234,7 +237,7 @@ export function HomePage() {
                   >
                     {r.point.model.displayName} · <span className="mono">{fmtUsd(r.point.per1k)}</span> / 1K
                   </Link>{" "}
-                  <SourceTag model={r.point.model} />
+                  <SourceTag model={r.point.model} mode={r.point.breakdown.mode} />
                   {r.detail ? <span className="reading-detail"> · {r.detail}</span> : null}
                 </span>
               ) : (

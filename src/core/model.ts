@@ -41,6 +41,10 @@ export interface RateCard {
   /** Ascending by `aboveInputTokens`. Empty means a flat rate. */
   tiers: RateTier[];
   promo: Promo | null;
+  /** 1-hour-TTL cache write price, where sold (otherwise the default write is ~5 minutes). */
+  cacheWrite1h: UsdPerMTok | null;
+  /** This price list was checked by hand against the vendor ("list"); otherwise it's OpenRouter's aggregate. */
+  checked: boolean;
 }
 
 /**
@@ -78,6 +82,15 @@ export interface Model {
    */
   rates: [RateMode, RateCard][];
   provenance: "FirstParty" | "Aggregate";
+  /** UTC day the model appeared on OpenRouter (`released` is its year-month). */
+  listedOn: string | null;
+  /** Vendor's stated training-data cutoff, YYYY-MM-DD. */
+  knowledgeCutoff: string | null;
+  /** Scheduled retirement, YYYY-MM-DD, when announced. */
+  retiresOn: string | null;
+  openWeights: boolean;
+  /** Always reasons: thinking tokens can't be turned off. */
+  reasoningMandatory: boolean;
 }
 
 export interface EffectiveRates {

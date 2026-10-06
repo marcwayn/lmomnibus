@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { trackEvent } from "./analytics.ts";
 import { CATALOG_META, snapshotAgeDays } from "./core/catalog.ts";
 import { NOTE_TEXT, type CostBreakdown, type Rate, type Workload } from "./core/cost.ts";
-import { todayIso } from "./core/date.ts";
+import { daysBetween, daysLabel, todayIso } from "./core/date.ts";
 import { fmtCompact, fmtInt } from "./core/fmt.ts";
-import type { Model } from "./core/model.ts";
+import { primaryMode, rateCard, type Model, type RateMode } from "./core/model.ts";
 import { matchingPreset, PRESETS, type Preset, type PresetId } from "./core/presets.ts";
 import { NumberField, U32_MAX } from "./NumberField.tsx";
 
@@ -53,10 +53,14 @@ export function Meter({ className = "" }: { className?: string }) {
   return <div className={`meter ${className}`.trim()} aria-hidden="true" />;
 }
 
-/** Where a price comes from: hand-checked vendor list price, or OpenRouter's aggregate. */
-export function SourceTag({ model }: { model: Model }) {
-  return model.provenance === "FirstParty" ? (
-    <span className="src-tag list" title="Vendor list price, checked by hand against the vendor's pricing">
+/**
+ * Where a price comes from: a price list checked by hand against the vendor
+ * ("list"), or OpenRouter's aggregate. Decided per price list, since an
+ * override usually covers only a model's Standard prices.
+ */
+export function SourceTag({ model, mode }: { model: Model; mode?: RateMode }) {
+  return rateCard(model, mode ?? primaryMode(model))?.checked ? (
+    <span className="src-tag list" title="Vendor list price: input and output checked by hand against the vendor's pricing. Cache prices are OpenRouter's.">
       list
     </span>
   ) : (
@@ -241,7 +245,7 @@ export function SiteFooter() {
             {fmtInt(CATALOG_META.models)} models · {CATALOG_META.vendors} vendors
           </span>
           <span>
-            {CATALOG_META.firstParty} vendor list prices, {CATALOG_META.aggregate} OpenRouter aggregates
+            Hand-checked list prices on {CATALOG_META.firstParty} models; the rest are OpenRouter aggregates
           </span>
           <span>Capability scores: Artificial Analysis indices via OpenRouter, snapshot {CATALOG_META.asOf}</span>
         </p>
@@ -253,5 +257,17 @@ export function SiteFooter() {
         </p>
       </div>
     </footer>
+  );
+}
+
+/** "retires 10-20" in the market; the full date and countdown on hover. */
+export function RetireTag({ model, today }: { model: Model; today: string }) {
+  if (!model.retiresOn) return null;
+  const days = daysBetween(today, model.retiresOn);
+  if (days < 0) return null;
+  return (
+    <span className="retire-tag" title={`Scheduled to retire on ${model.retiresOn} (${daysLabel(days)})`}>
+      retires {model.retiresOn.slice(5)}
+    </span>
   );
 }

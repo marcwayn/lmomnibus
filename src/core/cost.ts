@@ -1,5 +1,5 @@
 import Big from "big.js";
-import { effectiveRates, isPromoLive, primaryMode, rateCard, type Model, type RateMode } from "./model.ts";
+import { effectiveRates, isPromoLive, primaryMode, rateCard, type Model, type RateCard, type RateMode } from "./model.ts";
 
 /** A workload shape: what one request looks like, and how many run per month. */
 export interface Workload {
@@ -32,7 +32,12 @@ export type Rate = "Standard" | "Batch";
  * - `batch-unavailable`: Batch was asked for but the model has no Batch price
  * - `tier-crossed`: the prompt crossed a long-context tier
  */
-export type CostNote = "no-cache-price" | "storage-fee-not-modelled" | "batch-unavailable" | "tier-crossed";
+export type CostNote =
+  | "no-cache-price"
+  | "storage-fee-not-modelled"
+  | "batch-unavailable"
+  | "tier-crossed"
+  | "no-1h-write-price";
 
 export interface CostBreakdown {
   mode: RateMode;
@@ -77,7 +82,77 @@ export function costFor(
 ): CostBreakdown | null {
   const card = rateCard(model, mode);
   if (!card) return null;
-  const eff = effectiveRates(card, workload.inputTokens);
+
+  const readPct = clampPct(workload.cachedPct);
+  const writePct = Math.min(clampPct(workload.cacheWritePct), 100 - readPct);
+  const input = new Big(workload.inputTokens);
+  const read = input.times(readPct).div(100);
+  const write = input.times(writePct).div(100);
+  const r = priceRequest(card, today, { input, output: new Big(workload.outputTokens), read, write });
+
+  const requests = new Big(workload.requestsPerMonth);
+  const monthlyCost = r.perRequest.times(requests);
+  const totalTokens = input.plus(workload.outputTokens).times(requests);
+  const blendedPerMTok = totalTokens.gt(0) ? monthlyCost.div(totalTokens.div(MTOK)) : new Big(0);
+
+  return {
+    mode,
+    usesPromo: r.usesPromo,
+    tierCrossed: r.tierCrossed,
+    inputCost: r.perInput.times(requests),
+    cacheReadCost: r.perRead.times(requests),
+    cacheWriteCost: r.perWrite.times(requests),
+    outputCost: r.perOutput.times(requests),
+    monthlyCost,
+    perRequest: r.perRequest,
+    per1k: r.perRequest.times(1000),
+    blendedPerMTok,
+    effectiveInputRate: r.inputRate,
+    effectiveOutputRate: r.outputRate,
+    notes: r.notes,
+  };
+}
+
+export interface RequestTokens {
+  /** Total input tokens, of which `read` come from the cache and `write` are written to it. */
+  input: Big;
+  output: Big;
+  read: Big;
+  write: Big;
+}
+
+export interface RequestPrice {
+  perInput: Big;
+  perRead: Big;
+  perWrite: Big;
+  perOutput: Big;
+  perRequest: Big;
+  inputRate: Big;
+  outputRate: Big;
+  readRate: Big;
+  writeRate: Big;
+  usesPromo: boolean;
+  tierCrossed: boolean;
+  notes: CostNote[];
+}
+
+/**
+ * Prices one request from explicit token counts — the single place the
+ * pricing rules live (costFor and the agent-session model both use it).
+ *
+ * Long-context tiering prices the whole request at the tier the input
+ * clears; a live promo discounts only the base rate. Cache reads bill at the
+ * cache-read rate (or as input when none is published). Cache writes bill at
+ * max(write price, input), with a premium scaled to the input rate in force;
+ * `ttl: "1h"` uses the 1-hour write price where one is sold.
+ */
+export function priceRequest(
+  card: RateCard,
+  today: string,
+  tokens: RequestTokens,
+  ttl: "5m" | "1h" = "5m",
+): RequestPrice {
+  const eff = effectiveRates(card, Number(tokens.input));
   const notes: CostNote[] = [];
   if (eff.tier) notes.push("tier-crossed");
 
@@ -85,58 +160,50 @@ export function costFor(
   const inputRate = promo ? promo.input : eff.input;
   const outputRate = promo ? promo.output : eff.output;
 
-  const readPct = clampPct(workload.cachedPct);
-  const writePct = Math.min(clampPct(workload.cacheWritePct), 100 - readPct);
-  const input = new Big(workload.inputTokens);
-  const readTokens = input.times(readPct).div(100);
-  const writeTokens = input.times(writePct).div(100);
-  const freshTokens = input.minus(readTokens).minus(writeTokens);
+  const read = tokens.read.gt(tokens.input) ? tokens.input : tokens.read;
+  const writeCap = tokens.input.minus(read);
+  const write = tokens.write.gt(writeCap) ? writeCap : tokens.write;
+  const fresh = tokens.input.minus(read).minus(write);
 
-  if (readPct > 0 && eff.cacheRead === null) notes.push("no-cache-price");
+  if (read.gt(0) && eff.cacheRead === null) notes.push("no-cache-price");
   const readRate = eff.cacheRead ?? inputRate;
 
+  let published = card.cacheWrite;
+  if (ttl === "1h") {
+    if (card.cacheWrite1h !== null) published = card.cacheWrite1h;
+    else if (write.gt(0) && card.cacheWrite !== null) notes.push("no-1h-write-price");
+  }
   // Whether the published write price is a premium (≥ input) is decided on
   // the base card. A premium is a multiple of input, so it scales with the
   // input rate actually in force: a long-context tier (Anthropic bills >200K
   // writes at 1.25× the tier input) or a live promo.
   let writeRate = inputRate;
-  if (card.cacheWrite !== null) {
-    if (card.cacheWrite.gte(card.input)) {
+  if (published !== null) {
+    if (published.gte(card.input)) {
       // A $0 base input has no multiple to scale by: use the published price.
-      const scaled = card.input.gt(0) ? card.cacheWrite.times(inputRate).div(card.input) : card.cacheWrite;
+      const scaled = card.input.gt(0) ? published.times(inputRate).div(card.input) : published;
       writeRate = scaled.gt(inputRate) ? scaled : inputRate;
-    } else if (writePct > 0) {
+    } else if (write.gt(0)) {
       notes.push("storage-fee-not-modelled");
     }
   }
 
-  // Per-request components, then scaled by volume — exact either way.
-  const perInput = freshTokens.times(inputRate).div(MTOK);
-  const perRead = readTokens.times(readRate).div(MTOK);
-  const perWrite = writeTokens.times(writeRate).div(MTOK);
-  const perOutput = new Big(workload.outputTokens).times(outputRate).div(MTOK);
-  const perRequest = perInput.plus(perRead).plus(perWrite).plus(perOutput);
-
-  const requests = new Big(workload.requestsPerMonth);
-  const monthlyCost = perRequest.times(requests);
-
-  const totalTokens = input.plus(workload.outputTokens).times(requests);
-  const blendedPerMTok = totalTokens.gt(0) ? monthlyCost.div(totalTokens.div(MTOK)) : new Big(0);
-
+  const perInput = fresh.times(inputRate).div(MTOK);
+  const perRead = read.times(readRate).div(MTOK);
+  const perWrite = write.times(writeRate).div(MTOK);
+  const perOutput = tokens.output.times(outputRate).div(MTOK);
   return {
-    mode,
+    perInput,
+    perRead,
+    perWrite,
+    perOutput,
+    perRequest: perInput.plus(perRead).plus(perWrite).plus(perOutput),
+    inputRate,
+    outputRate,
+    readRate,
+    writeRate,
     usesPromo: promo !== null,
     tierCrossed: eff.tier !== null,
-    inputCost: perInput.times(requests),
-    cacheReadCost: perRead.times(requests),
-    cacheWriteCost: perWrite.times(requests),
-    outputCost: perOutput.times(requests),
-    monthlyCost,
-    perRequest,
-    per1k: perRequest.times(1000),
-    blendedPerMTok,
-    effectiveInputRate: inputRate,
-    effectiveOutputRate: outputRate,
     notes,
   };
 }
@@ -172,4 +239,5 @@ export const NOTE_TEXT: Record<CostNote, string> = {
   "storage-fee-not-modelled": "Published cache-write price is a storage-style fee: writes billed as input, storage not modelled",
   "batch-unavailable": "No batch rate: priced at its regular rate",
   "tier-crossed": "Prompt crosses a long-context tier: whole request priced at the tier",
+  "no-1h-write-price": "No 1-hour cache-write price published: priced at the standard write price",
 };

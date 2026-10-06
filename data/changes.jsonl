@@ -1,0 +1,153 @@
+{"date":"2026-10-06","since":"2026-08-29","key":"anthropic/claude-sonnet-5","name":"Claude Sonnet 5","vendor":"Anthropic","kind":"promo_permanent","mode":"Standard","input":["3.00","2.00"],"output":["15.00","10.00"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"aion-labs/aion-3.5","name":"Aion 3.5","vendor":"AionLabs","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"aion-labs/aion-3.5-mini","name":"Aion 3.5 Mini","vendor":"AionLabs","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"anthropic/claude-fable-5.1","name":"Claude Fable 5.1","vendor":"Anthropic","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"anthropic/claude-opus-5.5","name":"Claude Opus 5.5","vendor":"Anthropic","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"anthropic/claude-sonnet-5.5","name":"Claude Sonnet 5.5","vendor":"Anthropic","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"cohere/command-a-plus","name":"Command A+","vendor":"Cohere","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"deepseek/deepseek-v4-flash-vision-exp","name":"DeepSeek V4 Flash Vision Exp","vendor":"DeepSeek","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"deepseek/deepseek-v4.1-flash","name":"DeepSeek V4.1 Flash","vendor":"DeepSeek","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"fireworks/ember-1","name":"Ember-1","vendor":"Fireworks","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"google/gemini-3.8-flash","name":"Gemini 3.8 Flash","vendor":"Google","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"ibm-granite/granite-4.2-8b","name":"Granite 4.2 8B","vendor":"Ibm Granite","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"inception/mercury-2.5","name":"Mercury 2.5","vendor":"Inception","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"inclusionai/ling-3.0-flash-fin","name":"Ling 3.0 Flash Fin","vendor":"InclusionAI","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"inclusionai/ling-3.0-flash-vl","name":"Ling 3.0 Flash VL","vendor":"InclusionAI","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"inference-net/schematron-v2-small","name":"Schematron V2 Small","vendor":"Inference Net","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"inference-net/schematron-v2-turbo","name":"Schematron V2 Turbo","vendor":"Inference Net","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"mancer/weaver","name":"Weaver (alpha)","vendor":"Mancer","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"meta/muse-spark-1.2-contributor","name":"Muse Spark 1.2 Contributor","vendor":"Meta","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"meta/muse-spark-1.3","name":"Muse Spark 1.3","vendor":"Meta","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"meta/muse-spark-1.3-contributor","name":"Muse Spark 1.3 Contributor","vendor":"Meta","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"mistralai/devstral-2512","name":"Devstral 2 2512","vendor":"Mistral AI","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"nex-agi/nex-n2.5-mini","name":"Nex-N2.5-Mini","vendor":"Nex Agi","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"nex-agi/nex-n2.5-pro","name":"Nex-N2.5-Pro","vendor":"Nex Agi","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"nvidia/nemotron-3.5-content-safety","name":"Nemotron 3.5 Content Safety","vendor":"NVIDIA","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/gpt-6-astra","name":"GPT-6 Astra","vendor":"OpenAI","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/gpt-6-astra-pro","name":"GPT-6 Astra Pro","vendor":"OpenAI","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/gpt-6-luna","name":"GPT-6 Luna","vendor":"OpenAI","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/gpt-6-luna-pro","name":"GPT-6 Luna Pro","vendor":"OpenAI","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/gpt-6-sol","name":"GPT-6 Sol","vendor":"OpenAI","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/gpt-6-sol-pro","name":"GPT-6 Sol Pro","vendor":"OpenAI","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/gpt-6.1-sol","name":"GPT-6.1 Sol","vendor":"OpenAI","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/gpt-6.1-sol-pro","name":"GPT-6.1 Sol Pro","vendor":"OpenAI","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"perceptron/perceptron-mk1.5","name":"Perceptron Mk1.5","vendor":"Perceptron","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"prism-ml/ternary-bonsai-2-27b","name":"Ternary Bonsai 2 27B","vendor":"Prism Ml","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"qwen/qwen3.8-flash","name":"Qwen3.8 Flash","vendor":"Qwen","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"qwen/qwen3.8-max-0902","name":"Qwen3.8 Max (0902)","vendor":"Qwen","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"qwen/qwen3.8-max-prime","name":"Qwen3.8 Max Prime","vendor":"Qwen","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"qwen/qwen3.8-omni-flash","name":"Qwen3.8 Omni Flash","vendor":"Qwen","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"sakana/fugu-max","name":"Fugu Max","vendor":"Sakana","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"sakana/fugu-ultra-v2","name":"Fugu Ultra v2","vendor":"Sakana","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"tencent/hy-mt2-1.8b","name":"Hy-MT2-1.8B","vendor":"Tencent","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"tencent/hy-mt2-30b-a3b","name":"Hy-MT2-30B-A3B","vendor":"Tencent","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"tencent/hy-mt2-7b","name":"Hy-MT2-7B","vendor":"Tencent","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"tencent/hy4-preview","name":"Hy4 preview","vendor":"Tencent","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"unbiased/pareto","name":"Pareto","vendor":"Unbiased","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"unbiased/pareto-26.10-preview","name":"Pareto 26.10 Preview","vendor":"Unbiased","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"upstage/solar-mini4","name":"Solar Mini 4","vendor":"Upstage","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"x-ai/grok-4.7","name":"Grok 4.7","vendor":"xAI","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"xiaomi/mimo-v2.6-flash","name":"MiMo-V2.6-Flash","vendor":"Xiaomi","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"xiaomi/mimo-v2.6-pro","name":"MiMo-V2.6-Pro","vendor":"Xiaomi","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"xiaomi/mimo-v2.6-pro-ultraspeed","name":"MiMo-V2.6-Pro-UltraSpeed","vendor":"Xiaomi","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"z-ai/glm-5.3-flash","name":"GLM 5.3 Flash","vendor":"Z.ai","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"z-ai/glm-5.3-flashx","name":"GLM 5.3 FlashX","vendor":"Z.ai","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"z-ai/glm-5.3-prime","name":"GLM 5.3 Prime","vendor":"Z.ai","kind":"added"}
+{"date":"2026-10-06","since":"2026-08-29","key":"allenai/olmo-3-32b-think","name":"Olmo 3 32B Think","vendor":"Allenai","kind":"removed","last":{"input":"0.15000000","output":"0.5000000","mode":"Standard","provenance":"Aggregate"}}
+{"date":"2026-10-06","since":"2026-08-29","key":"anthropic/claude-3-haiku","name":"Claude 3 Haiku","vendor":"Anthropic","kind":"removed","last":{"input":"0.25000000","output":"1.25000000","mode":"Standard","provenance":"Aggregate"}}
+{"date":"2026-10-06","since":"2026-08-29","key":"anthropic/claude-opus-4","name":"Claude Opus 4","vendor":"Anthropic","kind":"removed","last":{"input":"15.000000","output":"75.000000","mode":"Standard","provenance":"Aggregate"}}
+{"date":"2026-10-06","since":"2026-08-29","key":"arcee-ai/virtuoso-large","name":"Virtuoso Large","vendor":"Arcee Ai","kind":"removed","last":{"input":"0.75000000","output":"1.2000000","mode":"Standard","provenance":"Aggregate"}}
+{"date":"2026-10-06","since":"2026-08-29","key":"deepcogito/cogito-v2.1-671b","name":"Cogito v2.1 671B","vendor":"Deepcogito","kind":"removed","last":{"input":"1.25000000","output":"1.25000000","mode":"Standard","provenance":"Aggregate"}}
+{"date":"2026-10-06","since":"2026-08-29","key":"deepseek/deepseek-r1-distill-llama-70b","name":"R1 Distill Llama 70B","vendor":"DeepSeek","kind":"removed","last":{"input":"0.8000000","output":"0.8000000","mode":"Standard","provenance":"Aggregate"}}
+{"date":"2026-10-06","since":"2026-08-29","key":"google/gemini-2.5-pro-preview-05-06","name":"Gemini 2.5 Pro Preview 05-06","vendor":"Google","kind":"removed","last":{"input":"1.25000000","output":"10.00000","mode":"Standard","provenance":"Aggregate"}}
+{"date":"2026-10-06","since":"2026-08-29","key":"google/gemma-3n-e4b-it","name":"Gemma 3n 4B","vendor":"Google","kind":"removed","last":{"input":"0.06000000","output":"0.12000000","mode":"Standard","provenance":"Aggregate"}}
+{"date":"2026-10-06","since":"2026-08-29","key":"ibm-granite/granite-4.1-8b","name":"Granite 4.1 8B","vendor":"Ibm Granite","kind":"removed","last":{"input":"0.05000000","output":"0.1000000","mode":"Standard","provenance":"Aggregate"}}
+{"date":"2026-10-06","since":"2026-08-29","key":"inclusionai/ling-2.6-1t","name":"Ling-2.6-1T","vendor":"InclusionAI","kind":"removed","last":{"input":"0.075000000","output":"0.625000000","mode":"Standard","provenance":"Aggregate"}}
+{"date":"2026-10-06","since":"2026-08-29","key":"inclusionai/ling-2.6-flash","name":"Ling-2.6-flash","vendor":"InclusionAI","kind":"removed","last":{"input":"0.01000000","output":"0.03000000","mode":"Standard","provenance":"Aggregate"}}
+{"date":"2026-10-06","since":"2026-08-29","key":"inclusionai/ring-2.6-1t","name":"Ring-2.6-1T","vendor":"InclusionAI","kind":"removed","last":{"input":"0.075000000","output":"0.625000000","mode":"Standard","provenance":"Aggregate"}}
+{"date":"2026-10-06","since":"2026-08-29","key":"kwaipilot/kat-coder-air-v2.5","name":"KAT-Coder-Air V2.5","vendor":"Kwaipilot","kind":"removed","last":{"input":"0.15000000","output":"0.6000000","mode":"Standard","provenance":"Aggregate"}}
+{"date":"2026-10-06","since":"2026-08-29","key":"kwaipilot/kat-coder-pro-v2","name":"KAT-Coder-Pro V2","vendor":"Kwaipilot","kind":"removed","last":{"input":"0.3000000","output":"1.2000000","mode":"Standard","provenance":"Aggregate"}}
+{"date":"2026-10-06","since":"2026-08-29","key":"nex-agi/nex-n2-mini","name":"Nex-N2-Mini","vendor":"Nex Agi","kind":"removed","last":{"input":"0.025000000","output":"0.1000000","mode":"Standard","provenance":"Aggregate"}}
+{"date":"2026-10-06","since":"2026-08-29","key":"nex-agi/nex-n2-pro","name":"Nex-N2-Pro","vendor":"Nex Agi","kind":"removed","last":{"input":"0.25000000","output":"1.000000","mode":"Standard","provenance":"Aggregate"}}
+{"date":"2026-10-06","since":"2026-08-29","key":"nousresearch/hermes-4-70b","name":"Hermes 4 70B","vendor":"Nousresearch","kind":"removed","last":{"input":"0.13000000","output":"0.4000000","mode":"Standard","provenance":"Aggregate"}}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/gpt-4-turbo-preview","name":"GPT-4 Turbo Preview","vendor":"OpenAI","kind":"removed","last":{"input":"10.00000","output":"30.00000","mode":"Standard","provenance":"Aggregate"}}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/gpt-5-codex","name":"GPT-5 Codex (batch)","vendor":"OpenAI","kind":"removed","last":{"input":"0.625000000","output":"5.000000","mode":"Batch","provenance":"Aggregate"}}
+{"date":"2026-10-06","since":"2026-08-29","key":"qwen/qwen-plus-2025-07-28:thinking","name":"Qwen Plus 0728 (thinking)","vendor":"Qwen","kind":"removed","last":{"input":"0.26000000","output":"0.78000000","mode":"Standard","provenance":"Aggregate"}}
+{"date":"2026-10-06","since":"2026-08-29","key":"qwen/qwen3.8-max","name":"Qwen3.8 Max","vendor":"Qwen","kind":"removed","last":{"input":"2.000000","output":"6.000000","mode":"Standard","provenance":"Aggregate"}}
+{"date":"2026-10-06","since":"2026-08-29","key":"thedrummer/rocinante-12b","name":"Rocinante 12B","vendor":"TheDrummer","kind":"removed","last":{"input":"0.25000000","output":"0.5000000","mode":"Standard","provenance":"Aggregate"}}
+{"date":"2026-10-06","since":"2026-08-29","key":"mistralai/codestral-2508","name":"Codestral 2508","vendor":"Mistral AI","kind":"mode_added","mode":"Batch"}
+{"date":"2026-10-06","since":"2026-08-29","key":"mistralai/ministral-8b-2512","name":"Ministral 3 8B 2512","vendor":"Mistral AI","kind":"mode_added","mode":"Batch"}
+{"date":"2026-10-06","since":"2026-08-29","key":"mistralai/mistral-large-2512","name":"Mistral Large 3 2512","vendor":"Mistral AI","kind":"mode_added","mode":"Batch"}
+{"date":"2026-10-06","since":"2026-08-29","key":"mistralai/mistral-medium-3-5","name":"Mistral Medium 3.5","vendor":"Mistral AI","kind":"mode_added","mode":"Batch"}
+{"date":"2026-10-06","since":"2026-08-29","key":"mistralai/mistral-medium-3.1","name":"Mistral Medium 3.1","vendor":"Mistral AI","kind":"mode_added","mode":"Batch"}
+{"date":"2026-10-06","since":"2026-08-29","key":"mistralai/mistral-small-2603","name":"Mistral Small 4","vendor":"Mistral AI","kind":"mode_added","mode":"Batch"}
+{"date":"2026-10-06","since":"2026-08-29","key":"moonshotai/kimi-k3","name":"Kimi K3","vendor":"Moonshot AI","kind":"mode_added","mode":"Batch"}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/gpt-oss-120b","name":"gpt-oss-120b","vendor":"OpenAI","kind":"mode_added","mode":"Batch"}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/gpt-oss-20b","name":"gpt-oss-20b","vendor":"OpenAI","kind":"mode_added","mode":"Batch"}
+{"date":"2026-10-06","since":"2026-08-29","key":"x-ai/grok-4.3","name":"Grok 4.3","vendor":"xAI","kind":"mode_added","mode":"Batch"}
+{"date":"2026-10-06","since":"2026-08-29","key":"z-ai/glm-5.3","name":"GLM 5.3","vendor":"Z.ai","kind":"mode_added","mode":"Batch"}
+{"date":"2026-10-06","since":"2026-08-29","key":"anthropic/claude-opus-4.7","name":"Claude Opus 4.7","vendor":"Anthropic","kind":"mode_removed","mode":"Fast"}
+{"date":"2026-10-06","since":"2026-08-29","key":"anthropic/claude-opus-4.8","name":"Claude Opus 4.8","vendor":"Anthropic","kind":"mode_removed","mode":"Fast"}
+{"date":"2026-10-06","since":"2026-08-29","key":"anthropic/claude-opus-5","name":"Claude Opus 5","vendor":"Anthropic","kind":"mode_removed","mode":"Fast"}
+{"date":"2026-10-06","since":"2026-08-29","key":"minimax/minimax-m3","name":"MiniMax M3","vendor":"MiniMax","kind":"mode_removed","mode":"Batch"}
+{"date":"2026-10-06","since":"2026-08-29","key":"moonshotai/kimi-k2.7-code","name":"Kimi K2.7 Code","vendor":"Moonshot AI","kind":"mode_removed","mode":"Batch"}
+{"date":"2026-10-06","since":"2026-08-29","key":"nvidia/nemotron-3-ultra-550b-a55b","name":"Nemotron 3 Ultra","vendor":"NVIDIA","kind":"mode_removed","mode":"Batch"}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/o1","name":"o1","vendor":"OpenAI","kind":"mode_removed","mode":"Batch"}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/o1-pro","name":"o1-pro","vendor":"OpenAI","kind":"mode_removed","mode":"Batch"}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/o3-mini-high","name":"o3 Mini High","vendor":"OpenAI","kind":"mode_removed","mode":"Batch"}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/o3-pro","name":"o3 Pro","vendor":"OpenAI","kind":"mode_removed","mode":"Batch"}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/o4-mini-high","name":"o4 Mini High","vendor":"OpenAI","kind":"mode_removed","mode":"Batch"}
+{"date":"2026-10-06","since":"2026-08-29","key":"thinkingmachines/inkling","name":"Inkling","vendor":"Thinkingmachines","kind":"mode_removed","mode":"Batch"}
+{"date":"2026-10-06","since":"2026-08-29","key":"z-ai/glm-5.2","name":"GLM 5.2","vendor":"Z.ai","kind":"mode_removed","mode":"Batch"}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/gpt-5.6-sol","name":"GPT-5.6 Sol","vendor":"OpenAI","kind":"tier_change","mode":"Standard"}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/gpt-5.6-sol","name":"GPT-5.6 Sol","vendor":"OpenAI","kind":"tier_change","mode":"Batch"}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/gpt-5.6-sol-pro","name":"GPT-5.6 Sol Pro","vendor":"OpenAI","kind":"tier_change","mode":"Standard"}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/gpt-5.6-sol-pro","name":"GPT-5.6 Sol Pro","vendor":"OpenAI","kind":"tier_change","mode":"Batch"}
+{"date":"2026-10-06","since":"2026-08-29","key":"anthracite-org/magnum-v4-72b","name":"Magnum v4 72B","vendor":"Anthracite Org","kind":"aggregate_move","mode":"Standard","input":["3.000000","2.5000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"arcee-ai/trinity-large-thinking","name":"Trinity Large Thinking","vendor":"Arcee Ai","kind":"aggregate_move","mode":"Standard","input":["0.22000000","0.25000000"],"output":["0.85000000","0.8000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"deepseek/deepseek-chat-v3-0324","name":"DeepSeek V3 0324","vendor":"DeepSeek","kind":"aggregate_move","mode":"Standard","input":["0.25000000","0.29000000"],"output":["1.000000","1.14000000"],"cache_read":["","0.11000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"deepseek/deepseek-v3.2","name":"DeepSeek V3.2","vendor":"DeepSeek","kind":"aggregate_move","mode":"Standard","input":["0.269000000","0.28000000"],"output":["0.4000000","0.42000000"],"cache_read":["0.1345000000","0.028000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"deepseek/deepseek-v4-flash","name":"DeepSeek V4 Flash 0423","vendor":"DeepSeek","kind":"aggregate_move","mode":"Standard","input":["0.077000000","0.0179000000"],"output":["0.154000000","1.28000000"],"cache_read":["0.0154000000","0.0179000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"deepseek/deepseek-v4-flash-0731","name":"DeepSeek V4 Flash 0731","vendor":"DeepSeek","kind":"aggregate_move","mode":"Standard","input":["0.14000000","0.009000000"],"output":["0.28000000","1.28000000"],"cache_read":["0.028000000","0.009000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"deepseek/deepseek-v4-pro","name":"DeepSeek V4 Pro 0423","vendor":"DeepSeek","kind":"aggregate_move","mode":"Standard","input":["1.44000000","0.2088000000"],"output":["2.88000000","0.4176000000"],"cache_read":["0.1215000000","0.0174000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"deepseek/deepseek-v4-pro-0813","name":"DeepSeek V4 Pro 0813","vendor":"DeepSeek","kind":"aggregate_move","mode":"Standard","input":["0.66000000","1.32000000"],"output":["1.98000000","3.96000000"],"cache_read":["0.022000000","0.044000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"google/gemini-3.7-flash","name":"Gemini 3.7 Flash","vendor":"Google","kind":"aggregate_move","mode":"Standard","input":["0.375000000","0.75000000"],"output":["1.875000000","3.75000000"],"cache_read":["0.0375000000","0.075000000"],"cache_write":["0.0208333333333333000000","0.0416666666666667000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"google/gemini-3.7-flash","name":"Gemini 3.7 Flash","vendor":"Google","kind":"aggregate_move","mode":"Batch","input":["0.1875000000","0.375000000"],"output":["0.9375000000","1.875000000"],"cache_read":["0.01875000000","0.0375000000"],"cache_write":["0.0208333333333333000000","0.0416666666666667000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"google/gemma-4-26b-a4b-it","name":"Gemma 4 26B A4B","vendor":"Google","kind":"aggregate_move","mode":"Standard","input":["0.07000000","0.0765000000"],"output":["0.34000000","0.255000000"],"cache_read":["","0.0425000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"google/gemma-4-31b-it","name":"Gemma 4 31B","vendor":"Google","kind":"aggregate_move","mode":"Standard","input":["0.1000000","0.09000000"],"cache_read":["0.1000000","0.05000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"gryphe/mythomax-l2-13b","name":"MythoMax 13B","vendor":"Gryphe","kind":"aggregate_move","mode":"Standard","input":["0.06000000","0.08000000"],"output":["0.06000000","0.11000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"meta-llama/llama-3.3-70b-instruct","name":"Llama 3.3 70B Instruct","vendor":"Meta","kind":"aggregate_move","mode":"Standard","input":["0.1000000","0.22000000"],"output":["0.32000000","0.5000000"],"cache_read":["","0.11000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"meta-llama/llama-4-maverick","name":"Llama 4 Maverick","vendor":"Meta","kind":"aggregate_move","mode":"Standard","input":["0.2000000","0.1875000000"],"output":["0.8000000","0.6525000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"minimax/minimax-m2","name":"MiniMax M2","vendor":"MiniMax","kind":"aggregate_move","mode":"Standard","input":["0.255000000","0.3000000"],"output":["1.02000000","1.2000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"minimax/minimax-m2.5","name":"MiniMax M2.5","vendor":"MiniMax","kind":"aggregate_move","mode":"Standard","input":["0.225000000","0.27000000"],"output":["0.9000000","1.08000000"],"cache_read":["0.06000000","0.027000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"minimax/minimax-m2.7","name":"MiniMax M2.7","vendor":"MiniMax","kind":"aggregate_move","mode":"Standard","input":["0.3000000","0.21000000"],"output":["1.2000000","0.84000000"],"cache_read":["0.06000000","0.042000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"moonshotai/kimi-k2.6","name":"Kimi K2.6","vendor":"Moonshot AI","kind":"aggregate_move","mode":"Standard","input":["0.5415000000","0.95000000"],"output":["2.28000000","4.000000"],"cache_read":["0.0912000000","0.16000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"moonshotai/kimi-k2.7-code","name":"Kimi K2.7 Code","vendor":"Moonshot AI","kind":"aggregate_move","mode":"Standard","input":["0.71000000","0.6712000000"],"output":["3.5000000","3.35000000"],"cache_read":["0.15000000","0.18000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"moonshotai/kimi-k3","name":"Kimi K3","vendor":"Moonshot AI","kind":"aggregate_move","mode":"Standard","input":["3.000000","0.95000000"],"output":["15.000000","14.000000"],"cache_read":["0.3000000","0.31000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"nvidia/nemotron-3-super-120b-a12b","name":"Nemotron 3 Super","vendor":"NVIDIA","kind":"aggregate_move","mode":"Standard","input":["0.085000000","0.08000000"],"output":["0.4000000","0.45000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"nvidia/nemotron-3-ultra-550b-a55b","name":"Nemotron 3 Ultra","vendor":"NVIDIA","kind":"aggregate_move","mode":"Standard","input":["0.6000000","0.5000000"],"output":["3.6000000","2.2000000"],"cache_read":["0.2000000","0.1000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"nvidia/nemotron-3.5-lightning","name":"Nemotron 3.5 Lightning","vendor":"NVIDIA","kind":"aggregate_move","mode":"Standard","input":["0.08000000","0.06000000"],"output":["0.2000000","0.16000000"],"cache_read":["0.04000000","0.03000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/gpt-5.6-sol","name":"GPT-5.6 Sol","vendor":"OpenAI","kind":"aggregate_move","mode":"Standard","input":["2.5000000","2.000000"],"output":["15.000000","10.00000"],"cache_read":["0.25000000","0.2000000"],"cache_write":["3.125000000","2.5000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/gpt-5.6-sol","name":"GPT-5.6 Sol","vendor":"OpenAI","kind":"aggregate_move","mode":"Batch","input":["1.25000000","1.000000"],"output":["7.5000000","5.000000"],"cache_read":["0.125000000","0.1000000"],"cache_write":["","1.25000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/gpt-5.6-sol-pro","name":"GPT-5.6 Sol Pro","vendor":"OpenAI","kind":"aggregate_move","mode":"Standard","input":["2.5000000","2.000000"],"output":["15.000000","10.00000"],"cache_read":["0.25000000","0.2000000"],"cache_write":["3.125000000","2.5000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/gpt-5.6-sol-pro","name":"GPT-5.6 Sol Pro","vendor":"OpenAI","kind":"aggregate_move","mode":"Batch","input":["1.25000000","1.000000"],"output":["7.5000000","5.000000"],"cache_read":["0.125000000","0.1000000"],"cache_write":["","1.25000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/gpt-oss-120b","name":"gpt-oss-120b","vendor":"OpenAI","kind":"aggregate_move","mode":"Standard","input":["0.03000000","0.037000000"],"cache_read":["0.03000000",""]}
+{"date":"2026-10-06","since":"2026-08-29","key":"openai/gpt-oss-20b","name":"gpt-oss-20b","vendor":"OpenAI","kind":"aggregate_move","mode":"Standard","input":["0.03000000","0.018000000"],"output":["0.13000000","0.09000000"],"cache_read":["0.03000000","0.009000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"qwen/qwen3-30b-a3b","name":"Qwen3 30B A3B","vendor":"Qwen","kind":"aggregate_move","mode":"Standard","input":["0.13000000","0.12000000"],"output":["0.52000000","0.5000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"qwen/qwen3-30b-a3b-instruct-2507","name":"Qwen3 30B A3B Instruct 2507","vendor":"Qwen","kind":"aggregate_move","mode":"Standard","input":["0.04815000000","0.1000000"],"output":["0.19305000000","0.3000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"qwen/qwen3-next-80b-a3b-instruct","name":"Qwen3 Next 80B A3B Instruct","vendor":"Qwen","kind":"aggregate_move","mode":"Standard","input":["0.09000000","0.1000000"],"cache_read":["","0.07000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"qwen/qwen3-vl-30b-a3b-instruct","name":"Qwen3 VL 30B A3B Instruct","vendor":"Qwen","kind":"aggregate_move","mode":"Standard","input":["0.13000000","0.15000000"],"output":["0.52000000","0.6000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"qwen/qwen3.5-35b-a3b","name":"Qwen3.5-35B-A3B","vendor":"Qwen","kind":"aggregate_move","mode":"Standard","input":["0.25000000","0.15000000"],"output":["1.25000000","1.000000"],"cache_read":["0.25000000","0.05000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"qwen/qwen3.5-397b-a17b","name":"Qwen3.5 397B A17B","vendor":"Qwen","kind":"aggregate_move","mode":"Standard","input":["0.39000000","0.45000000"],"output":["2.34000000","3.000000"],"cache_read":["","0.22000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"qwen/qwen3.6-27b","name":"Qwen3.6 27B","vendor":"Qwen","kind":"aggregate_move","mode":"Standard","input":["0.3000000","0.32000000"],"output":["2.000000","3.25000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"qwen/qwen3.6-35b-a3b","name":"Qwen3.6 35B A3B","vendor":"Qwen","kind":"aggregate_move","mode":"Standard","input":["0.14000000","0.15000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"qwen/qwen3.8-27b","name":"Qwen3.8 27B","vendor":"Qwen","kind":"aggregate_move","mode":"Standard","input":["0.45000000","0.425000000"],"output":["3.2000000","2.55000000"],"cache_read":["0.05000000","0.085000000"],"cache_write":["","0.53125000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"undi95/remm-slerp-l2-13b","name":"ReMM SLERP 13B","vendor":"Undi95","kind":"aggregate_move","mode":"Standard","input":["0.45000000","0.35000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"upstage/solar-pro4","name":"Solar Pro 4","vendor":"Upstage","kind":"aggregate_move","mode":"Standard","input":["0.03000000","0.09000000"],"output":["0.12000000","0.36000000"],"cache_read":["0.006000000","0.018000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"z-ai/glm-4.6","name":"GLM 4.6","vendor":"Z.ai","kind":"aggregate_move","mode":"Standard","input":["0.5000000","0.43000000"],"output":["2.000000","1.75000000"],"cache_read":["0.1000000","0.08000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"z-ai/glm-4.6v","name":"GLM 4.6V","vendor":"Z.ai","kind":"aggregate_move","mode":"Standard","cache_read":["0.055000000","0.05000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"z-ai/glm-4.7","name":"GLM 4.7","vendor":"Z.ai","kind":"aggregate_move","mode":"Standard","input":["0.4000000","0.6000000"],"output":["1.75000000","2.2000000"],"cache_read":["0.08000000","0.11000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"z-ai/glm-4.7-flash","name":"GLM 4.7 Flash","vendor":"Z.ai","kind":"aggregate_move","mode":"Standard","input":["0.06000000","0.0605000000"],"cache_read":["0.01000000",""]}
+{"date":"2026-10-06","since":"2026-08-29","key":"z-ai/glm-5.1","name":"GLM 5.1","vendor":"Z.ai","kind":"aggregate_move","mode":"Standard","input":["0.966000000","1.4000000"],"output":["3.036000000","4.4000000"],"cache_read":["0.1794000000","0.26000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"z-ai/glm-5.2","name":"GLM 5.2","vendor":"Z.ai","kind":"aggregate_move","mode":"Standard","input":["0.966000000","0.0112000000"],"output":["3.036000000","12.000000"],"cache_read":["0.1932000000","0.0112000000"]}
+{"date":"2026-10-06","since":"2026-08-29","key":"z-ai/glm-5.3","name":"GLM 5.3","vendor":"Z.ai","kind":"aggregate_move","mode":"Standard","input":["1.4000000","0.07000000"],"output":["4.4000000","7.000000"],"cache_read":["0.26000000","0.065000000"]}
