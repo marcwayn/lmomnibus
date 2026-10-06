@@ -14,7 +14,7 @@ import satori from "satori";
 import { buildBoard } from "../src/core/board.ts";
 import { allModels, CATALOG_META } from "../src/core/catalog.ts";
 import { todayIso } from "../src/core/date.ts";
-import { fmtCompact, fmtInt, fmtUsd } from "../src/core/fmt.ts";
+import { fmtCompact, fmtInt, fmtRate as fmtRateOg, fmtUsd } from "../src/core/fmt.ts";
 import { presetById } from "../src/core/presets.ts";
 import { ROUTES, type RouteInfo } from "../src/routes.ts";
 
@@ -144,10 +144,16 @@ function boardRows(): Node {
 
 async function png(node: Node, width: number, height: number): Promise<Buffer> {
   const svg = await satori(node as Parameters<typeof satori>[0], { width, height, fonts: FONTS });
-  return new Resvg(svg, { fitTo: { mode: "width", value: width } }).render().asPng();
+  // satori already turned the text into paths, so skip resvg's system-font scan (most of the time otherwise).
+  return new Resvg(svg, { fitTo: { mode: "width", value: width }, font: { loadSystemFonts: false } }).render().asPng();
 }
 
-const body = (text: string) => h("div", { fontFamily: "Public", fontSize: 30, lineHeight: 1.4, color: C.ink2, maxWidth: 1000, marginTop: 8 }, text);
+const body = (text: string) =>
+  h(
+    "div",
+    { flexDirection: "column", fontFamily: "Public", fontSize: 30, lineHeight: 1.4, color: C.ink2, maxWidth: 1000, marginTop: 8 },
+    ...text.split("\n").map((line) => h("div", {}, line)),
+  );
 const eyebrow = (path: string) => {
   const r = ROUTES.find((x: RouteInfo) => x.path === path)!;
   return `Tool ${r.nav!.num} · ${r.nav!.label}`;
@@ -213,6 +219,32 @@ for (const route of ROUTES) {
   console.error(`wrote ${OUT}${route.ogImage}`);
 }
 
-const icon = new Resvg(readFileSync("public/favicon.svg", "utf8"), { fitTo: { mode: "width", value: 180 } }).render().asPng();
+// One card per model, for links to its spec page.
+const models = allModels();
+const t0 = performance.now();
+for (const m of models) {
+  const card0 = (m.rates.find(([mode]) => mode === "Standard") ?? m.rates[0])[1];
+  const intel = m.scores?.intelligence ?? null;
+  const facts = [
+    `${fmtRateOg(card0.input)} in · ${fmtRateOg(card0.output)} out per 1M tokens (${m.provenance === "FirstParty" ? "list" : "via OR"})`,
+    `${fmtCompact(m.contextTokens)} context${intel !== null ? ` · AA Intelligence ${intel.toFixed(1)}` : ""}`,
+  ].join("\n");
+  const out = `${OUT}/og/models/${m.key}.png`;
+  mkdirSync(out.slice(0, out.lastIndexOf("/")), { recursive: true });
+  const figures = h(
+    "div",
+    { flexDirection: "column", fontFamily: "Plex", fontSize: 28, lineHeight: 1.5, color: C.ink2, marginTop: 8 },
+    ...facts.split("\n").map((line) => h("div", {}, line)),
+  );
+  writeFileSync(out, await png(card(`Model · ${m.vendorName}`, m.displayName, figures, live), 1200, 630));
+}
+console.error(`wrote ${models.length} model cards in ${Math.round(performance.now() - t0)}ms`);
+
+const icon = new Resvg(readFileSync("public/favicon.svg", "utf8"), {
+  fitTo: { mode: "width", value: 180 },
+  font: { loadSystemFonts: false },
+})
+  .render()
+  .asPng();
 writeFileSync(`${OUT}/apple-touch-icon.png`, icon);
 console.error(`wrote ${OUT}/apple-touch-icon.png`);

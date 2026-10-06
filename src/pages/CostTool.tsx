@@ -658,7 +658,9 @@ function MarketTable({ today, hits, byKey, bench, index, workload, sort, onSort,
             return (
               <tr key={model.key} className={benched ? "benched" : undefined}>
                 <td className="col-model">
-                  <span className="nm">{model.displayName}</span>
+                  <Link className="nm row-link" to={`/models/${model.key}`} state={{ internal: true }}>
+                    {model.displayName}
+                  </Link>
                   <span className="vd">
                     {model.vendorName} · {yearMonth(model.released)} <SourceTag model={model} />
                     {b.mode !== "Standard" && <span className="mode-tag">{b.mode.toLowerCase()}</span>}
@@ -758,7 +760,11 @@ function BenchCard(props: BenchCardProps) {
       <button className="rm" aria-label={`Remove ${model.displayName} from bench`} onClick={onRemove}>
         ×
       </button>
-      <div className="bn">{model.displayName}</div>
+      <div className="bn">
+        <Link className="row-link inline" to={`/models/${model.key}`} state={{ internal: true }}>
+          {model.displayName}
+        </Link>
+      </div>
       <div className="bv">
         {model.vendorName} · listed {yearMonth(model.released)}
         {model.knowledgeCutoff ? ` · cutoff ${model.knowledgeCutoff.slice(0, 7)}` : ""} <SourceTag model={model} />

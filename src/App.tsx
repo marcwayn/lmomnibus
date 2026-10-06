@@ -8,6 +8,7 @@ import { HomePage } from "./pages/HomePage.tsx";
 import { SpeedTool } from "./pages/SpeedTool.tsx";
 import { SwitchTool } from "./pages/SwitchTool.tsx";
 import { AgentTool } from "./pages/AgentTool.tsx";
+import { ModelPage } from "./pages/ModelPage.tsx";
 
 // Loaded on demand: it carries the change tape, which grows every day.
 const LedgerPage = lazy(() => import("./pages/LedgerPage.tsx").then((m) => ({ default: m.LedgerPage })));
@@ -37,6 +38,7 @@ export function App() {
               const Page = PAGES[r.path];
               return <Route key={r.path} path={r.path} element={<Page />} />;
             })}
+            <Route path="/models/*" element={<ModelPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

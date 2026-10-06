@@ -584,6 +584,20 @@ a.reading-value:hover { color: var(--accent); text-decoration: underline; }
 .session-line.l4 path { stroke: var(--control); stroke-dasharray: 8 3 2 3; }
 .session-chart { min-width: 640px; }
 
+/* ---- model pages ---- */
+.model-byline { font-size: 12px; color: var(--ink-2); margin-top: 8px; }
+.model-actions { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; }
+.spec-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 0; margin: 0;
+  border: 1px solid var(--rule); border-radius: var(--r); background: var(--surface);
+}
+.spec-grid div { padding: 10px 14px; border-right: 1px solid var(--rule-soft); border-bottom: 1px solid var(--rule-soft); }
+.spec-grid dt { font-family: var(--f-mono); font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-3); }
+.spec-grid dd { margin: 2px 0 0; font-family: var(--f-mono); font-size: 14px; font-variant-numeric: tabular-nums; }
+.spec-grid .rank { color: var(--ink-3); font-size: 12px; }
+.market tr.sub-row td { font-size: 12px; color: var(--ink-2); }
+.market .down, .breaks .down { color: var(--down); font-weight: 600; }
+
 /* ---- site footer ---- */
 .site-foot { margin-top: 24px; }
 .site-foot-inner { max-width: var(--shell); margin: 0 auto; padding: 0 24px 40px; }

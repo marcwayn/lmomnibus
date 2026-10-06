@@ -2,6 +2,8 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 
 import { dirname, join } from "node:path";
 import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
+import Big from "big.js";
+import { fmtRate } from "./src/core/fmt.ts";
 import { ROUTES, SITE_ORIGIN, type CatalogFacts, type RouteInfo } from "./src/routes.ts";
 
 const HEAD_MARKER = /<!-- route-head:[\s\S]*?<!-- \/route-head -->/;
@@ -9,15 +11,27 @@ const HEAD_MARKER = /<!-- route-head:[\s\S]*?<!-- \/route-head -->/;
 const escape = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
-function headFor(route: RouteInfo | null, facts: CatalogFacts, preloads: string[]): string {
-  const title = route?.title ?? "Page not found — LMOmnibus";
-  const description = route ? route.description(facts) : "This page doesn't exist.";
-  const url = route ? `${SITE_ORIGIN}${route.path}` : SITE_ORIGIN;
-  const image = `${SITE_ORIGIN}${route?.ogImage ?? "/og/home.png"}`;
+interface PageMeta {
+  title: string;
+  description: string;
+  /** Site path for the canonical URL; null for pages that shouldn't be indexed. */
+  path: string | null;
+  image: string;
+}
+
+const routeMeta = (route: RouteInfo | null, facts: CatalogFacts): PageMeta =>
+  route
+    ? { title: route.title, description: route.description(facts), path: route.path, image: route.ogImage }
+    : { title: "Page not found — LMOmnibus", description: "This page doesn't exist.", path: null, image: "/og/home.png" };
+
+function headFor(page: PageMeta, preloads: string[]): string {
+  const { title, description } = page;
+  const url = page.path ? `${SITE_ORIGIN}${page.path}` : SITE_ORIGIN;
+  const image = `${SITE_ORIGIN}${page.image}`;
   return [
     `<title>${escape(title)}</title>`,
     `<meta name="description" content="${escape(description)}" />`,
-    route ? `<link rel="canonical" href="${url}" />` : `<meta name="robots" content="noindex" />`,
+    page.path ? `<link rel="canonical" href="${url}" />` : `<meta name="robots" content="noindex" />`,
     `<meta property="og:type" content="website" />`,
     `<meta property="og:site_name" content="LMOmnibus" />`,
     `<meta property="og:title" content="${escape(title)}" />`,
@@ -64,21 +78,37 @@ function routeShells(): Plugin {
         .filter((f): f is string => Boolean(f))
         .map((f) => `/assets/${f}`);
 
-      const render = (route: RouteInfo | null) => template.replace(HEAD_MARKER, headFor(route, facts, preloads));
-      for (const route of ROUTES) {
-        const file = route.path === "/" ? join(outDir, "index.html") : join(outDir, `${route.path.slice(1)}.html`);
+      const render = (page: PageMeta) => template.replace(HEAD_MARKER, headFor(page, preloads));
+      const write = (path: string, page: PageMeta) => {
+        const file = path === "/" ? join(outDir, "index.html") : join(outDir, `${path.slice(1)}.html`);
         mkdirSync(dirname(file), { recursive: true });
-        writeFileSync(file, render(route));
+        writeFileSync(file, render(page));
+      };
+      for (const route of ROUTES) write(route.path, routeMeta(route, facts));
+      writeFileSync(join(outDir, "404.html"), render(routeMeta(null, facts)));
+
+      // A spec page per model, and a tombstone for each delisted one so old
+      // links land somewhere useful instead of a 404.
+      const catalog: CatalogRow[] = JSON.parse(readFileSync("data/catalog.json", "utf8"));
+      for (const m of catalog) write(`/models/${m.key}`, modelMeta(m, facts));
+      const listed = new Set(catalog.map((m) => m.key));
+      const removed = readTape().filter((c) => c.kind === "removed" && !listed.has(c.key));
+      for (const c of removed) {
+        write(`/models/${c.key}`, {
+          title: `${c.name} (no longer listed) — LMOmnibus`,
+          description: `${c.name} is no longer in the LMOmnibus catalog (delisted in the ${c.date} snapshot). Find a replacement at your workload.`,
+          path: null,
+          image: "/og/home.png",
+        });
       }
-      writeFileSync(join(outDir, "404.html"), render(null));
 
       writeOpenData(outDir, facts);
       writeChangeFeeds(outDir, facts);
 
       writeFileSync(join(outDir, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${SITE_ORIGIN}/sitemap.xml\n`);
-      const urls = ROUTES.map(
-        (r) => `  <url><loc>${SITE_ORIGIN}${r.path}</loc><lastmod>${facts.as_of}</lastmod></url>`,
-      ).join("\n");
+      const urls = [...ROUTES.map((r) => r.path), ...catalog.map((m) => `/models/${m.key}`)]
+        .map((p) => `  <url><loc>${SITE_ORIGIN}${p}</loc><lastmod>${facts.as_of}</lastmod></url>`)
+        .join("\n");
       writeFileSync(
         join(outDir, "sitemap.xml"),
         `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`,
@@ -115,8 +145,38 @@ function writeOpenData(outDir: string, facts: CatalogFacts) {
   writeFileSync(join(outDir, "llms.txt"), llmsTxt(facts));
 }
 
+interface CatalogRow {
+  key: string;
+  display_name: string;
+  vendor_name: string;
+  context_tokens: number;
+  provenance: "FirstParty" | "Aggregate";
+  rates: [string, { input: string; output: string }][];
+}
+
+const usd = (s: string) => fmtRate(new Big(s));
+
+function modelMeta(m: CatalogRow, facts: CatalogFacts): PageMeta {
+  const card = (m.rates.find(([mode]) => mode === "Standard") ?? m.rates[0])[1];
+  const source = m.provenance === "FirstParty" ? "vendor list price" : "OpenRouter aggregate";
+  const ctx = m.context_tokens >= 1_000_000 ? `${Math.round(m.context_tokens / 100_000) / 10}M` : `${Math.round(m.context_tokens / 1000)}K`;
+  return {
+    title: `${m.display_name.trim()} pricing and specs — LMOmnibus`,
+    description: `${m.display_name.trim()} by ${m.vendor_name}: ${usd(card.input)} in / ${usd(card.output)} out per 1M tokens (${source}), ${ctx} context. Cost at chat, RAG and coding-agent workloads; prices as of ${facts.as_of}.`,
+    path: `/models/${m.key}`,
+    image: `/og/models/${m.key}.png`,
+  };
+}
+
+function readTape(): TapeEntry[] {
+  return existsSync("data/changes.jsonl")
+    ? readFileSync("data/changes.jsonl", "utf8").split("\n").filter(Boolean).map((l) => JSON.parse(l))
+    : [];
+}
+
 interface TapeEntry {
   date: string;
+  vendor?: string;
   since: string;
   kind: string;
   key: string;
@@ -128,9 +188,7 @@ interface TapeEntry {
 
 /** /changes.json (the tape) and /changes.xml (Atom, one entry per snapshot). */
 function writeChangeFeeds(outDir: string, facts: CatalogFacts) {
-  const tape: TapeEntry[] = existsSync("data/changes.jsonl")
-    ? readFileSync("data/changes.jsonl", "utf8").split("\n").filter(Boolean).map((l) => JSON.parse(l))
-    : [];
+  const tape = readTape();
   writeFileSync(join(outDir, "changes.json"), JSON.stringify({ as_of: facts.as_of, changes: tape }));
 
   const dates = [...new Set(tape.map((c) => c.date))].sort().reverse();

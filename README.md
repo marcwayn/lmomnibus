@@ -10,6 +10,11 @@ Everything is priced at **your** workload — input and output per request, requ
 - **Tool 01: Cost Calculator.** Workload presets; the whole market ranked by $ per 1,000 requests with capability filters and "hide dominated"; a bench of cost cards with a cost breakdown, per-model Batch/Fast pricing, and "cheaper at the same score" verdicts. The bench lives in a readable URL (`?m=anthropic:claude-opus-5.5,openai:gpt-6-sol&p=agent`), is remembered locally, and copies as a link or a Markdown table.
 - **Tool 02: Price–Capability Frontier.** Every scored model on cost (log) × AA Intelligence / Coding / Agentic, the stepped frontier, a draggable minimum-score bar with a one-line answer ("cheapest model scoring ≥ 45…"), and the step-up ladder.
 - **Tool 03: Token Speed Simulator.** Watch a response stream at a chosen rate (illustrative; ~0.75 words per token).
+- **Tool 04: Price Ledger** (`/changes`). What changed between snapshots — vendor list-price moves kept apart from OpenRouter aggregate drift, new listings, delistings, promos, retirements — with an Atom feed (`/changes.xml`) and JSON (`/changes.json`). A remembered bench shows "since you last looked".
+- **Tool 05: Switch Planner** (`/tools/switch?from=…`). Replacements for a model you're leaving, at your workload: the saving, the score change, and what the switch gives up.
+- **Tool 06: Agent Loop** (`/tools/agent`). What a whole agent session costs as context grows each turn, with prompt caching off, 5-minute or 1-hour, and how many reads earn back a cache write.
+- **Model pages** (`/models/<vendor>/<slug>`). A spec sheet per model — price lists, tiers, scores with ranks, cost at each preset — and a "no longer listed" page for delisted ones.
+- **Open data.** `/catalog.json` (rate cards as exact decimal strings) and `/llms.txt` (the instruments and the URL grammar, for coding assistants).
 
 Every price says where it comes from ("list" = checked against the vendor, "via OR" = OpenRouter's aggregate), and every page shows the date the prices were fetched.
 
@@ -74,7 +79,17 @@ npm test           # cost engine, formatting, search, catalog sanity
 npm run build      # typecheck + production build into dist/
 ```
 
-## Refreshing the catalog
+## Daily refresh
+
+`.github/workflows/refresh.yml` runs every day at 06:00 UTC (and on demand):
+ingest, append what changed to `data/changes.jsonl` (`scripts/changes.ts`),
+run the tests, and commit the snapshot — git history is the archive of daily
+snapshots. It deploys too when the repository has a `CLOUDFLARE_API_TOKEN`
+secret (a Cloudflare API token with Pages edit permission); without one, the
+snapshot still lands and the next `npm run deploy` publishes it. Scheduled
+workflows only run from the default branch.
+
+## Refreshing the catalog by hand
 
 The app never fetches live pricing at runtime — it's built from
 `data/catalog.json`. To pull current prices from OpenRouter and rebuild the

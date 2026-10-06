@@ -194,7 +194,9 @@ export function SwitchTool() {
                     return (
                       <tr key={c.point.model.key}>
                         <td>
-                          <span className="nm">{c.point.model.displayName}</span>
+                          <Link className="nm row-link" to={`/models/${c.point.model.key}`} state={INTERNAL}>
+                            {c.point.model.displayName}
+                          </Link>
                           <span className="vd">
                             {c.point.model.vendorName} <SourceTag model={c.point.model} />
                           </span>

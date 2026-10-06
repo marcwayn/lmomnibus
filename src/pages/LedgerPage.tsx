@@ -19,10 +19,6 @@ const SECTIONS: { kinds: ChangeKind[]; title: string; note?: string }[] = [
   { kinds: ["retirement_scheduled"], title: "Retirements announced" },
 ];
 
-function costLink(key: string) {
-  return `/tools/cost?m=${encodeKey(key)}&p=chat`;
-}
-
 function Move({ pair }: { pair: [string, string] }) {
   const rel = relChange(pair);
   const cls = rel === null || rel === 0 ? "" : rel < 0 ? "down" : "up";
@@ -43,7 +39,7 @@ function Move({ pair }: { pair: [string, string] }) {
 
 function Line({ c }: { c: Change }) {
   const name = (
-    <Link to={costLink(c.key)} state={INTERNAL} className="row-link inline">
+    <Link to={`/models/${c.key}`} state={INTERNAL} className="row-link inline">
       {c.name}
     </Link>
   );
@@ -61,7 +57,10 @@ function Line({ c }: { c: Change }) {
     case "removed":
       return (
         <>
-          <span className="nm">{c.name}</span> <span className="vd">{c.vendor} · {c.key}</span>
+          <Link to={`/models/${c.key}`} state={INTERNAL} className="row-link inline">
+            {c.name}
+          </Link>{" "}
+          <span className="vd">{c.vendor} · {c.key}</span>
           {c.last && (
             <span className="ledger-moves">
               last {fmtRate(new Big(c.last.input))} / {fmtRate(new Big(c.last.output))}
