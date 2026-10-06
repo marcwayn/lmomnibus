@@ -535,6 +535,14 @@ a.reading-value:hover { color: var(--accent); text-decoration: underline; }
 .reading-value-wrap { text-align: right; }
 .reading-value.na { color: var(--ink-3); font-weight: 400; }
 
+.retire-tag {
+  display: inline-block; font-family: var(--f-mono); font-size: 9.5px; letter-spacing: 0.04em;
+  padding: 0 4px; margin-left: 4px; border: 1px solid var(--ink-2); border-radius: var(--r-sm);
+  color: var(--ink); vertical-align: 1px; line-height: 1.5; white-space: nowrap;
+}
+.retire-line { font-family: var(--f-mono); font-size: 11px; color: var(--ink); margin: -4px 0 10px; font-weight: 600; }
+.retire-line a { font-weight: 400; }
+
 /* ---- site footer ---- */
 .site-foot { margin-top: 24px; }
 .site-foot-inner { max-width: var(--shell); margin: 0 auto; padding: 0 24px 40px; }

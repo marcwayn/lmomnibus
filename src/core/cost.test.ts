@@ -1,6 +1,7 @@
 import Big from "big.js";
 import { describe, expect, it } from "vitest";
 import { costFor, priceAt, type Workload } from "./cost.ts";
+import { card as baseCard, fixtureModel } from "./fixtures.ts";
 import type { Model, RateCard, RateMode, RateTier } from "./model.ts";
 
 /** Inside the Sonnet 5 promo window used below. */
@@ -10,24 +11,11 @@ const dec = (s: string) => new Big(s);
 const expectMoney = (actual: Big, expected: string) => expect(actual.toFixed(10)).toBe(dec(expected).toFixed(10));
 
 function modelWith(rates: [RateMode, RateCard][]): Model {
-  return {
-    key: "test/model",
-    displayName: "Test Model",
-    vendorKey: "test",
-    vendorName: "Test",
-    released: { year: 2026, month: 1 },
-    contextTokens: 1_000_000,
-    maxOutputTokens: null,
-    modality: "text->text",
-    capabilities: { tools: false, reasoning: false, structuredOutput: false },
-    scores: null,
-    rates,
-    provenance: "Aggregate",
-  };
+  return fixtureModel({ rates });
 }
 
 function card(overrides: Partial<RateCard>): RateCard {
-  return { input: dec("0"), output: dec("0"), cacheRead: null, cacheWrite: null, tiers: [], promo: null, ...overrides };
+  return baseCard({ input: dec("0"), output: dec("0"), ...overrides });
 }
 
 const workload = (

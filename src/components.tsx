@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { trackEvent } from "./analytics.ts";
 import { CATALOG_META, snapshotAgeDays } from "./core/catalog.ts";
 import { NOTE_TEXT, type CostBreakdown, type Rate, type Workload } from "./core/cost.ts";
-import { todayIso } from "./core/date.ts";
+import { daysBetween, todayIso } from "./core/date.ts";
 import { fmtCompact, fmtInt } from "./core/fmt.ts";
 import type { Model } from "./core/model.ts";
 import { matchingPreset, PRESETS, type Preset, type PresetId } from "./core/presets.ts";
@@ -253,5 +253,17 @@ export function SiteFooter() {
         </p>
       </div>
     </footer>
+  );
+}
+
+/** "retires 10-20" in the market; the full date and countdown on hover. */
+export function RetireTag({ model, today }: { model: Model; today: string }) {
+  if (!model.retiresOn) return null;
+  const days = daysBetween(today, model.retiresOn);
+  if (days < 0) return null;
+  return (
+    <span className="retire-tag" title={`Scheduled to retire on ${model.retiresOn} (${days} day${days === 1 ? "" : "s"})`}>
+      retires {model.retiresOn.slice(5)}
+    </span>
   );
 }

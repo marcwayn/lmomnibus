@@ -46,8 +46,17 @@ interface OrModel {
     completion?: string | null;
     input_cache_read?: string | null;
     input_cache_write?: string | null;
+    /** The 1-hour-TTL cache write price, where a vendor sells one (Anthropic). */
+    input_cache_write_1h?: string | null;
     overrides?: OrTierOverride[] | null;
   };
+  /** ISO date; the vendor's stated training-data cutoff. */
+  knowledge_cutoff?: string | null;
+  /** ISO date the model is scheduled to stop serving. */
+  expiration_date?: string | null;
+  /** Non-empty when the weights are published on Hugging Face. */
+  hugging_face_id?: string | null;
+  reasoning?: { mandatory?: boolean } | null;
   top_provider?: { max_completion_tokens?: number | null };
   supported_parameters?: string[];
   /** Present when this id is a pointer/alias to another model; alias rows are skipped. */
@@ -82,6 +91,7 @@ interface CatalogRateCard {
   cache_write: string | null;
   tiers: { above_input_tokens: number; input: string; output: string; cache_read: string | null }[];
   promo: { input: string; output: string; until: string } | null;
+  cache_write_1h: string | null;
 }
 
 interface CatalogModel {
@@ -98,6 +108,13 @@ interface CatalogModel {
   scores: { intelligence: number | null; coding: number | null; agentic: number | null } | null;
   rates: [RateMode, CatalogRateCard][];
   provenance: "FirstParty" | "Aggregate";
+  /** UTC day the model appeared on OpenRouter. */
+  listed_on: string;
+  /** Scheduled retirement date, when one is announced. */
+  retires_on: string | null;
+  open_weights: boolean;
+  /** The model always reasons (thinking can't be turned off). */
+  reasoning_mandatory: boolean;
 }
 
 const { values: args } = parseArgs({
@@ -199,6 +216,11 @@ function perTokenToPerMTok(s: string | null | undefined): string | null {
   }
 }
 
+/** A YYYY-MM-DD date, or null for anything missing or malformed. */
+function isoDate(s: string | null | undefined): string | null {
+  return s && /^\d{4}-\d{2}-\d{2}/.test(s) ? s.slice(0, 10) : null;
+}
+
 function detectSuffix(id: string): [string, RateMode] {
   if (id.endsWith(":batch")) return [id.slice(0, -":batch".length), "Batch"];
   if (id.endsWith("-fast")) return [id.slice(0, -"-fast".length), "Fast"];
@@ -283,6 +305,7 @@ function normalize(raw: OrModel[]): CatalogModel[] {
           cache_write: perTokenToPerMTok(e.pricing.input_cache_write),
           tiers,
           promo: null,
+          cache_write_1h: perTokenToPerMTok(e.pricing.input_cache_write_1h),
         },
       ]);
     }
@@ -293,11 +316,11 @@ function normalize(raw: OrModel[]): CatalogModel[] {
     const created = new Date(primary.created * 1000);
     models.push({
       key: baseId,
-      display_name: stripVendorPrefix(primary.name),
+      display_name: stripVendorPrefix(primary.name).trim(),
       vendor_key: vendorKey,
       vendor_name: vendorName(vendorKey),
       released: { year: created.getUTCFullYear(), month: created.getUTCMonth() + 1 },
-      knowledge_cutoff: null,
+      knowledge_cutoff: isoDate(primary.knowledge_cutoff),
       context_tokens: primary.context_length ?? 0,
       max_output_tokens: primary.top_provider?.max_completion_tokens ?? null,
       modality: primary.architecture?.modality ?? "",
@@ -305,6 +328,10 @@ function normalize(raw: OrModel[]): CatalogModel[] {
       scores,
       rates,
       provenance: "Aggregate",
+      listed_on: created.toISOString().slice(0, 10),
+      retires_on: isoDate(primary.expiration_date),
+      open_weights: Boolean(primary.hugging_face_id?.trim()),
+      reasoning_mandatory: primary.reasoning?.mandatory === true,
     });
   }
   return models;

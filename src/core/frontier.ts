@@ -37,13 +37,14 @@ export function priceAll(
 }
 
 /** Capability filters shared by the market table and the Frontier. */
-export type Filter = "img" | "aud" | "tools" | "reasoning" | "fits" | "scored";
+export type Filter = "img" | "aud" | "tools" | "reasoning" | "open" | "fits" | "scored";
 
 export const FILTER_LABEL: Record<Filter, string> = {
   img: "Image in",
   aud: "Audio in",
   tools: "Tools",
   reasoning: "Reasoning",
+  open: "Open weights",
   fits: "Fits my request",
   scored: "Scored only",
 };
@@ -68,6 +69,7 @@ export function passesFilters(
     if (f === "aud" && !inputs.includes("audio")) return false;
     if (f === "tools" && !model.capabilities.tools) return false;
     if (f === "reasoning" && !model.capabilities.reasoning) return false;
+    if (f === "open" && !model.openWeights) return false;
     if (f === "fits" && !fits(model, workload)) return false;
     if (f === "scored" && scoreOf(model, index) === null) return false;
   }

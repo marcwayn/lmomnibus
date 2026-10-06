@@ -1,11 +1,21 @@
 import type Big from "big.js";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useLocation, useNavigate, useSearchParams } from "react-router";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
 import { trackEvent } from "../analytics.ts";
-import { CopyButton, FallbackMark, Mark, Meter, NotRated, SourceTag, WorkloadPanel, workloadLine } from "../components.tsx";
+import {
+  CopyButton,
+  FallbackMark,
+  Mark,
+  Meter,
+  NotRated,
+  RetireTag,
+  SourceTag,
+  WorkloadPanel,
+  workloadLine,
+} from "../components.tsx";
 import { allModels, CATALOG_META, modelByKey } from "../core/catalog.ts";
 import { costFor, NOTE_TEXT, type Rate, type Workload } from "../core/cost.ts";
-import { todayIso } from "../core/date.ts";
+import { daysBetween, todayIso } from "../core/date.ts";
 import { fmtCompact, fmtMoney, fmtRate, fmtUsd } from "../core/fmt.ts";
 import {
   alternatives,
@@ -22,7 +32,7 @@ import {
 import { compareReleased, inputModalities, rateCard, yearMonth, type Model, type RateMode } from "../core/model.ts";
 import { DEFAULT_PRESET, matchingPreset, type PresetId } from "../core/presets.ts";
 import { availableYears, search } from "../core/query.ts";
-import { decodeScenario, encodeScenario, hasScenario, MAX_BENCH, type Scenario } from "../core/share.ts";
+import { decodeScenario, encodeKey, encodeScenario, hasScenario, MAX_BENCH, type Scenario } from "../core/share.ts";
 import { titleFor } from "../routes.ts";
 
 const MODELS = allModels();
@@ -423,6 +433,7 @@ export function CostTool() {
         </div>
 
         <MarketTable
+          today={today}
           hits={results.hits}
           byKey={byKey}
           bench={bench}
@@ -439,8 +450,9 @@ export function CostTool() {
           </p>
         )}
         <p className="fine">
-          Flags are unions across providers: T tools · R reasoning · S structured output · img / aud image / audio
-          input. “via OR” prices are OpenRouter aggregates; “list” prices are checked against the vendor.
+          Flags are unions across providers: T tools · R reasoning (R+ always reasons, so expect extra output) · S
+          structured output · img / aud image / audio input · open published weights. “via OR” prices are OpenRouter
+          aggregates; “list” prices are checked against the vendor.
         </p>
       </section>
 
@@ -522,6 +534,7 @@ export function CostTool() {
 // ---------------------------------------------------------------------------
 
 interface MarketTableProps {
+  today: string;
   hits: Model[];
   byKey: Map<string, Priced>;
   bench: string[];
@@ -539,16 +552,17 @@ function flags(m: Model): string {
   const inputs = inputModalities(m);
   return [
     m.capabilities.tools && "T",
-    m.capabilities.reasoning && "R",
+    m.capabilities.reasoning && (m.reasoningMandatory ? "R+" : "R"),
     m.capabilities.structuredOutput && "S",
     inputs.includes("image") && "img",
     inputs.includes("audio") && "aud",
+    m.openWeights && "open",
   ]
     .filter(Boolean)
     .join(" ");
 }
 
-function MarketTable({ hits, byKey, bench, index, workload, sort, onSort, onToggle, benchFull }: MarketTableProps) {
+function MarketTable({ today, hits, byKey, bench, index, workload, sort, onSort, onToggle, benchFull }: MarketTableProps) {
   const th = (s: SortKey | null, label: string, className: string) => {
     if (!s) return <th className={className}>{label}</th>;
     const active = sort === s;
@@ -594,6 +608,7 @@ function MarketTable({ hits, byKey, bench, index, workload, sort, onSort, onTogg
                   <span className="vd">
                     {model.vendorName} · {yearMonth(model.released)} <SourceTag model={model} />
                     {b.mode !== "Standard" && <span className="mode-tag">{b.mode.toLowerCase()}</span>}
+                    <RetireTag model={model} today={today} />
                   </span>
                 </td>
                 <td className="n col-ctx">{fmtCompact(model.contextTokens)}</td>
@@ -691,8 +706,17 @@ function BenchCard(props: BenchCardProps) {
       </button>
       <div className="bn">{model.displayName}</div>
       <div className="bv">
-        {model.vendorName} · listed {yearMonth(model.released)} <SourceTag model={model} />
+        {model.vendorName} · listed {yearMonth(model.released)}
+        {model.knowledgeCutoff ? ` · cutoff ${model.knowledgeCutoff.slice(0, 7)}` : ""} <SourceTag model={model} />
       </div>
+      {model.retiresOn && daysBetween(today, model.retiresOn) >= 0 && (
+        <div className="retire-line">
+          Retires {model.retiresOn} ({daysBetween(today, model.retiresOn)} days) ·{" "}
+          <Link to={`/tools/switch?from=${encodeKey(model.key)}`} state={{ internal: true }}>
+            Plan a switch →
+          </Link>
+        </div>
+      )}
 
       {modes.length > 1 && (
         <div className="seg seg-small" role="group" aria-label={`Price list for ${model.displayName}`}>

@@ -30,7 +30,7 @@ import { titleFor } from "../routes.ts";
 
 const MODELS = allModels();
 /** "Fits my request" is always applied here: a model that can't take the request isn't an answer. */
-const SHOWN_FILTERS: Filter[] = ["img", "aud", "tools", "reasoning"];
+const SHOWN_FILTERS: Filter[] = ["img", "aud", "tools", "reasoning", "open"];
 /** The bar a first visit starts from: the 75th-percentile score on this index, rounded down. */
 const defaultMinFor = (index: Index) => Math.floor(percentileScore(MODELS, index, 75) ?? 0);
 const clampScore = (v: number) => Math.round(Math.min(Math.max(v, 0), 100));
@@ -711,6 +711,10 @@ const PointReadout = forwardRef<
         <dd>{fmtCompact(m.contextTokens)}</dd>
         <dt>Supports</dt>
         <dd>{flagText(m)}</dd>
+        <dt>Cutoff</dt>
+        <dd>{m.knowledgeCutoff ?? "—"}</dd>
+        <dt>Weights</dt>
+        <dd>{m.openWeights ? "open" : "closed"}</dd>
       </dl>
       {dom ? (
         <p className="verdict-line">
