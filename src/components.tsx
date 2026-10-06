@@ -8,11 +8,6 @@ import type { Model } from "./core/model.ts";
 import { matchingPreset, PRESETS, type Preset, type PresetId } from "./core/presets.ts";
 import { NumberField, U32_MAX } from "./NumberField.tsx";
 
-/**
- * The price-board marks, drawn rather than typed: ◆ "cheapest / best value"
- * and ▲ "pricier". As SVG they render identically everywhere, instead of
- * falling back to whatever font has the glyph.
- */
 const MARKS = {
   best: <path d="M5 0.5 9.5 5 5 9.5 0.5 5Z" />,
   up: <path d="M5 1 9.5 9H0.5Z" />,
