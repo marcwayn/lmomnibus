@@ -210,8 +210,9 @@ export function formatOptions(m: VramModel, engine: Engine, device: Device | nul
   } else if (engine === "vllm") {
     opts.push({ id: "native", label: `As published (${nativeLabel(nat)})`, bits: nativeBits(m) });
     for (const [id, f] of Object.entries(ST_FORMATS) as [keyof typeof ST_FORMATS, (typeof ST_FORMATS)[keyof typeof ST_FORMATS]][]) {
-      if (f.body > ceiling || (id === "bf16" && nat !== "bf16" && nat !== "fp16")) continue;
-      if (Math.abs(f.body - nativeBits(m)) < 0.3 && id !== "bf16") continue; // same as native
+      // BF16 is either an upcast or the same as "As published".
+      if (f.body > ceiling || id === "bf16") continue;
+      if (Math.abs(f.body - nativeBits(m)) < 0.3) continue; // same as native
       opts.push({
         id,
         label: f.label,
@@ -236,7 +237,12 @@ export function defaultFormat(m: VramModel, engine: Engine, device: Device | nul
   const opts = formatOptions(m, engine, device).filter((o) => !o.disabled);
   if (m.ggufFiles?.length) return "file";
   const want: FormatId = engine === "vllm" ? "native" : engine === "mlx" ? "mlx4" : m.native.format === "mxfp4" ? "mxfp4" : "q4_k_m";
-  return opts.find((o) => o.id === want)?.id ?? opts[opts.length - 1]?.id ?? "native";
+  const exact = opts.find((o) => o.id === want);
+  if (exact) return exact.id;
+  // The wanted format was filtered out (an upcast): take the richest one at or below its bits.
+  const wantBits = want === "mlx4" ? 4.5 : want === "q4_k_m" ? GGUF.q4_k_m.dense : want === "mxfp4" ? 4.25 : nativeBits(m);
+  const below = opts.filter((o) => o.bits <= wantBits + 0.05).sort((a, b) => b.bits - a.bits)[0];
+  return below?.id ?? opts[0]?.id ?? "native";
 }
 
 // ---------------------------------------------------------------- weights
@@ -265,104 +271,164 @@ function downParams(m: VramModel): { dense: number; experts: number } {
   return { dense: Math.max(0, dense), experts };
 }
 
+/** Bits per weight for each tensor group under one format (null = not sized per group). */
+interface GroupBits {
+  body: number;
+  experts: number;
+  lookup: number;
+  embed: number;
+  out: number;
+  /** Extra bytes (GGUF ffn_down row-length fallback). */
+  extra: number;
+  /** Relative range of the weights figure. */
+  low: number;
+  high: number;
+  formula: string;
+}
+
 export function weightBytes(m: VramModel, s: VramSettings): WeightSplit {
   const g = m.groups;
   const loadMtp = s.mtp ? g.mtp : 0;
   const loadVision = s.vision ? g.vision : 0;
-  const lookupHost = s.engine === "llamacpp" && s.lookupOnHost;
-  const body = Math.max(0, m.params - g.embed - g.head - g.mtp - g.vision - g.lookup) + loadMtp;
-  const experts = s.engine === "llamacpp" && s.expertsOnHost ? g.experts : 0;
+  const llama = s.engine === "llamacpp";
   const unified = s.device.cls === "unified";
-  const headParams = g.head || (m.dims.tied ? g.embed : 0);
-
-  // Ranges: ±0.5% for exact formats, the calibration spread for GGUF mixes, ±2% when groups come from config.
+  // Body: every parameter that isn't embedding, head, MTP, vision or lookup; routed experts are part of it.
+  const bodyAll = Math.max(0, m.params - g.embed - g.head - g.mtp - g.vision - g.lookup) + loadMtp;
+  const experts = Math.min(g.experts, bodyAll);
+  const dense = bodyAll - experts;
+  const outParams = g.head || (m.dims.tied ? g.embed : 0);
   const groupsSlack = g.source === "config" ? 0.02 : 0;
-  let gpu: Range;
-  let host: Range = ZERO;
-  let head = 0;
-  let encoders = 0;
-  let formula: string;
+
+  let bits: GroupBits | null = null;
+  let ckBytes: number | null = null; // whole-checkpoint formats ("native", files)
+  let formula = "";
 
   if (s.format === "file" || (m.ggufFiles?.length && s.fileBytes)) {
-    const bytes = s.fileBytes ?? m.checkpointBytes ?? 0;
-    // Split the file by shares: the token embedding stays on the host in llama.cpp.
-    const share = m.params ? g.embed / m.params : 0;
-    const embedBytes = s.engine === "llamacpp" && !unified && !m.dims.tied ? bytes * share : 0;
-    gpu = fixed(bytes - embedBytes);
-    host = fixed(embedBytes);
-    formula = `your file, ${(bytes / 1e9).toFixed(2)} GB`;
-  } else if (s.engine === "llamacpp" && s.format in GGUF) {
+    ckBytes = s.fileBytes ?? m.ggufFiles?.[0]?.bytes ?? m.checkpointBytes ?? 0;
+    const named = m.ggufFiles?.find((f) => f.bytes === ckBytes);
+    formula = named ? `${named.name}, ${(ckBytes / 1e9).toFixed(2)} GB` : `your file, ${(ckBytes / 1e9).toFixed(2)} GB`;
+  } else if (llama && s.format in GGUF) {
     const t = GGUF[s.format as GgufType];
-    const big = m.moe && g.experts > body * 0.5;
-    let bodyBits = big ? t.moe : t.dense;
+    let bodyBits = m.moe && experts > bodyAll * 0.5 ? t.moe : t.dense;
     // Hidden size not a multiple of 256: most tensors fall back to a larger block type.
     const hiddenFallback = m.dims.hidden % 256 !== 0 && t.fallback > bodyBits;
     if (hiddenFallback) bodyBits = t.fallback;
+    // Experts published in MXFP4 stay MXFP4 in every GGUF (gpt-oss); only the rest is requantized.
+    const keepMx = m.native.format === "mxfp4";
     let extra = 0;
     if (!hiddenFallback && t.downFallback) {
       const d = downParams(m);
       if (m.dims.ffn && m.dims.ffn % 256 !== 0) extra += B(d.dense, t.downFallback);
-      if (m.moe && m.moe.ffn % 256 !== 0) extra += B(d.experts, t.downFallback);
+      if (m.moe && m.moe.ffn % 256 !== 0 && !keepMx) extra += B(d.experts, t.downFallback);
     }
-    const bodyBytes = B(body - experts, bodyBits) + extra;
-    const expertBytes = B(experts, bodyBits);
-    const outBytes = B(headParams, t.out);
-    const embedBytes = m.dims.tied ? outBytes : B(g.embed, t.embed);
-    head = outBytes;
-    const onGpu = bodyBytes + outBytes;
     const slack = hiddenFallback ? 0.03 : 0;
-    gpu = R(onGpu * (0.985 - slack - groupsSlack), onGpu, onGpu * (1.02 + slack + groupsSlack));
-    // Unified memory maps the file once; on a discrete GPU the embedding table stays in RAM.
-    const hostBytes = (unified ? 0 : embedBytes) + expertBytes + (lookupHost ? B(g.lookup, bodyBits) : 0);
-    if (!lookupHost) gpu = add(gpu, fixed(B(g.lookup, bodyBits)));
-    host = fixed(hostBytes);
-    formula = `${fmtB(body)} body × ${bodyBits.toFixed(2)} bits (${t.label}${hiddenFallback ? ", hidden size not a multiple of 256" : ""}) + ${fmtB(headParams)} output × ${t.out} bits`;
-    if (extra) formula += " + ffn_down fallback";
+    bits = {
+      body: bodyBits,
+      experts: keepMx ? 4.25 : bodyBits,
+      lookup: bodyBits,
+      embed: m.dims.tied ? t.out : t.embed,
+      out: t.out,
+      extra,
+      low: 0.985 - slack - groupsSlack,
+      high: 1.02 + slack + groupsSlack,
+      formula: `${fmtB(bodyAll)} body × ${bodyBits.toFixed(2)} bits (${t.label}${hiddenFallback ? ", hidden size not a multiple of 256" : ""})${keepMx ? `, ${fmtB(experts)} experts kept at MXFP4 (4.25 bits)` : ""} + ${fmtB(outParams)} output × ${t.out} bits${extra ? " + ffn_down fallback" : ""}`,
+    };
   } else if (s.format === "mxfp4") {
-    const nonExpert = body - g.experts;
-    const bytes = B(g.experts, 4.25) + B(nonExpert, 8.5) + B(headParams, 8.5);
-    head = B(headParams, 8.5);
-    gpu = spread(bytes, 0.99, 1.02);
-    host = fixed(unified || m.dims.tied ? 0 : B(g.embed, 8.5));
-    formula = `${fmtB(g.experts)} experts × 4.25 bits (MXFP4) + ${fmtB(nonExpert + headParams)} × 8.5 bits (Q8_0)`;
+    bits = {
+      body: 8.5,
+      experts: 4.25,
+      lookup: 8.5,
+      embed: 8.5,
+      out: 8.5,
+      extra: 0,
+      low: 0.99,
+      high: 1.02,
+      formula: `${fmtB(experts)} experts × 4.25 bits (MXFP4) + ${fmtB(dense + outParams)} × 8.5 bits (Q8_0)`,
+    };
   } else if (s.format in MLX_FORMATS) {
-    const bits = MLX_FORMATS[s.format as keyof typeof MLX_FORMATS] + 0.5;
-    const bytes = B(body + g.embed + g.head + g.lookup, bits);
-    head = B(g.head, bits);
-    gpu = spread(bytes, 0.99 - groupsSlack, 1.02 + groupsSlack);
-    formula = `${fmtB(body + g.embed + g.head + g.lookup)} × ${bits} bits (group 64, embedding and head included)`;
-  } else if (s.format === "native" || (s.format === "bf16" && (m.native.format === "bf16" || m.native.format === "fp16"))) {
-    if (s.format === "native" && m.checkpointBytes) {
-      // The published checkpoint, minus what isn't loaded. Body bits ≈ the checkpoint's average.
-      const ck = m.native.format === "bf16" && m.native.bits > 20 ? m.checkpointBytes / 2 : m.checkpointBytes;
-      const avgBits = (8 * ck) / m.params;
-      const skipped = B(g.mtp - loadMtp, avgBits) + B(g.vision - loadVision, 16);
-      const bytes = Math.max(0, ck - skipped);
-      head = B(g.head, 16);
-      gpu = spread(bytes, 0.985, 1.03);
-      formula = `published checkpoint ${(ck / 1e9).toFixed(1)} GB${skipped > 1e8 ? `, less ${(skipped / 1e9).toFixed(1)} GB of ${[g.mtp - loadMtp ? "MTP" : "", g.vision - loadVision ? "vision" : ""].filter(Boolean).join(" and ")} layers` : ""}`;
-    } else {
-      const bytes = B(body + g.embed + g.head + g.lookup, 16);
-      head = B(g.head, 16);
-      gpu = spread(bytes, 0.995 - groupsSlack, 1.005 + groupsSlack);
-      formula = `${fmtB(body + g.embed + g.head + g.lookup)} × 16 bits`;
-    }
+    const b = MLX_FORMATS[s.format as keyof typeof MLX_FORMATS] + 0.5;
+    bits = { body: b, experts: b, lookup: b, embed: b, out: b, extra: 0, low: 0.99 - groupsSlack, high: 1.02 + groupsSlack, formula: `${fmtB(bodyAll + g.embed + g.head + g.lookup)} × ${b} bits (group 64, embedding and head included)` };
+  } else if (s.format === "native" && m.checkpointBytes && !llama) {
+    // The published checkpoint less what isn't loaded; F32 checkpoints are served at 16 bits.
+    const ck = m.native.bits > 20 ? m.checkpointBytes / 2 : m.checkpointBytes;
+    const avgBits = (8 * ck) / m.params;
+    const skipped = B(g.mtp - loadMtp, avgBits) + B(g.vision, 16);
+    ckBytes = Math.max(0, ck - skipped);
+    const notLoaded = [g.mtp - loadMtp ? "MTP" : "", g.vision ? "vision" : ""].filter(Boolean).join(" and ");
+    formula = `published checkpoint ${(ck / 1e9).toFixed(1)} GB${skipped > 1e8 ? `, less ${(skipped / 1e9).toFixed(1)} GB of ${notLoaded} layers` : ""}`;
+  } else if (s.format === "bf16" || s.format === "native") {
+    bits = { body: 16, experts: 16, lookup: 16, embed: 16, out: 16, extra: 0, low: 0.995 - groupsSlack, high: 1.005 + groupsSlack, formula: `${fmtB(bodyAll + g.embed + g.head + g.lookup)} × 16 bits` };
   } else if (s.format in ST_FORMATS || s.format === "custom") {
-    const bodyBits = s.format === "custom" ? (s.bpw ?? 4) : ST_FORMATS[s.format as keyof typeof ST_FORMATS].body;
-    const bytes = B(body + g.lookup, bodyBits) + B(g.embed + g.head, 16);
-    head = B(g.head, 16);
-    gpu = spread(bytes, s.format === "custom" ? 0.97 : 0.98 - groupsSlack, s.format === "custom" ? 1.03 : 1.02 + groupsSlack);
-    formula = `${fmtB(body + g.lookup)} × ${bodyBits} bits + ${fmtB(g.embed + g.head)} embedding and head × 16 bits`;
+    const b = s.format === "custom" ? (s.bpw ?? 4) : ST_FORMATS[s.format as keyof typeof ST_FORMATS].body;
+    const custom = s.format === "custom";
+    bits = {
+      body: b,
+      experts: b,
+      lookup: b,
+      embed: 16,
+      out: 16,
+      extra: 0,
+      low: custom ? 0.97 : 0.98 - groupsSlack,
+      high: custom ? 1.03 : 1.02 + groupsSlack,
+      formula: `${fmtB(bodyAll + g.lookup)} × ${b} bits + ${fmtB(g.embed + g.head)} embedding and head × 16 bits`,
+    };
   } else {
     throw new Error(`format ${s.format} isn't available on ${s.engine}`);
   }
 
-  // The vision/audio encoder: llama.cpp loads its mmproj at F16; others at the published precision.
-  if (loadVision) {
-    encoders = B(loadVision, 16);
-    gpu = add(gpu, fixed(encoders));
+  // Bytes per group. Whole-checkpoint formats are split by parameter share.
+  let sz: { dense: number; experts: number; lookup: number; embed: number; out: number };
+  let low = 0.985;
+  let high = 1.03;
+  if (bits) {
+    sz = {
+      dense: B(dense, bits.body) + bits.extra,
+      experts: B(experts, bits.experts),
+      lookup: B(g.lookup, bits.lookup),
+      embed: B(g.embed, bits.embed),
+      // Tied embeddings are stored once (at the output type); the GPU holds that tensor as the output.
+      out: m.dims.tied ? 0 : B(g.head, bits.out),
+    };
+    low = bits.low;
+    high = bits.high;
+    formula = bits.formula;
+  } else {
+    const total = Math.max(1, dense + experts + g.lookup + g.embed + g.head);
+    const share = (p: number) => ((ckBytes ?? 0) * p) / total;
+    sz = { dense: share(dense), experts: share(experts), lookup: share(g.lookup), embed: share(g.embed), out: m.dims.tied ? 0 : share(g.head) };
+    if (s.format === "file" || m.ggufFiles?.length) {
+      low = 1;
+      high = 1;
+    }
   }
-  return { gpu, host, head, encoders, formula };
+
+  // Placement. vLLM and MLX hold everything on the GPU. llama.cpp keeps the input embedding
+  // table in system RAM on a discrete GPU (a tied model's GPU keeps its output copy), and can
+  // move routed experts (--cpu-moe) and lookup tables there too. Unified memory is one pool:
+  // count each tensor once.
+  let onGpu = sz.dense + sz.experts + sz.lookup + sz.out + sz.embed;
+  let onHost = 0;
+  if (llama) {
+    if (!unified) {
+      // The embedding table goes to RAM; a tied model's GPU still holds that tensor as its output.
+      onHost += sz.embed;
+      if (!m.dims.tied) onGpu -= sz.embed;
+    }
+    if (s.expertsOnHost && sz.experts) {
+      onGpu -= sz.experts;
+      onHost += sz.experts;
+    }
+    if (s.lookupOnHost && sz.lookup) {
+      onGpu -= sz.lookup;
+      onHost += sz.lookup;
+    }
+  }
+  const head = m.dims.tied ? sz.embed : sz.out;
+  let gpu = R(onGpu * low, onGpu, onGpu * high);
+  // The vision/audio encoder: llama.cpp loads its mmproj at F16; others at the published precision (≈16-bit).
+  const encoders = loadVision ? B(loadVision, 16) : 0;
+  if (encoders) gpu = add(gpu, fixed(encoders));
+  return { gpu, host: fixed(onHost), head, encoders, formula };
 }
 
 // ---------------------------------------------------------------- KV cache and state
@@ -417,13 +483,18 @@ export function kvBytes(m: VramModel, s: VramSettings, ctx = s.ctx): KvResult {
   let perRank = 0;
   let total = 0;
   let perToken = 0;
+  // vLLM's FP8 sparse-MLA layout (fp8_ds_mla): latent at 1 byte, RoPE dims at 2, plus four fp32 scales.
+  const dsMla = s.engine === "vllm" && s.kv === "fp8" && plan.indexers.length > 0;
   for (const g of plan.groups) {
-    const elems = g.heads * g.headElems;
-    const rankElems = g.kind === "latent" ? elems : Math.ceil(g.heads / tp) * g.headElems;
+    // Gemma 4's K=V global layers cache one tensor, but vLLM stores K and V separately.
+    const headElems = g.kEqV && s.engine === "vllm" ? g.headElems * 2 : g.headElems;
+    const elems = g.heads * headElems;
+    const rankElems = g.kind === "latent" ? elems : Math.ceil(g.heads / tp) * headElems;
     const tokens = g.kind === "window" ? windowTokens(g.window ?? 0, Boolean(g.chunked)) : fullTokens;
-    total += g.layers * elems * tokens * b;
-    perRank += g.layers * rankElems * tokens * b;
-    if (g.kind !== "window" || tokens === fullTokens) perToken += g.layers * elems * b * seqs;
+    const perElem = (e: number) => (g.kind === "latent" && dsMla ? e - (g.rope ?? 0) + (g.rope ?? 0) * 2 + 16 : e * b);
+    total += g.layers * perElem(elems) * tokens;
+    perRank += g.layers * perElem(rankElems) * tokens;
+    if (g.kind !== "window" || tokens === fullTokens) perToken += g.layers * perElem(elems) * seqs;
   }
   for (const c of plan.compressed) {
     const bytes = c.layers * c.elems * b * seqs * Math.ceil(ctx / c.ratio);
@@ -686,7 +757,15 @@ export function estimate(m: VramModel, s: VramSettings): VramEstimate {
   const worst = perGpu.reduce((a, b) => (b.mid > a.mid ? b : a));
 
   const hostItems: { label: string; bytes: Range }[] = [];
-  if (w.host.mid) hostItems.push({ label: s.expertsOnHost ? "Embedding table + routed experts" : "Embedding table", bytes: w.host });
+  if (w.host.mid) {
+    const parts = [
+      s.device.cls === "unified" ? "" : m.dims.tied ? "embedding table (a copy)" : "embedding table",
+      s.engine === "llamacpp" && s.expertsOnHost && m.groups.experts ? "routed experts" : "",
+      s.engine === "llamacpp" && s.lookupOnHost && m.groups.lookup ? "lookup tables" : "",
+    ].filter(Boolean);
+    const label = parts.join(" + ") || "weights";
+    hostItems.push({ label: label[0].toUpperCase() + label.slice(1), bytes: w.host });
+  }
   if (s.engine === "llamacpp") hostItems.push({ label: "Host compute buffer", bytes: oh.host });
   const host = add(...hostItems.map((h) => h.bytes));
 
@@ -755,7 +834,8 @@ export function minUnits(m: VramModel, s: VramSettings, device: Device): 1 | 2 |
 
 /** llama.cpp partial offload: how many of the layers fit on the GPU when the whole model doesn't. */
 export function partialOffloadLayers(m: VramModel, s: VramSettings): number | null {
-  if (s.engine !== "llamacpp") return null;
+  // On unified memory "system RAM" is the same pool the GPU already draws from.
+  if (s.engine !== "llamacpp" || s.device.cls === "unified") return null;
   const e = estimate(m, s);
   if (e.verdict === "fits" || e.verdict === "tight") return null;
   const fixedMid = e.lines.filter((l) => l.id === "compute" || l.id === "runtime" || l.id === "display").reduce((a, l) => a + l.perGpu.reduce((x, r) => x + r.mid, 0), 0);

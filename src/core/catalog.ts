@@ -3,7 +3,7 @@ import rawCatalog from "../../data/catalog.json" with { type: "json" };
 import rawMeta from "../../data/catalog-meta.json" with { type: "json" };
 import rawWeightsIndex from "../../data/weights-index.json" with { type: "json" };
 import type { Model, RateCard, RateMode } from "./model.ts";
-import type { WeightsIndexFile } from "./weights.ts";
+import { weightsStatusOf, type WeightsIndexFile } from "./weights.ts";
 
 /**
  * The normalized catalog snapshot, produced by `npm run ingest` and committed
@@ -52,7 +52,7 @@ const WEIGHTS = (rawWeightsIndex as unknown as WeightsIndexFile).models;
 /** Open-weight status: OpenRouter's (or our list's) repo link, confirmed by reading the repo. */
 function weightsOf(m: RawModel): Pick<Model, "openWeights" | "weightsStatus" | "hfId" | "opennessSource" | "weights"> {
   const w = WEIGHTS[m.key] ?? null;
-  const status: Model["weightsStatus"] = w ? w.status : m.open_weights ? "open" : "closed";
+  const status = weightsStatusOf(m, w ?? undefined);
   return { openWeights: status === "open", weightsStatus: status, hfId: m.hf_id ?? null, opennessSource: m.openness_source ?? null, weights: w };
 }
 

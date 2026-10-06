@@ -7,9 +7,17 @@ import type { Rate, Workload } from "../core/cost.ts";
 import { daysBetween, daysLabel, todayIso } from "../core/date.ts";
 import { fmtMoney, fmtUsd } from "../core/fmt.ts";
 import { INDEX_LABEL, priceAll, scoreOf, type Index } from "../core/frontier.ts";
+import { sideOf } from "../core/openclosed.ts";
 import { DEFAULT_PRESET, matchingPreset, type PresetId } from "../core/presets.ts";
 import { search } from "../core/query.ts";
-import { decodeKey, decodeScenario, encodeKey, encodeScenario, hasScenario } from "../core/share.ts";
+import {
+  decodeSwitch,
+  encodeFrontier,
+  encodeKey,
+  encodeScenario,
+  encodeSwitch,
+  hasSwitchState,
+} from "../core/share.ts";
 import { SCORE_TOLERANCE, switchCandidates } from "../core/switch.ts";
 import { titleFor } from "../routes.ts";
 
@@ -22,11 +30,7 @@ export function SwitchTool() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const today = todayIso();
-  const [init] = useState(() => {
-    const s = decodeScenario(params);
-    const from = params.get("from");
-    return { ...s, from: from ? decodeKey(from) : null };
-  });
+  const [init] = useState(() => decodeSwitch(params));
 
   const [fromKey, setFromKey] = useState<string | null>(init.from && modelByKey(init.from) ? init.from : null);
   const [workload, setWorkload] = useState<Workload>(init.workload);
@@ -35,17 +39,13 @@ export function SwitchTool() {
     () => init.preset ?? matchingPreset(init.workload, init.rate)?.id ?? DEFAULT_PRESET.id,
   );
   const [index, setIndex] = useState<Index>(init.index);
+  const [openOnly, setOpenOnly] = useState(init.openOnly);
   const [query, setQuery] = useState("");
   const [showAll, setShowAll] = useState(false);
   const fromHeading = useRef<HTMLHeadingElement>(null);
 
-  const encoded = [
-    fromKey ? `from=${encodeKey(fromKey)}` : "",
-    encodeScenario({ models: [], preset, workload, rate, modes: new Map(), index }),
-  ]
-    .filter(Boolean)
-    .join("&");
-  const synced = useRef(hasScenario(params) || params.has("from") ? "" : encoded);
+  const encoded = encodeSwitch({ from: fromKey, preset, workload, rate, index, openOnly });
+  const synced = useRef(hasSwitchState(params) ? "" : encoded);
   useEffect(() => {
     if (encoded === synced.current) return;
     const t = setTimeout(() => {
@@ -58,8 +58,11 @@ export function SwitchTool() {
   const priced = useMemo(() => priceAll(MODELS, workload, rate, today), [workload, rate, today]);
   const from = fromKey ? (priced.find((p) => p.model.key === fromKey) ?? null) : null;
   const candidates = useMemo(
-    () => (from ? switchCandidates(from, priced, index, workload, today) : []),
-    [from, priced, index, workload, today],
+    () =>
+      from
+        ? switchCandidates(from, priced, index, workload, today).filter((c) => !openOnly || sideOf(c.point.model) === "open")
+        : [],
+    [from, priced, index, workload, today, openOnly],
   );
   const picks = useMemo(
     () => (query.trim() ? search(MODELS, { text: query, vendors: [], releasedYear: null, limit: 8 }).hits : []),
@@ -170,15 +173,32 @@ export function SwitchTool() {
             ))}
           </div>
         </div>
+        <div className="chips" role="group" aria-label="Replacement filters">
+          <button
+            type="button"
+            className={`chip${openOnly ? " on" : ""}`}
+            aria-pressed={openOnly}
+            onClick={() => {
+              trackEvent("Switch", "Open-weight only");
+              setOpenOnly((v) => !v);
+            }}
+            title="Only models whose weights you can download from Hugging Face"
+          >
+            Open-weight only
+          </button>
+        </div>
         <p className="sr-only" role="status">
-          {from ? `Switching from ${from.model.displayName}: ${candidates.length} replacements` : ""}
+          {from
+            ? `Switching from ${from.model.displayName}: ${candidates.length} ${openOnly ? "open-weight " : ""}replacements`
+            : ""}
         </p>
         {!from ? (
           <div className="empty-bench">Pick the model you're leaving to see its replacements.</div>
         ) : (
           <>
             <p className="fine">
-              Models that keep its tools, reasoning and image input, fit this workload, aren't retiring sooner
+              {openOnly ? "Open-weight models" : "Models"} that keep its tools, reasoning and image input, fit this
+              workload, aren't retiring sooner
               {fromScore !== null ? `, and score within ${SCORE_TOLERANCE} points of it on AA ${label}` : ""}. Cheapest
               first.
             </p>
@@ -206,7 +226,11 @@ export function SwitchTool() {
                             {c.point.model.displayName}
                           </Link>
                           <span className="vd">
-                            {c.point.model.vendorName} <SourceTag model={c.point.model} mode={c.point.breakdown.mode} />
+                            {c.point.model.vendorName}
+                            {c.point.model.openWeights && c.point.model.weights
+                              ? ` · open-weight · ${c.point.model.weights.licenceLabel}`
+                              : ""}{" "}
+                            <SourceTag model={c.point.model} mode={c.point.breakdown.mode} />
                           </span>
                         </td>
                         <td className="n">
@@ -252,7 +276,23 @@ export function SwitchTool() {
                 </tbody>
               </table>
               {candidates.length === 0 && (
-                <div className="empty-note">No replacement keeps these capabilities and fits this workload.</div>
+                <div className="empty-note">
+                  No {openOnly ? "open-weight " : ""}replacement keeps these capabilities, fits this workload
+                  {fromScore !== null ? ` and scores within ${SCORE_TOLERANCE} points on AA ${label}` : ""}.
+                  {openOnly && sideOf(from.model) === "closed" && (
+                    <>
+                      {" "}
+                      <Link
+                        to={`/tools/open?${encodeFrontier({ preset, workload, rate, index, minScore: null, filters: new Set() })}&vs=${encodeKey(from.model.key)}`}
+                        state={INTERNAL}
+                        onClick={() => trackEvent("Switch", "To open vs closed")}
+                      >
+                        How close open-weight models get
+                        <Mark kind="to" />
+                      </Link>
+                    </>
+                  )}
+                </div>
               )}
             </div>
             {candidates.length > SHOWN && (
@@ -263,6 +303,8 @@ export function SwitchTool() {
             <p className="fine">
               List-price cost at your workload, not cost per task. Capability flags are unions across providers; check
               the provider you'd actually use.
+              {openOnly &&
+                " Most open-weight prices here are OpenRouter's listing, which is often the cheapest of several providers; others can charge several times more, and some serve lower-precision builds."}
             </p>
           </>
         )}

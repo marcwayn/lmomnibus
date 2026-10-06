@@ -69,11 +69,17 @@ function RouteFocus() {
   const { pathname, hash } = useLocation();
   const navType = useNavigationType();
   const first = useRef(true);
+  const prev = useRef({ pathname, hash });
   useEffect(() => {
+    const was = prev.current;
+    prev.current = { pathname, hash };
     if (first.current) {
       first.current = false;
       return;
     }
+    // Same page: only a new anchor counts. A tool's URL-sync replace drops the hash, and
+    // that mustn't throw the reader back to the top.
+    if (was.pathname === pathname && !hash) return;
     // Back/Forward restore the previous position; only new navigations start at the top.
     if (!hash && navType !== "POP") window.scrollTo(0, 0);
     const h1 = document.querySelector<HTMLElement>("main h1");

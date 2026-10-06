@@ -237,7 +237,14 @@ export function HomePage() {
                     to={r.href}
                     onClick={() => trackEvent("Home", "Reading", String(i + 1))}
                   >
-                    {r.point.model.displayName} · <span className="mono">{fmtUsd(r.point.per1k)}</span> / 1K
+                    {r.point.model.displayName}
+                    {r.score ? (
+                      <>
+                        {" "}
+                        · <span className="mono">{r.score}</span>
+                      </>
+                    ) : null}{" "}
+                    · <span className="mono">{fmtUsd(r.point.per1k)}</span> / 1K
                   </Link>{" "}
                   <SourceTag model={r.point.model} mode={r.point.breakdown.mode} />
                   {r.detail ? <span className="reading-detail"> · {r.detail}</span> : null}

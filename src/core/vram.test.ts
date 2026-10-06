@@ -3,7 +3,9 @@ import configs from "./__fixtures__/configs.json" with { type: "json" };
 import { parseConfig, type Cfg } from "./arch.ts";
 import { DEVICE_BY_ID, type Device } from "./devices.ts";
 import {
+  defaultFormat,
   estimate,
+  partialOffloadLayers,
   fmtCtx,
   formatOptions,
   GiB,
@@ -71,6 +73,11 @@ const next80 = model("qwen3-next-80b", 81_324_996_608);
 const dsv3 = model("deepseek-v3", 684_531_386_000, "fp8", 8.05);
 
 const mib = (b: number) => b / MiB;
+
+/** A model from a fixture config with hand-set Hugging Face groups (as data/weights.json records them). */
+function withGroups(m: VramModel, groups: Partial<VramModel["groups"]>, checkpointBytes?: number): VramModel {
+  return { ...m, groups: { ...m.groups, ...groups, source: "headers" }, ...(checkpointBytes ? { checkpointBytes } : {}) };
+}
 
 describe("KV cache matches llama.cpp's own logs", () => {
   it("plain GQA: Llama-3.1-8B at 8,448 tokens is 1,056 MiB", () => {
@@ -252,3 +259,80 @@ describe("context text", () => {
     expect(fmtCtx(19200)).toBe("18.7K");
   });
 });
+
+describe("placement and format fixes (review round 1)", () => {
+  // gpt-oss-120b's 36 layers on gpt-oss-20b's attention, with its real tensor groups.
+  const cfg120 = { ...C["gpt-oss-20b"], num_hidden_layers: 36, num_local_experts: 128, layer_types: Array.from({ length: 36 }, (_, i) => (i % 2 ? "full_attention" : "sliding_attention")) };
+  const a120 = parseConfig(cfg120);
+  const oss120: VramModel = {
+    ...oss20,
+    params: 116_829_156_672,
+    dims: a120.dims,
+    moe: a120.moe,
+    kv: a120.kv,
+    groups: { embed: 579_133_440, head: 579_133_440, experts: 114_661_785_600, mtp: 0, vision: 0, lookup: 0, source: "headers" },
+    native: { format: "mxfp4", bits: 4.468 },
+    checkpointBytes: 65_248_893_184,
+  };
+
+  it("--cpu-moe moves gpt-oss-120b's MXFP4 experts to RAM: it then fits one RTX 4090", () => {
+    const on = estimate(oss120, base({ format: "mxfp4", ctx: 8192 }));
+    const off = estimate(oss120, base({ format: "mxfp4", ctx: 8192, expertsOnHost: true }));
+    expect(on.verdict).toBe("wont-fit");
+    expect(off.verdict).toBe("fits");
+    expect(off.host.mid / 1e9).toBeGreaterThan(60);
+  });
+  it("experts published in MXFP4 stay MXFP4 under GGUF K-quants (every gpt-oss GGUF is 11.5–12.1 GB)", () => {
+    const w = weightBytes(oss20, base({ format: "q4_k_m" }));
+    const file = (w.gpu.mid + w.host.mid) / 1e9;
+    expect(file).toBeGreaterThan(11.3);
+    expect(file).toBeLessThan(12.3);
+  });
+  it("BF16 on llama.cpp honours experts and the embedding in RAM", () => {
+    const on = weightBytes(qwen30a3, base({ format: "bf16" }));
+    const off = weightBytes(qwen30a3, base({ format: "bf16", expertsOnHost: true }));
+    expect(on.host.mid / 1e9).toBeCloseTo((311_164_928 * 2) / 1e9, 2);
+    expect(off.gpu.mid).toBeLessThan(on.gpu.mid / 5);
+  });
+  it("unified memory counts the untied embedding once (the file is mapped whole)", () => {
+    const mac = base({ device: dev("m5-pro-64gb") });
+    const w = weightBytes(llama8b, mac);
+    const d = weightBytes(llama8b, base());
+    expect(w.gpu.mid).toBeCloseTo(d.gpu.mid + d.host.mid, -3);
+    expect(w.host.mid).toBe(0);
+  });
+  it("vLLM 'As published' counts the vision encoder once", () => {
+    const g4 = parseConfig(C["gemma-4-26b-a4b"]);
+    const gemma4: VramModel = withGroups(
+      { ...model("gemma-4-26b-a4b", 25_805_936_206), dims: g4.dims, moe: g4.moe, kv: g4.kv },
+      { embed: 738_197_504, head: 0, experts: 22_837_985_280, mtp: 0, vision: 569_550_384, lookup: 0 },
+      51_612_009_916,
+    );
+    const on = weightBytes(gemma4, base({ engine: "vllm", format: "native", vision: true, device: dev("h100-sxm") }));
+    expect(on.gpu.mid / 1e9).toBeLessThan(51.7);
+    expect(on.gpu.mid / 1e9).toBeGreaterThan(51.5);
+  });
+  it("Gemma 4 on vLLM stores K and V for its K=V global layers: 5.82 GiB per sequence at 128K (vLLM #58580)", () => {
+    const g4 = parseConfig(C["gemma-4-26b-a4b"]);
+    const m: VramModel = { ...model("gemma-4-26b-a4b", 25_805_936_206), dims: g4.dims, moe: g4.moe, kv: g4.kv };
+    const k = kvBytes(m, base({ engine: "vllm", format: "native", ctx: 131072, device: dev("h100-sxm"), mbt: 8192 }));
+    expect(k.perSeq / GiB).toBeCloseTo(5.82, 2);
+    // llama.cpp caches the one tensor.
+    expect(kvBytes(m, base({ ctx: 131072 })).total).toBeLessThan(k.perSeq);
+  });
+  it("vLLM's FP8 sparse-MLA layout is 656 B per token per layer", () => {
+    const dsa: VramModel = { ...dsv3, kv: { ...dsv3.kv, indexers: [{ layers: 61, ratio: 1, elems: 128, fp8: true }] } };
+    const k = kvBytes(dsa, base({ engine: "vllm", format: "native", kv: "fp8", ctx: 1024, device: dev("h200-sxm") }));
+    expect(k.perToken).toBe(61 * 656 + 61 * 132);
+    // Dense MLA stays at one byte per latent element.
+    expect(kvBytes(dsv3, base({ engine: "vllm", format: "native", kv: "fp8", ctx: 1024, device: dev("h200-sxm") })).perToken).toBe(61 * 576);
+  });
+  it("falls back to the richest format below Q4_K_M, not the poorest", () => {
+    const fp4: VramModel = { ...dsv3, native: { format: "fp4", bits: 4.327 } };
+    expect(defaultFormat(fp4, "llamacpp", dev("h200-sxm"))).toBe("iq4_xs");
+  });
+  it("offers no partial offload on unified memory, where RAM is the same pool", () => {
+    expect(partialOffloadLayers(model("llama-3.1-8b", 70e9), base({ device: dev("mac-mini-m6-32gb") }))).toBeNull();
+  });
+});
+

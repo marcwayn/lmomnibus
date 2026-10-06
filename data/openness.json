@@ -1,5 +1,5 @@
 {
-  "note": "Models OpenRouter lists without a Hugging Face id although their weights are published. Each entry was checked on Hugging Face; ingest uses hf_id to mark them open-weight.",
+  "note": "Models OpenRouter lists without a Hugging Face id although their weights are published. Each 'add' entry was checked on Hugging Face; ingest uses hf_id to mark them open-weight. 'pending' entries are candidates we could not confirm, recorded so they aren't forgotten; ingest ignores them.",
   "add": [
     {
       "key": "aion-labs/aion-rp-llama-3.1-8b",
@@ -54,6 +54,20 @@
       "hf_id": "inclusionAI/Ling-3.0-flash-Fin",
       "source": "huggingface.co/inclusionAI/Ling-3.0-flash-Fin",
       "verified_on": "2026-10-06"
+    },
+    {
+      "key": "mistralai/mistral-medium-3-5",
+      "hf_id": "mistralai/Mistral-Medium-3.5-128B",
+      "source": "huggingface.co/mistralai/Mistral-Medium-3.5-128B (model card: Mistral Medium 3.5, 128B dense, 256K context)",
+      "verified_on": "2026-10-06"
+    }
+  ],
+  "pending": [
+    {
+      "key": "xiaomi/mimo-v2.6-pro-ultraspeed",
+      "candidate_hf_id": "XiaomiMiMo/MiMo-V2.6-Pro-RL",
+      "reason": "Listed the same day as MiMo-V2.6-Pro at 10x the price; nothing published confirms it serves the same weights. Not marked open until it is.",
+      "checked_on": "2026-10-06"
     }
   ]
 }

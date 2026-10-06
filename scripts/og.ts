@@ -11,7 +11,7 @@ import { Resvg } from "@resvg/resvg-js";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import satori from "satori";
-import { buildBoard } from "../src/core/board.ts";
+import { buildBoard, gapText } from "../src/core/board.ts";
 import { allModels, CATALOG_META } from "../src/core/catalog.ts";
 import { todayIso } from "../src/core/date.ts";
 import { fmtCompact, fmtInt, fmtRate as fmtRateOg, fmtUsd } from "../src/core/fmt.ts";
@@ -216,7 +216,11 @@ const CARDS: Record<string, () => Node> = {
     return card(
       eyebrow("/tools/open"),
       "Open weights vs closed",
-      body(`The best open-weight model, ${open}, trails the best closed one by ${g.gap ?? "—"} points on AA Intelligence.\nWhat each side costs at your bar, and what you can run yourself.`),
+      body(
+        g.gap === null
+          ? "Open-weight models against closed ones, priced at your workload and scored on one AA snapshot.\nWhat each side costs at your bar, and what you can run yourself."
+          : `The best open-weight model, ${open}, is ${gapText(g.gap)} on AA Intelligence.\nWhat each side costs at your bar, and what you can run yourself.`,
+      ),
       live,
     );
   },

@@ -350,7 +350,8 @@ button, input, select { font-family: inherit; font-size: inherit; color: inherit
 .rate-field.wide { grid-column: span 2; }
 
 /* ---- market table ---- */
-.table-frame { margin-top: 14px; border: 1px solid var(--rule); border-radius: var(--r); background: var(--surface); overflow-x: auto; }
+/* position: relative contains absolutely positioned sr-only text, so it can't widen the page. */
+.table-frame { position: relative; margin-top: 14px; border: 1px solid var(--rule); border-radius: var(--r); background: var(--surface); overflow-x: auto; }
 .market { width: 100%; border-collapse: collapse; font-size: 13.5px; }
 .market th {
   background: var(--sunk); font-family: var(--f-mono); font-size: 10px; font-weight: 500;
@@ -442,12 +443,13 @@ button, input, select { font-family: inherit; font-size: inherit; color: inherit
 .frontier-chart .frontier-line { fill: none; stroke: var(--accent); stroke-width: 1.5; }
 .frontier-chart .pt-dom { fill: none; stroke: var(--ink-3); stroke-width: 1; transition: stroke var(--t); }
 .frontier-chart .pt-dom.focused { stroke: var(--ink); stroke-width: 1.5; }
-.frontier-chart .pt-front rect { fill: var(--accent); stroke: var(--surface); stroke-width: 1; }
+/* Points: squares are closed models, circles open-weight; filled = on the frontier, hollow = dominated. */
+.frontier-chart .pt-front .mk { fill: var(--accent); stroke: var(--surface); stroke-width: 1; }
 .frontier-chart .pt-front text { font-family: var(--f-mono); font-size: 11px; fill: var(--ink); }
-.frontier-chart .pt-front.answer rect { stroke: var(--ink); stroke-width: 1.5; }
-.frontier-chart .pt-front.focused rect { fill: var(--ink); }
+.frontier-chart .pt-front.answer .mk { stroke: var(--ink); stroke-width: 1.5; }
+.frontier-chart .pt-front.focused .mk { fill: var(--ink); }
 .frontier-chart .pt-front:focus { outline: none; }
-.frontier-chart .pt-front:focus-visible rect { stroke: var(--focus); stroke-width: 2; }
+.frontier-chart .pt-front:focus-visible .mk { stroke: var(--focus); stroke-width: 2; }
 .frontier-chart .focus-label { font-family: var(--f-mono); font-size: 11px; fill: var(--ink); }
 .frontier-chart .min-rule { cursor: ns-resize; touch-action: none; }
 .frontier-chart .min-rule line { stroke: var(--ink-2); stroke-width: 1; stroke-dasharray: 4 3; }
@@ -455,6 +457,17 @@ button, input, select { font-family: inherit; font-size: inherit; color: inherit
 .frontier-chart .min-rule:focus { outline: none; }
 .frontier-chart .min-rule:focus-visible line { stroke: var(--focus); stroke-width: 2; }
 .frontier-chart .min-rule:focus-visible rect { stroke: var(--focus); stroke-width: 1.5; }
+.chart-col { min-width: 0; }
+.chart-legend {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; margin-top: 8px;
+  font-family: var(--f-mono); font-size: 11px; color: var(--ink-2);
+}
+.chart-legend span { display: inline-flex; align-items: center; gap: 4px; }
+.legend-mark { width: 10px; height: 10px; overflow: visible; flex: none; }
+.legend-mark .shape { fill: var(--ink-2); }
+.legend-mark .front { fill: var(--accent); stroke: var(--surface); stroke-width: 1; }
+.legend-mark .pt-dom { fill: none; stroke: var(--ink-3); stroke-width: 1; }
+.chart-legend .legend-link { margin-left: auto; font-size: 11.5px; }
 .point-readout {
   border: 1px solid var(--rule); border-radius: var(--r); background: var(--surface); padding: 12px 14px;
   font-size: 13px; position: sticky; top: 12px;
@@ -502,6 +515,12 @@ button, input, select { font-family: inherit; font-size: inherit; color: inherit
 .reading-value { font-weight: 600; color: var(--ink); text-decoration: none; text-align: right; }
 a.reading-value:hover { color: var(--accent); text-decoration: underline; }
 .reading-detail { font-weight: 400; color: var(--ink-3); }
+/* Four readings: a 2 × 2 grid on wide screens, label above value. */
+@media (min-width: 900px) {
+  .readings { display: grid; grid-template-columns: 1fr 1fr; column-gap: 32px; }
+  .readings li { grid-template-columns: 1fr; gap: 2px; align-content: start; padding: 11px 0; }
+  .readings .reading-value, .readings .reading-value-wrap { text-align: left; }
+}
 .tool-index { list-style: none; margin: 0; padding: 0; }
 .tool-index li {
   display: grid; grid-template-columns: 44px minmax(0, 240px) 1fr; gap: 4px 16px; align-items: baseline;
@@ -604,6 +623,26 @@ a.reading-value:hover { color: var(--accent); text-decoration: underline; }
 .spec-grid dt { font-family: var(--f-mono); font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-3); }
 .spec-grid dd { margin: 2px 0 0; font-family: var(--f-mono); font-size: 14px; font-variant-numeric: tabular-nums; }
 .spec-grid .rank { color: var(--ink-3); font-size: 12px; }
+.spec-grid .spec-long { font-size: 12.5px; line-height: 1.45; }
+.spec-grid a { color: var(--ink); text-decoration-color: var(--control); }
+.spec-grid a:hover { color: var(--accent); }
+/* The ESTIMATE stamp: every memory figure is one. */
+.est-stamp {
+  display: inline-block; font-family: var(--f-mono); font-size: 9.5px; font-weight: 500; line-height: 1.6;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-2);
+  border: 1px solid var(--ink-2); border-radius: var(--r); padding: 0 5px;
+}
+.market.selfhost tbody th {
+  background: none; font-family: var(--f-body); font-size: 13.5px; font-weight: 600; text-transform: none;
+  letter-spacing: 0; color: var(--ink); border-bottom: 1px solid var(--rule-soft); white-space: nowrap;
+}
+.market.selfhost tbody tr:last-child th { border-bottom: 0; }
+.market.selfhost .need { display: block; font-weight: 600; }
+.market.selfhost .range { display: block; }
+.open-match .down { color: var(--down); font-weight: 600; }
+.open-match .up { color: var(--up); }
+.chips .chip-link { align-self: center; margin-right: 4px; }
+.section-title + .chips { margin-top: 0; margin-bottom: 4px; }
 .market tr.sub-row td { font-size: 12px; color: var(--ink-2); }
 .market .down, .breaks .down { color: var(--down); font-weight: 600; }
 
@@ -667,6 +706,10 @@ a.reading-value:hover { color: var(--accent); text-decoration: underline; }
 @media (max-width: 620px) {
   .shell { padding: 0 16px 64px; }
   .topnav, .topnav-rule { padding-left: 16px; padding-right: 16px; }
+  /* Eight instruments: two even rows of four at 375px. */
+  .topnav nav { gap: 4px 14px; }
+  .topnav nav a { font-size: 11.5px; }
+  .market.selfhost tbody th { white-space: normal; min-width: 120px; }
   .market .col-ctx, .market .col-flags, .market .col-rate { display: none; }
   .market th, .market td { padding-left: 8px; padding-right: 8px; }
   .site-foot-inner { padding: 0 16px 32px; }

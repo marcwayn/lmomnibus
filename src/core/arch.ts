@@ -25,6 +25,10 @@ export interface KvGroup {
   window?: number;
   /** Chunked local attention (Llama 4) rather than a sliding window. */
   chunked?: boolean;
+  /** K doubles as V (Gemma 4 global layers): one tensor here, but vLLM stores both. */
+  kEqV?: boolean;
+  /** Latent groups: how many of `headElems` are the RoPE part (kept at 16 bits in vLLM's FP8 MLA layout). */
+  rope?: number;
 }
 
 /** DeepSeek-V4-style compressed cache: ctx / ratio entries of `elems` per layer. */
@@ -99,6 +103,8 @@ export interface KvPlan {
 }
 
 export interface MoeLayout {
+  /** Total routed-expert parameters when the config describes more than one expert group (ERNIE-VL). */
+  expertParams?: number;
   experts: number;
   topK: number;
   shared: number;
@@ -217,8 +223,8 @@ class PlanBuilder {
   full(layers: number, heads: number, headElems: number) {
     if (layers > 0) this.groups.push({ kind: "full", layers, heads, headElems });
   }
-  latent(layers: number, elems: number) {
-    if (layers > 0) this.groups.push({ kind: "latent", layers, heads: 1, headElems: elems });
+  latent(layers: number, elems: number, rope = 0) {
+    if (layers > 0) this.groups.push({ kind: "latent", layers, heads: 1, headElems: elems, ...(rope ? { rope } : {}) });
   }
   window(layers: number, heads: number, headElems: number, window: number, chunked = false) {
     if (layers > 0) this.groups.push({ kind: "window", layers, heads, headElems, window, ...(chunked ? { chunked } : {}) });
@@ -242,6 +248,7 @@ class PlanBuilder {
 }
 
 const mlaElems = (t: Cfg) => req(t, "kv_lora_rank") + (g(t, "qk_rope_head_dim") ?? 0);
+const mlaRope = (t: Cfg) => g(t, "qk_rope_head_dim") ?? 0;
 
 /** Gated DeltaNet per layer: conv over q, k, v (model dtype) and the recurrent state (fp32 unless stated). */
 function gdn(t: Cfg): [conv: number, ssm: number, fp32: boolean] {
@@ -345,7 +352,7 @@ export function planKv(cfg: Cfg): KvPlan {
     const lac = t.linear_attn_config as Cfg;
     const kdaLayers = (list(lac.kda_layers) ?? []) as number[];
     const fullLayers = (list(lac.full_attn_layers) ?? []) as number[];
-    p.latent(fullLayers.length, mlaElems(t));
+    p.latent(fullLayers.length, mlaElems(t), mlaRope(t));
     const types = (list(t.indexer_types) as string[] | null) ?? Array<string>(n).fill("full");
     const own = fullLayers.filter((i) => types[i] === "full").length;
     const kpool = t.index_kpool_compress ? (g(t, "index_kpool") ?? 1) : 1;
@@ -397,14 +404,14 @@ export function planKv(cfg: Cfg): KvPlan {
   // Multi-head latent attention.
   if (mt === null && t.attention_method === "MLA") {
     // LongCat: two MLA blocks per layer; only the first has an indexer.
-    p.latent(2 * n, mlaElems(t));
+    p.latent(2 * n, mlaElems(t), mlaRope(t));
     p.indexers.push({ layers: n, ratio: 1, elems: req(t, "index_head_dim"), fp8: true });
     p.notes.push("Two attention blocks per layer (from the weight names); the config has no model_type.");
     p.confidence = "medium";
     return p.build("longcat");
   }
   if (num(t.kv_lora_rank) && t.use_mla !== false && mt !== "hunyuan_v1_moe") {
-    p.latent(n, mlaElems(t));
+    p.latent(n, mlaElems(t), mlaRope(t));
     if (num(t.index_head_dim) && num(t.index_n_heads)) {
       const it = list(t.indexer_types) as string[] | null;
       const own = it ? count(it.slice(0, n), "full") : n;
@@ -467,6 +474,7 @@ export function planKv(cfg: Cfg): KvPlan {
     if (mt === "gemma4" || mt === "gemma4_text") {
       const kEqV = t.attention_k_eq_v === true;
       p.full(nf, req(t, "num_global_key_value_heads"), req(t, "global_head_dim") * (kEqV ? 1 : 2));
+      if (kEqV) p.groups[p.groups.length - 1].kEqV = true;
       p.window(ns, kvh, 2 * hd, w);
       p.notes.push("Global layers reuse K as V (one tensor cached); an engine that stores V separately doubles the global cache.");
       if (num(t.num_kv_shared_layers)) p.notes.push("The last layers share KV with earlier ones.");
@@ -544,11 +552,21 @@ export function moeOf(cfg: Cfg): MoeLayout | null {
   else if (list(t.moe_layer_freq)) layers = ((t.moe_layer_freq as number[]).slice(0, n)).reduce((a, b) => a + b, 0);
   else if (typeof t.moe_layers_enum === "string") layers = t.moe_layers_enum.split(",").length;
   else if (mt === "llama4" || mt === "llama4_text") layers = Math.floor(n / (g(t, "interleave_moe_layer_step") ?? 1));
-  else if (mt === "afmoe") layers = n - (g(t, "num_dense_layers") ?? 0);
+  else if (list(t.moe_layer_start_index) || num(t.moe_layer_start_index) !== undefined) {
+    // ERNIE: experts on layers start..end every `interval` (lists hold one entry per expert group).
+    const first = (v: unknown) => (Array.isArray(v) ? num(v[0]) : num(v));
+    const start = first(t.moe_layer_start_index) ?? 0;
+    const end = Math.min(first(t.moe_layer_end_index) ?? n - 1, n - 1);
+    layers = Math.floor((end - start) / (first(t.moe_layer_interval) ?? 1)) + 1;
+  } else if (mt === "afmoe") layers = n - (g(t, "num_dense_layers") ?? 0);
   else if (list(t.mlp_only_layers)) layers = n - (t.mlp_only_layers as unknown[]).length;
   else if (num(t.first_k_dense_replace) !== undefined) layers = n - (num(t.first_k_dense_replace) ?? 0);
   const shared = pick(t.n_shared_experts ?? t.num_shared_experts ?? t.shared_expert_count) ?? (num(t.shared_expert_intermediate_size) ? 1 : 0);
-  return { experts: E, topK: k, shared, layers, ffn, inDim, mats };
+  // Several expert groups (ERNIE-VL: text and vision experts with their own widths).
+  const Es = list(t.moe_num_experts) as number[] | null;
+  const Fs = list(t.moe_intermediate_size) as number[] | null;
+  const expertParams = Es && Fs && Es.length > 1 && Fs.length === Es.length ? layers * Es.reduce((a, e, i) => a + e * mats * inDim * Fs[i], 0) : undefined;
+  return { experts: E, topK: k, shared, layers, ffn, inDim, mats, ...(expertParams ? { expertParams } : {}) };
 }
 
 export function parseConfig(cfg: unknown): ParsedConfig {

@@ -19,7 +19,10 @@ export interface TensorGroups {
   mtp: number;
   vision: number;
   lookup: number;
-  /** "headers": counted from the safetensors headers; "config": worked out from config.json. */
+  /**
+   * "headers": vision, MTP and lookup counted from the safetensors headers (embedding, head
+   * and experts from config.json); "config": all worked out from config.json.
+   */
   source: "headers" | "config";
 }
 
@@ -58,6 +61,8 @@ export interface WeightsRecord {
   /** null only for unverified repos. */
   arch: ParsedConfig | null;
   notes: string[];
+  /** Override entry + parser version the record was derived with (scripts/hf.ts reuses records only while it holds). */
+  fingerprint?: string;
 }
 
 export interface WeightsFile {
@@ -120,7 +125,7 @@ export const LICENCE_CLASS_LABEL: Record<LicenceClass, string> = {
 /** "Apache-2.0", "Llama 3.3 licence", "modified MIT", or the raw name. */
 export function licenceLabel(l: Licence): string {
   const key = licenceKey(l);
-  if (!key) return "no licence named";
+  if (!key) return l.id?.trim().toLowerCase() === "other" ? "other (see the repo)" : "no licence named";
   const known: Record<string, string> = {
     "apache-2.0": "Apache-2.0",
     mit: "MIT",
@@ -143,7 +148,7 @@ export function licenceLabel(l: Licence): string {
 export function groupsFromConfig(total: number, dims: Dims, moe: MoeLayout | null, cfgLookup = 0): TensorGroups {
   const embed = dims.vocab * dims.hidden;
   const head = dims.tied ? 0 : dims.vocab * dims.hidden;
-  const experts = moe ? moe.layers * moe.experts * moe.mats * moe.inDim * moe.ffn : 0;
+  const experts = moe ? (moe.expertParams ?? moe.layers * moe.experts * moe.mats * moe.inDim * moe.ffn) : 0;
   // An MTP layer is about one trunk layer.
   const perLayer = dims.layers ? Math.max(0, total - embed - head - cfgLookup) / (dims.layers + dims.mtpLayers) : 0;
   return {
@@ -175,3 +180,18 @@ export function activeFromGroups(params: number, g: TensorGroups, moe: MoeLayout
 }
 
 export type { KvPlan };
+
+/** Where to read a record's licence: its absolute link, a repo-relative file on Hugging Face, or the repo page. */
+export function licenceHref(r: Pick<WeightsRecord, "licence" | "resolvedId">): string {
+  const repo = `https://huggingface.co/${r.resolvedId}`;
+  const link = r.licence.link?.trim();
+  if (link && /^https?:\/\//.test(link)) return link;
+  if (link) return `${repo}/blob/main/${link.replace(/^\.?\//, "")}`;
+  return repo;
+}
+
+/** open / closed / unverified for a raw catalog row and its weights-index entry (the site and the open data agree). */
+export function weightsStatusOf(raw: { open_weights?: boolean }, w: WeightsIndexEntry | undefined): "open" | "closed" | "unverified" {
+  // OpenRouter says open but the repo hasn't been read (yet): not on either side until it is.
+  return w ? w.status : raw.open_weights ? "unverified" : "closed";
+}

@@ -2377,9 +2377,9 @@
       [
         "Standard",
         {
-          "input": "0.0007000000",
+          "input": "0.0001000000",
           "output": "1.28000000",
-          "cache_read": "0.0007000000",
+          "cache_read": "0.0001000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2421,9 +2421,9 @@
       [
         "Standard",
         {
-          "input": "0.009000000",
+          "input": "0.0053000000",
           "output": "1.28000000",
-          "cache_read": "0.009000000",
+          "cache_read": "0.0053000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2597,7 +2597,7 @@
       [
         "Standard",
         {
-          "input": "0.026795000000",
+          "input": "0.03103000000",
           "output": "1.2000000",
           "cache_read": "0.015000000",
           "cache_write": null,
@@ -3923,9 +3923,9 @@
       [
         "Standard",
         {
-          "input": "0.09000000",
-          "output": "0.3000000",
-          "cache_read": "0.05000000",
+          "input": "0.0765000000",
+          "output": "0.255000000",
+          "cache_read": "0.0425000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -6093,9 +6093,10 @@
     "provenance": "Aggregate",
     "listed_on": "2026-04-30",
     "retires_on": null,
-    "open_weights": false,
-    "hf_id": null,
-    "reasoning_mandatory": false
+    "open_weights": true,
+    "hf_id": "mistralai/Mistral-Medium-3.5-128B",
+    "reasoning_mandatory": false,
+    "openness_source": "huggingface.co/mistralai/Mistral-Medium-3.5-128B (model card: Mistral Medium 3.5, 128B dense, 256K context) (checked 2026-10-06)"
   },
   {
     "key": "mistralai/mistral-medium-3.1",
@@ -6793,7 +6794,7 @@
         "Standard",
         {
           "input": "0.69000000",
-          "output": "14.000000",
+          "output": "15.000000",
           "cache_read": "0.23000000",
           "cache_write": null,
           "tiers": [],

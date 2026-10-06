@@ -4,9 +4,12 @@ import {
   decodeFrontier,
   decodeKey,
   decodeScenario,
+  decodeSwitch,
   encodeFrontier,
   encodeKey,
   encodeScenario,
+  encodeSwitch,
+  hasSwitchState,
   MAX_BENCH,
   type Scenario,
 } from "./share.ts";
@@ -99,5 +102,30 @@ describe("share URLs", () => {
     const s = decodeScenario(new URLSearchParams("p=agent&c=90&w=50"));
     expect(s.workload.cachedPct).toBe(90);
     expect(s.workload.cacheWritePct).toBe(10);
+  });
+
+  it("round-trips the Switch Planner's open-weight-only flag", () => {
+    const encoded = encodeSwitch({
+      from: "anthropic/claude-sonnet-5.5",
+      preset: "agent",
+      workload: agent.workload,
+      rate: "Standard",
+      index: "coding",
+      openOnly: true,
+    });
+    expect(encoded).toBe("from=anthropic:claude-sonnet-5.5&p=agent&idx=coding&ow=1");
+    const back = decodeSwitch(new URLSearchParams(encoded));
+    expect(back.from).toBe("anthropic/claude-sonnet-5.5");
+    expect(back.preset).toBe("agent");
+    expect(back.index).toBe("coding");
+    expect(back.openOnly).toBe(true);
+    expect(hasSwitchState(new URLSearchParams("ow=1"))).toBe(true);
+  });
+
+  it("leaves ow out when off, and reads anything but 1 as off", () => {
+    const off = encodeSwitch({ from: null, preset: "chat", workload: presetById("chat")!.workload, rate: "Standard", index: "intelligence", openOnly: false });
+    expect(off).toBe("p=chat");
+    expect(decodeSwitch(new URLSearchParams("from=qwen:qwen3-32b&ow=yes")).openOnly).toBe(false);
+    expect(decodeSwitch(new URLSearchParams("p=agent")).from).toBeNull();
   });
 });

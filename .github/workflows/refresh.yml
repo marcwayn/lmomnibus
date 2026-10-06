@@ -1,6 +1,7 @@
 name: Daily catalog refresh
 
-# Re-fetches the OpenRouter catalog every morning, appends what changed to
+# Re-fetches the OpenRouter catalog every morning (and re-reads the
+# open-weight models' Hugging Face repos), appends what changed to
 # data/changes.jsonl (append-only: a second run the same day adds to the
 # tape, never replaces it), and commits the snapshot — git history is the
 # archive of daily snapshots. Deploys only if a CLOUDFLARE_API_TOKEN secret
@@ -25,6 +26,8 @@ jobs:
     # A manual dispatch from another branch must not commit or deploy from it.
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    # Backstop: the refresh normally takes a few minutes; Hugging Face reads stop at 20.
+    timeout-minutes: 45
     env:
       HAS_CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN != '' }}
     steps:
@@ -41,8 +44,15 @@ jobs:
 
       - run: npm ci
 
-      # Ingest refuses a feed that shrinks the catalog by more than 20%.
+      # Ingest refuses a feed that shrinks the catalog by more than 20%. The
+      # Hugging Face step (scripts/hf.ts) is best effort: if it fails, the
+      # previous weights data stays and the prices still refresh.
       - name: Fetch the catalog and record what changed
+        env:
+          # Optional: a Hugging Face token only raises the anonymous rate
+          # limits. Gated repos are read through public copies, never with it.
+          # Unset, this is empty and hf.ts runs anonymously.
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: npm run refresh
 
       # Fails on an expired promo in data/overrides.json, among other things:

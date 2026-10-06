@@ -171,3 +171,42 @@ export function decodeFrontier(params: URLSearchParams): FrontierScenario {
     ),
   };
 }
+
+// ---- Switch Planner: ?from=google:gemini-2.5-pro&p=agent&ow=1 ----
+
+export interface SwitchScenario {
+  /** The model being replaced. */
+  from: string | null;
+  preset: PresetId | null;
+  workload: Workload;
+  rate: Rate;
+  index: Index;
+  /** Only open-weight replacements (ow=1). */
+  openOnly: boolean;
+}
+
+export function encodeSwitch(s: SwitchScenario): string {
+  const out: [string, string][] = [];
+  if (s.from) out.push(["from", encodeKey(s.from)]);
+  out.push(...new URLSearchParams(encodeScenario({ ...s, models: [], modes: new Map() })).entries());
+  if (s.openOnly) out.push(["ow", "1"]);
+  return toQuery(out);
+}
+
+export function decodeSwitch(params: URLSearchParams): SwitchScenario {
+  const base = decodeScenario(params);
+  const from = params.get("from")?.trim();
+  return {
+    from: from ? decodeKey(from) : null,
+    preset: base.preset,
+    workload: base.workload,
+    rate: base.rate,
+    index: base.index,
+    openOnly: params.get("ow") === "1",
+  };
+}
+
+/** True when the URL carries any Switch Planner state worth restoring. */
+export function hasSwitchState(params: URLSearchParams): boolean {
+  return hasScenario(params) || params.has("from") || params.has("ow") || params.has("idx");
+}

@@ -19,6 +19,7 @@
 // set, only raises rate limits. If more than 20% of repos fail, the previous
 // files are kept: a Hugging Face outage must not wipe the data.
 
+import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 import { parseArgs } from "node:util";
@@ -44,7 +45,19 @@ const UA = "lmo-build/1 (+https://lmomnibus.pages.dev)";
 const TODAY = new Date().toISOString().slice(0, 10);
 const CACHE = "node_modules/.cache/lmo-hf";
 
-const { values: args } = parseArgs({ options: { all: { type: "boolean", default: false } } });
+const { values: args } = parseArgs({ options: { all: { type: "boolean", default: false }, minutes: { type: "string", default: "20" } } });
+
+/** Past this, requests fail fast: the run keeps the previous files rather than stall the price refresh. */
+const DEADLINE = Date.now() + Number(args.minutes) * 60_000;
+
+/**
+ * Bump when arch.ts or this script's derivation changes, so unchanged repos are
+ * re-derived on the next run (records are otherwise reused while their sha holds).
+ */
+const PARSER_VERSION = 2;
+
+/** HTTP statuses that mean the repo is gone or private, not that Hugging Face is having a bad day. */
+const GONE = new Set([401, 403, 404, 410]);
 
 interface Override {
   active_b?: number;
@@ -90,12 +103,19 @@ async function slot(): Promise<() => void> {
 
 async function get(url: string, init: RequestInit = {}): Promise<Response> {
   const headers: Record<string, string> = { "user-agent": UA, ...(init.headers as Record<string, string>) };
-  if (process.env.HF_TOKEN) headers.authorization = `Bearer ${process.env.HF_TOKEN}`;
+  // The token only raises API rate limits; it is never sent on file reads, so a gated
+  // repo's files are always read through a public copy, as documented.
+  if (process.env.HF_TOKEN && url.startsWith(`${HF}/api/`)) headers.authorization = `Bearer ${process.env.HF_TOKEN}`;
   for (let attempt = 0; ; attempt++) {
+    if (Date.now() > DEADLINE) throw new Error("out of time");
     const release = await slot();
     let res: Response;
     try {
-      res = await fetch(url, { ...init, headers, redirect: "follow" });
+      res = await fetch(url, { ...init, headers, redirect: "follow", signal: AbortSignal.timeout(30_000) });
+    } catch (e) {
+      // A hung or dropped connection: retry like a 5xx, a few times.
+      if (attempt < 4) continue;
+      throw e;
     } finally {
       release();
     }
@@ -105,10 +125,10 @@ async function get(url: string, init: RequestInit = {}): Promise<Response> {
       pausedUntil = Math.max(pausedUntil, Date.now() + (Number(rl[2]) + 2) * 1000);
       console.error(`  near the rate limit; pausing ${Number(rl[2]) + 2}s`);
     }
-    if ((res.status === 429 || res.status >= 500) && attempt < 8) {
+    if ((res.status === 429 || res.status >= 500) && attempt < 5) {
       await res.body?.cancel();
       const retryAfter = Number(res.headers.get("retry-after"));
-      const wait = Number.isFinite(retryAfter) && retryAfter > 0 ? retryAfter * 1000 : Math.min(300_000, 30_000 * 2 ** attempt);
+      const wait = Number.isFinite(retryAfter) && retryAfter > 0 ? Math.min(retryAfter * 1000, 300_000) : Math.min(120_000, 15_000 * 2 ** attempt);
       pausedUntil = Math.max(pausedUntil, Date.now() + wait);
       if (res.status === 429) console.error(`  rate-limited; pausing ${Math.round(wait / 1000)}s`);
       continue;
@@ -180,7 +200,9 @@ interface TreeEntry {
 
 async function tree(id: string): Promise<TreeEntry[]> {
   const r = await getJson<TreeEntry[]>(`${HF}/api/models/${id}/tree/main`);
-  return r.body ?? [];
+  // A failed listing must fail the job (keeping the last good record), not read as "no files".
+  if (!r.body) throw new Error(`file tree ${r.status}`);
+  return r.body;
 }
 
 const fileSize = (e: TreeEntry) => e.lfs?.size ?? e.size;
@@ -330,6 +352,8 @@ async function readModel(job: Job): Promise<Result> {
   const ov = overrides[job.hfId];
   const prev = previous?.models[job.hfId];
   const info = await api(job.hfId);
+  // Only "gone or private" may turn a repo unverified; anything else is Hugging Face having a bad day.
+  if (!info.body && !GONE.has(info.status)) throw new Error(`model API ${info.status}`);
 
   // Repo gone or private: a hand-checked mirror with the same weights, else unverified.
   let src = info.body;
@@ -337,6 +361,7 @@ async function readModel(job: Job): Promise<Result> {
   let readFrom = info.body?.id ?? job.hfId;
   if (!src && ov?.mirror) {
     const m = await api(ov.mirror);
+    if (!m.body && !GONE.has(m.status)) throw new Error(`mirror API ${m.status}`);
     if (m.body) {
       src = m.body;
       source = `mirror:${ov.mirror}`;
@@ -346,13 +371,15 @@ async function readModel(job: Job): Promise<Result> {
   if (!src || ov?.status === "unverified") {
     return { record: unverified(job, ov, info.status), reused: false };
   }
-  // Unchanged repo: reuse the record, unless the last read had to fall back to config arithmetic.
-  if (!args.all && prev && prev.sha === src.sha && prev.status === "open" && (prev.groups.source === "headers" || prev.paramsSource !== "safetensors")) {
+  // Unchanged repo, overrides and parser: reuse the record, unless the last read fell back to config arithmetic.
+  const print = fingerprint(ov);
+  if (!args.all && prev && prev.sha === src.sha && prev.status === "open" && prev.fingerprint === print && (prev.groups.source === "headers" || prev.paramsSource !== "safetensors")) {
     return { record: { ...prev, checkedOn: TODAY }, reused: true };
   }
 
   const files = await tree(readFrom);
   let cfgRes = await config(readFrom, src.sha);
+  if (!cfgRes.body && !GONE.has(cfgRes.status)) throw new Error(`config.json ${cfgRes.status}`);
   let cfg = cfgRes.body;
   let headerFrom = readFrom;
   let headerSha = src.sha ?? null;
@@ -418,8 +445,10 @@ async function readModel(job: Job): Promise<Result> {
     groups = groupsFromConfig(params, arch.dims, arch.moe);
   }
 
-  const format: NativeFormat = gguf.length && !st.length ? "gguf" : nativeFormat(src, cfg);
   const bits = checkpointBytes ? (8 * checkpointBytes) / params : 0;
+  let format: NativeFormat = gguf.length && !st.length ? "gguf" : nativeFormat(src, cfg);
+  // A donor's config can't say how the original ships; the checkpoint size can.
+  if (format === "bf16" && bits && bits < 12) format = bits >= 7 ? "fp8" : "int4";
 
   // Active parameters, for display only: the card's figure, then the name, then the split.
   let active: WeightsRecord["active"] = null;
@@ -436,6 +465,8 @@ async function readModel(job: Job): Promise<Result> {
   if (ov?.kv_note) notes.push(ov.kv_note);
   if (source.startsWith("mirror:") && src.gated) notes.push(`The repo is gated; its architecture was read from the public copy ${source.slice(7)}, which has the same parameter total.`);
   if (source.startsWith("donor:")) notes.push(`Architecture from ${source.slice(6)}.`);
+  if (format === "f32" && !ov?.note) notes.push("The checkpoint is stored in F32, twice what anyone serves; it is sized as BF16.");
+  if (format !== "gguf" && !(bits > 0)) throw new Error("checkpoint size unknown");
 
   return {
     reused: false,
@@ -453,12 +484,19 @@ async function readModel(job: Job): Promise<Result> {
       groups,
       active,
       checkpointBytes,
-      native: { format: format === "f32" ? "bf16" : format, bits: format === "f32" ? 16 : Math.round(bits * 1000) / 1000 },
+      // F32 checkpoints keep their 32 bits so the estimator halves them, as vLLM serves them at 16.
+      native: { format: format === "f32" ? "bf16" : format, bits: Math.round(bits * 1000) / 1000 },
       ...(gguf.length && !st.length ? { ggufFiles: gguf.map((f) => ({ name: f.path, bytes: fileSize(f) })).sort((a, b) => a.bytes - b.bytes) } : {}),
       arch,
       notes,
+      fingerprint: print,
     },
   };
+}
+
+/** What a record was derived with besides the repo: its override entry and the parser version. */
+function fingerprint(ov: Override | undefined): string {
+  return createHash("sha1").update(`${PARSER_VERSION}:${JSON.stringify(ov ?? null)}`).digest("hex").slice(0, 12);
 }
 
 function unverified(job: Job, ov: Override | undefined, status: number): WeightsRecord {
@@ -506,6 +544,7 @@ async function main() {
 
   if (failed > list.length * 0.2) {
     console.error(`${failed} of ${list.length} repos failed; keeping the previous ${OUT}`);
+    process.exitCode = 1;
     return;
   }
 
