@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { trackEvent } from "../analytics.ts";
 import { NumberField, U32_MAX } from "../NumberField.tsx";
 
 /**
@@ -38,6 +39,7 @@ export function SpeedTool() {
 
   const start = () => {
     if (running) return;
+    trackEvent("Speed Simulator", "Start");
     cancelRun();
     setRevealed(0);
     setRunning(true);

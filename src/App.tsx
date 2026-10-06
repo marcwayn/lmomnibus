@@ -1,4 +1,5 @@
 import { BrowserRouter, Link, NavLink, Route, Routes } from "react-router";
+import { usePageViews } from "./analytics.ts";
 import { CostTool } from "./pages/CostTool.tsx";
 import { HomePage } from "./pages/HomePage.tsx";
 import { SpeedTool } from "./pages/SpeedTool.tsx";
@@ -6,6 +7,7 @@ import { SpeedTool } from "./pages/SpeedTool.tsx";
 export function App() {
   return (
     <BrowserRouter>
+      <Analytics />
       <TopNav />
       <main className="shell">
         <Routes>
@@ -17,6 +19,11 @@ export function App() {
       </main>
     </BrowserRouter>
   );
+}
+
+function Analytics() {
+  usePageViews();
+  return null;
 }
 
 function TopNav() {
