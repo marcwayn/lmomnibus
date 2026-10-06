@@ -1373,7 +1373,7 @@
   },
   {
     "key": "baidu/ernie-4.5-vl-424b-a47b",
-    "display_name": "ERNIE 4.5 VL 424B A47B ",
+    "display_name": "ERNIE 4.5 VL 424B A47B",
     "vendor_key": "baidu",
     "vendor_name": "Baidu",
     "released": {
@@ -1681,7 +1681,7 @@
   },
   {
     "key": "bytedance/ui-tars-1.5-7b",
-    "display_name": "UI-TARS 7B ",
+    "display_name": "UI-TARS 7B",
     "vendor_key": "bytedance",
     "vendor_name": "Bytedance",
     "released": {
@@ -2323,9 +2323,9 @@
       [
         "Standard",
         {
-          "input": "0.0179000000",
+          "input": "0.0013000000",
           "output": "1.28000000",
-          "cache_read": "0.0179000000",
+          "cache_read": "0.0013000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2366,9 +2366,9 @@
       [
         "Standard",
         {
-          "input": "0.009000000",
+          "input": "0.0152000000",
           "output": "1.28000000",
-          "cache_read": "0.009000000",
+          "cache_read": "0.0152000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2495,9 +2495,9 @@
       [
         "Standard",
         {
-          "input": "1.32000000",
-          "output": "3.96000000",
-          "cache_read": "0.044000000",
+          "input": "0.66000000",
+          "output": "1.98000000",
+          "cache_read": "0.022000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2538,9 +2538,9 @@
       [
         "Standard",
         {
-          "input": "0.003000000",
-          "output": "2.4000000",
-          "cache_read": "0.003000000",
+          "input": "0.012563000000",
+          "output": "1.32000000",
+          "cache_read": "0.012563000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -3604,6 +3604,45 @@
     "reasoning_mandatory": true
   },
   {
+    "key": "google/gemini-nano-banana-2.1",
+    "display_name": "Nano Banana 2.1",
+    "vendor_key": "google",
+    "vendor_name": "Google",
+    "released": {
+      "year": 2026,
+      "month": 10
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 65536,
+    "max_output_tokens": 58982,
+    "modality": "text+image->text+image",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "1.5000000",
+          "output": "7.5000000",
+          "cache_read": null,
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-10-06",
+    "retires_on": null,
+    "open_weights": false,
+    "reasoning_mandatory": false
+  },
+  {
     "key": "google/gemma-2-27b-it",
     "display_name": "Gemma 2 27B",
     "vendor_key": "google",
@@ -3773,7 +3812,7 @@
   },
   {
     "key": "google/gemma-4-26b-a4b-it",
-    "display_name": "Gemma 4 26B A4B ",
+    "display_name": "Gemma 4 26B A4B",
     "vendor_key": "google",
     "vendor_name": "Google",
     "released": {
@@ -3798,9 +3837,9 @@
       [
         "Standard",
         {
-          "input": "0.0765000000",
-          "output": "0.255000000",
-          "cache_read": "0.0425000000",
+          "input": "0.09000000",
+          "output": "0.3000000",
+          "cache_read": "0.05000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -4640,7 +4679,7 @@
         {
           "input": "0.1875000000",
           "output": "0.6525000000",
-          "cache_read": null,
+          "cache_read": "0.05000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -4747,7 +4786,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 131072,
-    "max_output_tokens": 117964,
+    "max_output_tokens": 16384,
     "modality": "text+image->text",
     "capabilities": {
       "tools": true,
@@ -4763,8 +4802,8 @@
       [
         "Standard",
         {
-          "input": "0.35000000",
-          "output": "1.5000000",
+          "input": "0.3000000",
+          "output": "1.2000000",
           "cache_read": "0.04000000",
           "cache_write": null,
           "tiers": [],
@@ -5781,6 +5820,45 @@
     "reasoning_mandatory": false
   },
   {
+    "key": "mistralai/mistral-large-4-0",
+    "display_name": "Mistral Large 4",
+    "vendor_key": "mistralai",
+    "vendor_name": "Mistral AI",
+    "released": {
+      "year": 2026,
+      "month": 10
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 524288,
+    "max_output_tokens": 262144,
+    "modality": "text+image->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.68000000",
+          "output": "2.09000000",
+          "cache_read": "0.07000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-10-06",
+    "retires_on": null,
+    "open_weights": false,
+    "reasoning_mandatory": false
+  },
+  {
     "key": "mistralai/mistral-medium-3",
     "display_name": "Mistral Medium 3",
     "vendor_key": "mistralai",
@@ -6370,7 +6448,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 98304,
+    "max_output_tokens": 235929,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -6388,7 +6466,7 @@
         {
           "input": "0.6000000",
           "output": "2.5000000",
-          "cache_read": "0.15000000",
+          "cache_read": null,
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -6558,9 +6636,9 @@
       [
         "Standard",
         {
-          "input": "0.95000000",
+          "input": "0.83000000",
           "output": "14.000000",
-          "cache_read": "0.31000000",
+          "cache_read": "0.27000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -12329,7 +12407,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 235929,
+    "max_output_tokens": 32768,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -12345,9 +12423,9 @@
       [
         "Standard",
         {
-          "input": "0.15000000",
-          "output": "1.000000",
-          "cache_read": "0.05000000",
+          "input": "0.08000000",
+          "output": "0.75000000",
+          "cache_read": "0.04000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -13913,9 +13991,9 @@
       [
         "Standard",
         {
-          "input": "0.132000000",
-          "output": "0.528000000",
-          "cache_read": "0.033000000",
+          "input": "0.0825000000",
+          "output": "0.33000000",
+          "cache_read": "0.020625000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -13995,9 +14073,9 @@
       [
         "Standard",
         {
-          "input": "0.834000000",
-          "output": "2.501000000",
-          "cache_read": "0.042000000",
+          "input": "0.7506000000",
+          "output": "2.2509000000",
+          "cache_read": "0.0378000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15532,9 +15610,9 @@
       [
         "Standard",
         {
-          "input": "0.0112000000",
+          "input": "0.152000000",
           "output": "12.000000",
-          "cache_read": "0.0112000000",
+          "cache_read": "0.15000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15614,7 +15692,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 943717,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -15630,9 +15708,9 @@
       [
         "Standard",
         {
-          "input": "0.0214000000",
+          "input": "0.15000000",
           "output": "0.5000000",
-          "cache_read": "0.0141000000",
+          "cache_read": "0.03000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
