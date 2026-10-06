@@ -1,11 +1,10 @@
 import { titleFor } from "../routes.ts";
 
 export function OpenTool() {
-  const path = "OpenTool" === "OpenTool" ? "/tools/open" : "/tools/vram";
   return (
     <>
-      <title>{titleFor(path)}</title>
-      <h1>{titleFor(path).split(" — ")[0]}</h1>
+      <title>{titleFor("/tools/open")}</title>
+      <h1>{titleFor("/tools/open").split(" — ")[0]}</h1>
     </>
   );
 }
