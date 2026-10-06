@@ -60,7 +60,7 @@ export function Meter({ className = "" }: { className?: string }) {
  */
 export function SourceTag({ model, mode }: { model: Model; mode?: RateMode }) {
   return rateCard(model, mode ?? primaryMode(model))?.checked ? (
-    <span className="src-tag list" title="Vendor list price, checked by hand against the vendor's pricing">
+    <span className="src-tag list" title="Vendor list price: input and output checked by hand against the vendor's pricing. Cache prices are OpenRouter's.">
       list
     </span>
   ) : (

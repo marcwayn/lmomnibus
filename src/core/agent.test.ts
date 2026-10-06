@@ -59,6 +59,14 @@ describe("agent sessions", () => {
     expect(r.perSession.toFixed(6)).toBe("0.093750");
   });
 
+  it("prices nothing when turn 1 alone doesn't fit", () => {
+    const tiny = fixtureModel({ ...opus, contextTokens: 8_000 });
+    const r = sessionCost(tiny, s, TODAY);
+    expect(r.contextExceededAt).toBe(1);
+    expect(r.turns).toHaveLength(0);
+    expect(r.readShare).toBe(0);
+  });
+
   it("computes how many reads earn back a write", () => {
     // 5m: (6.25 − 5) / (5 − 0.5) ≈ 0.28 · 1h: (10 − 5) / 4.5 ≈ 1.11
     expect(breakEvenReads(opus, "5m")).toBeCloseTo(0.2778, 3);

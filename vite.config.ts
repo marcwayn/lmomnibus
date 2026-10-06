@@ -3,6 +3,7 @@ import { dirname, join } from "node:path";
 import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import Big from "big.js";
+import { movesText, VENDOR_KINDS, type Change } from "./src/core/changes.ts";
 import { fmtRate } from "./src/core/fmt.ts";
 import { ROUTES, SITE_ORIGIN, type CatalogFacts, type RouteInfo } from "./src/routes.ts";
 
@@ -171,22 +172,10 @@ function modelMeta(m: CatalogRow, facts: CatalogFacts): PageMeta {
   };
 }
 
-function readTape(): TapeEntry[] {
+function readTape(): Change[] {
   return existsSync("data/changes.jsonl")
     ? readFileSync("data/changes.jsonl", "utf8").split("\n").filter(Boolean).map((l) => JSON.parse(l))
     : [];
-}
-
-interface TapeEntry {
-  date: string;
-  vendor?: string;
-  since: string;
-  kind: string;
-  key: string;
-  name: string;
-  mode?: string;
-  input?: [string, string];
-  output?: [string, string];
 }
 
 /** /changes.json (the tape) and /changes.xml (Atom, one entry per snapshot). */
@@ -195,14 +184,19 @@ function writeChangeFeeds(outDir: string, facts: CatalogFacts) {
   writeFileSync(join(outDir, "changes.json"), JSON.stringify({ as_of: facts.as_of, changes: tape }));
 
   const dates = [...new Set(tape.map((c) => c.date))].sort().reverse();
-  const count = (day: TapeEntry[], kind: string) => day.filter((c) => c.kind === kind).length;
+  const count = (day: Change[], kind: Change["kind"]) => day.filter((c) => c.kind === kind).length;
+  // The same grouping as the Ledger's "Vendor list prices".
+  const label: Partial<Record<Change["kind"], string>> = {
+    list_correction: " — now a hand-checked list price (was OpenRouter's aggregate)",
+    promo_permanent: " — launch promo made permanent; the price in force didn't change",
+  };
   const entries = dates.map((date) => {
     const day = tape.filter((c) => c.date === date);
-    const list = day.filter((c) => c.kind === "list_price");
+    const list = day.filter((c) => VENDOR_KINDS.includes(c.kind));
     const added = day.filter((c) => c.kind === "added");
     const summary = [
       `${list.length} vendor list-price change${list.length === 1 ? "" : "s"}, ${added.length} new, ${count(day, "removed")} delisted, ${count(day, "aggregate_move")} aggregate moves (compared with ${day[0].since}).`,
-      ...list.map((c) => `${c.name} (${c.mode}): input ${c.input![0]} → ${c.input![1]}, output ${c.output![0]} → ${c.output![1]} USD/MTok`),
+      ...list.map((c) => `${c.name} (${c.mode}): ${movesText(c)} USD/MTok${label[c.kind] ?? ""}`),
       ...(added.length ? [`New: ${added.map((c) => c.name).join(", ")}`] : []),
     ];
     return [

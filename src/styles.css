@@ -317,7 +317,7 @@ button, input, select { font-family: inherit; font-size: inherit; color: inherit
 .seg { display: inline-flex; border: 1px solid var(--control); border-radius: var(--r-sm); }
 .seg button:focus-visible { position: relative; z-index: 1; }
 .seg button {
-  white-space: nowrap; font-family: var(--f-mono); font-size: 12px; padding: 5px 11px; border: 0; background: var(--surface);
+  font-family: var(--f-mono); font-size: 12px; padding: 5px 11px; border: 0; background: var(--surface);
   color: var(--ink-2); cursor: pointer; transition: background var(--t), color var(--t);
 }
 .seg button + button { border-left: 1px solid var(--control); }
@@ -346,6 +346,7 @@ button, input, select { font-family: inherit; font-size: inherit; color: inherit
 .inp-suffix { font-family: var(--f-mono); font-size: 12px; color: var(--ink-3); }
 .rate-field { display: flex; flex-direction: column; justify-content: space-between; border-color: var(--rule); }
 .rate-field .seg { align-self: flex-start; }
+.rate-field .seg button { white-space: nowrap; }
 .rate-field.wide { grid-column: span 2; }
 
 /* ---- market table ---- */
@@ -584,15 +585,21 @@ a.reading-value:hover { color: var(--accent); text-decoration: underline; }
 .session-line.l2 path, .session-line.l2 .swatch-line { stroke: var(--ink-2); stroke-dasharray: 6 3; }
 .session-line.l3 path, .session-line.l3 .swatch-line { stroke: var(--ink-3); stroke-dasharray: 2 3; }
 .session-line.l4 path, .session-line.l4 .swatch-line { stroke: var(--control); stroke-dasharray: 8 3 2 3; }
+.session-line .stop-mark { stroke: var(--ink-2); stroke-width: 1.75; }
 .session-chart { min-width: 640px; }
+.market .n .vd { display: block; }
 
 /* ---- model pages ---- */
 .model-byline { font-size: 12px; color: var(--ink-2); margin-top: 8px; }
 .model-actions { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; }
+/* Column counts divide the item count (6 spec cells, 3 scores), so no row is left half empty. */
 .spec-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1px; margin: 0;
+  display: grid; grid-template-columns: 1fr; gap: 1px; margin: 0;
   border: 1px solid var(--rule); border-radius: var(--r); background: var(--rule-soft); overflow: hidden;
 }
+@media (min-width: 440px) { .spec-grid.six { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 560px) { .spec-grid.three { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 780px) { .spec-grid.six { grid-template-columns: repeat(3, 1fr); } }
 .spec-grid div { padding: 10px 14px; background: var(--surface); }
 .spec-grid dt { font-family: var(--f-mono); font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-3); }
 .spec-grid dd { margin: 2px 0 0; font-family: var(--f-mono); font-size: 14px; font-variant-numeric: tabular-nums; }

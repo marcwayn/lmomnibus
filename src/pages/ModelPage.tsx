@@ -105,7 +105,7 @@ function SpecSheet({ model }: { model: Model }) {
         <div className="section-title">
           <h2 id="spec-h">Spec</h2>
         </div>
-        <dl className="spec-grid">
+        <dl className="spec-grid six">
           <div>
             <dt>Context</dt>
             <dd>{fmtCompact(model.contextTokens)} tokens</dd>
@@ -146,7 +146,7 @@ function SpecSheet({ model }: { model: Model }) {
         <div className="section-title">
           <h2 id="scores-h">Capability scores</h2>
         </div>
-        <dl className="spec-grid">
+        <dl className="spec-grid three">
           {INDEXES.map((i) => {
             const s = scoreOf(model, i);
             const r = rankOf(model, i);
@@ -191,6 +191,12 @@ function SpecSheet({ model }: { model: Model }) {
             </tbody>
           </table>
         </div>
+        {model.rates.some(([, card]) => card.checked) && (
+          <p className="fine">
+            On a “list” price list, input and output are checked by hand against the vendor; cache prices are
+            OpenRouter's.
+          </p>
+        )}
       </section>
 
       <Meter className="section-break" />

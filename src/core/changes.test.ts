@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { appendToTape, changesFor, diffCatalogs, parseTape, relChange, type RawModel } from "./changes.ts";
+import { appendToTape, changesFor, diffCatalogs, movesText, parseTape, relChange, type RawModel } from "./changes.ts";
 
 const card = (input: string, output: string, promo: RawModel["rates"][0][1]["promo"] = null) => ({ input, output, promo });
 const model = (key: string, over: Partial<RawModel> = {}): RawModel => ({
@@ -95,6 +95,44 @@ describe("per-list provenance", () => {
     expect(c.kind).toBe("aggregate_move");
     expect(c.cache_read).toEqual(["0.1", "0.05"]);
     expect(c.input).toBeUndefined();
+  });
+
+  it("files cache moves on a checked list as aggregate: only input and output are checked", () => {
+    const prev = [model("a/m", { provenance: "FirstParty", rates: [["Standard", { ...checked("3", "15"), cache_read: "0.30" }]] })];
+    const cacheOnly = [model("a/m", { provenance: "FirstParty", rates: [["Standard", { ...checked("3", "15"), cache_read: "0.25" }]] })];
+    expect(diffCatalogs(prev, cacheOnly, "s", "d").map((c) => c.kind)).toEqual(["aggregate_move"]);
+    const both = [model("a/m", { provenance: "FirstParty", rates: [["Standard", { ...checked("2", "10"), cache_read: "0.20" }]] })];
+    const tape = diffCatalogs(prev, both, "s", "d");
+    expect(tape.map((c) => c.kind)).toEqual(["list_price", "aggregate_move"]);
+    expect(tape[0].cache_read).toBeUndefined();
+    expect(tape[1].cache_read).toEqual(["0.30", "0.20"]);
+    expect(tape[1].input).toBeUndefined();
+  });
+
+  it("compares the 1-hour write price once the earlier snapshot has it", () => {
+    const prev = [model("a/m", { rates: [["Standard", { ...card("1", "2"), cache_write_1h: "2" }]] })];
+    const next = [model("a/m", { rates: [["Standard", { ...card("1", "2"), cache_write_1h: "1.6" }]] })];
+    expect(diffCatalogs(prev, next, "s", "d")[0].cache_write_1h).toEqual(["2", "1.6"]);
+    // A field the earlier snapshot didn't record isn't a move.
+    expect(diffCatalogs([model("a/m")], next, "s", "d")).toEqual([]);
+  });
+
+  it("still records cache moves when a promo is made permanent", () => {
+    const prev = [
+      model("a/m", { rates: [["Standard", { ...card("3", "15", { input: "2", output: "10", until: "2026-08-31" }), cache_read: "0.3" }]] }),
+    ];
+    const next = [model("a/m", { rates: [["Standard", { ...card("2", "10"), cache_read: "0.2" }]] })];
+    expect(diffCatalogs(prev, next, "s", "d").map((c) => c.kind)).toEqual(["promo_permanent", "aggregate_move"]);
+  });
+});
+
+describe("movesText", () => {
+  it("describes whichever price fields moved", () => {
+    const base = { date: "d", since: "s", key: "a/m", name: "M", vendor: "V", mode: "Standard" };
+    expect(movesText({ ...base, kind: "list_price", output: ["10.00", "12.00"] })).toBe("out 10.00 → 12.00");
+    expect(movesText({ ...base, kind: "aggregate_move", input: ["1", "0.9"], cache_read: ["", "0.1"] })).toBe(
+      "in 1 → 0.9 · cache read none → 0.1",
+    );
   });
 });
 

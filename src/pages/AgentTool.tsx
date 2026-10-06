@@ -78,8 +78,18 @@ export function AgentTool() {
     return () => clearTimeout(t);
   }, [encoded, navigate, pathname]);
 
+  // Sessions that can't finish rank after every one that can: a session cut
+  // short by the context window is cheaper only because it does less.
   const results = useMemo(
-    () => models.map((k) => sessionCost(modelByKey(k)!, session, today)).sort((a, b) => a.perSession.cmp(b.perSession)),
+    () =>
+      models
+        .map((k) => sessionCost(modelByKey(k)!, session, today))
+        .sort(
+          (a, b) =>
+            Number(a.contextExceededAt !== null) - Number(b.contextExceededAt !== null) ||
+            b.turns.length - a.turns.length ||
+            a.perSession.cmp(b.perSession),
+        ),
     [models, session, today],
   );
   const picks = useMemo(
@@ -197,7 +207,10 @@ export function AgentTool() {
                     setModels((ms) => (ms.includes(m.key) || ms.length >= MAX_MODELS ? ms : [...ms, m.key]));
                     setQuery("");
                     setStatus(`Added ${m.displayName}`);
-                    requestAnimationFrame(() => addRef.current?.focus());
+                    // The add field goes away at the limit: focus the new chip instead.
+                    requestAnimationFrame(() =>
+                      (addRef.current ?? chipsRef.current?.querySelector<HTMLButtonElement>("button:last-child"))?.focus(),
+                    );
                   }}
                 >
                   {m.displayName}
@@ -233,6 +246,9 @@ export function AgentTool() {
                   ? 1 - Number(r.perSession) / Number(r.uncachedPerSession)
                   : 0;
                 const be = breakEvenReads(r.model, ttl);
+                const fits = r.turns.length > 0;
+                const done = r.contextExceededAt === null;
+                const ctx = fmtCompact(r.model.contextTokens);
                 return (
                   <tr key={r.model.key}>
                     <td>
@@ -241,21 +257,37 @@ export function AgentTool() {
                         {r.model.vendorName} · {fmtCompact(r.model.contextTokens)} ctx <SourceTag model={r.model} mode={r.mode} />
                       </span>
                     </td>
-                    <td className="n col-cost">{fmtUsd(r.perSession)}</td>
-                    <td className="n">{fmtMoney(r.monthly)}</td>
+                    <td className="n col-cost">
+                      {!fits ? (
+                        "doesn't fit"
+                      ) : done ? (
+                        fmtUsd(r.perSession)
+                      ) : (
+                        <>
+                          {fmtUsd(r.perSession)}
+                          <span className="vd">
+                            turns 1–{r.turns.length} of {session.turns}
+                          </span>
+                        </>
+                      )}
+                    </td>
+                    <td className="n">{done ? fmtMoney(r.monthly) : "—"}</td>
                     <td className="n">
-                      {session.cache === "off"
+                      {session.cache === "off" || !fits
                         ? "—"
                         : saving >= 0
                           ? `${Math.round(saving * 100)}%`
                           : `costs +${Math.round(-saving * 100)}% more`}
                     </td>
-                    <td className="n">{session.cache === "off" ? "—" : `${Math.round(r.readShare * 100)}% of bill`}</td>
+                    <td className="n">{session.cache === "off" || !fits ? "—" : `${Math.round(r.readShare * 100)}% of bill`}</td>
                     <td className="breaks">
                       {[
-                        r.contextExceededAt !== null &&
-                          `stops at turn ${r.contextExceededAt - 1}: turn ${r.contextExceededAt} exceeds the ${fmtCompact(r.model.contextTokens)} context`,
-                        session.cache !== "off" &&
+                        !fits && `turn 1 alone exceeds the ${ctx} context`,
+                        fits &&
+                          !done &&
+                          `can't finish: turn ${r.contextExceededAt} exceeds the ${ctx} context, so only turns 1–${r.turns.length} are priced`,
+                        fits &&
+                          session.cache !== "off" &&
                           (be === null
                             ? "no cache discount published"
                             : be === 0
@@ -274,7 +306,7 @@ export function AgentTool() {
           </table>
         </div>
         {results.length === 0 && <div className="empty-note">Add a model above to price a session.</div>}
-        <SessionChart results={results} />
+        <SessionChart results={results} turns={session.turns} />
         <p className="fine">
           List-price cost at prices as of {CATALOG_META.asOf}, not cost per task. A write "pays off" once the reads it
           enables have saved more than its premium over plain input: (write − input) ÷ (input − read). Compare models
@@ -289,20 +321,27 @@ const W = 880;
 const H = 300;
 const M = { top: 22, right: 170, bottom: 36, left: 64 };
 
-function SessionChart({ results }: { results: ReturnType<typeof sessionCost>[] }) {
+function SessionChart({ results: all, turns }: { results: ReturnType<typeof sessionCost>[]; turns: number }) {
+  // Line styles follow the table order; models that can't send turn 1 have no line.
+  const results = all.map((r, i) => ({ ...r, style: LINES[i] })).filter((r) => r.turns.length > 0);
   if (!results.length) return null;
-  const turns = results[0].turns.length;
   const max = Math.max(...results.map((r) => Number(r.perSession)), 1e-9);
   const x = (t: number) => M.left + ((t - 1) / Math.max(turns - 1, 1)) * (W - M.left - M.right);
   const y = (v: number) => M.top + (1 - v / max) * (H - M.top - M.bottom);
   const yTicks = niceTicks(max);
-  const xTicks = niceTicks(turns)
-    .map((t) => Math.max(1, t))
-    .filter((t, i, a) => t <= turns && a.indexOf(t) === i);
-  // End labels: in order of height, each at least 13 units below the one above.
+  // Whole turns only: every turn up to 12, round steps beyond.
+  const xTicks =
+    turns <= 12
+      ? Array.from({ length: turns }, (_, i) => i + 1)
+      : niceTicks(turns)
+          .map((t) => Math.max(1, t))
+          .filter((t, i, a) => Number.isInteger(t) && t <= turns && a.indexOf(t) === i);
+  // End labels sit in the right margin, in order of height, each at least 13
+  // units below the one above; a line cut short by the context window ends in
+  // a stop mark where it ends.
   const labelY = new Map<string, number>();
   [...results]
-    .map((r) => ({ key: r.model.key, y: y(Number(r.turns.at(-1)?.cumulative ?? 0)) + 4 }))
+    .map((r) => ({ key: r.model.key, y: y(Number(r.turns.at(-1)!.cumulative)) + 4 }))
     .sort((a, b) => a.y - b.y)
     .reduce((prev, l) => {
       const at = Math.max(l.y, prev + 13);
@@ -315,7 +354,7 @@ function SessionChart({ results }: { results: ReturnType<typeof sessionCost>[] }
         className="frontier-chart session-chart"
         viewBox={`0 0 ${W} ${H}`}
         role="img"
-        aria-label={`Cumulative cost per session by turn for ${results.map((r) => r.model.displayName).join(", ")}; the table above has the totals.`}
+        aria-label={`Cumulative cost per session by turn for ${results.map((r) => r.model.displayName).join(", ")}; the table above has the totals and which sessions can't finish.`}
       >
         {yTicks.map((v) => (
           <g key={v}>
@@ -326,7 +365,7 @@ function SessionChart({ results }: { results: ReturnType<typeof sessionCost>[] }
           </g>
         ))}
         <line className="axis" x1={M.left} x2={W - M.right} y1={H - M.bottom} y2={H - M.bottom} />
-        {[...new Set(xTicks)].map((t) => (
+        {xTicks.map((t) => (
           <g key={t}>
             <line className="axis" x1={x(t)} x2={x(t)} y1={H - M.bottom} y2={H - M.bottom + 5} />
             <text className="axis-label" x={x(t)} y={H - M.bottom + 18} textAnchor="middle">
@@ -340,17 +379,21 @@ function SessionChart({ results }: { results: ReturnType<typeof sessionCost>[] }
         <text className="axis-title" x={M.left} y={M.top - 2}>
           $ per session, cumulative
         </text>
-        {results.map((r, i) => {
+        {results.map((r) => {
           const d = r.turns.map((t, j) => `${j ? "L" : "M"}${x(t.turn)},${y(Number(t.cumulative))}`).join(" ");
           const last = r.turns[r.turns.length - 1];
-          if (!last) return null;
           const name = r.model.displayName;
           const short = name.length > 20 ? `${name.slice(0, 19)}…` : name;
+          const ly = labelY.get(r.model.key)!;
+          const edge = W - M.right;
           return (
-            <g key={r.model.key} className={`session-line ${LINES[i]}`}>
+            <g key={r.model.key} className={`session-line ${r.style}`}>
               <path d={d} />
-              <line className="swatch-line" x1={x(last.turn) + 6} x2={x(last.turn) + 20} y1={labelY.get(r.model.key)! - 4} y2={labelY.get(r.model.key)! - 4} />
-              <text x={x(last.turn) + 24} y={labelY.get(r.model.key)}>
+              {r.contextExceededAt !== null && (
+                <line className="stop-mark" x1={x(last.turn)} x2={x(last.turn)} y1={y(Number(last.cumulative)) - 6} y2={y(Number(last.cumulative)) + 6} />
+              )}
+              <line className="swatch-line" x1={edge + 6} x2={edge + 20} y1={ly - 4} y2={ly - 4} />
+              <text x={edge + 24} y={ly}>
                 <title>{name}</title>
                 {short}
               </text>
@@ -363,6 +406,7 @@ function SessionChart({ results }: { results: ReturnType<typeof sessionCost>[] }
 }
 
 function niceTicks(max: number): number[] {
+  if (!(max > 0)) return [0];
   const step = 10 ** Math.floor(Math.log10(max / 4));
   const mult = [1, 2, 5, 10].find((m) => max / (m * step) <= 5) ?? 10;
   const s = mult * step;

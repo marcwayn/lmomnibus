@@ -76,7 +76,10 @@ function RouteFocus() {
       h1.tabIndex = -1;
       h1.focus({ preventScroll: true });
     }
-  }, [pathname, hash, navType]);
+    // Only a new page or anchor: the tools' own replace navigations (URL sync)
+    // keep the same pathname and mustn't move scroll or focus.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname, hash]);
   return null;
 }
 

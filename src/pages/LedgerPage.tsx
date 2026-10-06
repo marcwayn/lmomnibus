@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import { Mark, Meter } from "../components.tsx";
 import { allModels, CATALOG_META } from "../core/catalog.ts";
-import { relChange, type Change, type ChangeKind } from "../core/changes.ts";
+import { PRICE_FIELDS, relChange, VENDOR_KINDS, type Change, type ChangeKind } from "../core/changes.ts";
 import { daysBetween, daysLabel, todayIso } from "../core/date.ts";
 import { fmtRate } from "../core/fmt.ts";
 import { encodeKey } from "../core/share.ts";
@@ -12,9 +12,9 @@ import Big from "big.js";
 const INTERNAL = { internal: true };
 const SECTIONS: { kinds: ChangeKind[]; title: string; note?: string }[] = [
   {
-    kinds: ["list_price", "list_correction", "promo_permanent"],
+    kinds: VENDOR_KINDS,
     title: "Vendor list prices",
-    note: "Price lists checked by hand against the vendor (“list”).",
+    note: "Input and output prices checked by hand against the vendor (“list”). Cache prices always come from OpenRouter.",
   },
   { kinds: ["added"], title: "Newly listed" },
   { kinds: ["removed"], title: "Delisted", note: "With the last price seen." },
@@ -47,15 +47,8 @@ function Move({ pair, neutral }: { pair: [string, string]; neutral?: boolean }) 
   );
 }
 
-const FIELDS: [keyof Change, string][] = [
-  ["input", "in"],
-  ["output", "out"],
-  ["cache_read", "cache read"],
-  ["cache_write", "cache write"],
-];
-
 function Moves({ c, neutral }: { c: Change; neutral?: boolean }) {
-  const parts = FIELDS.filter(([f]) => c[f]).map(([f, label]) => (
+  const parts = PRICE_FIELDS.filter(([f]) => c[f]).map(([f, label]) => (
     <span key={f}>
       {label} <Move pair={c[f] as [string, string]} neutral={neutral} />
     </span>

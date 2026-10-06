@@ -131,6 +131,9 @@ export function CostTool() {
   // gets a strip of what changed for its models. The tape loads on demand.
   const [lastAsOf] = useState(() => (init.source === "storage" ? readAsOf() : null));
   const [since, setSince] = useState<Change[] | null>(null);
+  // Models still on the bench, plus delisted ones from the link (they left the
+  // bench at load, but their delisting is exactly what changed).
+  const sinceOnBench = (since ?? []).filter((c) => bench.includes(c.key) || missing.includes(c.key));
   useEffect(() => {
     if (!lastAsOf || lastAsOf >= CATALOG_META.asOf) return;
     let live = true;
@@ -526,11 +529,11 @@ export function CostTool() {
           )}
         </div>
 
-        {since && since.some((c) => bench.includes(c.key)) && (
+        {sinceOnBench.length > 0 && (
           <div className="since-strip" role="status">
             <strong>Since you last looked</strong> ({lastAsOf} to {CATALOG_META.asOf}):
             <ul>
-              {since.filter((c) => bench.includes(c.key)).map((c, i) => (
+              {sinceOnBench.map((c, i) => (
                 <li key={`${c.key}-${c.kind}-${i}`}>{describeChange(c)}</li>
               ))}
             </ul>

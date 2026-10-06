@@ -4,8 +4,11 @@
  * catalog shape, shared by scripts/changes.ts and the Ledger page.
  *
  * Kinds keep vendor facts apart from aggregate noise:
- * - list_price      a hand-checked vendor list price changed (FirstParty both sides)
+ * - list_price      a hand-checked vendor list price changed (checked both sides)
  * - aggregate_move  OpenRouter's aggregate price moved (provider mix, not a vendor decision)
+ * Only input and output are ever checked by hand (data/overrides.json); cache
+ * prices always come from OpenRouter, so a cache move is an aggregate move
+ * even on a checked price list.
  * Capability scores are never diffed: Artificial Analysis rescales its
  * indices between versions, so a score change says nothing about the model.
  */
@@ -42,6 +45,7 @@ export interface Change {
   output?: Pair;
   cache_read?: Pair;
   cache_write?: Pair;
+  cache_write_1h?: Pair;
   /** For removals: the last known price, its price list and its source. */
   last?: { input: string; output: string; mode?: string; provenance?: "FirstParty" | "Aggregate" };
   /** For retirements: the scheduled date. */
@@ -55,6 +59,7 @@ interface RawCard {
   output: string;
   cache_read?: string | null;
   cache_write?: string | null;
+  cache_write_1h?: string | null;
   tiers?: { above_input_tokens: number; input: string; output: string; cache_read: string | null }[];
   promo: { input: string; output: string; until: string } | null;
   /** Set by ingest on a price list a person checked against the vendor. */
@@ -85,6 +90,30 @@ function checker(snapshot: RawModel[]) {
     legacy ? m.provenance === "FirstParty" && mode === "Standard" : card.checked === true;
 }
 
+/** Kinds the Ledger and the feeds group as "Vendor list prices". */
+export const VENDOR_KINDS: ChangeKind[] = ["list_price", "list_correction", "promo_permanent"];
+
+/** Price fields a change can carry, with their reader-facing labels. */
+export const PRICE_FIELDS = [
+  ["input", "in"],
+  ["output", "out"],
+  ["cache_read", "cache read"],
+  ["cache_write", "cache write"],
+  ["cache_write_1h", "1h cache write"],
+] as const satisfies readonly (readonly [keyof Change, string])[];
+
+const CACHE_FIELDS = ["cache_read", "cache_write", "cache_write_1h"] as const;
+
+/** "in 3.00 → 2.00 · cache read none → 0.30": whichever price fields the change carries. */
+export function movesText(c: Change): string {
+  return PRICE_FIELDS.filter(([f]) => c[f])
+    .map(([f, label]) => {
+      const [a, b] = c[f]!;
+      return `${label} ${a === "" ? "none" : a} → ${b === "" ? "none" : b}`;
+    })
+    .join(" · ");
+}
+
 const tierKey = (c: RawCard) =>
   JSON.stringify((c.tiers ?? []).map((t) => [t.above_input_tokens, Number(t.input), Number(t.output), Number(t.cache_read)]));
 
@@ -110,25 +139,36 @@ export function diffCatalogs(prev: RawModel[], next: RawModel[], since: string, 
         out.push({ ...base(m), kind: "mode_added", mode });
         continue;
       }
+      // Cache prices: only compared when the earlier snapshot recorded the
+      // field, so a newly ingested field isn't read as a move.
+      const cacheMoved: Partial<Change> = {};
+      for (const f of CACHE_FIELDS) {
+        if (f in was && !same(was[f], card[f])) cacheMoved[f] = [was[f] ?? "", card[f] ?? ""];
+      }
+      const cacheMove = Object.keys(cacheMoved).length > 0;
       // A promo that became the list price: the price in force didn't change.
       const madePermanent =
         was.promo && !card.promo && same(was.promo.input, card.input) && same(was.promo.output, card.output);
       if (madePermanent) {
         out.push({ ...base(m), kind: "promo_permanent", mode, input: [was.input, card.input], output: [was.output, card.output] });
+        if (cacheMove) out.push({ ...base(m), kind: "aggregate_move", mode, ...cacheMoved });
       } else {
         const moved: Partial<Change> = {};
         if (!same(was.input, card.input)) moved.input = [was.input, card.input];
         if (!same(was.output, card.output)) moved.output = [was.output, card.output];
-        if ("cache_read" in was && !same(was.cache_read, card.cache_read)) moved.cache_read = [was.cache_read ?? "", card.cache_read ?? ""];
-        if ("cache_write" in was && !same(was.cache_write, card.cache_write)) moved.cache_write = [was.cache_write ?? "", card.cache_write ?? ""];
+        const a = wasChecked(old, mode, was);
+        const b = isChecked(m, mode, card);
+        // Both sides hand-checked: a vendor list-price change. Newly checked:
+        // a hand-checked price replacing an aggregate one. Anything else is
+        // OpenRouter's aggregate moving.
+        const kind: ChangeKind = a && b ? "list_price" : !a && b ? "list_correction" : "aggregate_move";
         if (Object.keys(moved).length) {
-          const a = wasChecked(old, mode, was);
-          const b = isChecked(m, mode, card);
-          // Both sides hand-checked: a vendor list-price change. Newly checked:
-          // a hand-checked price replacing an aggregate one. Anything else is
-          // OpenRouter's aggregate moving.
-          const kind: ChangeKind = a && b ? "list_price" : !a && b ? "list_correction" : "aggregate_move";
-          out.push({ ...base(m), kind, mode, ...moved });
+          // Cache moves ride along with an aggregate move; next to a checked
+          // price they get their own aggregate entry.
+          out.push({ ...base(m), kind, mode, ...moved, ...(kind === "aggregate_move" ? cacheMoved : {}) });
+          if (cacheMove && kind !== "aggregate_move") out.push({ ...base(m), kind: "aggregate_move", mode, ...cacheMoved });
+        } else if (cacheMove) {
+          out.push({ ...base(m), kind: "aggregate_move", mode, ...cacheMoved });
         }
         if (!was.promo && card.promo) out.push({ ...base(m), kind: "promo_start", mode, until: card.promo.until });
         if (was.promo && !card.promo) out.push({ ...base(m), kind: "promo_end", mode, until: was.promo.until });
