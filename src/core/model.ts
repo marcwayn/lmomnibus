@@ -1,3 +1,4 @@
+import type { WeightsIndexEntry } from "./weights.ts";
 import Big from "big.js";
 
 /**
@@ -88,7 +89,16 @@ export interface Model {
   knowledgeCutoff: string | null;
   /** Scheduled retirement, YYYY-MM-DD, when announced. */
   retiresOn: string | null;
+  /** Downloadable weights we could open on Hugging Face (see `weights`). */
   openWeights: boolean;
+  /** open: weights published and read; closed: API only; unverified: the linked repo can't be opened. */
+  weightsStatus: "open" | "closed" | "unverified";
+  /** Hugging Face repo of the weights (as OpenRouter links it, or our openness list). */
+  hfId: string | null;
+  /** Set when hfId came from our hand-checked openness list, not OpenRouter. */
+  opennessSource: string | null;
+  /** Licence class, parameter counts and native format, from data/weights-index.json. */
+  weights: WeightsIndexEntry | null;
   /** Always reasons: thinking tokens can't be turned off. */
   reasoningMandatory: boolean;
 }

@@ -15,9 +15,15 @@ import { buildBoard } from "../src/core/board.ts";
 import { allModels, CATALOG_META } from "../src/core/catalog.ts";
 import { todayIso } from "../src/core/date.ts";
 import { fmtCompact, fmtInt, fmtRate as fmtRateOg, fmtUsd } from "../src/core/fmt.ts";
+import { priceAll } from "../src/core/frontier.ts";
 import { rateCard } from "../src/core/model.ts";
+import { gapReading } from "../src/core/openclosed.ts";
+import type { WeightsIndexFile } from "../src/core/weights.ts";
 import { presetById } from "../src/core/presets.ts";
 import { ROUTES, type RouteInfo } from "../src/routes.ts";
+import rawWeightsIndex from "../data/weights-index.json" with { type: "json" };
+
+const WEIGHTS_INDEX = rawWeightsIndex as unknown as WeightsIndexFile;
 
 const OUT = "dist";
 const require = createRequire(import.meta.url);
@@ -202,6 +208,24 @@ const CARDS: Record<string, () => Node> = {
       "What an agent session really costs",
       body("Context grows every turn. Price a whole session per model, with and without prompt caching."),
       live,
+    ),
+  "/tools/open": () => {
+    const agent = presetById("agent")!;
+    const g = gapReading(priceAll(allModels(), agent.workload, agent.rate, CATALOG_META.asOf), "intelligence");
+    const open = g.best.open?.model.displayName ?? "—";
+    return card(
+      eyebrow("/tools/open"),
+      "Open weights vs closed",
+      body(`The best open-weight model, ${open}, trails the best closed one by ${g.gap ?? "—"} points on AA Intelligence.\nWhat each side costs at your bar, and what you can run yourself.`),
+      live,
+    );
+  },
+  "/tools/vram": () =>
+    card(
+      eyebrow("/tools/vram"),
+      "Will it fit on your GPU?",
+      body("Weights at your format, KV cache at your context, engine overhead — for every open-weight model, with the arithmetic shown."),
+      `${Object.values(WEIGHTS_INDEX.models).filter((m) => m.status === "open").length} open-weight models · an estimate, not a guarantee · lmomnibus.pages.dev`,
     ),
   "/tools/speed": () =>
     card(

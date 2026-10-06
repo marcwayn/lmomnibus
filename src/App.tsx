@@ -10,8 +10,11 @@ import { SwitchTool } from "./pages/SwitchTool.tsx";
 import { AgentTool } from "./pages/AgentTool.tsx";
 import { ModelPage } from "./pages/ModelPage.tsx";
 
-// Loaded on demand: it carries the change tape, which grows every day.
+// Loaded on demand: the Ledger carries the change tape, which grows every day;
+// the open-weights tools carry the Hugging Face architecture data.
 const LedgerPage = lazy(() => import("./pages/LedgerPage.tsx").then((m) => ({ default: m.LedgerPage })));
+const OpenTool = lazy(() => import("./pages/OpenTool.tsx").then((m) => ({ default: m.OpenTool })));
+const VramTool = lazy(() => import("./pages/VramTool.tsx").then((m) => ({ default: m.VramTool })));
 import { ROUTES } from "./routes.ts";
 
 /** Page component per route path; every entry in ROUTES must have one (see routes.test.ts). */
@@ -23,6 +26,8 @@ export const PAGES: Record<string, ComponentType> = {
   "/changes": LedgerPage,
   "/tools/switch": SwitchTool,
   "/tools/agent": AgentTool,
+  "/tools/open": OpenTool,
+  "/tools/vram": VramTool,
 };
 
 export function App() {

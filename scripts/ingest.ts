@@ -20,6 +20,7 @@ import { parseArgs } from "node:util";
 
 const FEED_URL = "https://openrouter.ai/api/v1/models";
 const OVERRIDES_PATH = "data/overrides.json";
+const OPENNESS_PATH = "data/openness.json";
 
 type RateMode = "Standard" | "Batch" | "Fast";
 
@@ -115,6 +116,10 @@ interface CatalogModel {
   /** Scheduled retirement date, when one is announced. */
   retires_on: string | null;
   open_weights: boolean;
+  /** The Hugging Face repo OpenRouter links for the weights, or data/openness.json when OpenRouter lists none. */
+  hf_id: string | null;
+  /** Set when hf_id came from data/openness.json rather than OpenRouter: where it was checked. */
+  openness_source?: string;
   /** The model always reasons (thinking can't be turned off). */
   reasoning_mandatory: boolean;
 }
@@ -139,6 +144,7 @@ async function main() {
   console.error(`normalized to ${models.length} priced models`);
 
   applyOverrides(models);
+  applyOpenness(models);
 
   // A broken or partial feed must not replace a good catalog (the daily
   // workflow would commit and deploy it). Allow a real shrink explicitly.
@@ -343,6 +349,7 @@ function normalize(raw: OrModel[]): CatalogModel[] {
       listed_on: created.toISOString().slice(0, 10),
       retires_on: isoDate(primary.expiration_date),
       open_weights: Boolean(primary.hugging_face_id?.trim()),
+      hf_id: primary.hugging_face_id?.trim() || null,
       reasoning_mandatory: primary.reasoning?.mandatory === true,
     });
   }
@@ -387,6 +394,30 @@ function applyOverrides(models: CatalogModel[]) {
     // Only this price list was checked; the model's other lists stay aggregate.
     card.checked = true;
     model.provenance = "FirstParty";
+  }
+}
+
+interface OpennessEntry {
+  key: string;
+  hf_id: string;
+  source: string;
+  verified_on: string;
+}
+
+/** Models whose weights are published although OpenRouter lists no Hugging Face id. */
+function applyOpenness(models: CatalogModel[]) {
+  if (!existsSync(OPENNESS_PATH)) return;
+  const { add } = JSON.parse(readFileSync(OPENNESS_PATH, "utf8")) as { add: OpennessEntry[] };
+  for (const o of add) {
+    const model = models.find((m) => m.key === o.key);
+    if (!model) {
+      console.error(`warning: openness key "${o.key}" not in feed, skipping`);
+      continue;
+    }
+    if (model.hf_id) continue; // OpenRouter now lists one; theirs wins
+    model.hf_id = o.hf_id;
+    model.open_weights = true;
+    model.openness_source = `${o.source} (checked ${o.verified_on})`;
   }
 }
 

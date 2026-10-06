@@ -66,7 +66,8 @@ export function switchCandidates(
     .sort((a, b) => a.point.cost - b.point.cost);
 }
 
-function specBreaks(from: Priced, to: Priced): string[] {
+/** What moving from one priced model to another gives up, in plain words. */
+export function specBreaks(from: Priced, to: Priced): string[] {
   const f = from.model;
   const t = to.model;
   const out: string[] = [];
@@ -82,5 +83,11 @@ function specBreaks(from: Priced, to: Priced): string[] {
   if (f.capabilities.structuredOutput && !t.capabilities.structuredOutput) out.push("no structured output");
   if (f.openWeights && !t.openWeights) out.push("closed weights");
   if (!f.reasoningMandatory && t.reasoningMandatory) out.push("always reasons (more output)");
+  // Moving onto open weights: say when the licence restricts use.
+  if (t.openWeights && t.weights) {
+    if (t.weights.licence === "noncommercial") out.push("non-commercial licence");
+    else if (t.weights.licence === "custom" && f.weights?.licence !== "custom") out.push("custom licence terms");
+    else if (t.weights.licence === "unclassified") out.push("licence unclassified");
+  }
   return out;
 }

@@ -26,6 +26,8 @@ const QUESTIONS: Record<string, string> = {
   "/changes": "What changed in model prices since I last looked?",
   "/tools/switch": "My model is retiring or too pricey — what replaces it?",
   "/tools/agent": "What does a whole agent session cost, and what does caching save?",
+  "/tools/open": "How far behind are open-weight models, and what do they cost?",
+  "/tools/vram": "Will this model fit on my GPU, and at what context?",
 };
 
 function rememberedPreset(): PresetId | null {

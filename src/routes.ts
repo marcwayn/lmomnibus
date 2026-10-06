@@ -74,6 +74,22 @@ export const ROUTES: readonly RouteInfo[] = [
       "What an agent session costs as its context grows turn by turn, per model, and how much prompt caching saves.",
     ogImage: "/og/agent.png",
   },
+  {
+    path: "/tools/open",
+    nav: { num: "07", label: "Open" },
+    title: "Open Weights vs Closed — LMOmnibus",
+    description: (f) =>
+      `Open-weight (often called open-source) language models against closed ones: price at your workload, Artificial Analysis scores, how far the best open model trails, what you can run yourself, and licences. Prices as of ${f.as_of}.`,
+    ogImage: "/og/open.png",
+  },
+  {
+    path: "/tools/vram",
+    nav: { num: "08", label: "VRAM" },
+    title: "VRAM Estimator — LMOmnibus",
+    description: () =>
+      "Estimate the GPU memory an open-weight model needs at your context: weights at your format, KV cache, engine overhead, and which GPUs and Macs hold it. An estimate, with the arithmetic shown.",
+    ogImage: "/og/vram.png",
+  },
 ];
 
 export const SITE_ORIGIN = "https://lmomnibus.pages.dev";
