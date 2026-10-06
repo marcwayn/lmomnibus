@@ -5,6 +5,7 @@ import { todayIso } from "../core/date.ts";
 import { fmtMoney, fmtRate } from "../core/fmt.ts";
 import { primaryCard, primaryMode, yearMonth, type Model } from "../core/model.ts";
 import { availableYears, search } from "../core/query.ts";
+import { trackEvent } from "../analytics.ts";
 import { NumberField, U32_MAX } from "../NumberField.tsx";
 
 const YEARS = availableYears(allModels());
@@ -33,7 +34,10 @@ export function CostTool() {
   }, [bench, workload, today]);
   const cheapest = benchCosts[0]?.[1].monthlyCost ?? null;
 
-  const addToBench = (key: string) => setBench((b) => (b.includes(key) ? b : [...b, key]));
+  const addToBench = (key: string) => {
+    trackEvent("Cost Calculator", "Add to bench", key);
+    setBench((b) => (b.includes(key) ? b : [...b, key]));
+  };
   const removeFromBench = (key: string) => setBench((b) => b.filter((k) => k !== key));
   const toggleVendor = (vk: string) =>
     setSelectedVendors((v) => (v.includes(vk) ? v.filter((x) => x !== vk) : [...v, vk]));
