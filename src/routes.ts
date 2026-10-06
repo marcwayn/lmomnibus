@@ -58,6 +58,14 @@ export const ROUTES: readonly RouteInfo[] = [
       `What changed in language-model prices: vendor list-price moves, new listings, delistings and retirements, snapshot by snapshot. Latest ${f.as_of}.`,
     ogImage: "/og/ledger.png",
   },
+  {
+    path: "/tools/switch",
+    nav: { num: "05", label: "Switch" },
+    title: "Switch Planner — LMOmnibus",
+    description: () =>
+      "Leaving a language model? Ranked replacements at your workload: the saving, the score change, and what you'd give up.",
+    ogImage: "/og/switch.png",
+  },
 ];
 
 export const SITE_ORIGIN = "https://lmomnibus.pages.dev";

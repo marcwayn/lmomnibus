@@ -6,6 +6,7 @@ import { CostTool } from "./pages/CostTool.tsx";
 import { FrontierTool } from "./pages/FrontierTool.tsx";
 import { HomePage } from "./pages/HomePage.tsx";
 import { SpeedTool } from "./pages/SpeedTool.tsx";
+import { SwitchTool } from "./pages/SwitchTool.tsx";
 
 // Loaded on demand: it carries the change tape, which grows every day.
 const LedgerPage = lazy(() => import("./pages/LedgerPage.tsx").then((m) => ({ default: m.LedgerPage })));
@@ -18,6 +19,7 @@ export const PAGES: Record<string, ComponentType> = {
   "/tools/frontier": FrontierTool,
   "/tools/speed": SpeedTool,
   "/changes": LedgerPage,
+  "/tools/switch": SwitchTool,
 };
 
 export function App() {

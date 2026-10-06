@@ -182,6 +182,13 @@ const CARDS: Record<string, () => Node> = {
       body("Vendor list-price moves, new listings, delistings and retirements — kept apart from OpenRouter's aggregate drift."),
       live,
     ),
+  "/tools/switch": () =>
+    card(
+      eyebrow("/tools/switch"),
+      "What replaces the model you're leaving",
+      body("Ranked at your workload: the saving, the score change, and what the switch gives up — context, cutoff, cache pricing."),
+      live,
+    ),
   "/tools/speed": () =>
     card(
       eyebrow("/tools/speed"),

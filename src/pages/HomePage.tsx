@@ -24,6 +24,7 @@ const QUESTIONS: Record<string, string> = {
   "/tools/frontier": "What's the cheapest model that clears my bar?",
   "/tools/speed": "What does N tokens per second feel like?",
   "/changes": "What changed in model prices since I last looked?",
+  "/tools/switch": "My model is retiring or too pricey — what replaces it?",
 };
 
 function rememberedPreset(): PresetId | null {
