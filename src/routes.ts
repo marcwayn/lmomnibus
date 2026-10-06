@@ -66,6 +66,14 @@ export const ROUTES: readonly RouteInfo[] = [
       "Leaving a language model? Ranked replacements at your workload: the saving, the score change, and what you'd give up.",
     ogImage: "/og/switch.png",
   },
+  {
+    path: "/tools/agent",
+    nav: { num: "06", label: "Agent" },
+    title: "Agent Loop — LMOmnibus",
+    description: () =>
+      "What an agent session costs as its context grows turn by turn, per model, and how much prompt caching saves.",
+    ogImage: "/og/agent.png",
+  },
 ];
 
 export const SITE_ORIGIN = "https://lmomnibus.pages.dev";

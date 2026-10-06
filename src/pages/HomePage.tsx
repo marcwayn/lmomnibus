@@ -25,6 +25,7 @@ const QUESTIONS: Record<string, string> = {
   "/tools/speed": "What does N tokens per second feel like?",
   "/changes": "What changed in model prices since I last looked?",
   "/tools/switch": "My model is retiring or too pricey — what replaces it?",
+  "/tools/agent": "What does a whole agent session cost, and what does caching save?",
 };
 
 function rememberedPreset(): PresetId | null {

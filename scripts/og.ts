@@ -189,6 +189,13 @@ const CARDS: Record<string, () => Node> = {
       body("Ranked at your workload: the saving, the score change, and what the switch gives up — context, cutoff, cache pricing."),
       live,
     ),
+  "/tools/agent": () =>
+    card(
+      eyebrow("/tools/agent"),
+      "What an agent session really costs",
+      body("Context grows every turn. Price a whole session per model, with and without prompt caching."),
+      live,
+    ),
   "/tools/speed": () =>
     card(
       eyebrow("/tools/speed"),
