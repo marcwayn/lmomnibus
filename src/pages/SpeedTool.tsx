@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { trackEvent } from "../analytics.ts";
-import { NumberField, U32_MAX } from "../NumberField.tsx";
+import { NumberField } from "../NumberField.tsx";
+import { titleFor } from "../routes.ts";
 
 /**
  * On-topic filler for the streamed preview. Repeats (cycled by index) if the
@@ -11,6 +12,12 @@ const SAMPLE_TEXT =
   "Every response from a language model arrives one token at a time. A token is not quite a word and not quite a character — it might be a whole common word, a fragment of a longer one, or a single punctuation mark, and the exact boundary depends on the model's own tokenizer. What you experience as smooth streaming text is really a rapid sequence of small decode steps, each one producing the next token and appending it to what came before. The rate at which those steps happen is throughput, usually reported in tokens per second, and it is one of the most consequential and least visible numbers in choosing a model. A model that costs less per token but streams at a third of the speed can still finish a long response slower and feel less responsive in a live chat, even though the bill at the end of the month is smaller. Throughput depends on more than the model itself: batch size, hardware, quantization, and whether a provider is running a fast-tier variant or a standard one all move the number meaningfully. A model publishing thirty tokens a second under load and a fast-mode variant of the same model publishing eighty are, from a user's chair, two different products. Set a rate below, press start, and watch a paragraph assemble itself at that pace. Fifty tokens a second reads like a person typing quickly. Two hundred reads like the words are already there and merely being unveiled. Five reads like waiting. Once a rate has a feel attached to it, the number on a pricing page stops being abstract.";
 
 const WORDS = SAMPLE_TEXT.split(/\s+/).filter(Boolean);
+
+/**
+ * English runs at roughly 0.75 words per token, so N tokens reveal about
+ * 0.75·N words. Revealing a word per token would show text a third too fast.
+ */
+const WORDS_PER_TOKEN = 0.75;
 
 /**
  * Checks in every 50ms and sets `revealed` from *measured* elapsed time times
@@ -70,7 +77,7 @@ export function SpeedTool() {
   };
 
   const streamedText = useMemo(
-    () => Array.from({ length: revealed }, (_, i) => WORDS[i % WORDS.length]).join(" "),
+    () => Array.from({ length: Math.floor(revealed * WORDS_PER_TOKEN) }, (_, i) => WORDS[i % WORDS.length]).join(" "),
     [revealed],
   );
 
@@ -84,9 +91,9 @@ export function SpeedTool() {
 
   return (
     <>
-      <title>LMOmnibus - Token Speed Simulator</title>
+      <title>{titleFor("/tools/speed")}</title>
       <div className="tool-head">
-        <span className="eyebrow">Simulator</span>
+        <span className="eyebrow">Tool 03</span>
         <h1>Token Speed Simulator</h1>
         <p className="sub">
           Set a throughput and an output length, then watch a response stream at that pace. Streaming speed shapes how a
@@ -98,9 +105,9 @@ export function SpeedTool() {
         <div className="section-title">
           <h2>Settings</h2>
         </div>
-        <div className="inputs-row">
-          <NumberField label="Speed · tokens / second" value={speed} onChange={setSpeed} min={5} max={2000} step={5} limit={U32_MAX} disabled={running} />
-          <NumberField label="Output length · tokens" value={outputTokens} onChange={setOutputTokens} min={20} max={4000} step={20} limit={U32_MAX} disabled={running} />
+        <div className="inputs-row narrow">
+          <NumberField label="Speed · tokens / second" value={speed} onChange={setSpeed} min={5} max={2000} step={5} disabled={running} />
+          <NumberField label="Output length · tokens" value={outputTokens} onChange={setOutputTokens} min={20} max={4000} step={20} disabled={running} />
         </div>
 
         <div className="cta-row" style={{ marginTop: 18 }}>
@@ -138,8 +145,8 @@ export function SpeedTool() {
 
         <div className="stream-stats">
           <Stat label="Tokens" value={`${revealed} / ${outputTokens}`} />
-          <Stat label="Elapsed" value={`${elapsedS.toFixed(1)}s`} />
-          <Stat label="Estimated total" value={`${totalS.toFixed(1)}s`} />
+          <Stat label="Elapsed" value={elapsedS.toFixed(1)} unit="s" />
+          <Stat label="Estimated total" value={totalS.toFixed(1)} unit="s" />
           <Stat label="Status" value={status} />
         </div>
       </div>
@@ -156,11 +163,14 @@ export function SpeedTool() {
   );
 }
 
-function Stat({ label, value }: { label: string; value: string }) {
+function Stat({ label, value, unit }: { label: string; value: string; unit?: string }) {
   return (
     <div className="stat">
       <span className="il">{label}</span>
-      <span className="stat-v">{value}</span>
+      <span className="stat-v">
+        {value}
+        {unit && <span className="figure-unit">{unit}</span>}
+      </span>
     </div>
   );
 }

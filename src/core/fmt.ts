@@ -30,3 +30,24 @@ export function fmtRate(d: Big): string {
 export function fmtInt(n: number): string {
   return groupThousands(String(n));
 }
+
+/**
+ * A dollar figure that may be tiny: two decimals at $1 and above (grouped),
+ * three significant figures below $1, so $0.000412 isn't shown as $0.00.
+ */
+export function fmtUsd(d: Big): string {
+  if (d.abs().gte(1) || d.eq(0)) return fmtMoney(d);
+  const s = d.abs().prec(3, ROUND_HALF_EVEN).toFixed();
+  const [intPart, decPart = ""] = s.split(".");
+  return `${d.lt(0) ? "-" : ""}$${intPart}.${decPart.padEnd(2, "0")}`;
+}
+
+/** Token counts for display: 2K, 1.5K, 200K, 1M, 2.1M. */
+export function fmtCompact(n: number): string {
+  const r = (x: number) => Math.round(x * 10) / 10;
+  // Promote across a unit boundary after rounding: 999,950 is "1M", not "1000K".
+  if (n >= 1e9 || r(n / 1e6) >= 1000) return `${r(n / 1e9)}B`;
+  if (n >= 1e6 || r(n / 1e3) >= 1000) return `${r(n / 1e6)}M`;
+  if (n >= 1e3) return `${r(n / 1e3)}K`;
+  return String(n);
+}

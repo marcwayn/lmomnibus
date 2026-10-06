@@ -43,6 +43,22 @@ export interface RateCard {
   promo: Promo | null;
 }
 
+/**
+ * Artificial Analysis indices as carried in the OpenRouter feed. Present on
+ * roughly a third of the catalog; any one index can be missing on its own.
+ */
+export interface Scores {
+  intelligence: number | null;
+  coding: number | null;
+  agentic: number | null;
+}
+
+export interface Capabilities {
+  tools: boolean;
+  reasoning: boolean;
+  structuredOutput: boolean;
+}
+
 export interface Model {
   /** "anthropic/claude-opus-5" */
   key: string;
@@ -52,7 +68,10 @@ export interface Model {
   released: ReleaseDate;
   contextTokens: number;
   maxOutputTokens: number | null;
+  /** OpenRouter's modality string, e.g. "text+image->text". */
   modality: string;
+  capabilities: Capabilities;
+  scores: Scores | null;
   /**
    * Standard is present for almost every model. Batch and Fast are optional
    * *modes of this model* — never separate catalog entries.
@@ -106,6 +125,11 @@ export function primaryMode(model: Model): RateMode {
 /** The rate card for `primaryMode`. */
 export function primaryCard(model: Model): RateCard {
   return rateCard(model, primaryMode(model))!;
+}
+
+/** Input modalities, from the part of the modality string before "->". */
+export function inputModalities(model: Model): string[] {
+  return model.modality.split("->")[0].split("+").filter(Boolean);
 }
 
 export function yearMonth(r: ReleaseDate): string {
