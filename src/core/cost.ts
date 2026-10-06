@@ -102,7 +102,8 @@ export function costFor(
   let writeRate = inputRate;
   if (card.cacheWrite !== null) {
     if (card.cacheWrite.gte(card.input)) {
-      const scaled = card.cacheWrite.times(inputRate).div(card.input);
+      // A $0 base input has no multiple to scale by: use the published price.
+      const scaled = card.input.gt(0) ? card.cacheWrite.times(inputRate).div(card.input) : card.cacheWrite;
       writeRate = scaled.gt(inputRate) ? scaled : inputRate;
     } else if (writePct > 0) {
       notes.push("storage-fee-not-modelled");

@@ -206,7 +206,7 @@ export function HomePage() {
             </>
           ) : (
             <>
-              Showing models scoring ≥ {board.floor} on AA Intelligence — the top quartile (p{BOARD_PERCENTILE}) of{" "}
+              Showing models scoring at least {board.floor} on AA Intelligence — the top quartile (p{BOARD_PERCENTILE}) of{" "}
               {board.scoredCount} scored — where nothing cheaper on this workload scores higher.
             </>
           )}{" "}

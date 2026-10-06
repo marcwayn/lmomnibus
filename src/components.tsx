@@ -13,10 +13,23 @@ import { NumberField, U32_MAX } from "./NumberField.tsx";
  * and ▲ "pricier". As SVG they render identically everywhere, instead of
  * falling back to whatever font has the glyph.
  */
-export function Mark({ kind }: { kind: "best" | "up" }) {
+const MARKS = {
+  best: <path d="M5 0.5 9.5 5 5 9.5 0.5 5Z" />,
+  up: <path d="M5 1 9.5 9H0.5Z" />,
+  down: <path d="M5 9 9.5 1H0.5Z" />,
+  to: <path d="M1 4.25h6.2L4.9 1.95 5.95.9 10 5 5.95 9.1 4.9 8.05 7.2 5.75H1Z" />,
+  check: <path d="M0.8 5.3 1.9 4.2 3.9 6.2 8.1 2 9.2 3.1 3.9 8.4Z" />,
+};
+
+/**
+ * The price-board marks, drawn rather than typed: ◆ "cheapest / best value",
+ * ▲ pricier, ▼ cheaper, plus → and ✓. The fonts' loaded subsets don't carry
+ * these glyphs, so as SVG they render identically everywhere.
+ */
+export function Mark({ kind }: { kind: keyof typeof MARKS }) {
   return (
-    <svg className="mark" viewBox="0 0 10 10" aria-hidden="true">
-      {kind === "best" ? <path d="M5 0.5 9.5 5 5 9.5 0.5 5Z" /> : <path d="M5 1 9.5 9H0.5Z" />}
+    <svg className={`mark mark-${kind}`} viewBox="0 0 10 10" aria-hidden="true">
+      {MARKS[kind]}
     </svg>
   );
 }
@@ -205,7 +218,10 @@ export function CopyButton({
       {/* The name stays the action; the visible text briefly shows the result,
           which the status region also announces. */}
       <button type="button" className="text-btn copy-btn" aria-label={label} onClick={run}>
-        {status || label}
+        {/* Both texts share one grid cell, so the button keeps the width of the
+            longer one and nothing beside it moves while "Copied" shows. */}
+        <span className={status ? "copy-text hide" : "copy-text"}>{label}</span>
+        <span className={status ? "copy-text" : "copy-text hide"}>{status || "Copied"}</span>
       </button>
       <span className="sr-status" role="status" aria-live="polite">
         {status}

@@ -227,4 +227,11 @@ describe("costFor", () => {
     expectMoney(b.cacheWriteCost, "1.875");
     expect(b.notes).not.toContain("storage-fee-not-modelled");
   });
+
+  it("doesn't divide by a $0 base input when scaling a write price", () => {
+    const m = modelWith([["Standard", card({ input: dec("0"), output: dec("1.00"), cacheWrite: dec("0") })]]);
+    expect(() => costFor(m, workload(1_000, 100, 1), "Standard", TODAY)).not.toThrow();
+    const w = modelWith([["Standard", card({ input: dec("0"), output: dec("1.00"), cacheWrite: dec("0.50") })]]);
+    expectMoney(costFor(w, workload(1_000_000, 0, 1, 0, 100), "Standard", TODAY)!.cacheWriteCost, "0.50");
+  });
 });

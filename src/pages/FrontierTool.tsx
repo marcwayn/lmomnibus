@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { forwardRef, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
 import { trackEvent } from "../analytics.ts";
 import { CopyButton, FallbackMark, Mark, Meter, SourceTag, WorkloadPanel, workloadLine } from "../components.tsx";
@@ -23,7 +23,7 @@ import {
   type Priced,
 } from "../core/frontier.ts";
 import { inputModalities, type Model } from "../core/model.ts";
-import { matchingPreset, presetById, type PresetId } from "../core/presets.ts";
+import { DEFAULT_PRESET, matchingPreset, presetById, type PresetId } from "../core/presets.ts";
 import { decodeFrontier, encodeFrontier, encodeScenario, hasScenario, MAX_BENCH } from "../core/share.ts";
 import { NumberField } from "../NumberField.tsx";
 import { titleFor } from "../routes.ts";
@@ -51,7 +51,7 @@ export function FrontierTool() {
   const [workload, setWorkload] = useState<Workload>(init.workload);
   const [rate, setRate] = useState<Rate>(init.rate);
   const [preset, setPreset] = useState<PresetId | null>(
-    () => init.preset ?? matchingPreset(init.workload, init.rate)?.id ?? null,
+    () => init.preset ?? matchingPreset(init.workload, init.rate)?.id ?? DEFAULT_PRESET.id,
   );
   const [index, setIndex] = useState<Index>(init.index);
   const [filters, setFilters] = useState<Set<Filter>>(init.filters);
@@ -61,7 +61,12 @@ export function FrontierTool() {
   const minScore = minSet ?? defaultMinFor(index);
   const indexRef = useRef(index);
   indexRef.current = index;
-  const [selected, setSelected] = useState<string | null>(null);
+  // Hover and keyboard focus preview a point; click or Enter pins it. The
+  // readout shows the pin over any preview, so moving the pointer to its
+  // "+ Bench" link can never pick up a different model on the way.
+  const [pinned, setPinned] = useState<string | null>(null);
+  const [hovered, setHovered] = useState<string | null>(null);
+  const readoutRef = useRef<HTMLElement>(null);
   const minTracked = useRef(false);
 
   const encoded = encodeFrontier({ preset, workload, rate, index, minScore: minSet, filters });
@@ -143,7 +148,19 @@ export function FrontierTool() {
       shareUrl(),
     ].join("\n");
 
-  const selectedPoint = selected ? (scored.find((p) => p.model.key === selected) ?? null) : null;
+  const shown = pinned ?? hovered;
+  const selectedPoint = shown ? (scored.find((p) => p.model.key === shown) ?? null) : null;
+  const togglePin = (key: string) => setPinned((p) => (p === key ? null : key));
+
+  // Announce the answer once input settles, not on every keystroke or drag.
+  const answerText = answer
+    ? `Cheapest at or above ${minScore}: ${answer.model.displayName}, ${fmtUsd(answer.per1k)} per 1,000 requests`
+    : `No model scores at least ${minScore} and fits this workload`;
+  const [announced, setAnnounced] = useState("");
+  useEffect(() => {
+    const t = setTimeout(() => setAnnounced(answerText), 700);
+    return () => clearTimeout(t);
+  }, [answerText]);
   const filterText = [...filters].map((f) => FILTER_LABEL[f].toLowerCase()).join(", ");
 
   return (
@@ -158,10 +175,13 @@ export function FrontierTool() {
         </p>
       </div>
 
-      <p className="readout" aria-live="polite" aria-atomic="true">
+      <p className="sr-only" role="status" aria-live="polite">
+        {announced}
+      </p>
+      <p className="readout">
         {answer ? (
           <>
-            Cheapest model scoring <span className="mono">≥ {minScore}</span> on AA {label}
+            Cheapest model scoring at least <span className="mono">{minScore}</span> on AA {label}
             {filterText ? ` with ${filterText}` : ""}, fitting{" "}
             <span className="mono">
               {fmtCompact(workload.inputTokens)} + {fmtCompact(workload.outputTokens)}
@@ -174,7 +194,7 @@ export function FrontierTool() {
           </>
         ) : (
           <>
-            No model scoring <span className="mono">≥ {minScore}</span> on AA {label} fits this workload
+            No model scoring at least <span className="mono">{minScore}</span> on AA {label} fits this workload
             {filterText ? ` with ${filterText}` : ""}.
           </>
         )}
@@ -190,7 +210,8 @@ export function FrontierTool() {
           onChange={(w, r, p) => {
             setWorkload(w);
             setRate(r);
-            setPreset(p);
+            // A custom workload keeps its last preset as the URL's base (p=chat&r=50000).
+            setPreset((prev) => p ?? prev);
           }}
         />
       </section>
@@ -216,7 +237,8 @@ export function FrontierTool() {
                 onClick={() => {
                   trackEvent("Frontier", "Index switch", i);
                   setIndex(i);
-                  setSelected(null);
+                  setPinned(null);
+                  setHovered(null);
                 }}
               >
                 {INDEX_LABEL[i]}
@@ -249,13 +271,16 @@ export function FrontierTool() {
             minScore={minScore}
             onMin={setMin}
             onStep={stepMin}
-            selected={selected}
-            onSelect={setSelected}
+            pinned={pinned}
+            onPin={togglePin}
+            onUnpin={() => setPinned(null)}
+            onPreview={setHovered}
             answer={answer}
           />
           <PointReadout
+            ref={readoutRef}
             point={selectedPoint ?? answer ?? front[front.length - 1] ?? null}
-            pinned={selectedPoint !== null}
+            state={pinned && selectedPoint ? "pinned" : selectedPoint ? "preview" : "answer"}
             scored={scored}
             index={index}
             costHref={(k) => costUrl([k], workload, rate, preset, index)}
@@ -269,7 +294,19 @@ export function FrontierTool() {
           </p>
         )}
 
-        <AllPlotted scored={scored} front={front} index={index} onSelect={setSelected} />
+        <AllPlotted
+          scored={scored}
+          front={front}
+          index={index}
+          onSelect={(key) => {
+            setPinned(key);
+            // The readout is above the table; take the user to what changed.
+            requestAnimationFrame(() => {
+              readoutRef.current?.scrollIntoView({ block: "nearest" });
+              readoutRef.current?.focus({ preventScroll: true });
+            });
+          }}
+        />
       </section>
 
       <section className="section" aria-labelledby="ladder-h">
@@ -283,14 +320,17 @@ export function FrontierTool() {
               share={{ title: "LMOmnibus frontier", url: shareUrl }}
               onCopied={(how) => trackEvent("Share", how === "share" ? "Native share" : "Copy link")}
             />
-            <Link
-              className="text-btn"
-              state={INTERNAL}
-              to={costUrl(front.slice(-MAX_BENCH).map((p) => p.model.key), workload, rate, preset, index)}
-              onClick={() => trackEvent("Frontier", "Open on bench")}
-            >
-              Open {Math.min(front.length, MAX_BENCH)} on the bench →
-            </Link>
+            {front.length > 0 && (
+              <Link
+                className="text-btn"
+                state={INTERNAL}
+                to={costUrl(front.slice(-MAX_BENCH).map((p) => p.model.key), workload, rate, preset, index)}
+                onClick={() => trackEvent("Frontier", "Open on bench")}
+              >
+                Open {Math.min(front.length, MAX_BENCH)} on the bench
+                <Mark kind="to" />
+              </Link>
+            )}
           </div>
         </div>
         <div className="table-frame">
@@ -363,13 +403,25 @@ interface ChartProps {
   minScore: number;
   onMin: (v: number) => void;
   onStep: (delta: number) => void;
-  selected: string | null;
-  onSelect: (key: string | null) => void;
+  pinned: string | null;
+  onPin: (key: string) => void;
+  onUnpin: () => void;
+  onPreview: (key: string | null) => void;
   answer: Priced | null;
 }
 
-function FrontierChart({ scored, front, index, minScore, onMin, onStep, selected, onSelect, answer }: ChartProps) {
+function FrontierChart({ scored, front, index, minScore, onMin, onStep, pinned, onPin, onUnpin, onPreview, answer }: ChartProps) {
   const svgRef = useRef<SVGSVGElement>(null);
+  const ruleRef = useRef<SVGGElement>(null);
+  // Chromium ignores touch-action on SVG <g>, and React's touch listeners are
+  // passive, so stop page panning on the rule with a native listener.
+  useEffect(() => {
+    const el = ruleRef.current;
+    if (!el) return;
+    const stop = (e: TouchEvent) => e.preventDefault();
+    el.addEventListener("touchstart", stop, { passive: false });
+    return () => el.removeEventListener("touchstart", stop);
+  }, []);
   const dragging = useRef(false);
 
   const costs = scored.map((p) => p.cost);
@@ -439,10 +491,17 @@ function FrontierChart({ scored, front, index, minScore, onMin, onStep, selected
   };
 
   const minY = y(Math.min(Math.max(minScore, yMin), yMax));
-  const selectedPoint = selected ? scored.find((p) => p.model.key === selected) : null;
-  // Selection is sticky (hover, focus or click picks a point; Escape clears),
-  // so the readout's "+ Bench" link acts on the model you were inspecting.
-  const pick = (key: string) => () => onSelect(key);
+  const [preview, setPreview] = useState<string | null>(null);
+  const shownKey = pinned ?? preview;
+  const selectedPoint = shownKey ? scored.find((p) => p.model.key === shownKey) : null;
+  const enter = (key: string) => () => {
+    setPreview(key);
+    onPreview(key);
+  };
+  const leave = () => {
+    setPreview(null);
+    onPreview(null);
+  };
 
   return (
     <div className="chart-frame">
@@ -457,7 +516,7 @@ function FrontierChart({ scored, front, index, minScore, onMin, onStep, selected
         onPointerCancel={() => (dragging.current = false)}
         onPointerLeave={() => (dragging.current = false)}
         onKeyDown={(e) => {
-          if (e.key === "Escape") onSelect(null);
+          if (e.key === "Escape") onUnpin();
         }}
       >
         {/* y grid and labels */}
@@ -489,7 +548,7 @@ function FrontierChart({ scored, front, index, minScore, onMin, onStep, selected
           </g>
         ))}
         <text className="axis-title" x={W - M.right} y={H - 4} textAnchor="end">
-          $ per 1,000 requests at your workload (log scale) →
+          $ per 1,000 requests at your workload, log scale
         </text>
         <text className="axis-title" x={M.left} y={M.top - 4}>
           ↑ AA {INDEX_LABEL[index]}
@@ -497,6 +556,7 @@ function FrontierChart({ scored, front, index, minScore, onMin, onStep, selected
 
         {/* minimum-score rule: drag it, or focus it and use arrow keys */}
         <g
+          ref={ruleRef}
           className="min-rule"
           role="slider"
           tabIndex={0}
@@ -525,7 +585,7 @@ function FrontierChart({ scored, front, index, minScore, onMin, onStep, selected
           <rect x={M.left} width={PW} y={minY - 8} height={16} fill="transparent" />
           <line x1={M.left} x2={W - M.right} y1={minY} y2={minY} />
           <text x={M.left + 6} y={minY - 5}>
-            ≥ {minScore}
+            min {minScore}
           </text>
         </g>
 
@@ -536,13 +596,14 @@ function FrontierChart({ scored, front, index, minScore, onMin, onStep, selected
           .map((p) => (
             <rect
               key={p.model.key}
-              className={`pt-dom${selected === p.model.key ? " focused" : ""}`}
+              className={`pt-dom${shownKey === p.model.key ? " focused" : ""}`}
               x={x(p.cost) - 2.5}
               y={y(scoreOf(p.model, index)!) - 2.5}
               width={5}
               height={5}
-              onPointerEnter={pick(p.model.key)}
-              onClick={pick(p.model.key)}
+              onPointerEnter={enter(p.model.key)}
+              onPointerLeave={leave}
+              onClick={() => onPin(p.model.key)}
             >
               <title>{p.model.displayName}</title>
             </rect>
@@ -554,18 +615,20 @@ function FrontierChart({ scored, front, index, minScore, onMin, onStep, selected
           return (
             <g
               key={p.model.key}
-              className={`pt-front${selected === p.model.key ? " focused" : ""}${isAnswer ? " answer" : ""}`}
+              className={`pt-front${shownKey === p.model.key ? " focused" : ""}${isAnswer ? " answer" : ""}`}
               tabIndex={0}
               role="button"
-              aria-pressed={selected === p.model.key}
+              aria-pressed={pinned === p.model.key}
               aria-label={`${p.model.displayName}: AA ${scoreOf(p.model, index)!.toFixed(1)}, ${fmtUsd(p.per1k)} per 1,000 requests`}
-              onFocus={pick(p.model.key)}
-              onPointerEnter={pick(p.model.key)}
-              onClick={pick(p.model.key)}
+              onFocus={enter(p.model.key)}
+              onBlur={leave}
+              onPointerEnter={enter(p.model.key)}
+              onPointerLeave={leave}
+              onClick={() => onPin(p.model.key)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
-                  onSelect(p.model.key);
+                  onPin(p.model.key);
                 }
               }}
             >
@@ -613,25 +676,23 @@ function flagText(m: Model): string {
   );
 }
 
-function PointReadout({
-  point,
-  pinned,
-  scored,
-  index,
-  costHref,
-}: {
-  point: Priced | null;
-  pinned: boolean;
-  scored: Priced[];
-  index: Index;
-  costHref: (key: string) => string;
-}) {
-  if (!point) return <aside className="point-readout empty">Hover, focus or tap a point.</aside>;
+const KICKER = { pinned: "Pinned — Escape to clear", preview: "Preview", answer: "Answer to your bar" };
+
+const PointReadout = forwardRef<
+  HTMLElement,
+  { point: Priced | null; state: keyof typeof KICKER; scored: Priced[]; index: Index; costHref: (key: string) => string }
+>(function PointReadout({ point, state, scored, index, costHref }, ref) {
+  if (!point)
+    return (
+      <aside className="point-readout empty" ref={ref} tabIndex={-1}>
+        Hover, focus or tap a point.
+      </aside>
+    );
   const m = point.model;
   const dom = dominatedBy(point, scored, index);
   return (
-    <aside className="point-readout" aria-label="Selected model">
-      <div className="readout-kicker">{pinned ? "Selected" : "Answer to your bar"}</div>
+    <aside className="point-readout" aria-label={`${m.displayName}, ${KICKER[state].toLowerCase()}`} ref={ref} tabIndex={-1}>
+      <div className="readout-kicker">{KICKER[state]}</div>
       <div className="bn">{m.displayName}</div>
       <div className="bv">
         {m.vendorName} <SourceTag model={m} />
@@ -672,7 +733,7 @@ function PointReadout({
       </Link>
     </aside>
   );
-}
+});
 
 /**
  * Every plotted model as a table: the keyboard- and screen-reader route to

@@ -119,7 +119,7 @@ function boardRows(): Node {
     h(
       "div",
       { fontSize: 17, color: C.ink3, letterSpacing: 1 },
-      `VALUE FRONTIER, TOP QUARTILE OF AA INTELLIGENCE · CODING AGENT: ${fmtCompact(w.inputTokens)} IN, ${fmtCompact(w.outputTokens)} OUT, ${w.cachedPct}% CACHED`,
+      `VALUE FRONTIER, TOP QUARTILE OF AA INTELLIGENCE · CODING AGENT: ${fmtCompact(w.inputTokens)} IN, ${fmtCompact(w.outputTokens)} OUT, ${w.cachedPct}% READ, ${w.cacheWritePct}% WRITE`,
     ),
     ...rows.map((p, i) =>
       h(
@@ -152,7 +152,7 @@ const eyebrow = (path: string) => {
   const r = ROUTES.find((x: RouteInfo) => x.path === path)!;
   return `Tool ${r.nav!.num} · ${r.nav!.label}`;
 };
-const live = `${fmtInt(CATALOG_META.models)} models · priced at your workload · as of ${CATALOG_META.asOf} · lmomnibus.pages.dev`;
+const live = `${fmtInt(CATALOG_META.models)} models · prices as of ${CATALOG_META.asOf} · lmomnibus.pages.dev`;
 const CARDS: Record<string, () => Node> = {
   "/": () =>
     card(
@@ -179,7 +179,7 @@ const CARDS: Record<string, () => Node> = {
     card(
       eyebrow("/tools/speed"),
       "Feel what N tokens per second means",
-      body("Pick a rate and an output length, then watch a response stream. Illustrative, not a measurement."),
+      body("Pick a rate and an output length, then watch a response stream at that pace."),
       "Illustrative streaming at the rate you choose · lmomnibus.pages.dev",
     ),
 };

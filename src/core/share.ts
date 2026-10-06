@@ -105,6 +105,8 @@ export function decodeScenario(params: URLSearchParams): Scenario {
     cachedPct: parseCount(params.get("c"), ref.workload.cachedPct, 100),
     cacheWritePct: parseCount(params.get("w"), ref.workload.cacheWritePct, 100),
   };
+  // Read + write share one 100% of input; clamp so the workload shown is the one priced.
+  workload.cacheWritePct = Math.min(workload.cacheWritePct, 100 - workload.cachedPct);
   const rateParam = params.get("rate")?.toLowerCase();
   const rate: Rate = rateParam === "batch" ? "Batch" : rateParam === "standard" ? "Standard" : ref.rate;
   const modes = new Map<string, RateMode>();

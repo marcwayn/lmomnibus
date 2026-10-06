@@ -94,4 +94,10 @@ describe("share URLs", () => {
     expect(back.minScore).toBe(45);
     expect([...back.filters]).toEqual(["tools", "img"]);
   });
+
+  it("caps the cache-write share so read + write never exceed 100%", () => {
+    const s = decodeScenario(new URLSearchParams("p=agent&c=90&w=50"));
+    expect(s.workload.cachedPct).toBe(90);
+    expect(s.workload.cacheWritePct).toBe(10);
+  });
 });

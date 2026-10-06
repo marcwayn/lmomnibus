@@ -67,7 +67,7 @@ export function readings(models: readonly Model[], today: string): Reading[] {
   return [
     {
       id: "near-top",
-      label: `Cheapest within 10% of the top Intelligence score (≥ ${threshold}) as a coding agent`,
+      label: `Cheapest within 10% of the top Intelligence score (at least ${threshold}) as a coding agent`,
       point: nearTop,
       href: `/tools/frontier?p=agent&min=${threshold}`,
     },

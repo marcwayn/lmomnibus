@@ -20,7 +20,7 @@ import {
   type Priced,
 } from "../core/frontier.ts";
 import { compareReleased, inputModalities, rateCard, yearMonth, type Model, type RateMode } from "../core/model.ts";
-import { DEFAULT_PRESET, type PresetId } from "../core/presets.ts";
+import { DEFAULT_PRESET, matchingPreset, type PresetId } from "../core/presets.ts";
 import { availableYears, search } from "../core/query.ts";
 import { decodeScenario, encodeScenario, hasScenario, MAX_BENCH, type Scenario } from "../core/share.ts";
 import { titleFor } from "../routes.ts";
@@ -87,7 +87,9 @@ export function CostTool() {
   const [restored, setRestored] = useState(init.source === "storage");
   const [workload, setWorkload] = useState<Workload>(init.scenario.workload);
   const [rate, setRate] = useState<Rate>(init.scenario.rate);
-  const [preset, setPreset] = useState<PresetId | null>(init.scenario.preset);
+  const [preset, setPreset] = useState<PresetId | null>(
+    () => init.scenario.preset ?? matchingPreset(init.scenario.workload, init.scenario.rate)?.id ?? DEFAULT_PRESET.id,
+  );
   const [modes, setModes] = useState<Map<string, RateMode>>(init.scenario.modes);
   const [index, setIndex] = useState<Index>(init.scenario.index);
 
@@ -109,22 +111,26 @@ export function CostTool() {
   // Keep the URL and the remembered bench in step, debounced. A first visit
   // that hasn't changed anything keeps its clean URL.
   const synced = useRef(init.source === "default" ? encoded : "");
-  // A bench opened from a link isn't "yours" until you change it, so arriving
-  // via a link (shared, or "+ Bench" elsewhere on the site) doesn't overwrite
-  // the bench remembered from your last visit.
-  const arrived = useRef(init.source === "url" ? encoded : null);
+  // A bench opened from a link (shared, or "+ Bench" elsewhere on the site)
+  // isn't "yours" until you edit the bench itself — adding, removing,
+  // pinning a price list or clearing. Until then, tweaking the workload on it
+  // must not replace or delete the bench remembered from your last visit.
+  const benchEdited = useRef(init.source !== "url");
   useEffect(() => {
     if (encoded === synced.current) return;
     const t = setTimeout(() => {
       synced.current = encoded;
-      // Navigate with the raw string: URLSearchParams would percent-encode ":" and ",".
-      navigate({ pathname, search: encoded ? `?${encoded}` : "" }, { replace: true });
-      if (arrived.current !== null && encoded === arrived.current) return;
-      arrived.current = null;
-      writeStorage(bench.length ? encoded : null);
+      // Navigate with the raw string (URLSearchParams would percent-encode ":"
+      // and ","), carrying the internal-arrival marker so Back/Forward to this
+      // entry still isn't counted as a shared link.
+      navigate(
+        { pathname, search: encoded ? `?${encoded}` : "" },
+        { replace: true, state: internalArrival ? { internal: true } : null },
+      );
+      if (benchEdited.current) writeStorage(bench.length ? encoded : null);
     }, 300);
     return () => clearTimeout(t);
-  }, [encoded, bench.length, navigate, pathname]);
+  }, [encoded, bench.length, navigate, pathname, internalArrival]);
 
   const shareUrl = () => `${window.location.origin}/tools/cost?${encoded}`;
 
@@ -185,6 +191,7 @@ export function CostTool() {
   // ---- actions ----
   const benchHeading = useRef<HTMLHeadingElement>(null);
   const toggleBench = (key: string, action = "Add") => {
+    benchEdited.current = true;
     if (bench.includes(key)) {
       const next = bench.filter((k) => k !== key);
       setBench(next);
@@ -216,6 +223,7 @@ export function CostTool() {
     });
   };
   const setMode = (key: string, mode: RateMode | null) => {
+    benchEdited.current = true;
     if (mode === "Fast") trackEvent("Mode", "Fast", key);
     setModes((prev) => {
       const next = new Map(prev);
@@ -238,6 +246,7 @@ export function CostTool() {
     setSort(s);
   };
   const clearBench = () => {
+    benchEdited.current = true;
     setBench([]);
     setModes(new Map());
     setRestored(false);
@@ -291,7 +300,8 @@ export function CostTool() {
           onChange={(w, r, p) => {
             setWorkload(w);
             setRate(r);
-            setPreset(p);
+            // A custom workload keeps its last preset as the URL's base (p=chat&r=50000).
+            setPreset((prev) => p ?? prev);
           }}
         />
       </section>
@@ -423,6 +433,11 @@ export function CostTool() {
           onToggle={(k) => toggleBench(k)}
           benchFull={bench.length >= MAX_BENCH}
         />
+        {bench.length >= MAX_BENCH && (
+          <p className="quiet-note" id="bench-full-note">
+            Bench full ({MAX_BENCH} max) — remove a model to add another.
+          </p>
+        )}
         <p className="fine">
           Flags are unions across providers: T tools · R reasoning · S structured output · img / aud image / audio
           input. “via OR” prices are OpenRouter aggregates; “list” prices are checked against the vendor.
@@ -467,9 +482,6 @@ export function CostTool() {
           </p>
         )}
 
-        {bench.length >= MAX_BENCH && (
-          <p className="quiet-note">Bench full ({MAX_BENCH} max) — remove a model to add another.</p>
-        )}
         {bench.length === 0 ? (
           <div className="empty-bench">Add models from the market above (+) to compare them side by side.</div>
         ) : (
@@ -611,9 +623,11 @@ function MarketTable({ hits, byKey, bench, index, workload, sort, onSort, onTogg
                     className={`add${benched ? " on" : ""}`}
                     aria-label={`${benched ? "Remove" : "Add"} ${model.displayName} ${benched ? "from" : "to"} bench`}
                     disabled={!benched && benchFull}
+                    title={!benched && benchFull ? "Bench full: remove a model to add another" : undefined}
+                    aria-describedby={!benched && benchFull ? "bench-full-note" : undefined}
                     onClick={() => onToggle(model.key)}
                   >
-                    {benched ? "✓" : "+"}
+                    {benched ? <Mark kind="check" /> : "+"}
                   </button>
                 </td>
               </tr>
@@ -751,7 +765,7 @@ function BenchCard(props: BenchCardProps) {
           </p>
         ) : (
           <>
-            <p className="verdict-line">Cheaper at ≥ same AA {label}:</p>
+            <p className="verdict-line">Cheaper, scoring at least as high on AA {label}:</p>
             <ul className="alt-list">
               {alts.map((a) => {
                 const save = b.monthlyCost.minus(a.breakdown.monthlyCost);

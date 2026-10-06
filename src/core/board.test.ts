@@ -28,7 +28,7 @@ describe("home board", () => {
   it("never admits a model below 90% of the top score into the near-top reading", () => {
     const models = [m("top", "9", 57.6), m("just-under", "0.1", 51.8), m("just-over", "1", 51.9)];
     const [nearTop] = readings(models, TODAY);
-    expect(nearTop.label).toContain("≥ 51.9");
+    expect(nearTop.label).toContain("at least 51.9");
     expect(nearTop.point?.model.key).toBe("just-over");
   });
 
@@ -42,7 +42,7 @@ describe("home board", () => {
 
   it("computes every reading from the catalog", () => {
     const [nearTop, underDollar, longCtx] = readings(MODELS, TODAY);
-    expect(nearTop.label).toContain("≥ 45");
+    expect(nearTop.label).toContain("at least 45");
     expect(nearTop.point?.model.key).toBe("best");
     // Chat preset: 2,000 in + 500 out per request → price × 2.5 per 1K requests.
     expect(underDollar.point?.model.key).toBe("weak");
