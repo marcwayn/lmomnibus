@@ -5,9 +5,16 @@ export interface Query {
   text: string;
   /** OR within this facet; empty means "any vendor". */
   vendors: string[];
-  /** Exact-match release year filter. */
+  /** Exact-match filter on the year the model was listed. */
   releasedYear: number | null;
   limit: number;
+  /** Extra predicate (capability filters etc.), applied to hits and vendor counts alike. */
+  filter?: (m: Model) => boolean;
+  /**
+   * Primary ordering, applied before the limit; ties fall back to relevance,
+   * then newest. Omit to rank by relevance.
+   */
+  compare?: (a: Model, b: Model) => number;
 }
 
 export interface VendorCount {
@@ -19,8 +26,8 @@ export interface VendorCount {
 export interface SearchResult {
   hits: Model[];
   /**
-   * Vendor, name, and count — counted against the text + date filters, but
-   * not the vendor filter itself, so counts never read as zero.
+   * Vendor, name, and count — counted against every filter except the vendor
+   * filter itself, so counts never read as zero.
    */
   vendorCounts: VendorCount[];
   totalMatching: number;
@@ -74,15 +81,57 @@ function fuzzyScore(query: string, target: string): number | null {
   return score;
 }
 
+/** Letters, digits and "." count as word characters, so "4.5" is one word and "5" doesn't start a word inside it. */
+const isWordChar = (c: string | undefined) => c !== undefined && /[a-z0-9.]/.test(c);
+
+/** Any scattered-subsequence match scores below this; any contiguous match scores above it. */
+const FUZZY_CEILING = 90;
+
+/**
+ * How well one query token matches one field. A whole-word match beats a
+ * word-prefix match, which beats a plain substring, which beats a scattered
+ * subsequence — so "opus" ranks "Claude Opus 5" above a key like
+ * "openai/gpt-3.5-turbo-instruct" that merely contains o…p…u…s in order.
+ * Tokens of one or two characters must match contiguously.
+ */
+function tokenScore(token: string, target: string): number | null {
+  const idx = target.indexOf(token);
+  if (idx !== -1) {
+    const end = idx + token.length;
+    const startsWord = !isWordChar(target[idx - 1]);
+    const wholeWord = startsWord && !isWordChar(target[end]);
+    return 100 + (wholeWord ? 30 : startsWord ? 20 : 0) + (idx === 0 ? 10 : 0) - Math.floor(target.length / 8);
+  }
+  if (token.length <= 2) return null;
+  const fuzzy = fuzzyScore(token, target);
+  return fuzzy === null ? null : Math.min(fuzzy, FUZZY_CEILING);
+}
+
+/**
+ * Every whitespace-separated token must match the name, key or vendor (each
+ * token may match a different one, so "anthropic opus" works). The score sums
+ * each token's best match, plus a bonus when the whole query appears as a
+ * phrase in the name.
+ */
 function scoreModel(m: Model, textLower: string): number | null {
   if (textLower === "") return 0;
-  const byName = fuzzyScore(textLower, m.displayName.toLowerCase());
-  const byKey = fuzzyScore(textLower, m.key.toLowerCase());
-  const byVendor = fuzzyScore(textLower, m.vendorName.toLowerCase());
-  const scores = [byName, byKey === null ? null : byKey - 5, byVendor === null ? null : byVendor - 15].filter(
-    (s): s is number => s !== null,
-  );
-  return scores.length ? Math.max(...scores) : null;
+  const fields: [string, number][] = [
+    [m.displayName.toLowerCase(), 0],
+    [m.key.toLowerCase(), -5],
+    [m.vendorName.toLowerCase(), -15],
+  ];
+  let total = 0;
+  for (const token of textLower.split(/\s+/)) {
+    let best: number | null = null;
+    for (const [target, weight] of fields) {
+      const s = tokenScore(token, target);
+      if (s !== null && (best === null || s + weight > best)) best = s + weight;
+    }
+    if (best === null) return null;
+    total += best;
+  }
+  if (textLower.includes(" ") && fields[0][0].includes(textLower)) total += 50;
+  return total;
 }
 
 /**
@@ -92,11 +141,12 @@ function scoreModel(m: Model, textLower: string): number | null {
  */
 export function search(catalog: readonly Model[], q: Query): SearchResult {
   const textLower = q.text.trim().toLowerCase();
-  const passesDate = (m: Model) => q.releasedYear === null || m.released.year === q.releasedYear;
+  const passes = (m: Model) =>
+    (q.releasedYear === null || m.released.year === q.releasedYear) && (!q.filter || q.filter(m));
 
   const counts = new Map<string, VendorCount>();
   for (const m of catalog) {
-    if (!passesDate(m) || scoreModel(m, textLower) === null) continue;
+    if (!passes(m) || scoreModel(m, textLower) === null) continue;
     const id = `${m.vendorKey}\u0000${m.vendorName}`;
     const entry = counts.get(id) ?? { vendorKey: m.vendorKey, vendorName: m.vendorName, count: 0 };
     entry.count += 1;
@@ -106,7 +156,7 @@ export function search(catalog: readonly Model[], q: Query): SearchResult {
   const vendorFilterActive = q.vendors.length > 0;
   const scored: [number, Model][] = [];
   for (const m of catalog) {
-    if (!passesDate(m)) continue;
+    if (!passes(m)) continue;
     if (vendorFilterActive && !q.vendors.includes(m.vendorKey)) continue;
     const s = scoreModel(m, textLower);
     if (s !== null) scored.push([s, m]);
@@ -114,6 +164,7 @@ export function search(catalog: readonly Model[], q: Query): SearchResult {
 
   scored.sort(
     (a, b) =>
+      (q.compare ? q.compare(a[1], b[1]) : 0) ||
       b[0] - a[0] ||
       compareReleased(b[1].released, a[1].released) ||
       compareStr(a[1].displayName, b[1].displayName),

@@ -102,6 +102,74 @@
     "provenance": "Aggregate"
   },
   {
+    "key": "aion-labs/aion-3.5",
+    "display_name": "Aion 3.5",
+    "vendor_key": "aion-labs",
+    "vendor_name": "AionLabs",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 262144,
+    "max_output_tokens": 32768,
+    "modality": "text->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "3.000000",
+          "output": "6.000000",
+          "cache_read": "0.75000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "aion-labs/aion-3.5-mini",
+    "display_name": "Aion 3.5 Mini",
+    "vendor_key": "aion-labs",
+    "vendor_name": "AionLabs",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 262144,
+    "max_output_tokens": 32768,
+    "modality": "text->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.7000000",
+          "output": "1.4000000",
+          "cache_read": "0.18000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
     "key": "aion-labs/aion-rp-llama-3.1-8b",
     "display_name": "Aion-RP 1.0 (8B)",
     "vendor_key": "aion-labs",
@@ -112,7 +180,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 32768,
-    "max_output_tokens": 32768,
+    "max_output_tokens": 29491,
     "modality": "text->text",
     "capabilities": {
       "tools": false,
@@ -126,40 +194,6 @@
         {
           "input": "0.8000000",
           "output": "1.6000000",
-          "cache_read": null,
-          "cache_write": null,
-          "tiers": [],
-          "promo": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate"
-  },
-  {
-    "key": "allenai/olmo-3-32b-think",
-    "display_name": "Olmo 3 32B Think",
-    "vendor_key": "allenai",
-    "vendor_name": "Allenai",
-    "released": {
-      "year": 2025,
-      "month": 11
-    },
-    "knowledge_cutoff": null,
-    "context_tokens": 65536,
-    "max_output_tokens": 65536,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": false,
-      "reasoning": true,
-      "structured_output": true
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.15000000",
-          "output": "0.5000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -188,8 +222,8 @@
       "structured_output": false
     },
     "scores": {
-      "intelligence": null,
-      "coding": 23.0,
+      "intelligence": 13.4,
+      "coding": 23,
       "agentic": null
     },
     "rates": [
@@ -225,7 +259,11 @@
       "reasoning": false,
       "structured_output": false
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 6.7,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -259,7 +297,11 @@
       "reasoning": false,
       "structured_output": false
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 5.9,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -293,7 +335,11 @@
       "reasoning": false,
       "structured_output": false
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 9.2,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -327,7 +373,11 @@
       "reasoning": false,
       "structured_output": false
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 7,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -366,44 +416,10 @@
       [
         "Standard",
         {
-          "input": "3.000000",
+          "input": "2.5000000",
           "output": "5.000000",
           "cache_read": null,
           "cache_write": null,
-          "tiers": [],
-          "promo": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate"
-  },
-  {
-    "key": "anthropic/claude-3-haiku",
-    "display_name": "Claude 3 Haiku",
-    "vendor_key": "anthropic",
-    "vendor_name": "Anthropic",
-    "released": {
-      "year": 2024,
-      "month": 3
-    },
-    "knowledge_cutoff": null,
-    "context_tokens": 200000,
-    "max_output_tokens": 4096,
-    "modality": "text+image->text",
-    "capabilities": {
-      "tools": true,
-      "reasoning": false,
-      "structured_output": false
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.25000000",
-          "output": "1.25000000",
-          "cache_read": "0.03000000",
-          "cache_write": "0.3000000",
           "tiers": [],
           "promo": null
         }
@@ -430,9 +446,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 62.1,
+      "intelligence": 49.6,
       "coding": 76.5,
-      "agentic": 56.6
+      "agentic": 50.7
     },
     "rates": [
       [
@@ -461,6 +477,55 @@
     "provenance": "FirstParty"
   },
   {
+    "key": "anthropic/claude-fable-5.1",
+    "display_name": "Claude Fable 5.1",
+    "vendor_key": "anthropic",
+    "vendor_name": "Anthropic",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1000000,
+    "max_output_tokens": 128000,
+    "modality": "text+image+file->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 53.4,
+      "coding": 81.6,
+      "agentic": 57.9
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "10.00",
+          "output": "50.00",
+          "cache_read": "0.25000000",
+          "cache_write": "12.5000000",
+          "tiers": [],
+          "promo": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "5.000000",
+          "output": "25.000000",
+          "cache_read": "0.125000000",
+          "cache_write": "6.25000000",
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "FirstParty"
+  },
+  {
     "key": "anthropic/claude-haiku-4.5",
     "display_name": "Claude Haiku 4.5",
     "vendor_key": "anthropic",
@@ -479,9 +544,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 29.9,
+      "intelligence": 16.9,
       "coding": 43.9,
-      "agentic": 16.5
+      "agentic": 8
     },
     "rates": [
       [
@@ -510,40 +575,6 @@
     "provenance": "FirstParty"
   },
   {
-    "key": "anthropic/claude-opus-4",
-    "display_name": "Claude Opus 4",
-    "vendor_key": "anthropic",
-    "vendor_name": "Anthropic",
-    "released": {
-      "year": 2025,
-      "month": 5
-    },
-    "knowledge_cutoff": null,
-    "context_tokens": 200000,
-    "max_output_tokens": 32000,
-    "modality": "text+image+file->text",
-    "capabilities": {
-      "tools": true,
-      "reasoning": true,
-      "structured_output": false
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "15.000000",
-          "output": "75.000000",
-          "cache_read": "1.5000000",
-          "cache_write": "18.75000000",
-          "tiers": [],
-          "promo": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate"
-  },
-  {
     "key": "anthropic/claude-opus-4.1",
     "display_name": "Claude Opus 4.1",
     "vendor_key": "anthropic",
@@ -561,7 +592,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 22.8,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -606,7 +641,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 29.1,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -651,7 +690,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 31.9,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -697,9 +740,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 55.0,
+      "intelligence": 40.7,
       "coding": 73.6,
-      "agentic": 46.3
+      "agentic": 38.6
     },
     "rates": [
       [
@@ -709,17 +752,6 @@
           "output": "25.000000",
           "cache_read": "0.5000000",
           "cache_write": "6.25000000",
-          "tiers": [],
-          "promo": null
-        }
-      ],
-      [
-        "Fast",
-        {
-          "input": "30.00000",
-          "output": "150.00000",
-          "cache_read": "3.000000",
-          "cache_write": "37.5000000",
           "tiers": [],
           "promo": null
         }
@@ -757,9 +789,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 57.3,
+      "intelligence": 41.8,
       "coding": 74.3,
-      "agentic": 49.4
+      "agentic": 41.9
     },
     "rates": [
       [
@@ -769,17 +801,6 @@
           "output": "25.000000",
           "cache_read": "0.5000000",
           "cache_write": "6.25000000",
-          "tiers": [],
-          "promo": null
-        }
-      ],
-      [
-        "Fast",
-        {
-          "input": "10.00000",
-          "output": "50.00000",
-          "cache_read": "1.000000",
-          "cache_write": "12.5000000",
           "tiers": [],
           "promo": null
         }
@@ -817,9 +838,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 63.1,
-      "coding": 78.0,
-      "agentic": 59.2
+      "intelligence": 50.8,
+      "coding": 78,
+      "agentic": 56.5
     },
     "rates": [
       [
@@ -829,17 +850,6 @@
           "output": "25.00",
           "cache_read": "0.5000000",
           "cache_write": "6.25000000",
-          "tiers": [],
-          "promo": null
-        }
-      ],
-      [
-        "Fast",
-        {
-          "input": "10.00000",
-          "output": "50.00000",
-          "cache_read": "1.000000",
-          "cache_write": "12.5000000",
           "tiers": [],
           "promo": null
         }
@@ -859,6 +869,55 @@
     "provenance": "FirstParty"
   },
   {
+    "key": "anthropic/claude-opus-5.5",
+    "display_name": "Claude Opus 5.5",
+    "vendor_key": "anthropic",
+    "vendor_name": "Anthropic",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1000000,
+    "max_output_tokens": 128000,
+    "modality": "text+image+file->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 57.6,
+      "coding": null,
+      "agentic": null
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "4.00",
+          "output": "20.00",
+          "cache_read": "0.2000000",
+          "cache_write": "5.000000",
+          "tiers": [],
+          "promo": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "2.000000",
+          "output": "10.00000",
+          "cache_read": "0.1000000",
+          "cache_write": "2.5000000",
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "FirstParty"
+  },
+  {
     "key": "anthropic/claude-sonnet-4",
     "display_name": "Claude Sonnet 4",
     "vendor_key": "anthropic",
@@ -868,7 +927,7 @@
       "month": 5
     },
     "knowledge_cutoff": null,
-    "context_tokens": 1000000,
+    "context_tokens": 200000,
     "max_output_tokens": 64000,
     "modality": "text+image+file->text",
     "capabilities": {
@@ -877,9 +936,9 @@
       "structured_output": false
     },
     "scores": {
-      "intelligence": 29.8,
+      "intelligence": 18.9,
       "coding": 37.6,
-      "agentic": 17.6
+      "agentic": null
     },
     "rates": [
       [
@@ -922,9 +981,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 37.4,
+      "intelligence": 20.7,
       "coding": 52.1,
-      "agentic": 26.4
+      "agentic": 15.8
     },
     "rates": [
       [
@@ -985,9 +1044,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 48.4,
-      "coding": 63.0,
-      "agentic": 42.1
+      "intelligence": 30.1,
+      "coding": 63,
+      "agentic": 31.8
     },
     "rates": [
       [
@@ -1034,24 +1093,69 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 55.3,
+      "intelligence": 38.2,
       "coding": 71.5,
-      "agentic": 49.7
+      "agentic": 43.6
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "3.00",
-          "output": "15.00",
+          "input": "2.00",
+          "output": "10.00",
           "cache_read": "0.2000000",
           "cache_write": "2.5000000",
           "tiers": [],
-          "promo": {
-            "input": "2.00",
-            "output": "10.00",
-            "until": "2026-08-31"
-          }
+          "promo": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "1.000000",
+          "output": "5.000000",
+          "cache_read": "0.1000000",
+          "cache_write": "1.25000000",
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "FirstParty"
+  },
+  {
+    "key": "anthropic/claude-sonnet-5.5",
+    "display_name": "Claude Sonnet 5.5",
+    "vendor_key": "anthropic",
+    "vendor_name": "Anthropic",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1000000,
+    "max_output_tokens": 128000,
+    "modality": "text+image+file->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 56,
+      "coding": null,
+      "agentic": null
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "2.00",
+          "output": "10.00",
+          "cache_read": "0.2000000",
+          "cache_write": "2.5000000",
+          "tiers": [],
+          "promo": null
         }
       ],
       [
@@ -1079,59 +1183,25 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 262144,
+    "max_output_tokens": 80000,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
       "reasoning": true,
-      "structured_output": true
-    },
-    "scores": {
-      "intelligence": 18.7,
-      "coding": 25.8,
-      "agentic": 3.7
-    },
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.22000000",
-          "output": "0.85000000",
-          "cache_read": "0.06000000",
-          "cache_write": null,
-          "tiers": [],
-          "promo": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate"
-  },
-  {
-    "key": "arcee-ai/virtuoso-large",
-    "display_name": "Virtuoso Large",
-    "vendor_key": "arcee-ai",
-    "vendor_name": "Arcee Ai",
-    "released": {
-      "year": 2025,
-      "month": 5
-    },
-    "knowledge_cutoff": null,
-    "context_tokens": 131072,
-    "max_output_tokens": 64000,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": true,
-      "reasoning": false,
       "structured_output": false
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 10.8,
+      "coding": 25.8,
+      "agentic": 1
+    },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.75000000",
-          "output": "1.2000000",
-          "cache_read": null,
+          "input": "0.25000000",
+          "output": "0.8000000",
+          "cache_read": "0.06000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -1267,7 +1337,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 262144,
+    "max_output_tokens": 235929,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -1500,9 +1570,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 22.8,
+      "intelligence": 13.1,
       "coding": 27.8,
-      "agentic": 9.2
+      "agentic": 1
     },
     "rates": [
       [
@@ -1511,6 +1581,40 @@
           "input": "2.5000000",
           "output": "10.00000",
           "cache_read": null,
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "cohere/command-a-plus",
+    "display_name": "Command A+",
+    "vendor_key": "cohere",
+    "vendor_name": "Cohere",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 192000,
+    "max_output_tokens": 64000,
+    "modality": "text+image->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.3000000",
+          "output": "1.5000000",
+          "cache_read": "0.15000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -1622,40 +1726,6 @@
     "provenance": "Aggregate"
   },
   {
-    "key": "deepcogito/cogito-v2.1-671b",
-    "display_name": "Cogito v2.1 671B",
-    "vendor_key": "deepcogito",
-    "vendor_name": "Deepcogito",
-    "released": {
-      "year": 2025,
-      "month": 11
-    },
-    "knowledge_cutoff": null,
-    "context_tokens": 128000,
-    "max_output_tokens": null,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": false,
-      "reasoning": true,
-      "structured_output": true
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "1.25000000",
-          "output": "1.25000000",
-          "cache_read": null,
-          "cache_write": null,
-          "tiers": [],
-          "promo": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate"
-  },
-  {
     "key": "deepseek/deepseek-chat",
     "display_name": "DeepSeek V3",
     "vendor_key": "deepseek",
@@ -1700,7 +1770,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 163840,
-    "max_output_tokens": 163840,
+    "max_output_tokens": 115200,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -1708,17 +1778,17 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 15.2,
+      "intelligence": 9.7,
       "coding": 21.2,
-      "agentic": 1.6
+      "agentic": 0.8
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.25000000",
-          "output": "1.000000",
-          "cache_read": null,
+          "input": "0.29000000",
+          "output": "1.14000000",
+          "cache_read": "0.11000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -1745,7 +1815,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 13.7,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -1780,9 +1854,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 18.6,
+      "intelligence": 11.4,
       "coding": 24.6,
-      "agentic": 3.1
+      "agentic": 1.1
     },
     "rates": [
       [
@@ -1817,7 +1891,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 13.1,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -1825,40 +1903,6 @@
           "input": "0.5000000",
           "output": "2.15000000",
           "cache_read": "0.35000000",
-          "cache_write": null,
-          "tiers": [],
-          "promo": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate"
-  },
-  {
-    "key": "deepseek/deepseek-r1-distill-llama-70b",
-    "display_name": "R1 Distill Llama 70B",
-    "vendor_key": "deepseek",
-    "vendor_name": "DeepSeek",
-    "released": {
-      "year": 2025,
-      "month": 1
-    },
-    "knowledge_cutoff": null,
-    "context_tokens": 8192,
-    "max_output_tokens": 8192,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": false,
-      "reasoning": true,
-      "structured_output": false
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.8000000",
-          "output": "0.8000000",
-          "cache_read": null,
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -1878,7 +1922,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 163840,
-    "max_output_tokens": 163840,
+    "max_output_tokens": 147456,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -1886,9 +1930,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 31.4,
+      "intelligence": 14.8,
       "coding": 43.5,
-      "agentic": 19.9
+      "agentic": 6.8
     },
     "rates": [
       [
@@ -1924,7 +1968,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": null,
+      "intelligence": 21.5,
       "coding": 44.2,
       "agentic": null
     },
@@ -1932,9 +1976,9 @@
       [
         "Standard",
         {
-          "input": "0.269000000",
-          "output": "0.4000000",
-          "cache_read": "0.1345000000",
+          "input": "0.28000000",
+          "output": "0.42000000",
+          "cache_read": "0.028000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -1954,14 +1998,18 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 163840,
-    "max_output_tokens": 65536,
+    "max_output_tokens": 147456,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 16.6,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -1988,7 +2036,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 384000,
+    "max_output_tokens": 943718,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -1996,17 +2044,17 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 42.1,
-      "coding": 56.2,
-      "agentic": 33.7
+      "intelligence": 24.4,
+      "coding": 52,
+      "agentic": 26.3
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.077000000",
-          "output": "0.154000000",
-          "cache_read": "0.0154000000",
+          "input": "0.0232000000",
+          "output": "1.28000000",
+          "cache_read": "0.0232000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -2025,8 +2073,8 @@
       "month": 7
     },
     "knowledge_cutoff": null,
-    "context_tokens": 1310720,
-    "max_output_tokens": 393216,
+    "context_tokens": 1048576,
+    "max_output_tokens": 943718,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -2034,17 +2082,55 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 51.8,
+      "intelligence": 34.3,
       "coding": 69.1,
-      "agentic": 48.4
+      "agentic": 41
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.14000000",
-          "output": "0.28000000",
-          "cache_read": "0.028000000",
+          "input": "0.0118000000",
+          "output": "1.28000000",
+          "cache_read": "0.0118000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "deepseek/deepseek-v4-flash-vision-exp",
+    "display_name": "DeepSeek V4 Flash Vision Exp",
+    "vendor_key": "deepseek",
+    "vendor_name": "DeepSeek",
+    "released": {
+      "year": 2026,
+      "month": 8
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1048576,
+    "max_output_tokens": 262144,
+    "modality": "text+image->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 34.8,
+      "coding": 65,
+      "agentic": 47.5
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.2156000000",
+          "output": "0.6468000000",
+          "cache_read": "0.00686000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -2064,7 +2150,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 393216,
+    "max_output_tokens": 384000,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -2072,17 +2158,17 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 45.3,
+      "intelligence": 30.4,
       "coding": 59.4,
-      "agentic": 37.8
+      "agentic": 26.3
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "1.44000000",
-          "output": "2.88000000",
-          "cache_read": "0.1215000000",
+          "input": "0.2088000000",
+          "output": "0.4176000000",
+          "cache_read": "0.0174000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -2102,7 +2188,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 384000,
+    "max_output_tokens": 393216,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -2110,17 +2196,100 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 53.2,
+      "intelligence": 36,
       "coding": 68.8,
-      "agentic": 49.6
+      "agentic": 41.3
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.66000000",
-          "output": "1.98000000",
-          "cache_read": "0.022000000",
+          "input": "1.32000000",
+          "output": "3.96000000",
+          "cache_read": "0.044000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "deepseek/deepseek-v4.1-flash",
+    "display_name": "DeepSeek V4.1 Flash",
+    "vendor_key": "deepseek",
+    "vendor_name": "DeepSeek",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1048576,
+    "max_output_tokens": 943718,
+    "modality": "text+image->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 39.5,
+      "coding": null,
+      "agentic": null
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.3000000",
+          "output": "1.2000000",
+          "cache_read": "0.006000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "0.112000000",
+          "output": "0.336000000",
+          "cache_read": "0.00336000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "fireworks/ember-1",
+    "display_name": "Ember-1",
+    "vendor_key": "fireworks",
+    "vendor_name": "Fireworks",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1048576,
+    "max_output_tokens": 943718,
+    "modality": "text+image->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "3.000000",
+          "output": "15.000000",
+          "cache_read": "0.3000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -2147,7 +2316,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 15.5,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -2226,7 +2399,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 10.4,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -2272,9 +2449,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 25.9,
+      "intelligence": 16.1,
       "coding": 33.3,
-      "agentic": 7.2
+      "agentic": 1.6
     },
     "rates": [
       [
@@ -2358,47 +2535,6 @@
     "provenance": "Aggregate"
   },
   {
-    "key": "google/gemini-2.5-pro-preview-05-06",
-    "display_name": "Gemini 2.5 Pro Preview 05-06",
-    "vendor_key": "google",
-    "vendor_name": "Google",
-    "released": {
-      "year": 2025,
-      "month": 5
-    },
-    "knowledge_cutoff": null,
-    "context_tokens": 1048576,
-    "max_output_tokens": 65535,
-    "modality": "text+image+file+audio+video->text",
-    "capabilities": {
-      "tools": true,
-      "reasoning": true,
-      "structured_output": true
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "1.25000000",
-          "output": "10.00000",
-          "cache_read": "0.125000000",
-          "cache_write": "0.375000000",
-          "tiers": [
-            {
-              "above_input_tokens": 200000,
-              "input": "2.5000000",
-              "output": "15.000000",
-              "cache_read": "0.25000000"
-            }
-          ],
-          "promo": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate"
-  },
-  {
     "key": "google/gemini-3-flash-preview",
     "display_name": "Gemini 3 Flash Preview",
     "vendor_key": "google",
@@ -2416,7 +2552,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 26.3,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -2556,7 +2696,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 65536,
-    "max_output_tokens": 65536,
+    "max_output_tokens": 58982,
     "modality": "text+image->text+image",
     "capabilities": {
       "tools": false,
@@ -2635,7 +2775,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 65536,
-    "max_output_tokens": 65536,
+    "max_output_tokens": 58982,
     "modality": "text+image->text+image",
     "capabilities": {
       "tools": false,
@@ -2677,9 +2817,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 25.6,
+      "intelligence": 15.6,
       "coding": 34.7,
-      "agentic": 6.5
+      "agentic": 1.6
     },
     "rates": [
       [
@@ -2715,9 +2855,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 47.7,
+      "intelligence": 29.7,
       "coding": 68.8,
-      "agentic": 23.0
+      "agentic": 8.2
     },
     "rates": [
       [
@@ -2819,9 +2959,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 52.0,
-      "coding": 70.1,
-      "agentic": 39.7
+      "intelligence": 33.6,
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -2868,9 +3008,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 37.4,
+      "intelligence": 22.2,
       "coding": 49.3,
-      "agentic": 27.2
+      "agentic": 14.3
     },
     "rates": [
       [
@@ -2917,9 +3057,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 51.6,
+      "intelligence": 34,
       "coding": 69.2,
-      "agentic": 40.5
+      "agentic": 29
     },
     "rates": [
       [
@@ -2966,18 +3106,18 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 56.0,
-      "coding": 76.1,
-      "agentic": 45.1
+      "intelligence": 39.6,
+      "coding": 71.5,
+      "agentic": null
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.375000000",
-          "output": "1.875000000",
-          "cache_read": "0.0375000000",
-          "cache_write": "0.0208333333333333000000",
+          "input": "0.75000000",
+          "output": "3.75000000",
+          "cache_read": "0.075000000",
+          "cache_write": "0.0416666666666667000000",
           "tiers": [],
           "promo": null
         }
@@ -2985,10 +3125,59 @@
       [
         "Batch",
         {
-          "input": "0.1875000000",
-          "output": "0.9375000000",
-          "cache_read": "0.01875000000",
-          "cache_write": "0.0208333333333333000000",
+          "input": "0.375000000",
+          "output": "1.875000000",
+          "cache_read": "0.0375000000",
+          "cache_write": "0.0416666666666667000000",
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "google/gemini-3.8-flash",
+    "display_name": "Gemini 3.8 Flash",
+    "vendor_key": "google",
+    "vendor_name": "Google",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1048576,
+    "max_output_tokens": 65536,
+    "modality": "text+image+file+audio+video->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 40.9,
+      "coding": 76.3,
+      "agentic": 40.2
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.75000000",
+          "output": "3.75000000",
+          "cache_read": "0.075000000",
+          "cache_write": "0.0416666666666667000000",
+          "tiers": [],
+          "promo": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "0.375000000",
+          "output": "1.875000000",
+          "cache_read": "0.0375000000",
+          "cache_write": "0.0416666666666667000000",
           "tiers": [],
           "promo": null
         }
@@ -3049,9 +3238,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 5.5,
+      "intelligence": 3.8,
       "coding": 5.8,
-      "agentic": 0.3
+      "agentic": 0.1
     },
     "rates": [
       [
@@ -3078,8 +3267,8 @@
       "month": 3
     },
     "knowledge_cutoff": null,
-    "context_tokens": 262144,
-    "max_output_tokens": 131072,
+    "context_tokens": 131072,
+    "max_output_tokens": 117964,
     "modality": "text+image->text",
     "capabilities": {
       "tools": true,
@@ -3087,9 +3276,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 7.4,
+      "intelligence": 4.9,
       "coding": 10.1,
-      "agentic": 0.3
+      "agentic": 0.1
     },
     "rates": [
       [
@@ -3125,7 +3314,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": null,
+      "intelligence": 4.8,
       "coding": 2.7,
       "agentic": null
     },
@@ -3135,44 +3324,6 @@
         {
           "input": "0.05000000",
           "output": "0.1000000",
-          "cache_read": null,
-          "cache_write": null,
-          "tiers": [],
-          "promo": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate"
-  },
-  {
-    "key": "google/gemma-3n-e4b-it",
-    "display_name": "Gemma 3n 4B",
-    "vendor_key": "google",
-    "vendor_name": "Google",
-    "released": {
-      "year": 2025,
-      "month": 5
-    },
-    "knowledge_cutoff": null,
-    "context_tokens": 32768,
-    "max_output_tokens": null,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": false,
-      "reasoning": false,
-      "structured_output": true
-    },
-    "scores": {
-      "intelligence": null,
-      "coding": 3.2,
-      "agentic": null
-    },
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.06000000",
-          "output": "0.12000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -3193,7 +3344,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 16384,
+    "max_output_tokens": 235929,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -3201,17 +3352,17 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 26.1,
+      "intelligence": 16.7,
       "coding": 39.3,
-      "agentic": 11.0
+      "agentic": 2.9
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.07000000",
-          "output": "0.34000000",
-          "cache_read": null,
+          "input": "0.0765000000",
+          "output": "0.255000000",
+          "cache_read": "0.0425000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -3231,7 +3382,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 262144,
+    "max_output_tokens": 16384,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -3239,17 +3390,17 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 29.7,
+      "intelligence": 14.7,
       "coding": 43.4,
-      "agentic": 14.4
+      "agentic": 4.2
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.1000000",
+          "input": "0.09000000",
           "output": "0.34000000",
-          "cache_read": "0.1000000",
+          "cache_read": "0.05000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -3269,7 +3420,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 8192,
-    "max_output_tokens": 4096,
+    "max_output_tokens": 3686,
     "modality": "text->text",
     "capabilities": {
       "tools": false,
@@ -3281,8 +3432,8 @@
       [
         "Standard",
         {
-          "input": "0.06000000",
-          "output": "0.06000000",
+          "input": "0.08000000",
+          "output": "0.11000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -3303,14 +3454,18 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 131000,
-    "max_output_tokens": 131000,
+    "max_output_tokens": 117900,
     "modality": "text->text",
     "capabilities": {
       "tools": false,
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 5.1,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -3327,35 +3482,35 @@
     "provenance": "Aggregate"
   },
   {
-    "key": "ibm-granite/granite-4.1-8b",
-    "display_name": "Granite 4.1 8B",
+    "key": "ibm-granite/granite-4.2-8b",
+    "display_name": "Granite 4.2 8B",
     "vendor_key": "ibm-granite",
     "vendor_name": "Ibm Granite",
     "released": {
       "year": 2026,
-      "month": 4
+      "month": 8
     },
     "knowledge_cutoff": null,
     "context_tokens": 131072,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 117964,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
-      "reasoning": false,
+      "reasoning": true,
       "structured_output": true
     },
     "scores": {
-      "intelligence": null,
-      "coding": 9.5,
-      "agentic": null
+      "intelligence": 11.1,
+      "coding": 22.4,
+      "agentic": 1.3
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.05000000",
-          "output": "0.1000000",
-          "cache_read": "0.05000000",
+          "input": "0.06000000",
+          "output": "0.25000000",
+          "cache_read": "0.015000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -3383,9 +3538,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 21.9,
+      "intelligence": 13.8,
       "coding": 31.1,
-      "agentic": 9.5
+      "agentic": 1.6
     },
     "rates": [
       [
@@ -3403,69 +3558,35 @@
     "provenance": "Aggregate"
   },
   {
-    "key": "inclusionai/ling-2.6-1t",
-    "display_name": "Ling-2.6-1T",
-    "vendor_key": "inclusionai",
-    "vendor_name": "InclusionAI",
+    "key": "inception/mercury-2.5",
+    "display_name": "Mercury 2.5",
+    "vendor_key": "inception",
+    "vendor_name": "Inception",
     "released": {
       "year": 2026,
-      "month": 4
+      "month": 9
     },
     "knowledge_cutoff": null,
-    "context_tokens": 262144,
-    "max_output_tokens": 32768,
+    "context_tokens": 260000,
+    "max_output_tokens": 65536,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
-      "reasoning": false,
-      "structured_output": true
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.075000000",
-          "output": "0.625000000",
-          "cache_read": "0.015000000",
-          "cache_write": null,
-          "tiers": [],
-          "promo": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate"
-  },
-  {
-    "key": "inclusionai/ling-2.6-flash",
-    "display_name": "Ling-2.6-flash",
-    "vendor_key": "inclusionai",
-    "vendor_name": "InclusionAI",
-    "released": {
-      "year": 2026,
-      "month": 4
-    },
-    "knowledge_cutoff": null,
-    "context_tokens": 262144,
-    "max_output_tokens": 32768,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": true,
-      "reasoning": false,
+      "reasoning": true,
       "structured_output": true
     },
     "scores": {
-      "intelligence": 14.2,
-      "coding": 25.3,
-      "agentic": 2.3
+      "intelligence": 12.3,
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.01000000",
-          "output": "0.03000000",
-          "cache_read": "0.002000000",
+          "input": "0.04000000",
+          "output": "0.15000000",
+          "cache_read": "0.004000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -3476,7 +3597,7 @@
   },
   {
     "key": "inclusionai/ling-3.0-flash",
-    "display_name": "Ling-3.0-flash",
+    "display_name": "Ling 3.0 Flash",
     "vendor_key": "inclusionai",
     "vendor_name": "InclusionAI",
     "released": {
@@ -3493,9 +3614,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 37.8,
+      "intelligence": 20.1,
       "coding": 50.6,
-      "agentic": 29.3
+      "agentic": 19.3
     },
     "rates": [
       [
@@ -3513,17 +3634,17 @@
     "provenance": "Aggregate"
   },
   {
-    "key": "inclusionai/ring-2.6-1t",
-    "display_name": "Ring-2.6-1T",
+    "key": "inclusionai/ling-3.0-flash-fin",
+    "display_name": "Ling 3.0 Flash Fin",
     "vendor_key": "inclusionai",
     "vendor_name": "InclusionAI",
     "released": {
       "year": 2026,
-      "month": 5
+      "month": 8
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 65536,
+    "max_output_tokens": 32768,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -3531,17 +3652,17 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 31.7,
-      "coding": 42.8,
-      "agentic": 20.1
+      "intelligence": 22.6,
+      "coding": 55.6,
+      "agentic": 27.9
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.075000000",
-          "output": "0.625000000",
-          "cache_read": "0.015000000",
+          "input": "0.042000000",
+          "output": "0.1232000000",
+          "cache_read": "0.0084000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -3551,20 +3672,58 @@
     "provenance": "Aggregate"
   },
   {
-    "key": "kwaipilot/kat-coder-air-v2.5",
-    "display_name": "KAT-Coder-Air V2.5",
-    "vendor_key": "kwaipilot",
-    "vendor_name": "Kwaipilot",
+    "key": "inclusionai/ling-3.0-flash-vl",
+    "display_name": "Ling 3.0 Flash VL",
+    "vendor_key": "inclusionai",
+    "vendor_name": "InclusionAI",
     "released": {
       "year": 2026,
-      "month": 7
+      "month": 9
     },
     "knowledge_cutoff": null,
-    "context_tokens": 256000,
-    "max_output_tokens": 80000,
-    "modality": "text->text",
+    "context_tokens": 262144,
+    "max_output_tokens": 32768,
+    "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 24.6,
+      "coding": 57,
+      "agentic": 28.7
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.021000000",
+          "output": "0.0616000000",
+          "cache_read": "0.0042000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "inference-net/schematron-v2-small",
+    "display_name": "Schematron V2 Small",
+    "vendor_key": "inference-net",
+    "vendor_name": "Inference Net",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 128000,
+    "max_output_tokens": 4096,
+    "modality": "text->text",
+    "capabilities": {
+      "tools": false,
       "reasoning": false,
       "structured_output": true
     },
@@ -3573,9 +3732,9 @@
       [
         "Standard",
         {
-          "input": "0.15000000",
-          "output": "0.6000000",
-          "cache_read": "0.03000000",
+          "input": "0.05000000",
+          "output": "0.23000000",
+          "cache_read": "0.05000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -3585,35 +3744,31 @@
     "provenance": "Aggregate"
   },
   {
-    "key": "kwaipilot/kat-coder-pro-v2",
-    "display_name": "KAT-Coder-Pro V2",
-    "vendor_key": "kwaipilot",
-    "vendor_name": "Kwaipilot",
+    "key": "inference-net/schematron-v2-turbo",
+    "display_name": "Schematron V2 Turbo",
+    "vendor_key": "inference-net",
+    "vendor_name": "Inference Net",
     "released": {
       "year": 2026,
-      "month": 3
+      "month": 9
     },
     "knowledge_cutoff": null,
-    "context_tokens": 262144,
-    "max_output_tokens": 80000,
+    "context_tokens": 128000,
+    "max_output_tokens": 8192,
     "modality": "text->text",
     "capabilities": {
-      "tools": true,
+      "tools": false,
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 33.7,
-      "coding": 59.5,
-      "agentic": 15.1
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
         {
-          "input": "0.3000000",
-          "output": "1.2000000",
-          "cache_read": "0.06000000",
+          "input": "0.03000000",
+          "output": "0.15000000",
+          "cache_read": "0.03000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -3632,8 +3787,8 @@
       "month": 7
     },
     "knowledge_cutoff": null,
-    "context_tokens": 256000,
-    "max_output_tokens": 80000,
+    "context_tokens": 262144,
+    "max_output_tokens": 235929,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -3648,6 +3803,40 @@
           "input": "0.74000000",
           "output": "2.96000000",
           "cache_read": "0.15000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "mancer/weaver",
+    "display_name": "Weaver (alpha)",
+    "vendor_key": "mancer",
+    "vendor_name": "Mancer",
+    "released": {
+      "year": 2023,
+      "month": 8
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 8000,
+    "max_output_tokens": 6000,
+    "modality": "text->text",
+    "capabilities": {
+      "tools": false,
+      "reasoning": false,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.4000000",
+          "output": "0.75000000",
+          "cache_read": null,
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -3675,9 +3864,9 @@
       "structured_output": false
     },
     "scores": {
-      "intelligence": 34.0,
+      "intelligence": 19.1,
       "coding": 45.3,
-      "agentic": 22.0
+      "agentic": 14
     },
     "rates": [
       [
@@ -3712,7 +3901,11 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 6.6,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -3739,7 +3932,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 131072,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 117964,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -3747,7 +3940,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": null,
+      "intelligence": 6.9,
       "coding": 5.4,
       "agentic": null
     },
@@ -3777,14 +3970,18 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 60000,
-    "max_output_tokens": 60000,
+    "max_output_tokens": 54000,
     "modality": "text->text",
     "capabilities": {
       "tools": false,
       "reasoning": false,
       "structured_output": false
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 4.8,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -3811,14 +4008,18 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 131072,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 117964,
     "modality": "text->text",
     "capabilities": {
       "tools": false,
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 5.7,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -3853,7 +4054,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": null,
+      "intelligence": 7.7,
       "coding": 11.9,
       "agentic": null
     },
@@ -3861,9 +4062,9 @@
       [
         "Standard",
         {
-          "input": "0.1000000",
-          "output": "0.32000000",
-          "cache_read": null,
+          "input": "0.22000000",
+          "output": "0.5000000",
+          "cache_read": "0.11000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -3891,16 +4092,16 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 14.5,
+      "intelligence": 10,
       "coding": 16.3,
-      "agentic": 1.2
+      "agentic": 0.6
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.2000000",
-          "output": "0.8000000",
+          "input": "0.1875000000",
+          "output": "0.6525000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -3929,9 +4130,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 10.3,
+      "intelligence": 8.1,
       "coding": 8.2,
-      "agentic": 1.1
+      "agentic": 0.5
     },
     "rates": [
       [
@@ -3958,13 +4159,13 @@
       "month": 4
     },
     "knowledge_cutoff": null,
-    "context_tokens": 1048576,
+    "context_tokens": 163840,
     "max_output_tokens": 16384,
     "modality": "text+image->text",
     "capabilities": {
       "tools": false,
       "reasoning": false,
-      "structured_output": true
+      "structured_output": false
     },
     "scores": null,
     "rates": [
@@ -3993,14 +4194,18 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 131072,
-    "max_output_tokens": null,
+    "max_output_tokens": 117964,
     "modality": "text+image->text",
     "capabilities": {
       "tools": true,
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 17.5,
+      "coding": 49,
+      "agentic": 8.5
+    },
     "rates": [
       [
         "Standard",
@@ -4027,17 +4232,17 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": null,
-    "modality": "text+image+file+audio+video->text",
+    "max_output_tokens": 943718,
+    "modality": "text+image+file+video->text",
     "capabilities": {
       "tools": true,
       "reasoning": true,
       "structured_output": true
     },
     "scores": {
-      "intelligence": 53.2,
+      "intelligence": 33.7,
       "coding": 71.3,
-      "agentic": 39.7
+      "agentic": 25.8
     },
     "rates": [
       [
@@ -4065,17 +4270,17 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": null,
-    "modality": "text+image+file+audio+video->text",
+    "max_output_tokens": 943718,
+    "modality": "text+image+file+video->text",
     "capabilities": {
       "tools": true,
       "reasoning": true,
       "structured_output": true
     },
     "scores": {
-      "intelligence": 56.8,
+      "intelligence": 39.6,
       "coding": 72.2,
-      "agentic": 49.3
+      "agentic": 43.2
     },
     "rates": [
       [
@@ -4084,6 +4289,112 @@
           "input": "1.25000000",
           "output": "4.25000000",
           "cache_read": "0.15000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "meta/muse-spark-1.2-contributor",
+    "display_name": "Muse Spark 1.2 Contributor",
+    "vendor_key": "meta",
+    "vendor_name": "Meta",
+    "released": {
+      "year": 2026,
+      "month": 8
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1048576,
+    "max_output_tokens": 943718,
+    "modality": "text+image+file+video->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.1000000",
+          "output": "0.2000000",
+          "cache_read": "0.002000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "meta/muse-spark-1.3",
+    "display_name": "Muse Spark 1.3",
+    "vendor_key": "meta",
+    "vendor_name": "Meta",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1048576,
+    "max_output_tokens": 943718,
+    "modality": "text+image+file+video->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 48.1,
+      "coding": 75.8,
+      "agentic": 55.5
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "1.25000000",
+          "output": "4.25000000",
+          "cache_read": "0.15000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "meta/muse-spark-1.3-contributor",
+    "display_name": "Muse Spark 1.3 Contributor",
+    "vendor_key": "meta",
+    "vendor_name": "Meta",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1048576,
+    "max_output_tokens": 943718,
+    "modality": "text+image+file+video->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.1000000",
+          "output": "0.2000000",
+          "cache_read": "0.002000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -4103,14 +4414,18 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 16384,
-    "max_output_tokens": 16384,
+    "max_output_tokens": 14745,
     "modality": "text->text",
     "capabilities": {
       "tools": false,
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 5.9,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -4171,7 +4486,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1000192,
-    "max_output_tokens": 1000192,
+    "max_output_tokens": 900172,
     "modality": "text+image->text",
     "capabilities": {
       "tools": false,
@@ -4212,7 +4527,11 @@
       "reasoning": true,
       "structured_output": false
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 11.7,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -4239,20 +4558,24 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 204800,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 176947,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 18.6,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.255000000",
-          "output": "1.02000000",
+          "input": "0.3000000",
+          "output": "1.2000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -4314,7 +4637,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 20.9,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -4341,21 +4668,25 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 204800,
-    "max_output_tokens": null,
+    "max_output_tokens": 128000,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 22.8,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.225000000",
-          "output": "0.9000000",
-          "cache_read": "0.06000000",
+          "input": "0.27000000",
+          "output": "1.08000000",
+          "cache_read": "0.027000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -4375,7 +4706,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 204800,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 176947,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -4383,17 +4714,17 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 38.9,
+      "intelligence": 22.8,
       "coding": 52.6,
-      "agentic": 25.9
+      "agentic": 15.3
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.3000000",
-          "output": "1.2000000",
-          "cache_read": "0.06000000",
+          "input": "0.21000000",
+          "output": "0.84000000",
+          "cache_read": "0.042000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -4421,24 +4752,13 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 45.4,
+      "intelligence": 29.2,
       "coding": 58.6,
-      "agentic": 36.1
+      "agentic": 29.5
     },
     "rates": [
       [
         "Standard",
-        {
-          "input": "0.3000000",
-          "output": "1.2000000",
-          "cache_read": "0.06000000",
-          "cache_write": null,
-          "tiers": [],
-          "promo": null
-        }
-      ],
-      [
-        "Batch",
         {
           "input": "0.3000000",
           "output": "1.2000000",
@@ -4462,7 +4782,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 256000,
-    "max_output_tokens": null,
+    "max_output_tokens": 204800,
     "modality": "text+file->text",
     "capabilities": {
       "tools": true,
@@ -4477,6 +4797,55 @@
           "input": "0.3000000",
           "output": "0.9000000",
           "cache_read": "0.03000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "0.15000000",
+          "output": "0.45000000",
+          "cache_read": "0.015000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "mistralai/devstral-2512",
+    "display_name": "Devstral 2 2512",
+    "vendor_key": "mistralai",
+    "vendor_name": "Mistral AI",
+    "released": {
+      "year": 2025,
+      "month": 12
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 262144,
+    "max_output_tokens": 209715,
+    "modality": "text+file->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": false,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 8.6,
+      "coding": 31.3,
+      "agentic": 2.3
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.4000000",
+          "output": "2.000000",
+          "cache_read": "0.04000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -4496,7 +4865,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": null,
+    "max_output_tokens": 209715,
     "modality": "text+image->text",
     "capabilities": {
       "tools": true,
@@ -4504,9 +4873,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 11.2,
+      "intelligence": 6,
       "coding": 14.4,
-      "agentic": 2.2
+      "agentic": 1.1
     },
     "rates": [
       [
@@ -4534,7 +4903,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 131072,
-    "max_output_tokens": null,
+    "max_output_tokens": 104857,
     "modality": "text+image->text",
     "capabilities": {
       "tools": true,
@@ -4542,9 +4911,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 7.1,
+      "intelligence": 4.8,
       "coding": 4.8,
-      "agentic": 1.6
+      "agentic": 0.8
     },
     "rates": [
       [
@@ -4572,7 +4941,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": null,
+    "max_output_tokens": 209715,
     "modality": "text+image->text",
     "capabilities": {
       "tools": true,
@@ -4580,9 +4949,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 9.0,
+      "intelligence": 5.5,
       "coding": 9.7,
-      "agentic": 1.2
+      "agentic": 0.6
     },
     "rates": [
       [
@@ -4591,6 +4960,17 @@
           "input": "0.15000000",
           "output": "0.15000000",
           "cache_read": "0.015000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "0.075000000",
+          "output": "0.075000000",
+          "cache_read": "0.0075000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -4610,14 +4990,18 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 128000,
-    "max_output_tokens": null,
+    "max_output_tokens": 102400,
     "modality": "text+file->text",
     "capabilities": {
       "tools": true,
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 5.8,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -4644,14 +5028,18 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 131072,
-    "max_output_tokens": null,
+    "max_output_tokens": 104857,
     "modality": "text+file->text",
     "capabilities": {
       "tools": true,
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 7.6,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -4678,7 +5066,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": null,
+    "max_output_tokens": 209715,
     "modality": "text+image+file->text",
     "capabilities": {
       "tools": true,
@@ -4686,9 +5074,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 15.9,
+      "intelligence": 9.3,
       "coding": 20.1,
-      "agentic": 5.5
+      "agentic": 1
     },
     "rates": [
       [
@@ -4697,6 +5085,17 @@
           "input": "0.5000000",
           "output": "1.5000000",
           "cache_read": "0.05000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "0.25000000",
+          "output": "0.75000000",
+          "cache_read": "0.025000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -4716,14 +5115,18 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 131072,
-    "max_output_tokens": null,
+    "max_output_tokens": 104857,
     "modality": "text+image+file->text",
     "capabilities": {
       "tools": true,
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 9,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -4750,7 +5153,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": null,
+    "max_output_tokens": 209715,
     "modality": "text+image+file->text",
     "capabilities": {
       "tools": true,
@@ -4758,9 +5161,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 30.4,
+      "intelligence": 14.2,
       "coding": 46.9,
-      "agentic": 19.2
+      "agentic": 7
     },
     "rates": [
       [
@@ -4768,6 +5171,17 @@
         {
           "input": "1.5000000",
           "output": "7.5000000",
+          "cache_read": null,
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "0.75000000",
+          "output": "3.75000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -4788,7 +5202,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 131072,
-    "max_output_tokens": null,
+    "max_output_tokens": 104857,
     "modality": "text+image+file->text",
     "capabilities": {
       "tools": true,
@@ -4796,9 +5210,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 14.7,
+      "intelligence": 9.2,
       "coding": 20.5,
-      "agentic": 6.1
+      "agentic": 1.9
     },
     "rates": [
       [
@@ -4807,6 +5221,17 @@
           "input": "0.4000000",
           "output": "2.000000",
           "cache_read": "0.04000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "0.2000000",
+          "output": "1.000000",
+          "cache_read": "0.02000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -4860,14 +5285,18 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 32768,
-    "max_output_tokens": null,
+    "max_output_tokens": 26214,
     "modality": "text+file->text",
     "capabilities": {
       "tools": true,
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 6.5,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -4901,7 +5330,11 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 6.7,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -4928,7 +5361,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": null,
+    "max_output_tokens": 209715,
     "modality": "text+image->text",
     "capabilities": {
       "tools": true,
@@ -4936,9 +5369,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 19.7,
+      "intelligence": 11.3,
       "coding": 26.6,
-      "agentic": 4.6
+      "agentic": 0.8
     },
     "rates": [
       [
@@ -4947,6 +5380,17 @@
           "input": "0.15000000",
           "output": "0.6000000",
           "cache_read": "0.015000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "0.075000000",
+          "output": "0.3000000",
+          "cache_read": "0.0075000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -4966,12 +5410,12 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 128000,
-    "max_output_tokens": 128000,
+    "max_output_tokens": 102400,
     "modality": "text+image->text",
     "capabilities": {
-      "tools": false,
+      "tools": true,
       "reasoning": false,
-      "structured_output": false
+      "structured_output": true
     },
     "scores": null,
     "rates": [
@@ -5034,14 +5478,18 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 65536,
-    "max_output_tokens": null,
+    "max_output_tokens": 52428,
     "modality": "text+file->text",
     "capabilities": {
       "tools": true,
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 5.7,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -5067,8 +5515,8 @@
       "month": 10
     },
     "knowledge_cutoff": null,
-    "context_tokens": 32000,
-    "max_output_tokens": null,
+    "context_tokens": 32768,
+    "max_output_tokens": 26214,
     "modality": "text+file+audio->text",
     "capabilities": {
       "tools": true,
@@ -5102,14 +5550,18 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 131072,
-    "max_output_tokens": 100352,
+    "max_output_tokens": 98304,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
       "reasoning": false,
       "structured_output": false
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 12.7,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -5136,14 +5588,18 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 100352,
+    "max_output_tokens": 98304,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 15.3,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -5170,7 +5626,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 100352,
+    "max_output_tokens": 98304,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -5178,8 +5634,8 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": null,
-      "coding": 21.0,
+      "intelligence": 22,
+      "coding": null,
       "agentic": null
     },
     "rates": [
@@ -5208,7 +5664,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 262144,
+    "max_output_tokens": 235929,
     "modality": "text+image->text",
     "capabilities": {
       "tools": true,
@@ -5216,9 +5672,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 36.0,
+      "intelligence": 23.5,
       "coding": 46.8,
-      "agentic": 21.7
+      "agentic": null
     },
     "rates": [
       [
@@ -5246,7 +5702,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 262144,
+    "max_output_tokens": 235929,
     "modality": "text+image->text",
     "capabilities": {
       "tools": true,
@@ -5254,17 +5710,17 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 45.1,
+      "intelligence": 27,
       "coding": 61.8,
-      "agentic": 31.2
+      "agentic": 20.5
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.5415000000",
-          "output": "2.28000000",
-          "cache_read": "0.0912000000",
+          "input": "0.95000000",
+          "output": "4.000000",
+          "cache_read": "0.16000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -5284,7 +5740,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 262144,
+    "max_output_tokens": 235929,
     "modality": "text+image->text",
     "capabilities": {
       "tools": true,
@@ -5292,28 +5748,17 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 43.0,
+      "intelligence": 25.8,
       "coding": 60.8,
-      "agentic": 30.3
+      "agentic": 21
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.71000000",
-          "output": "3.5000000",
-          "cache_read": "0.15000000",
-          "cache_write": null,
-          "tiers": [],
-          "promo": null
-        }
-      ],
-      [
-        "Batch",
-        {
-          "input": "0.95000000",
-          "output": "4.000000",
-          "cache_read": "0.19000000",
+          "input": "0.6712000000",
+          "output": "3.35000000",
+          "cache_read": "0.18000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -5333,7 +5778,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": null,
+    "max_output_tokens": 943718,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -5341,17 +5786,28 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 59.7,
+      "intelligence": 43.6,
       "coding": 76.2,
-      "agentic": 54.3
+      "agentic": 50
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "3.000000",
-          "output": "15.000000",
-          "cache_read": "0.3000000",
+          "input": "0.99000000",
+          "output": "14.000000",
+          "cache_read": "0.33000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "2.28000000",
+          "output": "11.4000000",
+          "cache_read": "0.228000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -5429,20 +5885,20 @@
     "provenance": "Aggregate"
   },
   {
-    "key": "nex-agi/nex-n2-mini",
-    "display_name": "Nex-N2-Mini",
+    "key": "nex-agi/nex-n2.5-mini",
+    "display_name": "Nex-N2.5-Mini",
     "vendor_key": "nex-agi",
     "vendor_name": "Nex Agi",
     "released": {
       "year": 2026,
-      "month": 6
+      "month": 9
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 262144,
+    "max_output_tokens": 235929,
     "modality": "text+image->text",
     "capabilities": {
-      "tools": true,
+      "tools": false,
       "reasoning": true,
       "structured_output": true
     },
@@ -5463,35 +5919,31 @@
     "provenance": "Aggregate"
   },
   {
-    "key": "nex-agi/nex-n2-pro",
-    "display_name": "Nex-N2-Pro",
+    "key": "nex-agi/nex-n2.5-pro",
+    "display_name": "Nex-N2.5-Pro",
     "vendor_key": "nex-agi",
     "vendor_name": "Nex Agi",
     "released": {
       "year": 2026,
-      "month": 6
+      "month": 9
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 262144,
+    "max_output_tokens": 235929,
     "modality": "text+image->text",
     "capabilities": {
       "tools": true,
       "reasoning": true,
-      "structured_output": false
+      "structured_output": true
     },
-    "scores": {
-      "intelligence": 41.7,
-      "coding": 59.1,
-      "agentic": 31.2
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
         {
-          "input": "0.25000000",
-          "output": "1.000000",
-          "cache_read": "0.025000000",
+          "input": "0.075000000",
+          "output": "0.25000000",
+          "cache_read": "0.015000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -5518,7 +5970,11 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 7.4,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -5552,7 +6008,11 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 6.7,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -5579,54 +6039,24 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 131072,
-    "max_output_tokens": null,
+    "max_output_tokens": 117964,
     "modality": "text->text",
     "capabilities": {
       "tools": false,
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 7.5,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
         {
           "input": "1.000000",
           "output": "3.000000",
-          "cache_read": null,
-          "cache_write": null,
-          "tiers": [],
-          "promo": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate"
-  },
-  {
-    "key": "nousresearch/hermes-4-70b",
-    "display_name": "Hermes 4 70B",
-    "vendor_key": "nousresearch",
-    "vendor_name": "Nousresearch",
-    "released": {
-      "year": 2025,
-      "month": 8
-    },
-    "knowledge_cutoff": null,
-    "context_tokens": 131072,
-    "max_output_tokens": null,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": false,
-      "reasoning": true,
-      "structured_output": true
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.13000000",
-          "output": "0.4000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -5647,7 +6077,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 262144,
+    "max_output_tokens": 235929,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -5655,9 +6085,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 14.5,
+      "intelligence": 8.9,
       "coding": 14.4,
-      "agentic": 2.0
+      "agentic": 1
     },
     "rates": [
       [
@@ -5684,8 +6114,8 @@
       "month": 3
     },
     "knowledge_cutoff": null,
-    "context_tokens": 1000000,
-    "max_output_tokens": 16384,
+    "context_tokens": 262144,
+    "max_output_tokens": 235929,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -5693,16 +6123,16 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 25.7,
+      "intelligence": 12.8,
       "coding": 37.7,
-      "agentic": 8.8
+      "agentic": 1.7
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.085000000",
-          "output": "0.4000000",
+          "input": "0.08000000",
+          "output": "0.45000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -5722,8 +6152,8 @@
       "month": 6
     },
     "knowledge_cutoff": null,
-    "context_tokens": 512288,
-    "max_output_tokens": null,
+    "context_tokens": 262144,
+    "max_output_tokens": 16384,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -5731,28 +6161,51 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 38.3,
+      "intelligence": 22.9,
       "coding": 49.3,
-      "agentic": 27.5
+      "agentic": 20.1
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.6000000",
-          "output": "3.6000000",
-          "cache_read": "0.2000000",
+          "input": "0.5000000",
+          "output": "2.2000000",
+          "cache_read": "0.1000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
         }
-      ],
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "nvidia/nemotron-3.5-content-safety",
+    "display_name": "Nemotron 3.5 Content Safety",
+    "vendor_key": "nvidia",
+    "vendor_name": "NVIDIA",
+    "released": {
+      "year": 2026,
+      "month": 6
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 131072,
+    "max_output_tokens": 117964,
+    "modality": "text+image->text",
+    "capabilities": {
+      "tools": false,
+      "reasoning": true,
+      "structured_output": false
+    },
+    "scores": null,
+    "rates": [
       [
-        "Batch",
+        "Standard",
         {
-          "input": "0.6000000",
-          "output": "3.6000000",
-          "cache_read": "0.2000000",
+          "input": "0.2000000",
+          "output": "0.2000000",
+          "cache_read": null,
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -5771,8 +6224,8 @@
       "month": 8
     },
     "knowledge_cutoff": null,
-    "context_tokens": 1000000,
-    "max_output_tokens": 131072,
+    "context_tokens": 262144,
+    "max_output_tokens": 32768,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -5780,17 +6233,17 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 23.6,
+      "intelligence": 12.9,
       "coding": 26.8,
-      "agentic": 13.8
+      "agentic": 3.5
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.08000000",
-          "output": "0.2000000",
-          "cache_read": "0.04000000",
+          "input": "0.06000000",
+          "output": "0.16000000",
+          "cache_read": "0.03000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -5818,7 +6271,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": null,
+      "intelligence": 5.5,
       "coding": 10.7,
       "agentic": null
     },
@@ -5859,7 +6312,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 4095,
-    "max_output_tokens": 4096,
+    "max_output_tokens": 3685,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -5927,7 +6380,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 4095,
-    "max_output_tokens": 4096,
+    "max_output_tokens": 3685,
     "modality": "text->text",
     "capabilities": {
       "tools": false,
@@ -5969,7 +6422,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": null,
+      "intelligence": 6.7,
       "coding": 13.1,
       "agentic": null
     },
@@ -6007,7 +6460,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": null,
+      "intelligence": 7,
       "coding": 21.5,
       "agentic": null
     },
@@ -6038,40 +6491,6 @@
     "provenance": "Aggregate"
   },
   {
-    "key": "openai/gpt-4-turbo-preview",
-    "display_name": "GPT-4 Turbo Preview",
-    "vendor_key": "openai",
-    "vendor_name": "OpenAI",
-    "released": {
-      "year": 2024,
-      "month": 1
-    },
-    "knowledge_cutoff": null,
-    "context_tokens": 128000,
-    "max_output_tokens": 4096,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": true,
-      "reasoning": false,
-      "structured_output": true
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "10.00000",
-          "output": "30.00000",
-          "cache_read": null,
-          "cache_write": null,
-          "tiers": [],
-          "promo": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate"
-  },
-  {
     "key": "openai/gpt-4.1",
     "display_name": "GPT-4.1",
     "vendor_key": "openai",
@@ -6089,7 +6508,11 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 12.7,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -6135,9 +6558,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 14.8,
+      "intelligence": 10.2,
       "coding": 20.2,
-      "agentic": 1.8
+      "agentic": null
     },
     "rates": [
       [
@@ -6184,9 +6607,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 9.6,
+      "intelligence": 7.8,
       "coding": 11.1,
-      "agentic": 1.2
+      "agentic": null
     },
     "rates": [
       [
@@ -6278,7 +6701,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": null,
+      "intelligence": 7.3,
       "coding": 24.2,
       "agentic": null
     },
@@ -6315,7 +6738,11 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 7.7,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -6349,7 +6776,11 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 8.4,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -6384,9 +6815,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": null,
+      "intelligence": 6.7,
       "coding": 11.4,
-      "agentic": 1.0
+      "agentic": null
     },
     "rates": [
       [
@@ -6467,9 +6898,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 35.3,
+      "intelligence": 23,
       "coding": 37.8,
-      "agentic": 26.5
+      "agentic": null
     },
     "rates": [
       [
@@ -6483,40 +6914,6 @@
           "promo": null
         }
       ],
-      [
-        "Batch",
-        {
-          "input": "0.625000000",
-          "output": "5.000000",
-          "cache_read": "0.0625000000",
-          "cache_write": null,
-          "tiers": [],
-          "promo": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate"
-  },
-  {
-    "key": "openai/gpt-5-codex",
-    "display_name": "GPT-5 Codex (batch)",
-    "vendor_key": "openai",
-    "vendor_name": "OpenAI",
-    "released": {
-      "year": 2025,
-      "month": 9
-    },
-    "knowledge_cutoff": null,
-    "context_tokens": 400000,
-    "max_output_tokens": 128000,
-    "modality": "text+image->text",
-    "capabilities": {
-      "tools": true,
-      "reasoning": true,
-      "structured_output": true
-    },
-    "scores": null,
-    "rates": [
       [
         "Batch",
         {
@@ -6618,9 +7015,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 25.8,
-      "coding": 15.6,
-      "agentic": 19.6
+      "intelligence": 20.6,
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -6666,7 +7063,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 13,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -6757,9 +7158,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 37.5,
+      "intelligence": 24.7,
       "coding": 49.4,
-      "agentic": 21.6
+      "agentic": null
     },
     "rates": [
       [
@@ -6805,7 +7206,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 23.7,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -6873,7 +7278,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 20.4,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -6907,7 +7316,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 30.4,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -6986,7 +7399,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 28.5,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -7065,7 +7482,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 32.5,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -7100,9 +7521,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 53.1,
+      "intelligence": 39,
       "coding": 71.1,
-      "agentic": 44.2
+      "agentic": null
     },
     "rates": [
       [
@@ -7197,9 +7618,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 40.9,
+      "intelligence": 24.1,
       "coding": 56.1,
-      "agentic": 31.5
+      "agentic": 17.9
     },
     "rates": [
       [
@@ -7246,9 +7667,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 39.7,
+      "intelligence": 20.7,
       "coding": 56.1,
-      "agentic": 29.7
+      "agentic": 16
     },
     "rates": [
       [
@@ -7354,9 +7775,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 56.3,
+      "intelligence": 38.4,
       "coding": 74.9,
-      "agentic": 47.4
+      "agentic": 36.4
     },
     "rates": [
       [
@@ -7476,9 +7897,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 52.3,
+      "intelligence": 37.3,
       "coding": 71.4,
-      "agentic": 46.9
+      "agentic": 42.1
     },
     "rates": [
       [
@@ -7598,24 +8019,24 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 60.9,
+      "intelligence": 47,
       "coding": 77.4,
-      "agentic": 57.8
+      "agentic": 50.2
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "2.5000000",
-          "output": "15.000000",
-          "cache_read": "0.25000000",
-          "cache_write": "3.125000000",
+          "input": "2.000000",
+          "output": "10.00000",
+          "cache_read": "0.2000000",
+          "cache_write": "2.5000000",
           "tiers": [
             {
               "above_input_tokens": 272000,
-              "input": "5.000000",
-              "output": "22.5000000",
-              "cache_read": "0.5000000"
+              "input": "4.000000",
+              "output": "15.000000",
+              "cache_read": "0.4000000"
             }
           ],
           "promo": null
@@ -7624,16 +8045,16 @@
       [
         "Batch",
         {
-          "input": "1.25000000",
-          "output": "7.5000000",
-          "cache_read": "0.125000000",
-          "cache_write": null,
+          "input": "1.000000",
+          "output": "5.000000",
+          "cache_read": "0.1000000",
+          "cache_write": "1.25000000",
           "tiers": [
             {
               "above_input_tokens": 272000,
-              "input": "2.5000000",
-              "output": "11.25000000",
-              "cache_read": "0.25000000"
+              "input": "2.000000",
+              "output": "7.5000000",
+              "cache_read": "0.2000000"
             }
           ],
           "promo": null
@@ -7665,16 +8086,16 @@
       [
         "Standard",
         {
-          "input": "2.5000000",
-          "output": "15.000000",
-          "cache_read": "0.25000000",
-          "cache_write": "3.125000000",
+          "input": "2.000000",
+          "output": "10.00000",
+          "cache_read": "0.2000000",
+          "cache_write": "2.5000000",
           "tiers": [
             {
               "above_input_tokens": 272000,
-              "input": "5.000000",
-              "output": "22.5000000",
-              "cache_read": "0.5000000"
+              "input": "4.000000",
+              "output": "15.000000",
+              "cache_read": "0.4000000"
             }
           ],
           "promo": null
@@ -7683,16 +8104,16 @@
       [
         "Batch",
         {
-          "input": "1.25000000",
-          "output": "7.5000000",
-          "cache_read": "0.125000000",
-          "cache_write": null,
+          "input": "1.000000",
+          "output": "5.000000",
+          "cache_read": "0.1000000",
+          "cache_write": "1.25000000",
           "tiers": [
             {
               "above_input_tokens": 272000,
-              "input": "2.5000000",
-              "output": "11.25000000",
-              "cache_read": "0.25000000"
+              "input": "2.000000",
+              "output": "7.5000000",
+              "cache_read": "0.2000000"
             }
           ],
           "promo": null
@@ -7720,9 +8141,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 56.6,
+      "intelligence": 42.1,
       "coding": 76.7,
-      "agentic": 50.2
+      "agentic": 43.2
     },
     "rates": [
       [
@@ -7814,6 +8235,458 @@
               "above_input_tokens": 272000,
               "input": "2.000000",
               "output": "9.000000",
+              "cache_read": "0.2000000"
+            }
+          ],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "openai/gpt-6-astra",
+    "display_name": "GPT-6 Astra",
+    "vendor_key": "openai",
+    "vendor_name": "OpenAI",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1050000,
+    "max_output_tokens": 128000,
+    "modality": "text+image+file->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 52.7,
+      "coding": 76.9,
+      "agentic": 51
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "10.00000",
+          "output": "50.00000",
+          "cache_read": "1.000000",
+          "cache_write": "12.5000000",
+          "tiers": [
+            {
+              "above_input_tokens": 272000,
+              "input": "20.00000",
+              "output": "75.000000",
+              "cache_read": "2.000000"
+            }
+          ],
+          "promo": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "5.000000",
+          "output": "25.000000",
+          "cache_read": "0.5000000",
+          "cache_write": "6.25000000",
+          "tiers": [
+            {
+              "above_input_tokens": 272000,
+              "input": "10.00000",
+              "output": "37.5000000",
+              "cache_read": "1.000000"
+            }
+          ],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "openai/gpt-6-astra-pro",
+    "display_name": "GPT-6 Astra Pro",
+    "vendor_key": "openai",
+    "vendor_name": "OpenAI",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1050000,
+    "max_output_tokens": 128000,
+    "modality": "text+image+file->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "10.00000",
+          "output": "50.00000",
+          "cache_read": "1.000000",
+          "cache_write": "12.5000000",
+          "tiers": [
+            {
+              "above_input_tokens": 272000,
+              "input": "20.00000",
+              "output": "75.000000",
+              "cache_read": "2.000000"
+            }
+          ],
+          "promo": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "5.000000",
+          "output": "25.000000",
+          "cache_read": "0.5000000",
+          "cache_write": "6.25000000",
+          "tiers": [
+            {
+              "above_input_tokens": 272000,
+              "input": "10.00000",
+              "output": "37.5000000",
+              "cache_read": "1.000000"
+            }
+          ],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "openai/gpt-6-luna",
+    "display_name": "GPT-6 Luna",
+    "vendor_key": "openai",
+    "vendor_name": "OpenAI",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1050000,
+    "max_output_tokens": 128000,
+    "modality": "text+image+file->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 38.1,
+      "coding": null,
+      "agentic": null
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.1000000",
+          "output": "0.5000000",
+          "cache_read": "0.01000000",
+          "cache_write": "0.125000000",
+          "tiers": [
+            {
+              "above_input_tokens": 272000,
+              "input": "0.2000000",
+              "output": "0.75000000",
+              "cache_read": "0.02000000"
+            }
+          ],
+          "promo": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "0.05000000",
+          "output": "0.25000000",
+          "cache_read": "0.005000000",
+          "cache_write": "0.0625000000",
+          "tiers": [
+            {
+              "above_input_tokens": 272000,
+              "input": "0.1000000",
+              "output": "0.375000000",
+              "cache_read": "0.01000000"
+            }
+          ],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "openai/gpt-6-luna-pro",
+    "display_name": "GPT-6 Luna Pro",
+    "vendor_key": "openai",
+    "vendor_name": "OpenAI",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1050000,
+    "max_output_tokens": 128000,
+    "modality": "text+image+file->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.1000000",
+          "output": "0.5000000",
+          "cache_read": "0.01000000",
+          "cache_write": "0.125000000",
+          "tiers": [
+            {
+              "above_input_tokens": 272000,
+              "input": "0.2000000",
+              "output": "0.75000000",
+              "cache_read": "0.02000000"
+            }
+          ],
+          "promo": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "0.05000000",
+          "output": "0.25000000",
+          "cache_read": "0.005000000",
+          "cache_write": "0.0625000000",
+          "tiers": [
+            {
+              "above_input_tokens": 272000,
+              "input": "0.1000000",
+              "output": "0.375000000",
+              "cache_read": "0.01000000"
+            }
+          ],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "openai/gpt-6-sol",
+    "display_name": "GPT-6 Sol",
+    "vendor_key": "openai",
+    "vendor_name": "OpenAI",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1050000,
+    "max_output_tokens": 128000,
+    "modality": "text+image+file->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 47.6,
+      "coding": null,
+      "agentic": null
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "2.000000",
+          "output": "10.00000",
+          "cache_read": "0.2000000",
+          "cache_write": "2.5000000",
+          "tiers": [
+            {
+              "above_input_tokens": 272000,
+              "input": "4.000000",
+              "output": "15.000000",
+              "cache_read": "0.4000000"
+            }
+          ],
+          "promo": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "1.000000",
+          "output": "5.000000",
+          "cache_read": "0.1000000",
+          "cache_write": "1.25000000",
+          "tiers": [
+            {
+              "above_input_tokens": 272000,
+              "input": "2.000000",
+              "output": "7.5000000",
+              "cache_read": "0.2000000"
+            }
+          ],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "openai/gpt-6-sol-pro",
+    "display_name": "GPT-6 Sol Pro",
+    "vendor_key": "openai",
+    "vendor_name": "OpenAI",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1050000,
+    "max_output_tokens": 128000,
+    "modality": "text+image+file->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "2.000000",
+          "output": "10.00000",
+          "cache_read": "0.2000000",
+          "cache_write": "2.5000000",
+          "tiers": [
+            {
+              "above_input_tokens": 272000,
+              "input": "4.000000",
+              "output": "15.000000",
+              "cache_read": "0.4000000"
+            }
+          ],
+          "promo": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "1.000000",
+          "output": "5.000000",
+          "cache_read": "0.1000000",
+          "cache_write": "1.25000000",
+          "tiers": [
+            {
+              "above_input_tokens": 272000,
+              "input": "2.000000",
+              "output": "7.5000000",
+              "cache_read": "0.2000000"
+            }
+          ],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "openai/gpt-6.1-sol",
+    "display_name": "GPT-6.1 Sol",
+    "vendor_key": "openai",
+    "vendor_name": "OpenAI",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1050000,
+    "max_output_tokens": 128000,
+    "modality": "text+image+file->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 51.8,
+      "coding": null,
+      "agentic": null
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "2.000000",
+          "output": "10.00000",
+          "cache_read": "0.1000000",
+          "cache_write": "2.5000000",
+          "tiers": [
+            {
+              "above_input_tokens": 272000,
+              "input": "4.000000",
+              "output": "15.000000",
+              "cache_read": "0.2000000"
+            }
+          ],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "openai/gpt-6.1-sol-pro",
+    "display_name": "GPT-6.1 Sol Pro",
+    "vendor_key": "openai",
+    "vendor_name": "OpenAI",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1050000,
+    "max_output_tokens": 128000,
+    "modality": "text+image+file->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "2.000000",
+          "output": "10.00000",
+          "cache_read": "0.1000000",
+          "cache_write": "2.5000000",
+          "tiers": [
+            {
+              "above_input_tokens": 272000,
+              "input": "4.000000",
+              "output": "15.000000",
               "cache_read": "0.2000000"
             }
           ],
@@ -7936,7 +8809,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 131072,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 117964,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -7944,17 +8817,28 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 24.1,
+      "intelligence": 11.6,
       "coding": 30.4,
-      "agentic": 13.4
+      "agentic": 3.7
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.03000000",
+          "input": "0.037000000",
           "output": "0.17000000",
-          "cache_read": "0.03000000",
+          "cache_read": null,
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "0.0296000000",
+          "output": "0.136000000",
+          "cache_read": null,
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -7974,7 +8858,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 131072,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 32768,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -7982,17 +8866,28 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 15.2,
-      "coding": 20.7,
-      "agentic": 3.1
+      "intelligence": 10,
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.03000000",
-          "output": "0.13000000",
-          "cache_read": "0.03000000",
+          "input": "0.018000000",
+          "output": "0.09000000",
+          "cache_read": "0.009000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "0.024000000",
+          "output": "0.112000000",
+          "cache_read": null,
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -8054,7 +8949,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": null,
+      "intelligence": 15.2,
       "coding": 39.7,
       "agentic": null
     },
@@ -8065,17 +8960,6 @@
           "input": "15.000000",
           "output": "60.00000",
           "cache_read": "7.5000000",
-          "cache_write": null,
-          "tiers": [],
-          "promo": null
-        }
-      ],
-      [
-        "Batch",
-        {
-          "input": "7.5000000",
-          "output": "30.00000",
-          "cache_read": "3.75000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -8102,24 +8986,17 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 12.4,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
         {
           "input": "150.00000",
           "output": "600.0000",
-          "cache_read": null,
-          "cache_write": null,
-          "tiers": [],
-          "promo": null
-        }
-      ],
-      [
-        "Batch",
-        {
-          "input": "75.000000",
-          "output": "300.0000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -8147,7 +9024,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 20.2,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -8192,7 +9073,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 12.5,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -8238,9 +9123,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 15.7,
+      "intelligence": 11,
       "coding": 16.3,
-      "agentic": 1.7
+      "agentic": 0.9
     },
     "rates": [
       [
@@ -8249,17 +9134,6 @@
           "input": "1.1000000",
           "output": "4.4000000",
           "cache_read": "0.55000000",
-          "cache_write": null,
-          "tiers": [],
-          "promo": null
-        }
-      ],
-      [
-        "Batch",
-        {
-          "input": "0.55000000",
-          "output": "2.2000000",
-          "cache_read": "0.275000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -8286,24 +9160,17 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 21.9,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
         {
           "input": "20.00000",
           "output": "80.00000",
-          "cache_read": null,
-          "cache_write": null,
-          "tiers": [],
-          "promo": null
-        }
-      ],
-      [
-        "Batch",
-        {
-          "input": "10.00000",
-          "output": "40.00000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -8331,7 +9198,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 16.7,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -8388,17 +9259,6 @@
           "tiers": [],
           "promo": null
         }
-      ],
-      [
-        "Batch",
-        {
-          "input": "0.55000000",
-          "output": "2.2000000",
-          "cache_read": "0.1375000000",
-          "cache_write": null,
-          "tiers": [],
-          "promo": null
-        }
       ]
     ],
     "provenance": "Aggregate"
@@ -8438,6 +9298,40 @@
     "provenance": "Aggregate"
   },
   {
+    "key": "perceptron/perceptron-mk1.5",
+    "display_name": "Perceptron Mk1.5",
+    "vendor_key": "perceptron",
+    "vendor_name": "Perceptron",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 36864,
+    "max_output_tokens": 8192,
+    "modality": "text+image+audio+video->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.15000000",
+          "output": "1.5000000",
+          "cache_read": null,
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
     "key": "perplexity/sonar",
     "display_name": "Sonar",
     "vendor_key": "perplexity",
@@ -8448,14 +9342,18 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 127072,
-    "max_output_tokens": null,
+    "max_output_tokens": 114364,
     "modality": "text+image->text",
     "capabilities": {
       "tools": false,
       "reasoning": false,
       "structured_output": false
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 7.7,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -8482,7 +9380,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 128000,
-    "max_output_tokens": null,
+    "max_output_tokens": 115200,
     "modality": "text->text",
     "capabilities": {
       "tools": false,
@@ -8523,7 +9421,11 @@
       "reasoning": false,
       "structured_output": false
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 7.6,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -8584,14 +9486,18 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 128000,
-    "max_output_tokens": null,
+    "max_output_tokens": 115200,
     "modality": "text+image->text",
     "capabilities": {
       "tools": false,
       "reasoning": true,
       "structured_output": false
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 11.8,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -8676,6 +9582,40 @@
     "provenance": "Aggregate"
   },
   {
+    "key": "prism-ml/ternary-bonsai-2-27b",
+    "display_name": "Ternary Bonsai 2 27B",
+    "vendor_key": "prism-ml",
+    "vendor_name": "Prism Ml",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 262144,
+    "max_output_tokens": 32768,
+    "modality": "text+image->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.075000000",
+          "output": "0.5000000",
+          "cache_read": "0.0375000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
     "key": "qwen/qwen-2.5-72b-instruct",
     "display_name": "Qwen2.5 72B Instruct",
     "vendor_key": "qwen",
@@ -8693,7 +9633,11 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 7.7,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -8720,7 +9664,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 32768,
-    "max_output_tokens": 32768,
+    "max_output_tokens": 29491,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -8754,14 +9698,18 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 32768,
-    "max_output_tokens": 32768,
+    "max_output_tokens": 29491,
     "modality": "text->text",
     "capabilities": {
       "tools": false,
       "reasoning": false,
-      "structured_output": false
+      "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 6.7,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -8860,47 +9808,6 @@
     "provenance": "Aggregate"
   },
   {
-    "key": "qwen/qwen-plus-2025-07-28:thinking",
-    "display_name": "Qwen Plus 0728 (thinking)",
-    "vendor_key": "qwen",
-    "vendor_name": "Qwen",
-    "released": {
-      "year": 2025,
-      "month": 9
-    },
-    "knowledge_cutoff": null,
-    "context_tokens": 1000000,
-    "max_output_tokens": 32768,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": true,
-      "reasoning": true,
-      "structured_output": true
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.26000000",
-          "output": "0.78000000",
-          "cache_read": null,
-          "cache_write": null,
-          "tiers": [
-            {
-              "above_input_tokens": 256000,
-              "input": "0.78000000",
-              "output": "2.34000000",
-              "cache_read": null
-            }
-          ],
-          "promo": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate"
-  },
-  {
     "key": "qwen/qwen2.5-vl-72b-instruct",
     "display_name": "Qwen2.5 VL 72B Instruct",
     "vendor_key": "qwen",
@@ -8911,7 +9818,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 128000,
-    "max_output_tokens": 128000,
+    "max_output_tokens": 115200,
     "modality": "text+image->text",
     "capabilities": {
       "tools": false,
@@ -8953,9 +9860,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 10.4,
+      "intelligence": 8.2,
       "coding": 13.8,
-      "agentic": 1.9
+      "agentic": 0.9
     },
     "rates": [
       [
@@ -8990,7 +9897,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 9.5,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -9024,7 +9935,11 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 12,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -9050,8 +9965,8 @@
       "month": 7
     },
     "knowledge_cutoff": null,
-    "context_tokens": 262144,
-    "max_output_tokens": null,
+    "context_tokens": 131072,
+    "max_output_tokens": 117964,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -9059,9 +9974,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 19.9,
+      "intelligence": 12.7,
       "coding": 22.1,
-      "agentic": 3.8
+      "agentic": 1.3
     },
     "rates": [
       [
@@ -9089,20 +10004,24 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 131072,
-    "max_output_tokens": 8192,
+    "max_output_tokens": 16384,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 7.6,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.13000000",
-          "output": "0.52000000",
+          "input": "0.12000000",
+          "output": "0.5000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -9123,20 +10042,24 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 32000,
+    "max_output_tokens": 235929,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 7.5,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.04815000000",
-          "output": "0.19305000000",
+          "input": "0.1000000",
+          "output": "0.3000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -9165,9 +10088,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 14.6,
+      "intelligence": 9.8,
       "coding": 12.1,
-      "agentic": 1.8
+      "agentic": 0.9
     },
     "rates": [
       [
@@ -9203,9 +10126,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 11.4,
+      "intelligence": 8.6,
       "coding": 15.3,
-      "agentic": 1.8
+      "agentic": 0.9
     },
     "rates": [
       [
@@ -9241,9 +10164,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 8.3,
-      "coding": 9.0,
-      "agentic": 1.6
+      "intelligence": 7.3,
+      "coding": 9,
+      "agentic": 0.8
     },
     "rates": [
       [
@@ -9278,7 +10201,11 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 11.9,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -9305,14 +10232,18 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 262144,
+    "max_output_tokens": 235929,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 9.6,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -9386,7 +10317,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 262144,
+    "max_output_tokens": 235929,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -9394,9 +10325,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 21.3,
+      "intelligence": 9.2,
       "coding": 36.2,
-      "agentic": 8.9
+      "agentic": 0.9
     },
     "rates": [
       [
@@ -9478,7 +10409,11 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 15.6,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -9525,7 +10460,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 21.3,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -9565,21 +10504,25 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 16384,
+    "max_output_tokens": 235929,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 9.6,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.09000000",
+          "input": "0.1000000",
           "output": "1.1000000",
-          "cache_read": null,
+          "cache_read": "0.07000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -9607,9 +10550,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 16.9,
+      "intelligence": 11.2,
       "coding": 17.4,
-      "agentic": 2.1
+      "agentic": null
     },
     "rates": [
       [
@@ -9644,7 +10587,11 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 9.9,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -9678,7 +10625,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 13.4,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -9705,20 +10656,24 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 32768,
+    "max_output_tokens": 16384,
     "modality": "text+image->text",
     "capabilities": {
       "tools": true,
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 7.9,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.13000000",
-          "output": "0.52000000",
+          "input": "0.15000000",
+          "output": "0.6000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -9746,7 +10701,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 9.5,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -9780,7 +10739,11 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 11.9,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -9814,7 +10777,11 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 7.3,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -9848,7 +10815,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 8.2,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -9875,7 +10846,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 262144,
+    "max_output_tokens": 65536,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -9883,9 +10854,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 32.8,
-      "coding": 45.7,
-      "agentic": 21.3
+      "intelligence": 17.7,
+      "coding": 43.3,
+      "agentic": null
     },
     "rates": [
       [
@@ -9920,7 +10891,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 22.9,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -9947,7 +10922,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 262144,
+    "max_output_tokens": 235929,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -9955,17 +10930,17 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 24.3,
-      "coding": 37.0,
-      "agentic": 11.8
+      "intelligence": 19.3,
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.25000000",
-          "output": "1.25000000",
-          "cache_read": "0.25000000",
+          "input": "0.15000000",
+          "output": "1.000000",
+          "cache_read": "0.05000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -9985,7 +10960,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 65536,
+    "max_output_tokens": 81920,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -9993,17 +10968,17 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 34.3,
-      "coding": 48.2,
-      "agentic": 19.8
+      "intelligence": 21.4,
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.39000000",
-          "output": "2.34000000",
-          "cache_read": null,
+          "input": "0.45000000",
+          "output": "3.000000",
+          "cache_read": "0.22000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -10023,7 +10998,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 262144,
+    "max_output_tokens": 32768,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -10031,9 +11006,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 21.8,
-      "coding": 28.7,
-      "agentic": 7.0
+      "intelligence": 13.3,
+      "coding": 23.5,
+      "agentic": null
     },
     "rates": [
       [
@@ -10177,7 +11152,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 65536,
+    "max_output_tokens": 262140,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -10185,16 +11160,16 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 37.7,
+      "intelligence": 21.4,
       "coding": 53.7,
-      "agentic": 27.5
+      "agentic": 18.5
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.3000000",
-          "output": "2.000000",
+          "input": "0.32000000",
+          "output": "3.25000000",
           "cache_read": "0.03000000",
           "cache_write": null,
           "tiers": [],
@@ -10215,7 +11190,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 262144,
+    "max_output_tokens": 235929,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -10223,15 +11198,15 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 32.1,
+      "intelligence": 18.2,
       "coding": 41.9,
-      "agentic": 21.6
+      "agentic": 13.1
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.14000000",
+          "input": "0.15000000",
           "output": "1.000000",
           "cache_read": "0.05000000",
           "cache_write": null,
@@ -10301,7 +11276,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 28.4,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -10343,9 +11322,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 40.5,
+      "intelligence": 27,
       "coding": 54.5,
-      "agentic": 29.0
+      "agentic": null
     },
     "rates": [
       [
@@ -10435,9 +11414,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 46.7,
-      "coding": 66.0,
-      "agentic": 30.9
+      "intelligence": 29.5,
+      "coding": 66,
+      "agentic": 22.5
     },
     "rates": [
       [
@@ -10473,9 +11452,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 39.4,
+      "intelligence": 25.2,
       "coding": 55.9,
-      "agentic": 20.7
+      "agentic": 17.5
     },
     "rates": [
       [
@@ -10510,7 +11489,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 262144,
+    "max_output_tokens": 131072,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -10518,9 +11497,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 57.7,
+      "intelligence": 39.9,
       "coding": 71.9,
-      "agentic": 57.1
+      "agentic": 50.1
     },
     "rates": [
       [
@@ -10556,18 +11535,18 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 52.0,
+      "intelligence": 33.7,
       "coding": 68.1,
-      "agentic": 50.9
+      "agentic": 45.8
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.45000000",
-          "output": "3.2000000",
-          "cache_read": "0.05000000",
-          "cache_write": null,
+          "input": "0.425000000",
+          "output": "2.55000000",
+          "cache_read": "0.085000000",
+          "cache_write": "0.53125000000",
           "tiers": [],
           "promo": null
         }
@@ -10576,8 +11555,8 @@
     "provenance": "Aggregate"
   },
   {
-    "key": "qwen/qwen3.8-max",
-    "display_name": "Qwen3.8 Max",
+    "key": "qwen/qwen3.8-flash",
+    "display_name": "Qwen3.8 Flash",
     "vendor_key": "qwen",
     "vendor_name": "Qwen",
     "released": {
@@ -10593,10 +11572,44 @@
       "reasoning": true,
       "structured_output": true
     },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.15000000",
+          "output": "0.47000000",
+          "cache_read": "0.016000000",
+          "cache_write": "0.2000000",
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "qwen/qwen3.8-max-0902",
+    "display_name": "Qwen3.8 Max (0902)",
+    "vendor_key": "qwen",
+    "vendor_name": "Qwen",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1000000,
+    "max_output_tokens": 131072,
+    "modality": "text+image+video->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
     "scores": {
-      "intelligence": 58.1,
-      "coding": 71.8,
-      "agentic": 58.4
+      "intelligence": 45.4,
+      "coding": 76.2,
+      "agentic": 56
     },
     "rates": [
       [
@@ -10606,6 +11619,74 @@
           "output": "6.000000",
           "cache_read": "0.25000000",
           "cache_write": "2.5000000",
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "qwen/qwen3.8-max-prime",
+    "display_name": "Qwen3.8 Max Prime",
+    "vendor_key": "qwen",
+    "vendor_name": "Qwen",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1000000,
+    "max_output_tokens": 131072,
+    "modality": "text+image+video->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "4.000000",
+          "output": "12.000000",
+          "cache_read": "0.5000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "qwen/qwen3.8-omni-flash",
+    "display_name": "Qwen3.8 Omni Flash",
+    "vendor_key": "qwen",
+    "vendor_name": "Qwen",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1000000,
+    "max_output_tokens": 131072,
+    "modality": "text+image+audio+video->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.15000000",
+          "output": "0.47000000",
+          "cache_read": "0.016000000",
+          "cache_write": null,
           "tiers": [],
           "promo": null
         }
@@ -10624,7 +11705,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 16384,
-    "max_output_tokens": 16384,
+    "max_output_tokens": 14745,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -10658,14 +11739,18 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 65536,
-    "max_output_tokens": 65536,
+    "max_output_tokens": 58982,
     "modality": "text->text",
     "capabilities": {
       "tools": false,
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 6.4,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -10750,6 +11835,40 @@
     "provenance": "Aggregate"
   },
   {
+    "key": "sakana/fugu-max",
+    "display_name": "Fugu Max",
+    "vendor_key": "sakana",
+    "vendor_name": "Sakana",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1000000,
+    "max_output_tokens": 128000,
+    "modality": "text+image+file->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "2.000000",
+          "output": "6.000000",
+          "cache_read": "0.25000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
     "key": "sakana/fugu-ultra",
     "display_name": "Fugu Ultra",
     "vendor_key": "sakana",
@@ -10762,6 +11881,47 @@
     "context_tokens": 1000000,
     "max_output_tokens": 128000,
     "modality": "text+image->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "5.000000",
+          "output": "30.00000",
+          "cache_read": "0.5000000",
+          "cache_write": null,
+          "tiers": [
+            {
+              "above_input_tokens": 272000,
+              "input": "10.00000",
+              "output": "45.000000",
+              "cache_read": "1.000000"
+            }
+          ],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "sakana/fugu-ultra-v2",
+    "display_name": "Fugu Ultra v2",
+    "vendor_key": "sakana",
+    "vendor_name": "Sakana",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1000000,
+    "max_output_tokens": 128000,
+    "modality": "text+image+file->text",
     "capabilities": {
       "tools": true,
       "reasoning": true,
@@ -10835,7 +11995,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 8192,
-    "max_output_tokens": 16384,
+    "max_output_tokens": 7372,
     "modality": "text->text",
     "capabilities": {
       "tools": false,
@@ -10944,7 +12104,11 @@
       "reasoning": true,
       "structured_output": false
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 17,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -10971,7 +12135,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 256000,
+    "max_output_tokens": 230400,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -10979,9 +12143,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 30.9,
+      "intelligence": 19.5,
       "coding": 39.6,
-      "agentic": 21.7
+      "agentic": null
     },
     "rates": [
       [
@@ -11009,7 +12173,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 131072,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 117964,
     "modality": "text->text",
     "capabilities": {
       "tools": false,
@@ -11023,6 +12187,108 @@
         {
           "input": "0.14000000",
           "output": "0.57000000",
+          "cache_read": null,
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "tencent/hy-mt2-1.8b",
+    "display_name": "Hy-MT2-1.8B",
+    "vendor_key": "tencent",
+    "vendor_name": "Tencent",
+    "released": {
+      "year": 2026,
+      "month": 8
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 8192,
+    "max_output_tokens": 4096,
+    "modality": "text->text",
+    "capabilities": {
+      "tools": false,
+      "reasoning": false,
+      "structured_output": false
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.044000000",
+          "output": "0.177000000",
+          "cache_read": null,
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "tencent/hy-mt2-30b-a3b",
+    "display_name": "Hy-MT2-30B-A3B",
+    "vendor_key": "tencent",
+    "vendor_name": "Tencent",
+    "released": {
+      "year": 2026,
+      "month": 8
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 8192,
+    "max_output_tokens": 4096,
+    "modality": "text->text",
+    "capabilities": {
+      "tools": false,
+      "reasoning": false,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.074000000",
+          "output": "0.295000000",
+          "cache_read": null,
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "tencent/hy-mt2-7b",
+    "display_name": "Hy-MT2-7B",
+    "vendor_key": "tencent",
+    "vendor_name": "Tencent",
+    "released": {
+      "year": 2026,
+      "month": 8
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 8192,
+    "max_output_tokens": 4096,
+    "modality": "text->text",
+    "capabilities": {
+      "tools": false,
+      "reasoning": false,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.074000000",
+          "output": "0.295000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -11077,7 +12343,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": null,
+    "max_output_tokens": 235929,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -11085,9 +12351,9 @@
       "structured_output": false
     },
     "scores": {
-      "intelligence": 42.2,
+      "intelligence": 25.3,
       "coding": 58.8,
-      "agentic": 31.4
+      "agentic": 24.1
     },
     "rates": [
       [
@@ -11096,6 +12362,40 @@
           "input": "0.18000000",
           "output": "0.6000000",
           "cache_read": "0.06000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "tencent/hy4-preview",
+    "display_name": "Hy4 preview",
+    "vendor_key": "tencent",
+    "vendor_name": "Tencent",
+    "released": {
+      "year": 2026,
+      "month": 8
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1048576,
+    "max_output_tokens": 64000,
+    "modality": "text->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.834000000",
+          "output": "2.501000000",
+          "cache_read": "0.042000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -11115,7 +12415,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 131072,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 117964,
     "modality": "text->text",
     "capabilities": {
       "tools": false,
@@ -11139,40 +12439,6 @@
     "provenance": "Aggregate"
   },
   {
-    "key": "thedrummer/rocinante-12b",
-    "display_name": "Rocinante 12B",
-    "vendor_key": "thedrummer",
-    "vendor_name": "TheDrummer",
-    "released": {
-      "year": 2024,
-      "month": 9
-    },
-    "knowledge_cutoff": null,
-    "context_tokens": 65536,
-    "max_output_tokens": 65536,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": false,
-      "reasoning": false,
-      "structured_output": true
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.25000000",
-          "output": "0.5000000",
-          "cache_read": null,
-          "cache_write": null,
-          "tiers": [],
-          "promo": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate"
-  },
-  {
     "key": "thedrummer/skyfall-36b-v2",
     "display_name": "Skyfall 36B V2",
     "vendor_key": "thedrummer",
@@ -11183,7 +12449,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 32768,
-    "max_output_tokens": 32768,
+    "max_output_tokens": 29491,
     "modality": "text->text",
     "capabilities": {
       "tools": false,
@@ -11217,10 +12483,10 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1024000,
-    "max_output_tokens": 1024000,
+    "max_output_tokens": 819200,
     "modality": "text->text",
     "capabilities": {
-      "tools": true,
+      "tools": false,
       "reasoning": false,
       "structured_output": true
     },
@@ -11250,18 +12516,18 @@
       "month": 7
     },
     "knowledge_cutoff": null,
-    "context_tokens": 1048576,
+    "context_tokens": 524288,
     "max_output_tokens": 262144,
     "modality": "text+image+audio->text",
     "capabilities": {
       "tools": true,
       "reasoning": true,
-      "structured_output": true
+      "structured_output": false
     },
     "scores": {
-      "intelligence": 42.3,
+      "intelligence": 25,
       "coding": 52.1,
-      "agentic": 34.1
+      "agentic": 22.5
     },
     "rates": [
       [
@@ -11270,17 +12536,6 @@
           "input": "0.95000000",
           "output": "4.05000000",
           "cache_read": "0.16000000",
-          "cache_write": null,
-          "tiers": [],
-          "promo": null
-        }
-      ],
-      [
-        "Batch",
-        {
-          "input": "1.000000",
-          "output": "4.05000000",
-          "cache_read": "0.17000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -11305,12 +12560,12 @@
     "capabilities": {
       "tools": true,
       "reasoning": true,
-      "structured_output": true
+      "structured_output": false
     },
     "scores": {
-      "intelligence": 41.2,
+      "intelligence": 25.7,
       "coding": 52.9,
-      "agentic": 31.9
+      "agentic": 23.5
     },
     "rates": [
       [
@@ -11319,6 +12574,74 @@
           "input": "0.45000000",
           "output": "1.2000000",
           "cache_read": "0.1000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "unbiased/pareto",
+    "display_name": "Pareto",
+    "vendor_key": "unbiased",
+    "vendor_name": "Unbiased",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 262144,
+    "max_output_tokens": 131072,
+    "modality": "text+image->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": false,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "2.5000000",
+          "output": "7.5000000",
+          "cache_read": "0.25000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "unbiased/pareto-26.10-preview",
+    "display_name": "Pareto 26.10 Preview",
+    "vendor_key": "unbiased",
+    "vendor_name": "Unbiased",
+    "released": {
+      "year": 2026,
+      "month": 10
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1048576,
+    "max_output_tokens": 131072,
+    "modality": "text+image->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": false,
+      "structured_output": false
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.8000000",
+          "output": "3.2000000",
+          "cache_read": "0.03000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -11338,7 +12661,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 6144,
-    "max_output_tokens": 6144,
+    "max_output_tokens": 5529,
     "modality": "text->text",
     "capabilities": {
       "tools": false,
@@ -11350,9 +12673,47 @@
       [
         "Standard",
         {
-          "input": "0.45000000",
+          "input": "0.35000000",
           "output": "0.65000000",
           "cache_read": null,
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "upstage/solar-mini4",
+    "display_name": "Solar Mini 4",
+    "vendor_key": "upstage",
+    "vendor_name": "Upstage",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 524288,
+    "max_output_tokens": 131072,
+    "modality": "text->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 24.1,
+      "coding": null,
+      "agentic": null
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.05000000",
+          "output": "0.2000000",
+          "cache_read": "0.005000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -11372,7 +12733,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 131072,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 117964,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -11380,9 +12741,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 14.5,
+      "intelligence": 7.8,
       "coding": 16.2,
-      "agentic": 2.9
+      "agentic": 1.4
     },
     "rates": [
       [
@@ -11418,17 +12779,17 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 41.6,
+      "intelligence": 28.2,
       "coding": 52.7,
-      "agentic": 33.6
+      "agentic": null
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.03000000",
-          "output": "0.12000000",
-          "cache_read": "0.006000000",
+          "input": "0.09000000",
+          "output": "0.36000000",
+          "cache_read": "0.018000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -11482,14 +12843,18 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 2000000,
-    "max_output_tokens": null,
+    "max_output_tokens": 1800000,
     "modality": "text+image+file->text",
     "capabilities": {
       "tools": true,
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 25.7,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -11523,7 +12888,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 2000000,
-    "max_output_tokens": null,
+    "max_output_tokens": 1800000,
     "modality": "text+image+file->text",
     "capabilities": {
       "tools": false,
@@ -11564,7 +12929,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1000000,
-    "max_output_tokens": null,
+    "max_output_tokens": 900000,
     "modality": "text+image+file->text",
     "capabilities": {
       "tools": true,
@@ -11572,9 +12937,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 37.9,
+      "intelligence": 24.9,
       "coding": 42.2,
-      "agentic": 24.2
+      "agentic": 15.5
     },
     "rates": [
       [
@@ -11594,6 +12959,24 @@
           ],
           "promo": null
         }
+      ],
+      [
+        "Batch",
+        {
+          "input": "1.000000",
+          "output": "2.000000",
+          "cache_read": "0.16000000",
+          "cache_write": null,
+          "tiers": [
+            {
+              "above_input_tokens": 200000,
+              "input": "2.000000",
+              "output": "4.000000",
+              "cache_read": "0.32000000"
+            }
+          ],
+          "promo": null
+        }
       ]
     ],
     "provenance": "Aggregate"
@@ -11609,7 +12992,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 500000,
-    "max_output_tokens": null,
+    "max_output_tokens": 450000,
     "modality": "text+image+file->text",
     "capabilities": {
       "tools": true,
@@ -11617,9 +13000,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 55.8,
+      "intelligence": 38.8,
       "coding": 72.4,
-      "agentic": 48.9
+      "agentic": 41.2
     },
     "rates": [
       [
@@ -11654,7 +13037,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 500000,
-    "max_output_tokens": null,
+    "max_output_tokens": 450000,
     "modality": "text+image+file->text",
     "capabilities": {
       "tools": true,
@@ -11662,9 +13045,54 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 60.9,
+      "intelligence": 44.3,
       "coding": 76.8,
-      "agentic": 58.7
+      "agentic": 53
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "2.000000",
+          "output": "6.000000",
+          "cache_read": "0.5000000",
+          "cache_write": null,
+          "tiers": [
+            {
+              "above_input_tokens": 200000,
+              "input": "4.000000",
+              "output": "12.000000",
+              "cache_read": "1.000000"
+            }
+          ],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "x-ai/grok-4.7",
+    "display_name": "Grok 4.7",
+    "vendor_key": "x-ai",
+    "vendor_name": "xAI",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 500000,
+    "max_output_tokens": 450000,
+    "modality": "text+image+file->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 46.4,
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -11699,7 +13127,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 256000,
-    "max_output_tokens": null,
+    "max_output_tokens": 230400,
     "modality": "text+image+file->text",
     "capabilities": {
       "tools": true,
@@ -11707,9 +13135,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 40.7,
+      "intelligence": 27.2,
       "coding": 51.5,
-      "agentic": 28.9
+      "agentic": null
     },
     "rates": [
       [
@@ -11752,9 +13180,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 38.0,
+      "intelligence": 25.2,
       "coding": 56.8,
-      "agentic": 24.4
+      "agentic": 15.8
     },
     "rates": [
       [
@@ -11790,9 +13218,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 42.9,
+      "intelligence": 26,
       "coding": 60.2,
-      "agentic": 29.5
+      "agentic": 21.3
     },
     "rates": [
       [
@@ -11801,6 +13229,116 @@
           "input": "0.435000000",
           "output": "0.87000000",
           "cache_read": "0.0036000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "xiaomi/mimo-v2.6-flash",
+    "display_name": "MiMo-V2.6-Flash",
+    "vendor_key": "xiaomi",
+    "vendor_name": "Xiaomi",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1050000,
+    "max_output_tokens": 131072,
+    "modality": "text+image+audio+video->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 37.9,
+      "coding": null,
+      "agentic": null
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.14000000",
+          "output": "0.28000000",
+          "cache_read": "0.0028000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "xiaomi/mimo-v2.6-pro",
+    "display_name": "MiMo-V2.6-Pro",
+    "vendor_key": "xiaomi",
+    "vendor_name": "Xiaomi",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1050000,
+    "max_output_tokens": 131072,
+    "modality": "text+image+audio+video->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 46.3,
+      "coding": null,
+      "agentic": null
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.435000000",
+          "output": "0.87000000",
+          "cache_read": "0.0036000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "xiaomi/mimo-v2.6-pro-ultraspeed",
+    "display_name": "MiMo-V2.6-Pro-UltraSpeed",
+    "vendor_key": "xiaomi",
+    "vendor_name": "Xiaomi",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1048576,
+    "max_output_tokens": 131072,
+    "modality": "text+image+audio+video->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "4.35000000",
+          "output": "8.7000000",
+          "cache_read": "0.036000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -11827,7 +13365,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 12.8,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -11861,7 +13403,11 @@
       "reasoning": true,
       "structured_output": false
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 11.1,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -11895,7 +13441,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 7.6,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -11922,7 +13472,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 204800,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 16384,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -11930,17 +13480,17 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 29.3,
+      "intelligence": 18.5,
       "coding": 45.8,
-      "agentic": 18.6
+      "agentic": null
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.5000000",
-          "output": "2.000000",
-          "cache_read": "0.1000000",
+          "input": "0.43000000",
+          "output": "1.75000000",
+          "cache_read": "0.08000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -11967,14 +13517,18 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 11.2,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
         {
           "input": "0.3000000",
           "output": "0.9000000",
-          "cache_read": "0.055000000",
+          "cache_read": "0.05000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -12002,17 +13556,17 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 34.5,
+      "intelligence": 22.2,
       "coding": 45.3,
-      "agentic": 26.2
+      "agentic": null
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.4000000",
-          "output": "1.75000000",
-          "cache_read": "0.08000000",
+          "input": "0.6000000",
+          "output": "2.2000000",
+          "cache_read": "0.11000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -12031,22 +13585,26 @@
       "month": 1
     },
     "knowledge_cutoff": null,
-    "context_tokens": 202752,
-    "max_output_tokens": 16384,
+    "context_tokens": 200000,
+    "max_output_tokens": 117964,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 14.9,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.06000000",
+          "input": "0.0605000000",
           "output": "0.4000000",
-          "cache_read": "0.01000000",
+          "cache_read": null,
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -12073,7 +13631,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 27.9,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -12107,7 +13669,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 26.6,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -12134,7 +13700,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 204800,
-    "max_output_tokens": 128000,
+    "max_output_tokens": 131072,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -12142,17 +13708,17 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 41.0,
+      "intelligence": 26.1,
       "coding": 55.8,
-      "agentic": 30.6
+      "agentic": 23.9
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.966000000",
-          "output": "3.036000000",
-          "cache_read": "0.1794000000",
+          "input": "1.4000000",
+          "output": "4.4000000",
+          "cache_read": "0.26000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -12180,28 +13746,17 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 52.6,
+      "intelligence": 33.7,
       "coding": 68.8,
-      "agentic": 45.7
+      "agentic": 38.4
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.966000000",
-          "output": "3.036000000",
-          "cache_read": "0.1932000000",
-          "cache_write": null,
-          "tiers": [],
-          "promo": null
-        }
-      ],
-      [
-        "Batch",
-        {
-          "input": "1.4000000",
-          "output": "4.4000000",
-          "cache_read": "0.26000000",
+          "input": "0.016000000",
+          "output": "12.000000",
+          "cache_read": "0.016000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -12221,7 +13776,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 943718,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -12229,17 +13784,145 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 59.5,
+      "intelligence": 44.8,
       "coding": 74.8,
-      "agentic": 59.1
+      "agentic": 53.1
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "1.4000000",
-          "output": "4.4000000",
-          "cache_read": "0.26000000",
+          "input": "0.07000000",
+          "output": "7.000000",
+          "cache_read": "0.065000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "0.45000000",
+          "output": "2.000000",
+          "cache_read": "0.1000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "z-ai/glm-5.3-flash",
+    "display_name": "GLM 5.3 Flash",
+    "vendor_key": "z-ai",
+    "vendor_name": "Z.ai",
+    "released": {
+      "year": 2026,
+      "month": 8
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1048576,
+    "max_output_tokens": 131072,
+    "modality": "text+image+video->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 41.8,
+      "coding": 71.5,
+      "agentic": 50.9
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.0278000000",
+          "output": "0.5000000",
+          "cache_read": "0.0183000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "0.06000000",
+          "output": "0.2000000",
+          "cache_read": "0.012000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "z-ai/glm-5.3-flashx",
+    "display_name": "GLM 5.3 FlashX",
+    "vendor_key": "z-ai",
+    "vendor_name": "Z.ai",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1048576,
+    "max_output_tokens": 131072,
+    "modality": "text+image+video->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.37000000",
+          "output": "1.25000000",
+          "cache_read": "0.09000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate"
+  },
+  {
+    "key": "z-ai/glm-5.3-prime",
+    "display_name": "GLM 5.3 Prime",
+    "vendor_key": "z-ai",
+    "vendor_name": "Z.ai",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1000000,
+    "max_output_tokens": 131072,
+    "modality": "text->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "2.8000000",
+          "output": "8.8000000",
+          "cache_read": "0.56000000",
           "cache_write": null,
           "tiers": [],
           "promo": null
@@ -12266,7 +13949,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 23.5,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",

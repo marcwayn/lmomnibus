@@ -3,3 +3,7 @@
 # default (revalidate every time), so a deploy is picked up immediately.
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+
+# Link-preview cards change with each catalog refresh; a day is plenty.
+/og/*
+  Cache-Control: public, max-age=86400

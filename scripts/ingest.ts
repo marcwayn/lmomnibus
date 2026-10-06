@@ -6,6 +6,11 @@
 //   npm run ingest -- --feed saved.json     # normalize a saved feed instead
 //   npm run ingest -- --out other.json      # write somewhere else
 //
+// Alongside the catalog it writes data/catalog-meta.json, recording the date
+// the feed was fetched. That date is what the site shows as "prices as of" —
+// never a git or file date, which can be later than the data. When
+// normalizing a saved feed, pass --as-of with the date that feed was fetched.
+//
 // Runs directly on Node 23.6+ (native TypeScript), no build step. Prices stay
 // decimal strings end to end — never parsed into JS numbers.
 
@@ -62,6 +67,10 @@ interface OverrideEntry {
   input?: string;
   output?: string;
   promo?: { input: string; output: string; until: string };
+  /** When a person last checked this against the vendor's own pricing. */
+  verified_on?: string;
+  /** Where the corrected figure comes from. */
+  source?: string;
 }
 
 // Field order matches what the app has always read; keep it stable so a
@@ -92,10 +101,17 @@ interface CatalogModel {
 }
 
 const { values: args } = parseArgs({
-  options: { feed: { type: "string" }, out: { type: "string", default: "data/catalog.json" } },
+  options: {
+    feed: { type: "string" },
+    out: { type: "string", default: "data/catalog.json" },
+    meta: { type: "string", default: "data/catalog-meta.json" },
+    "as-of": { type: "string" },
+  },
 });
 
 async function main() {
+  if (args.feed && !args["as-of"]) throw new Error("--feed needs --as-of YYYY-MM-DD (the date that feed was fetched)");
+  const asOf = args["as-of"] ?? new Date().toISOString().slice(0, 10);
   const raw = await loadFeed(args.feed);
   console.error(`fetched ${raw.length} raw entries from ${args.feed ?? FEED_URL}`);
 
@@ -106,6 +122,18 @@ async function main() {
 
   writeFileSync(args.out!, JSON.stringify(models, null, 2));
   console.error(`wrote ${args.out} (${models.length} models)`);
+
+  const meta = {
+    as_of: asOf,
+    source: "OpenRouter /api/v1/models",
+    models: models.length,
+    vendors: new Set(models.map((m) => m.vendor_name)).size,
+    scored_intelligence: models.filter((m) => m.scores?.intelligence != null).length,
+    first_party: models.filter((m) => m.provenance === "FirstParty").length,
+    aggregate: models.filter((m) => m.provenance === "Aggregate").length,
+  };
+  writeFileSync(args.meta!, JSON.stringify(meta, null, 2) + "\n");
+  console.error(`wrote ${args.meta} (as of ${asOf})`);
 }
 
 async function loadFeed(path: string | undefined): Promise<OrModel[]> {

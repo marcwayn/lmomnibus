@@ -1,5 +1,6 @@
 import Big from "big.js";
 import rawCatalog from "../../data/catalog.json" with { type: "json" };
+import rawMeta from "../../data/catalog-meta.json" with { type: "json" };
 import type { Model, RateCard, RateMode } from "./model.ts";
 
 /**
@@ -29,6 +30,8 @@ interface RawModel {
   context_tokens: number;
   max_output_tokens: number | null;
   modality: string;
+  capabilities: { tools: boolean; reasoning: boolean; structured_output: boolean };
+  scores: { intelligence: number | null; coding: number | null; agentic: number | null } | null;
   rates: [RateMode, RawRateCard][];
   provenance: "FirstParty" | "Aggregate";
 }
@@ -62,6 +65,12 @@ export function parseModel(m: RawModel): Model {
     contextTokens: m.context_tokens,
     maxOutputTokens: m.max_output_tokens,
     modality: m.modality,
+    capabilities: {
+      tools: m.capabilities.tools,
+      reasoning: m.capabilities.reasoning,
+      structuredOutput: m.capabilities.structured_output,
+    },
+    scores: m.scores,
     rates: m.rates.map(([mode, card]) => [mode, parseCard(card)]),
     provenance: m.provenance,
   };
@@ -69,6 +78,33 @@ export function parseModel(m: RawModel): Model {
 
 const CATALOG: readonly Model[] = (rawCatalog as unknown as RawModel[]).map(parseModel);
 const BY_KEY = new Map(CATALOG.map((m) => [m.key, m]));
+
+export interface CatalogMeta {
+  /** UTC date the feed was fetched — the honest "prices as of" date. */
+  asOf: string;
+  source: string;
+  models: number;
+  /** Distinct vendor display names (Meta appears under two vendor keys). */
+  vendors: number;
+  scoredIntelligence: number;
+  firstParty: number;
+  aggregate: number;
+}
+
+export const CATALOG_META: CatalogMeta = {
+  asOf: rawMeta.as_of,
+  source: rawMeta.source,
+  models: rawMeta.models,
+  vendors: rawMeta.vendors,
+  scoredIntelligence: rawMeta.scored_intelligence,
+  firstParty: rawMeta.first_party,
+  aggregate: rawMeta.aggregate,
+};
+
+/** Whole days between the snapshot and `today` (both ISO dates). */
+export function snapshotAgeDays(today: string, asOf: string = CATALOG_META.asOf): number {
+  return Math.max(0, Math.round((Date.parse(today) - Date.parse(asOf)) / 86_400_000));
+}
 
 export function allModels(): readonly Model[] {
   return CATALOG;
