@@ -1,0 +1,73 @@
+{
+  "note": "Models OpenRouter lists without a Hugging Face id although their weights are published. Each 'add' entry was checked on Hugging Face; ingest uses hf_id to mark them open-weight. 'pending' entries are candidates we could not confirm, recorded so they aren't forgotten; ingest ignores them.",
+  "add": [
+    {
+      "key": "aion-labs/aion-rp-llama-3.1-8b",
+      "hf_id": "aion-labs/Aion-RP-Llama-3.1-8B",
+      "source": "huggingface.co/aion-labs/Aion-RP-Llama-3.1-8B",
+      "verified_on": "2026-10-06"
+    },
+    {
+      "key": "cohere/command-r-08-2024",
+      "hf_id": "CohereLabs/c4ai-command-r-08-2024",
+      "source": "huggingface.co/CohereLabs/c4ai-command-r-08-2024",
+      "verified_on": "2026-10-06"
+    },
+    {
+      "key": "cohere/command-r-plus-08-2024",
+      "hf_id": "CohereLabs/c4ai-command-r-plus-08-2024",
+      "source": "huggingface.co/CohereLabs/c4ai-command-r-plus-08-2024",
+      "verified_on": "2026-10-06"
+    },
+    {
+      "key": "cohere/command-r7b-12-2024",
+      "hf_id": "CohereLabs/c4ai-command-r7b-12-2024",
+      "source": "huggingface.co/CohereLabs/c4ai-command-r7b-12-2024",
+      "verified_on": "2026-10-06"
+    },
+    {
+      "key": "minimax/minimax-m1",
+      "hf_id": "MiniMaxAI/MiniMax-M1-80k",
+      "source": "huggingface.co/MiniMaxAI/MiniMax-M1-80k (M1 ships as 40k and 80k thinking-budget checkpoints with the same architecture)",
+      "verified_on": "2026-10-06"
+    },
+    {
+      "key": "mistralai/mistral-large-2407",
+      "hf_id": "mistralai/Mistral-Large-Instruct-2407",
+      "source": "huggingface.co/mistralai/Mistral-Large-Instruct-2407",
+      "verified_on": "2026-10-06"
+    },
+    {
+      "key": "mistralai/mistral-large",
+      "hf_id": "mistralai/Mistral-Large-Instruct-2411",
+      "source": "huggingface.co/mistralai/Mistral-Large-Instruct-2411",
+      "verified_on": "2026-10-06"
+    },
+    {
+      "key": "mistralai/mistral-large-2512",
+      "hf_id": "mistralai/Mistral-Large-3-675B-Instruct-2512",
+      "source": "huggingface.co/mistralai/Mistral-Large-3-675B-Instruct-2512",
+      "verified_on": "2026-10-06"
+    },
+    {
+      "key": "inclusionai/ling-3.0-flash-fin",
+      "hf_id": "inclusionAI/Ling-3.0-flash-Fin",
+      "source": "huggingface.co/inclusionAI/Ling-3.0-flash-Fin",
+      "verified_on": "2026-10-06"
+    },
+    {
+      "key": "mistralai/mistral-medium-3-5",
+      "hf_id": "mistralai/Mistral-Medium-3.5-128B",
+      "source": "huggingface.co/mistralai/Mistral-Medium-3.5-128B (model card: Mistral Medium 3.5, 128B dense, 256K context)",
+      "verified_on": "2026-10-06"
+    }
+  ],
+  "pending": [
+    {
+      "key": "xiaomi/mimo-v2.6-pro-ultraspeed",
+      "candidate_hf_id": "XiaomiMiMo/MiMo-V2.6-Pro-RL",
+      "reason": "Listed the same day as MiMo-V2.6-Pro at 10x the price; nothing published confirms it serves the same weights. Not marked open until it is.",
+      "checked_on": "2026-10-06"
+    }
+  ]
+}

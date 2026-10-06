@@ -26,6 +26,8 @@ const QUESTIONS: Record<string, string> = {
   "/changes": "What changed in model prices since I last looked?",
   "/tools/switch": "My model is retiring or too pricey — what replaces it?",
   "/tools/agent": "What does a whole agent session cost, and what does caching save?",
+  "/tools/open": "How far behind are open-weight models, and what do they cost?",
+  "/tools/vram": "Will this model fit on my GPU, and at what context?",
 };
 
 function rememberedPreset(): PresetId | null {
@@ -235,7 +237,14 @@ export function HomePage() {
                     to={r.href}
                     onClick={() => trackEvent("Home", "Reading", String(i + 1))}
                   >
-                    {r.point.model.displayName} · <span className="mono">{fmtUsd(r.point.per1k)}</span> / 1K
+                    {r.point.model.displayName}
+                    {r.score ? (
+                      <>
+                        {" "}
+                        · <span className="mono">{r.score}</span>
+                      </>
+                    ) : null}{" "}
+                    · <span className="mono">{fmtUsd(r.point.per1k)}</span> / 1K
                   </Link>{" "}
                   <SourceTag model={r.point.model} mode={r.point.breakdown.mode} />
                   {r.detail ? <span className="reading-detail"> · {r.detail}</span> : null}

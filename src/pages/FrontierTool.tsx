@@ -37,6 +37,10 @@ const clampScore = (v: number) => Math.round(Math.min(Math.max(v, 0), 100));
 /** Links into the Cost Calculator from here are internal, not shared-link arrivals. */
 const INTERNAL = { internal: true };
 
+/** How a point's weights read out: shape carries it on the chart (circle open-weight, square closed). */
+const weightsWord = (m: Model) =>
+  m.openWeights ? "open-weight" : m.weightsStatus === "unverified" ? "weights unverified" : "closed";
+
 function costUrl(models: string[], workload: Workload, rate: Rate, preset: PresetId | null, index: Index) {
   return `/tools/cost?${encodeScenario({ models, workload, rate, preset, modes: new Map(), index })}`;
 }
@@ -132,6 +136,15 @@ export function FrontierTool() {
   };
 
   const shareUrl = () => `${window.location.origin}/tools/frontier?${encoded}`;
+  // The same workload, index, bar and filters on the open-vs-closed tool ("open" is its subject, not a filter there).
+  const openHref = `/tools/open?${encodeFrontier({
+    preset,
+    workload,
+    rate,
+    index,
+    minScore: minSet,
+    filters: new Set([...filters].filter((f) => f !== "open")),
+  })}`;
   const ladderMarkdown = () =>
     [
       `| Model | AA ${label} | $/1K req | step | price source |`,
@@ -154,7 +167,7 @@ export function FrontierTool() {
 
   // Announce the answer once input settles, not on every keystroke or drag.
   const answerText = answer
-    ? `Cheapest at or above ${minScore}: ${answer.model.displayName}, ${fmtUsd(answer.per1k)} per 1,000 requests`
+    ? `Cheapest at or above ${minScore}: ${answer.model.displayName}, ${weightsWord(answer.model)}, ${fmtUsd(answer.per1k)} per 1,000 requests`
     : `No model scores at least ${minScore} and fits this workload`;
   const [announced, setAnnounced] = useState("");
   useEffect(() => {
@@ -186,7 +199,7 @@ export function FrontierTool() {
             <span className="mono">
               {fmtCompact(workload.inputTokens)} + {fmtCompact(workload.outputTokens)}
             </span>{" "}
-            tokens: <strong>{answer.model.displayName}</strong> ·{" "}
+            tokens: <strong>{answer.model.displayName}</strong>, {weightsWord(answer.model)} ·{" "}
             <span className="mono">{fmtUsd(answer.per1k)}</span> per 1K requests (
             <span className="mono">{fmtMoney(answer.breakdown.monthlyCost)}</span>/mo at{" "}
             <span className="mono">{fmtCompact(workload.requestsPerMonth)}</span> req){" "}
@@ -264,19 +277,22 @@ export function FrontierTool() {
         </div>
 
         <div className="frontier-layout">
-          <FrontierChart
-            scored={scored}
-            front={front}
-            index={index}
-            minScore={minScore}
-            onMin={setMin}
-            onStep={stepMin}
-            pinned={pinned}
-            onPin={togglePin}
-            onUnpin={() => setPinned(null)}
-            onPreview={setHovered}
-            answer={answer}
-          />
+          <div className="chart-col">
+            <FrontierChart
+              scored={scored}
+              front={front}
+              index={index}
+              minScore={minScore}
+              onMin={setMin}
+              onStep={stepMin}
+              pinned={pinned}
+              onPin={togglePin}
+              onUnpin={() => setPinned(null)}
+              onPreview={setHovered}
+              answer={answer}
+            />
+            <ChartLegend openHref={openHref} />
+          </div>
           <PointReadout
             ref={readoutRef}
             point={selectedPoint ?? answer ?? front[front.length - 1] ?? null}
@@ -355,7 +371,9 @@ export function FrontierTool() {
                     <td>
                       <span className="nm">{s.point.model.displayName}</span>
                       <span className="vd">
-                        {s.point.model.vendorName} <SourceTag model={s.point.model} mode={s.point.breakdown.mode} />
+                        {s.point.model.vendorName}
+                        {s.point.model.openWeights ? " · open-weight" : ""}{" "}
+                        <SourceTag model={s.point.model} mode={s.point.breakdown.mode} />
                       </span>
                     </td>
                     <td className={`n${clears ? "" : " na"}`}>{scoreOf(s.point.model, index)!.toFixed(1)}</td>
@@ -380,7 +398,8 @@ export function FrontierTool() {
           {scored.length} of {pool.length} models that fit this workload carry an AA {label} score; unscored models are
           not plotted. Indices: Artificial Analysis, via OpenRouter, snapshot {CATALOG_META.asOf} — AA rescales between
           versions, so don't compare scores across snapshots. List-price cost at your workload, not cost per task:
-          reasoning models may emit more output than this workload assumes.
+          reasoning models may emit more output than this workload assumes. Most open-weight prices are OpenRouter's
+          listing, often the cheapest of several providers; others can charge several times more.
         </p>
       </section>
     </>
@@ -408,6 +427,61 @@ interface ChartProps {
   onUnpin: () => void;
   onPreview: (key: string | null) => void;
   answer: Priced | null;
+}
+
+/** A point's mark: a circle for open-weight models, a square for closed ones, centred on (cx, cy). */
+function PointMark({
+  open,
+  cx,
+  cy,
+  size,
+  className,
+}: {
+  open: boolean;
+  cx: number;
+  cy: number;
+  size: "front" | "dom";
+  className?: string;
+}) {
+  if (open) return <circle className={className} cx={cx} cy={cy} r={size === "front" ? 4 : 2.5} />;
+  const half = size === "front" ? 3.5 : 2.5;
+  return <rect className={className} x={cx - half} y={cy - half} width={half * 2} height={half * 2} />;
+}
+
+/** The chart's key, drawn with the same marks. */
+function ChartLegend({ openHref }: { openHref: string }) {
+  const swatch = (open: boolean, cls: string) => (
+    <svg className="legend-mark" viewBox="0 0 10 10" aria-hidden="true">
+      <PointMark open={open} cx={5} cy={5} size={cls === "pt-dom" ? "dom" : "front"} className={cls} />
+    </svg>
+  );
+  return (
+    <p className="chart-legend">
+      <span>
+        {swatch(false, "shape")} closed
+      </span>
+      <span>
+        {swatch(true, "shape")} open-weight
+      </span>
+      <span>
+        {swatch(false, "front")}
+        {swatch(true, "front")} filled: on the frontier
+      </span>
+      <span>
+        {swatch(false, "pt-dom")}
+        {swatch(true, "pt-dom")} hollow: something cheaper scores as high
+      </span>
+      <Link
+        className="legend-link"
+        to={openHref}
+        state={INTERNAL}
+        onClick={() => trackEvent("Frontier", "To open vs closed")}
+      >
+        Open vs closed
+        <Mark kind="to" />
+      </Link>
+    </p>
+  );
 }
 
 function FrontierChart({ scored, front, index, minScore, onMin, onStep, pinned, onPin, onUnpin, onPreview, answer }: ChartProps) {
@@ -503,6 +577,7 @@ function FrontierChart({ scored, front, index, minScore, onMin, onStep, pinned, 
     onPreview(null);
   };
 
+  const openCount = scored.filter((p) => p.model.openWeights).length;
   return (
     <div className="chart-frame">
       <svg
@@ -510,7 +585,7 @@ function FrontierChart({ scored, front, index, minScore, onMin, onStep, pinned, 
         className="frontier-chart"
         viewBox={`0 0 ${W} ${H}`}
         role="group"
-        aria-label={`Scatter of ${scored.length} models: cost per 1,000 requests against AA ${INDEX_LABEL[index]}. ${front.length} are on the frontier; the ladder and the full list below have the same data.`}
+        aria-label={`Scatter of ${scored.length} models: cost per 1,000 requests against AA ${INDEX_LABEL[index]}; ${openCount} open-weight models are circles, the rest squares. ${front.length} are on the frontier; the ladder and the full list below have the same data.`}
         onPointerMove={(e) => dragging.current && setFromPointer(e.clientY)}
         onPointerUp={() => (dragging.current = false)}
         onPointerCancel={() => (dragging.current = false)}
@@ -594,19 +669,16 @@ function FrontierChart({ scored, front, index, minScore, onMin, onStep, pinned, 
         {scored
           .filter((p) => !frontKeys.has(p.model.key))
           .map((p) => (
-            <rect
+            <g
               key={p.model.key}
               className={`pt-dom${shownKey === p.model.key ? " focused" : ""}`}
-              x={x(p.cost) - 2.5}
-              y={y(scoreOf(p.model, index)!) - 2.5}
-              width={5}
-              height={5}
               onPointerEnter={enter(p.model.key)}
               onPointerLeave={leave}
               onClick={() => onPin(p.model.key)}
             >
-              <title>{p.model.displayName}</title>
-            </rect>
+              <title>{`${p.model.displayName}, ${weightsWord(p.model)}`}</title>
+              <PointMark open={p.model.openWeights} cx={x(p.cost)} cy={y(scoreOf(p.model, index)!)} size="dom" />
+            </g>
           ))}
 
         {front.map((p) => {
@@ -619,7 +691,7 @@ function FrontierChart({ scored, front, index, minScore, onMin, onStep, pinned, 
               tabIndex={0}
               role="button"
               aria-pressed={pinned === p.model.key}
-              aria-label={`${p.model.displayName}: AA ${scoreOf(p.model, index)!.toFixed(1)}, ${fmtUsd(p.per1k)} per 1,000 requests`}
+              aria-label={`${p.model.displayName}, ${weightsWord(p.model)}: AA ${scoreOf(p.model, index)!.toFixed(1)}, ${fmtUsd(p.per1k)} per 1,000 requests`}
               onFocus={enter(p.model.key)}
               onBlur={leave}
               onPointerEnter={enter(p.model.key)}
@@ -632,7 +704,7 @@ function FrontierChart({ scored, front, index, minScore, onMin, onStep, pinned, 
                 }
               }}
             >
-              <rect x={x(p.cost) - 3.5} y={y(scoreOf(p.model, index)!) - 3.5} width={7} height={7} />
+              <PointMark open={p.model.openWeights} cx={x(p.cost)} cy={y(scoreOf(p.model, index)!)} size="front" className="mk" />
               {lab && (
                 <text x={lab.x} y={lab.y} textAnchor={lab.anchor}>
                   {p.model.displayName}
@@ -714,7 +786,13 @@ const PointReadout = forwardRef<
         <dt>Cutoff</dt>
         <dd>{m.knowledgeCutoff ?? "—"}</dd>
         <dt>Weights</dt>
-        <dd>{m.openWeights ? "open" : "closed"}</dd>
+        <dd>
+          {m.openWeights
+            ? `open-weight${m.weights ? ` · ${m.weights.licenceLabel}` : ""}`
+            : m.weightsStatus === "unverified"
+              ? "unverified"
+              : "closed (API only)"}
+        </dd>
       </dl>
       {dom ? (
         <p className="verdict-line">
@@ -784,7 +862,7 @@ function AllPlotted({
                       {p.model.displayName}
                     </button>
                     <span className="vd">
-                      {p.model.vendorName} <SourceTag model={p.model} mode={p.breakdown.mode} />
+                      {p.model.vendorName} · {weightsWord(p.model)} <SourceTag model={p.model} mode={p.breakdown.mode} />
                     </span>
                   </td>
                   <td className="n">{scoreOf(p.model, index)!.toFixed(1)}</td>

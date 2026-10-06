@@ -1,16 +1,19 @@
 import Big from "big.js";
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router";
-import { FallbackMark, Mark, Meter, NotRated, RetireTag, SourceTag } from "../components.tsx";
+import { trackEvent } from "../analytics.ts";
+import { FallbackMark, Mark, Meter, NotRated, RetireTag, SourceTag, WEIGHTS_READ_ON } from "../components.tsx";
 import { allModels, CATALOG_META, modelByKey } from "../core/catalog.ts";
 import type { Change } from "../core/changes.ts";
 import { NOTE_TEXT, type CostNote } from "../core/cost.ts";
 import { todayIso } from "../core/date.ts";
-import { fmtCompact, fmtMoney, fmtRate, fmtUsd } from "../core/fmt.ts";
+import { fmtCompact, fmtInt, fmtMoney, fmtRate, fmtUsd } from "../core/fmt.ts";
 import { alternatives, dominatedBy, fits, frontier, INDEX_LABEL, priceAll, scoreOf, type Index } from "../core/frontier.ts";
 import { inputModalities, yearMonth, type Model, type RateCard } from "../core/model.ts";
+import { openMatch, sideOf, type OpenMatch } from "../core/openclosed.ts";
 import { PRESETS } from "../core/presets.ts";
 import { encodeKey } from "../core/share.ts";
+import { LICENCE_CLASS_LABEL, licenceHref, type NativeFormat, type WeightsRecord } from "../core/weights.ts";
 
 const MODELS = allModels();
 const INTERNAL = { internal: true };
@@ -33,7 +36,8 @@ export function modelPath(key: string): string {
 export function ModelPage() {
   const key = useParams()["*"] ?? "";
   const model = modelByKey(key);
-  if (model) return <SpecSheet model={model} />;
+  // Keyed, so the lazily loaded weights data starts over on each model.
+  if (model) return <SpecSheet key={model.key} model={model} />;
   return key ? <Tombstone modelKey={key} /> : <NoSuchModel modelKey="" />;
 }
 
@@ -80,6 +84,15 @@ function SpecSheet({ model }: { model: Model }) {
   const agent = atPresets.find((a) => a.preset.id === "agent")!;
   const alts = alternatives(agent.me, agent.priced, "intelligence", agent.preset.workload, 3);
   const benchHref = `/tools/cost?m=${encodeKey(model.key)}&p=agent`;
+  // A closed model's cheapest open-weight match as a coding agent (same score or higher, same capabilities).
+  const match = useMemo(
+    () =>
+      sideOf(model) === "closed" && agent.fitsIt && scoreOf(model, "intelligence") !== null
+        ? openMatch(agent.me, agent.priced, "intelligence", agent.preset.workload, today, 0, "any")
+        : null,
+    [model, agent, today],
+  );
+  const weights = useWeightsView(model);
 
   return (
     <>
@@ -89,7 +102,9 @@ function SpecSheet({ model }: { model: Model }) {
         <h1>{model.displayName}</h1>
         <p className="model-byline mono">
           {model.key} <SourceTag model={model} /> · listed {model.listedOn ?? yearMonth(model.released)}
-          {model.knowledgeCutoff ? ` · cutoff ${model.knowledgeCutoff}` : ""} <RetireTag model={model} today={today} />
+          {model.knowledgeCutoff ? ` · cutoff ${model.knowledgeCutoff}` : ""}
+          {model.openWeights && model.weights ? ` · open-weight · ${model.weights.licenceLabel}` : ""}{" "}
+          <RetireTag model={model} today={today} />
         </p>
         <p className="model-actions">
           <Link className="btn btn-primary" to={benchHref} state={INTERNAL}>
@@ -136,11 +151,15 @@ function SpecSheet({ model }: { model: Model }) {
           </div>
           <div>
             <dt>Weights</dt>
-            <dd>{model.openWeights ? "open" : "closed"}</dd>
+            <dd>
+              <WeightsCell model={model} />
+            </dd>
           </div>
         </dl>
         <p className="fine">Capabilities are unions across OpenRouter's providers; a specific provider may lack one.</p>
       </section>
+
+      {model.weightsStatus !== "closed" && <WeightsSection model={model} view={weights} />}
 
       <section className="section" aria-labelledby="scores-h">
         <div className="section-title">
@@ -281,12 +300,425 @@ function SpecSheet({ model }: { model: Model }) {
             .
           </p>
         )}
+        {match && <OpenMatchLine model={model} match={match} />}
         <p className="fine">
           List-price cost at each preset's workload, not cost per task; prices as of {CATALOG_META.asOf}. Rank 1 is the
           cheapest of all {MODELS.length} models.
         </p>
       </section>
+
+      {model.weightsStatus === "open" && <SelfHostSection model={model} view={weights} />}
     </>
+  );
+}
+
+// ---------------------------------------------------------------- weights and self-hosting
+
+const hfUrl = (id: string) => `https://huggingface.co/${id}`;
+
+/** "open · permissive" linking the repo, "closed (API only)", or "unverified" with the reason. */
+function WeightsCell({ model }: { model: Model }) {
+  if (model.weightsStatus === "unverified") {
+    return (
+      <>
+        unverified <span className="rank">· {model.weights ? "repo couldn't be opened" : "repo not read yet"}</span>
+      </>
+    );
+  }
+  if (!model.openWeights) {
+    return (
+      <>
+        closed <span className="rank">(API only)</span>
+      </>
+    );
+  }
+  const cls = model.weights ? LICENCE_CLASS_LABEL[model.weights.licence].toLowerCase() : null;
+  const text = cls ? `open · ${cls}` : "open";
+  return model.hfId ? (
+    <a href={hfUrl(model.hfId)} rel="noopener">
+      {text}
+    </a>
+  ) : (
+    text
+  );
+}
+
+const NATIVE_LABEL: Record<NativeFormat, string> = {
+  bf16: "BF16",
+  fp16: "FP16",
+  f32: "F32",
+  fp8: "FP8",
+  int4: "INT4",
+  mxfp4: "MXFP4",
+  fp4: "FP4 experts",
+  gguf: "GGUF",
+};
+
+const PARAMS_SOURCE: Record<WeightsRecord["paramsSource"], string> = {
+  safetensors: "Hugging Face safetensors metadata",
+  headers: "safetensors headers",
+  gguf: "GGUF header",
+  pickle: "PyTorch checkpoint index",
+  mirror: "a public copy's safetensors metadata",
+  override: "set by hand from the model card",
+};
+
+const ACTIVE_SOURCE: Record<NonNullable<WeightsRecord["active"]>["source"], string> = {
+  card: "model card",
+  name: "model name",
+  headers: "expert split in the checkpoint",
+};
+
+/** 32.8B, 1.60T, 600M. */
+function fmtParams(n: number): string {
+  if (n >= 1e12) return `${(n / 1e12).toFixed(2)}T`;
+  if (n >= 1e9) return `${(n / 1e9).toFixed(n >= 1e11 ? 0 : 1)}B`;
+  return `${Math.round(n / 1e6)}M`;
+}
+
+/** A licence link from the record: absolute, a file in the repo, or the repo itself. */
+interface SelfHostView {
+  columns: string[];
+  rows: { label: string; cells: { need: string; range: string; setup: string }[] }[];
+  mac: string | null;
+  /** Set when the longest column is past the config's own maximum. */
+  rope: string | null;
+  settings: string;
+  ladder: string;
+}
+
+interface WeightsView {
+  record: WeightsRecord | null;
+  arch: string | null;
+  kv: string | null;
+  selfHost: SelfHostView | null;
+}
+
+const KV_CONFIDENCE = {
+  high: "KV-cache layout known with high confidence.",
+  medium: "KV-cache layout approximate (medium confidence): the memory range is wider.",
+  low: "KV-cache layout uncertain (low confidence): the memory range is much wider.",
+} as const;
+
+type WeightsLib = typeof import("../weightsData.ts");
+type SelfHostLib = typeof import("../core/selfhost.ts");
+
+function buildView(model: Model, w: WeightsLib, sh: SelfHostLib): WeightsView {
+  const record = w.recordFor(model);
+  const a = record?.arch ?? null;
+  const vm = w.vramModelFor(model);
+  let selfHost: SelfHostView | null = null;
+  if (vm) {
+    const t = sh.selfHostTable(vm, model.contextTokens);
+    const ctxLabel = sh.fmtCtx;
+    selfHost = {
+      columns: t.contexts.map((c) => (c === t.max ? `${ctxLabel(c)} (max)` : ctxLabel(c))),
+      rows: t.rows.map((r) => ({
+        label: r.label,
+        cells: r.cells.map((c) => ({
+          need: `≈ ${sh.fmtNeed(c.need.mid)}`,
+          range: `${sh.fmtNeed(c.need.low).replace(/ (GiB|MiB)$/, "")}–${sh.fmtNeed(c.need.high)}`,
+          setup: sh.setupLabel(c.setup),
+        })),
+      })),
+      mac: t.mac
+        ? t.mac.ramGb
+          ? `On a Mac at the default GPU cap, ${t.mac.format} at ${ctxLabel(t.mac.ctx)} needs a ${t.mac.ramGb} GB machine.`
+          : `On a Mac at the default GPU cap, ${t.mac.format} at ${ctxLabel(t.mac.ctx)} needs more than any Mac we list.`
+        : null,
+      rope:
+        a?.maxPositions && t.max > a.maxPositions
+          ? `Past ${fmtInt(a.maxPositions)} tokens (the config's maximum) the model needs RoPE scaling${a.rope ? ` (${a.rope.type} ×${a.rope.factor})` : ""}; OpenRouter's providers serve up to ${fmtInt(model.contextTokens)}.`
+          : null,
+      settings: sh.PAGE_SETTINGS_TEXT,
+      ladder: sh.LADDER_TEXT,
+    };
+  }
+  return {
+    record,
+    arch: a ? sh.archSummary(a) : null,
+    kv: a ? [KV_CONFIDENCE[a.kv.confidence], ...a.kv.notes].join(" ") : null,
+    selfHost,
+  };
+}
+
+/**
+ * The Hugging Face record and the memory table, loaded on demand: the
+ * architecture data is too big for every page's bundle. undefined while
+ * loading; null if the chunk couldn't load.
+ */
+function useWeightsView(model: Model): WeightsView | null | undefined {
+  const [view, setView] = useState<WeightsView | null | undefined>(undefined);
+  useEffect(() => {
+    if (model.weightsStatus === "closed") return;
+    let live = true;
+    Promise.all([import("../weightsData.ts"), import("../core/selfhost.ts")])
+      .then(([w, sh]) => {
+        if (live) setView(buildView(model, w, sh));
+      })
+      .catch(() => live && setView(null));
+    return () => {
+      live = false;
+    };
+  }, [model]);
+  return view;
+}
+
+function WeightsSection({ model, view }: { model: Model; view: WeightsView | null | undefined }) {
+  const w = model.weights;
+  const r = view?.record ?? null;
+  const pending = view === undefined ? "…" : "—";
+  if (model.weightsStatus === "unverified" || !w) {
+    const who = model.opennessSource ? "Our hand-checked list links" : "OpenRouter links";
+    const repo = model.hfId ? <> (<span className="mono">{model.hfId}</span>)</> : null;
+    return (
+      <section className="section" aria-labelledby="weights-h">
+        <div className="section-title">
+          <h2 id="weights-h">Weights</h2>
+        </div>
+        <p className="fine">
+          {model.weights
+            ? <>{who} a Hugging Face repo{repo} we couldn't open on {r?.checkedOn ?? WEIGHTS_READ_ON}</>
+            : <>{who} a Hugging Face repo{repo} we haven't read yet</>}
+          , so this page doesn't size its weights, and the open-weight vs closed comparison leaves it out of both
+          sides.
+          {r?.notes.length ? ` ${r.notes.join(" ")}` : ""}
+        </p>
+      </section>
+    );
+  }
+  const a = r?.arch ?? null;
+  // Notes already name the public copy a gated repo was read from; say it here only when they don't.
+  const [via, viaId] = r ? (r.source.split(/:(.*)/) as [string, string?]) : ["repo"];
+  const viaNoted = viaId ? r!.notes.some((n) => n.includes(viaId)) : true;
+  return (
+    <section className="section" aria-labelledby="weights-h">
+      <div className="section-title">
+        <h2 id="weights-h">Weights</h2>
+        {model.hfId && (
+          <a className="count repo-link" href={hfUrl(r?.resolvedId ?? model.hfId)} rel="noopener">
+            {r?.resolvedId ?? model.hfId} on Hugging Face
+          </a>
+        )}
+      </div>
+      <dl className="spec-grid six" aria-busy={view === undefined}>
+        <div>
+          <dt>Parameters</dt>
+          <dd>
+            {fmtParams(w.total)}
+            {r && <span className="rank"> · {PARAMS_SOURCE[r.paramsSource]}</span>}
+          </dd>
+        </div>
+        <div>
+          <dt>Active per token</dt>
+          <dd>
+            {w.moe ? (
+              w.active ? (
+                <>
+                  {fmtParams(w.active)}
+                  {r?.active && <span className="rank"> · from the {ACTIVE_SOURCE[r.active.source]}</span>}
+                </>
+              ) : (
+                <span className="na">not published</span>
+              )
+            ) : (
+              <>
+                all <span className="rank">(dense)</span>
+              </>
+            )}
+          </dd>
+        </div>
+        <div>
+          <dt>Architecture</dt>
+          <dd className="spec-long">{view?.arch ?? pending}</dd>
+        </div>
+        <div>
+          <dt>Published as</dt>
+          <dd>
+            {NATIVE_LABEL[w.native]}
+            {r?.checkpointBytes ? <span className="rank"> · {(r.checkpointBytes / 1e9).toFixed(1)} GB checkpoint</span> : null}
+            {r?.ggufFiles?.length ? <span className="rank"> · {r.ggufFiles.length} GGUF files</span> : null}
+          </dd>
+        </div>
+        <div>
+          <dt>Licence</dt>
+          <dd>
+            {r ? (
+              <a href={licenceHref(r)} rel="noopener">
+                {w.licenceLabel}
+              </a>
+            ) : (
+              w.licenceLabel
+            )}
+            <span className="rank"> · {LICENCE_CLASS_LABEL[w.licence].toLowerCase()}</span>
+            {w.gated && <span className="rank"> · gated: accept the terms on Hugging Face</span>}
+          </dd>
+        </div>
+        <div>
+          <dt>Max context</dt>
+          <dd>
+            config {a?.maxPositions ? fmtInt(a.maxPositions) : pending}
+            <span className="rank"> · OpenRouter {fmtInt(model.contextTokens)}</span>
+          </dd>
+        </div>
+      </dl>
+      <p className="fine">
+        Open-weight: the trained weights can be downloaded — OpenRouter, or our hand-checked list, links a Hugging Face
+        repo we could open on {r?.checkedOn ?? WEIGHTS_READ_ON}. That's narrower than open source: training data and code
+        are rarely published, and the licence decides what you may do with the weights.
+      </p>
+      {r && (
+        <p className="fine">
+          Architecture from Hugging Face:{" "}
+          <span className="mono">
+            {r.resolvedId}
+            {r.sha ? `@${r.sha.slice(0, 7)}` : ""}
+          </span>
+          , read {r.checkedOn}
+          {via === "mirror" && !viaNoted ? `, config from the public copy ${viaId} (same parameter total)` : ""}
+          {via === "donor" && !viaNoted ? `, layout from ${viaId} (the same weights in another format)` : ""}. Vision, MTP
+          and lookup sizes {r.groups.source === "headers" ? "from the safetensors headers" : "estimated from config.json"};
+          embedding, head and expert sizes from config.json.
+          {view?.kv ? ` ${view.kv}` : ""}
+          {r.notes.length ? ` ${r.notes.join(" ")}` : ""}
+          {w.moe && " Vendors count active parameters differently."}
+        </p>
+      )}
+      {model.opennessSource && <p className="fine">Openness set by hand · {model.opennessSource}</p>}
+      <p className="fine">
+        Licences are grouped by the licence named on Hugging Face, as we read it on {r?.checkedOn ?? WEIGHTS_READ_ON}.
+        This is not legal advice: custom terms can add usage policies, user caps or attribution requirements. Read the
+        licence.
+      </p>
+    </section>
+  );
+}
+
+function SelfHostSection({ model, view }: { model: Model; view: WeightsView | null | undefined }) {
+  const sh = view?.selfHost ?? null;
+  const vramHref = `/tools/vram?m=${encodeKey(model.key)}`;
+  return (
+    <section className="section" aria-labelledby="selfhost-h">
+      <div className="section-title">
+        <h2 id="selfhost-h">Run it yourself</h2>
+        <span className="est-stamp">Estimate</span>
+      </div>
+      {view === undefined ? (
+        <p className="fine">Loading the memory estimates…</p>
+      ) : view === null ? (
+        <div className="empty-bench">Memory data unavailable in this build.</div>
+      ) : !sh ? (
+        <div className="empty-bench">No architecture data for this repo yet, so there's no memory estimate.</div>
+      ) : (
+        <>
+          <div className="table-frame">
+            <table className="market selfhost">
+              <caption className="sr-only">
+                Estimated GPU memory for {model.displayName} by weight format and engine at each context, with the
+                smallest common GPU setup that holds it
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Weights · engine</th>
+                  {sh.columns.map((c) => (
+                    <th key={c} scope="col" className="n">
+                      {c}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {sh.rows.map((r) => (
+                  <tr key={r.label}>
+                    <th scope="row">{r.label}</th>
+                    {r.cells.map((c, i) => (
+                      <td key={sh.columns[i]} className="n">
+                        <span className="need">{c.need}</span>
+                        <span className="vd range">{c.range}</span>
+                        <span className="vd">
+                          <span className="sr-only">smallest setup: </span>
+                          {c.setup}
+                        </span>
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {sh.mac && <p className="fine">{sh.mac}</p>}
+          {sh.rope && <p className="fine">{sh.rope}</p>}
+          <p className="fine">
+            {sh.settings}. The setup is the first of {sh.ladder} that holds the top of the estimate's range; llama.cpp
+            keeps the token embeddings in system RAM. 1 GiB = 2<sup>30</sup> bytes; GPU sizes are what the driver
+            reports, checkpoint and file sizes are decimal GB.{" "}
+            <Link to={vramHref} state={INTERNAL} onClick={() => trackEvent("Model", "To VRAM", model.key)}>
+              Estimates — open the VRAM Estimator for your setup
+              <Mark kind="to" />
+            </Link>
+          </p>
+        </>
+      )}
+    </section>
+  );
+}
+
+/** "+1.1", "−2.0", "±0.0". */
+const fmtDelta = (d: number) => (d === 0 ? "±0.0" : `${d > 0 ? "+" : "−"}${Math.abs(d).toFixed(1)}`);
+const fmtRatio = (r: number) => (r >= 10 ? r.toFixed(0) : r >= 1 ? r.toFixed(1) : r.toFixed(2));
+
+/** "(▼ 0.03×)" — pine and ▼ when the open-weight model is cheaper, brick and ▲ when it costs more. */
+function CostRatio({ ratio }: { ratio: number }) {
+  const dir = ratio < 1 ? "down" : ratio > 1 ? "up" : null;
+  return (
+    <span className={dir ?? undefined}>
+      ({dir && <Mark kind={dir} />}
+      <span className="sr-only">{dir === "down" ? "cheaper: " : dir === "up" ? "pricier: " : ""}</span>
+      <span className="mono">{fmtRatio(ratio)}×</span>)
+    </span>
+  );
+}
+
+/** For a closed model: the cheapest open-weight model that scores as high with the same capabilities. */
+function OpenMatchLine({ model, match }: { model: Model; match: OpenMatch }) {
+  const pick = match.match ?? match.nearest;
+  const score = scoreOf(model, "intelligence")!;
+  const lead = match.match
+    ? "Open-weight match as a coding agent: "
+    : `No open-weight model with its tools, reasoning and image input scores ${score.toFixed(1)} yet; nearest `;
+  return (
+    <p className="fine open-match">
+      {pick ? (
+        <>
+          {lead}
+          <Link to={modelPath(pick.model.key)}>{pick.model.displayName}</Link> (AA{" "}
+          <span className="mono">
+            {scoreOf(pick.model, "intelligence")!.toFixed(1)}, {fmtDelta(match.scoreDelta ?? 0)}
+          </span>
+          ) at <span className="mono">{fmtUsd(pick.per1k)}</span> per 1K{" "}
+          <SourceTag model={pick.model} mode={pick.breakdown.mode} />
+          {match.costRatio !== null && (
+            <>
+              {" "}
+              <CostRatio ratio={match.costRatio} />
+            </>
+          )}
+          .
+        </>
+      ) : (
+        "No open-weight model keeps its tools, reasoning and image input at this workload."
+      )}{" "}
+      <Link
+        to={`/tools/open?vs=${encodeKey(model.key)}&p=agent`}
+        state={INTERNAL}
+        onClick={() => trackEvent("Model", "To open vs closed", model.key)}
+      >
+        Open weights vs closed
+        <Mark kind="to" />
+      </Link>{" "}
+      Open-weight prices are mostly OpenRouter's listing, often the cheapest of several providers; others can charge
+      more.
+    </p>
   );
 }
 

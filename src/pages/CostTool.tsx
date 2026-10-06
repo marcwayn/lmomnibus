@@ -1,5 +1,5 @@
 import type Big from "big.js";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
 import { trackEvent } from "../analytics.ts";
 import {
@@ -33,7 +33,15 @@ import {
 import { compareReleased, inputModalities, rateCard, yearMonth, type Model, type RateMode } from "../core/model.ts";
 import { DEFAULT_PRESET, matchingPreset, type PresetId } from "../core/presets.ts";
 import { availableYears, search } from "../core/query.ts";
-import { decodeScenario, encodeKey, encodeScenario, hasScenario, MAX_BENCH, type Scenario } from "../core/share.ts";
+import {
+  decodeScenario,
+  encodeFrontier,
+  encodeKey,
+  encodeScenario,
+  hasScenario,
+  MAX_BENCH,
+  type Scenario,
+} from "../core/share.ts";
 import { titleFor } from "../routes.ts";
 
 const MODELS = allModels();
@@ -58,6 +66,11 @@ const SORT_LABEL: Record<SortKey, string> = {
   cost: "Your cost",
   score: "Score",
   context: "Context",
+};
+
+const FILTER_TITLE: Partial<Record<Filter, string>> = {
+  fits: "Context window fits input + output, and max output fits output",
+  open: "Open-weight: OpenRouter (or our hand-checked list) links a Hugging Face repo we could open; repos we couldn't open are left out",
 };
 
 function readStorage(): string | null {
@@ -337,6 +350,15 @@ export function CostTool() {
 
   const visibleVendors = allVendors ? results.vendorCounts : results.vendorCounts.slice(0, VENDOR_CHIPS);
   const scoreLabel = INDEX_LABEL[index];
+  // This workload, index and capability filters on the open-vs-closed tool, which takes neither "open" nor "scored".
+  const openHref = `/tools/open?${encodeFrontier({
+    preset,
+    workload,
+    rate,
+    index,
+    minScore: null,
+    filters: new Set([...filters].filter((f) => f !== "open" && f !== "scored")),
+  })}`;
 
   return (
     <>
@@ -433,16 +455,28 @@ export function CostTool() {
 
         <div className="chips" role="group" aria-label="Capability filters">
           {(Object.keys(FILTER_LABEL) as Filter[]).map((f) => (
-            <button
-              key={f}
-              type="button"
-              className={`chip${filters.has(f) ? " on" : ""}`}
-              aria-pressed={filters.has(f)}
-              onClick={() => toggleFilter(f)}
-              title={f === "fits" ? "Context window fits input + output, and max output fits output" : undefined}
-            >
-              {FILTER_LABEL[f]}
-            </button>
+            <Fragment key={f}>
+              <button
+                type="button"
+                className={`chip${filters.has(f) ? " on" : ""}`}
+                aria-pressed={filters.has(f)}
+                onClick={() => toggleFilter(f)}
+                title={FILTER_TITLE[f]}
+              >
+                {FILTER_LABEL[f]}
+              </button>
+              {f === "open" && (
+                <Link
+                  className="text-btn chip-link"
+                  to={openHref}
+                  state={{ internal: true }}
+                  onClick={() => trackEvent("Table", "To open vs closed")}
+                >
+                  Open vs closed
+                  <Mark kind="to" />
+                </Link>
+              )}
+            </Fragment>
           ))}
           <button
             type="button"
@@ -501,8 +535,10 @@ export function CostTool() {
         )}
         <p className="fine">
           Flags are unions across providers: T tools · R reasoning (R+ always reasons, so expect extra output) · S
-          structured output · img / aud image / audio input · open published weights. “via OR” prices are OpenRouter
-          aggregates; “list” prices are checked against the vendor.
+          structured output · img / aud image / audio input · open open-weight: a Hugging Face repo we could open (hover
+          for its licence). “via OR” prices are OpenRouter aggregates; “list” prices are checked against the vendor.
+          Open-weight prices are mostly OpenRouter's listing, often the cheapest of several providers; others can charge
+          more.
         </p>
       </section>
 
@@ -617,7 +653,6 @@ function flags(m: Model): string {
     m.capabilities.structuredOutput && "S",
     inputs.includes("image") && "img",
     inputs.includes("audio") && "aud",
-    m.openWeights && "open",
   ]
     .filter(Boolean)
     .join(" ");
@@ -662,6 +697,7 @@ function MarketTable({ today, hits, byKey, bench, index, workload, sort, onSort,
             const card = rateCard(model, b.mode)!;
             const benched = bench.includes(model.key);
             const score = scoreOf(model, index);
+            const fl = flags(model);
             return (
               <tr key={model.key} className={benched ? "benched" : undefined}>
                 <td className="col-model">
@@ -676,7 +712,13 @@ function MarketTable({ today, hits, byKey, bench, index, workload, sort, onSort,
                 </td>
                 <td className="n col-ctx">{fmtCompact(model.contextTokens)}</td>
                 <td className="col-flags" title="Flags are unions across providers">
-                  {flags(model)}
+                  {fl}
+                  {model.openWeights && (
+                    <>
+                      {fl ? " " : ""}
+                      <span title={`open · ${model.weights?.licenceLabel ?? "licence not read"}`}>open</span>
+                    </>
+                  )}
                 </td>
                 <td className="n col-score">{score === null ? <NotRated /> : score.toFixed(1)}</td>
                 <td className={`n col-cost${b.tierCrossed ? " up" : ""}`}>

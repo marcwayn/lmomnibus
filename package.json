@@ -13,7 +13,8 @@
     "ingest": "node scripts/ingest.ts",
     "deploy": "npm run build && wrangler pages deploy dist --project-name lmomnibus --branch main",
     "changes": "node scripts/changes.ts",
-    "refresh": "node scripts/refresh.ts"
+    "refresh": "node scripts/refresh.ts",
+    "weights": "node scripts/hf.ts"
   },
   "dependencies": {
     "@fontsource-variable/archivo": "^5.3.0",

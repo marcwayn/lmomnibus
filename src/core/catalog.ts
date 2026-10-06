@@ -1,7 +1,9 @@
 import Big from "big.js";
 import rawCatalog from "../../data/catalog.json" with { type: "json" };
 import rawMeta from "../../data/catalog-meta.json" with { type: "json" };
+import rawWeightsIndex from "../../data/weights-index.json" with { type: "json" };
 import type { Model, RateCard, RateMode } from "./model.ts";
+import { weightsStatusOf, type WeightsIndexFile } from "./weights.ts";
 
 /**
  * The normalized catalog snapshot, produced by `npm run ingest` and committed
@@ -40,7 +42,18 @@ interface RawModel {
   listed_on?: string;
   retires_on?: string | null;
   open_weights?: boolean;
+  hf_id?: string | null;
+  openness_source?: string;
   reasoning_mandatory?: boolean;
+}
+
+const WEIGHTS = (rawWeightsIndex as unknown as WeightsIndexFile).models;
+
+/** Open-weight status: OpenRouter's (or our list's) repo link, confirmed by reading the repo. */
+function weightsOf(m: RawModel): Pick<Model, "openWeights" | "weightsStatus" | "hfId" | "opennessSource" | "weights"> {
+  const w = WEIGHTS[m.key] ?? null;
+  const status = weightsStatusOf(m, w ?? undefined);
+  return { openWeights: status === "open", weightsStatus: status, hfId: m.hf_id ?? null, opennessSource: m.openness_source ?? null, weights: w };
 }
 
 const big = (s: string) => new Big(s);
@@ -85,7 +98,7 @@ export function parseModel(m: RawModel): Model {
     listedOn: m.listed_on ?? null,
     knowledgeCutoff: m.knowledge_cutoff ?? null,
     retiresOn: m.retires_on ?? null,
-    openWeights: m.open_weights ?? false,
+    ...weightsOf(m),
     reasoningMandatory: m.reasoning_mandatory ?? false,
   };
 }

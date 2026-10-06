@@ -41,12 +41,33 @@ describe("home board", () => {
   });
 
   it("computes every reading from the catalog", () => {
-    const [nearTop, underDollar, longCtx] = readings(MODELS, TODAY);
+    const [nearTop, underDollar, longCtx, openBest] = readings(MODELS, TODAY);
     expect(nearTop.label).toContain("at least 45");
     expect(nearTop.point?.model.key).toBe("best");
     // Chat preset: 2,000 in + 500 out per request → price × 2.5 per 1K requests.
     expect(underDollar.point?.model.key).toBe("weak");
     expect(longCtx.point?.model.key).toBe("unscored-cheap");
     expect(longCtx.detail).toBe("2 models have 1M+");
+    // No verified open-weight model in this set.
+    expect(openBest.id).toBe("open-best");
+    expect(openBest.point).toBeNull();
+  });
+
+  it("reads the best open-weight model against the best closed one, leaving unverified repos out", () => {
+    const open = (k: string, price: string, intel: number) => ({ ...m(k, price, intel), openWeights: true, weightsStatus: "open" as const });
+    const models = [
+      m("closed-top", "9", 57.6),
+      open("open-best", "2", 46.3),
+      open("open-cheap", "0.1", 30),
+      { ...m("unverified", "0.5", 50), weightsStatus: "unverified" as const },
+    ];
+    const openBest = readings(models, TODAY)[3];
+    expect(openBest.point?.model.key).toBe("open-best");
+    expect(openBest.score).toBe("AA 46.3");
+    expect(openBest.detail).toBe("11.3 points behind the top closed model");
+    expect(openBest.href).toBe("/tools/open?p=agent");
+
+    const leads = readings([m("closed", "1", 40), open("open", "1", 42.5)], TODAY)[3];
+    expect(leads.detail).toBe("2.5 points ahead of the top closed model");
   });
 });

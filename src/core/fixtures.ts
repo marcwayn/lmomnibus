@@ -37,6 +37,10 @@ export function fixtureModel(overrides: Partial<Model> = {}): Model {
     knowledgeCutoff: null,
     retiresOn: null,
     openWeights: false,
+    weightsStatus: "closed",
+    hfId: null,
+    opennessSource: null,
+    weights: null,
     reasoningMandatory: false,
     ...overrides,
   };

@@ -1,0 +1,254 @@
+/* ─────────────────────────────────────────────────────────────
+   Tool 07, Open weights vs closed. Closed and open-weight are told
+   apart by shape (square / circle), line dash (solid / dashed) and
+   fill (filled = on its side's frontier), never by colour. Pine
+   marks the cheaper answer and active controls; brick only the
+   pricier ▲. Everything else is ink.
+   ───────────────────────────────────────────────────────────── */
+
+/* ---- head ---- */
+.oc-data-line { margin-top: 16px; }
+.oc-notice {
+  margin: 0 0 14px; padding: 6px 10px; font-family: var(--f-mono); font-size: 11.5px; color: var(--ink);
+  border: 1px solid var(--rule); border-left: 2px solid var(--ink-2); border-radius: var(--r); background: var(--surface);
+}
+.oc-defs { margin-top: 18px; }
+.oc-defs dd { font-family: var(--f-body); font-size: 14px; color: var(--ink-2); }
+.oc-defs dd .mono { color: var(--ink); font-weight: 500; }
+.oc-definition { margin-top: 12px; font-size: 14px; line-height: 1.55; color: var(--ink-2); max-width: 90ch; }
+.oc-definition strong { color: var(--ink); font-weight: 650; }
+
+/* ---- readings board ---- */
+.oc-readings {
+  list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 1px;
+  border: 1px solid var(--rule); border-radius: var(--r); background: var(--rule-soft); overflow: hidden;
+}
+@media (min-width: 780px) { .oc-readings { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.oc-reading { background: var(--surface); padding: 12px 16px 14px; }
+.oc-reading-fig { display: block; margin: 2px 0 6px; }
+.oc-reading p { font-size: 14px; line-height: 1.5; color: var(--ink-2); }
+.oc-reading strong { color: var(--ink); font-weight: 650; }
+.figure-big.oc-none { color: var(--ink-3); }
+
+/* Price direction marks: ▼ pine before the cheaper side, ▲ brick before the pricier. */
+.oc-cheaper { color: var(--down); }
+.oc-pricier { color: var(--up); }
+
+/* ---- controls ---- */
+.oc-controls { margin-top: 14px; margin-bottom: 0; }
+.oc-controls .chips { align-self: center; }
+.oc-field { min-width: 0; }
+.oc-select, .oc-inline-select {
+  border: 1px solid var(--control); border-radius: var(--r-sm); background: var(--surface);
+  padding: 4px 8px; font-family: var(--f-mono); font-size: 12px; color: var(--ink);
+}
+.oc-hint { display: block; margin-top: 3px; font-family: var(--f-mono); font-size: 10px; color: var(--ink-3); }
+.oc-target { width: 210px; }
+.oc-target .inp-row { align-items: center; gap: 6px; }
+.oc-target input { text-align: center; min-width: 0; }
+.oc-step {
+  flex: none; width: 26px; height: 26px; padding: 0; border: 1px solid var(--control); border-radius: var(--r-sm);
+  background: var(--surface); color: var(--ink-2); font-family: var(--f-mono); font-size: 14px; line-height: 1; cursor: pointer;
+  transition: color var(--t), border-color var(--t);
+}
+.oc-step:hover { color: var(--accent); border-color: var(--accent); }
+.oc-coverage-line { margin-top: 12px; }
+.oc-check { display: inline-flex; align-items: baseline; gap: 6px; font-size: 13px; color: var(--ink-2); cursor: pointer; }
+.oc-check input { accent-color: var(--accent); margin: 0; flex: none; align-self: center; }
+
+/* ---- figures and charts ---- */
+.oc-figure { margin: 0; }
+.oc-figure > figcaption.readout { margin-bottom: 12px; }
+.frontier-chart.oc-chart.narrow { min-width: 0; }
+.oc-chart .oc-mark { fill: var(--ink); stroke: var(--surface); stroke-width: 1; transition: fill var(--t), stroke var(--t); }
+.oc-chart .oc-pt { cursor: pointer; }
+.oc-chart .oc-label { font-family: var(--f-mono); font-size: 11px; fill: var(--ink); cursor: pointer; }
+.oc-chart.narrow .oc-label { font-size: 10px; }
+.oc-chart .oc-pt.cheaper .oc-mark { fill: var(--accent); }
+.oc-chart .oc-pt.focused .oc-mark { stroke: var(--ink); stroke-width: 1.5; }
+.oc-chart .oc-pt:focus { outline: none; }
+.oc-chart .oc-pt:focus-visible .oc-mark { stroke: var(--focus); stroke-width: 2.5; }
+.oc-chart .oc-ring { fill: none; stroke: var(--ink); stroke-width: 1.5; }
+.oc-chart .oc-pt-dom { fill: none; stroke: var(--ink-3); stroke-width: 1; cursor: pointer; transition: stroke var(--t); }
+.oc-chart .oc-pt-dom.focused { stroke: var(--ink); stroke-width: 1.5; }
+.oc-chart .oc-front-line { fill: none; stroke: var(--ink); stroke-width: 1.5; }
+.oc-chart .oc-front-line.open { stroke-dasharray: 5 3; }
+.oc-chart .oc-hatch-line { stroke: var(--rule); stroke-width: 1; }
+.oc-chart .oc-band-edge { stroke: var(--rule); stroke-width: 1; }
+.oc-chart .oc-band-label { font-family: var(--f-mono); font-size: 10.5px; fill: var(--ink-3); }
+.oc-chart .oc-bracket path { fill: none; stroke: var(--ink); stroke-width: 1; }
+.oc-chart .oc-bracket-text, .oc-chart .oc-missing, .oc-run .oc-lag-text { font-family: var(--f-mono); font-size: 10.5px; fill: var(--ink); }
+.oc-chart.narrow .oc-bracket-text, .oc-chart.narrow .oc-missing { font-size: 10px; }
+/* The rule's label is drawn on top of the points but still grabs the rule. */
+.oc-chart .oc-rule-label { font-family: var(--f-mono); font-size: 10.5px; fill: var(--ink-2); cursor: ns-resize; touch-action: none; }
+
+/*
+ * Chart text is drawn after every mark, with a halo in the plot colour, so it stays legible over lines and
+ * points; labels are placed clear of the marks, so the halo rarely has any to hide. Annotation text lets the
+ * pointer through to the points beneath.
+ */
+.oc-chart .oc-label, .oc-chart .oc-band-label, .oc-chart .oc-bracket-text, .oc-chart .oc-missing, .oc-chart .focus-label,
+.oc-chart .oc-rule-label, .oc-run .oc-lag-text, .oc-self .oc-ref-text, .oc-self .oc-device text {
+  paint-order: stroke; stroke: var(--surface); stroke-width: 3px; stroke-linejoin: round;
+}
+.oc-chart .oc-band-label, .oc-chart .oc-bracket-text, .oc-chart .oc-missing, .oc-chart .focus-label, .oc-run .oc-lag-text,
+.oc-self .oc-ref-text { pointer-events: none; }
+
+/* Chart B */
+.oc-run .oc-lag path { fill: none; stroke: var(--ink); stroke-width: 1; stroke-dasharray: 2 3; }
+.oc-run .oc-snapshot { stroke: var(--rule); stroke-width: 1; stroke-dasharray: 2 2; }
+.oc-run .axis-label.oc-minor { font-size: 10px; }
+.oc-run .oc-focus-label { font-size: 10.5px; }
+
+/* Chart C */
+.oc-self .oc-device line { stroke: var(--ink-3); stroke-width: 1; stroke-dasharray: 3 3; }
+.oc-self .oc-device text { font-family: var(--f-mono); font-size: 9.5px; fill: var(--ink-3); }
+.oc-self .oc-ref { stroke-width: 1; }
+.oc-self .oc-ref.today { stroke: var(--ink-2); }
+.oc-self .oc-ref.year { stroke: var(--ink-3); stroke-dasharray: 1 3; }
+.oc-self .oc-ref-text { font-family: var(--f-mono); font-size: 10px; fill: var(--ink-2); }
+.oc-self .oc-ref-text.year { fill: var(--ink-3); }
+.oc-self .oc-sh-pt { cursor: pointer; }
+.oc-self .oc-sh-pt .oc-mark { fill: var(--ink-2); stroke: var(--surface); stroke-width: 0.75; }
+.oc-self .oc-sh-pt.on .oc-mark { fill: var(--ink); }
+.oc-self .oc-sh-pt.focused .oc-mark { stroke: var(--ink); stroke-width: 1.5; }
+.oc-self .oc-sh-pt:focus { outline: none; }
+.oc-self .oc-sh-pt:focus-visible .oc-mark { stroke: var(--focus); stroke-width: 2.5; }
+.oc-self .oc-whisker { stroke: var(--ink-3); stroke-width: 1; }
+
+/* Legends: mono, wrapping, with the charts' own marks as swatches. */
+.oc-legend {
+  list-style: none; margin: 10px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 16px;
+  font-family: var(--f-mono); font-size: 11px; color: var(--ink-2);
+}
+.oc-legend li { display: inline-flex; align-items: center; gap: 6px; }
+.oc-legend svg { flex: none; height: 12px; width: auto; overflow: visible; }
+.oc-sw-fill { fill: var(--ink); }
+.oc-sw-hollow { fill: none; stroke: var(--ink-3); stroke-width: 1; }
+.oc-sw-line { stroke: var(--ink); stroke-width: 1.5; }
+.oc-sw-line.open { stroke-dasharray: 5 3; }
+.oc-sw-dotted { stroke: var(--ink); stroke-width: 1; stroke-dasharray: 2 3; }
+.oc-sw-ring { fill: none; stroke: var(--ink); stroke-width: 1.2; }
+.oc-sw-cheaper { fill: var(--accent); }
+.oc-sw-whisker { stroke: var(--ink-3); stroke-width: 1; }
+.oc-sw-device { stroke: var(--ink-3); stroke-width: 1; stroke-dasharray: 3 3; }
+.oc-sw-hatchbox {
+  flex: none; display: inline-block; width: 14px; height: 11px; border: 1px solid var(--rule);
+  background: repeating-linear-gradient(135deg, var(--rule) 0 1px, transparent 1px 4px);
+}
+.oc-shape { display: inline-block; width: 0.7em; height: 0.7em; fill: var(--ink); vertical-align: 0; margin-right: 4px; flex: none; }
+
+/* The point readout beside Chart A. */
+.oc-class-line { font-family: var(--f-mono); font-size: 11px; color: var(--ink); margin: -4px 0 8px; }
+.oc-rank { display: block; font-size: 10.5px; color: var(--ink-3); }
+.oc-readout-links { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+
+/* ---- tables ---- */
+.oc-subhead { margin-top: 28px; margin-bottom: 0; }
+.oc-subhead h3, .oc-h3 { font-size: 16px; font-weight: 650; font-variation-settings: "wdth" 102; }
+.oc-h3 { margin: 24px 0 2px; }
+.oc-small { font-size: 11.5px; }
+.oc-tag {
+  display: block; font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2);
+}
+.market tr.oc-target-row, .market tr.oc-target-row:hover { background: var(--accent-wash); }
+.oc-m-only { display: none; }
+.oc-none { color: var(--ink-3); font-family: var(--f-mono); font-size: 11.5px; }
+.oc-details-actions { margin: 8px 0 0; }
+
+/* Spec-sheet tables with row headers. */
+.oc-pair tbody th, .oc-cov tbody th {
+  background: var(--surface); border-bottom: 1px solid var(--rule-soft); color: var(--ink-3); vertical-align: top;
+  width: 1%; min-width: 92px; white-space: normal;
+}
+.oc-pair td { font-family: var(--f-mono); font-size: 12.5px; font-variant-numeric: tabular-nums; vertical-align: top; }
+.oc-pair .oc-rank { display: inline; margin-left: 6px; }
+.oc-range { color: var(--ink-3); }
+.oc-pair thead th { text-transform: none; letter-spacing: 0; font-size: 11.5px; color: var(--ink); white-space: normal; }
+.oc-hi { font-weight: 650; color: var(--ink); }
+
+/* ---- §B match ---- */
+.oc-match-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin-top: 14px; }
+.oc-match-controls .searchfield { flex: 1 1 300px; }
+.oc-focus { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--rule); }
+.oc-focus-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 12px; margin-bottom: 8px; }
+.oc-focus-head h3 { font-size: 17px; font-weight: 650; }
+.oc-links { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 10px; }
+.oc-match-cards { display: none; }
+.oc-card-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 2px; }
+.oc-card-line .row-btn { display: inline; }
+.oc-card-line.breaks { font-family: var(--f-mono); font-size: 11px; color: var(--ink-2); }
+.oc-card-name { font-weight: 600; }
+
+/* ---- §D self-host ---- */
+.oc-stamp {
+  display: inline-block; font-family: var(--f-mono); font-size: 9.5px; font-weight: 500; text-transform: uppercase;
+  letter-spacing: 0.08em; line-height: 1.6; padding: 0 5px; margin-right: 4px; vertical-align: 1px;
+  border: 1px solid var(--ink-2); border-radius: 3px; color: var(--ink-2);
+}
+.oc-assume { margin: 10px 0 12px; font-size: 13.5px; line-height: 2; color: var(--ink-2); }
+.oc-inline-seg { vertical-align: middle; margin: 0; }
+
+/* ---- §C ---- */
+.oc-chart-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin: 4px 0 8px; }
+.oc-chart-title { font-size: 15px; font-weight: 650; font-variation-settings: "wdth" 102; }
+.oc-chart-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.oc-chart-controls .seg-small { margin: 0; }
+
+/* ---- §E coverage and licences ---- */
+.oc-cov-cell { min-width: 132px; }
+.oc-cov-n { display: block; font-size: 12px; }
+.oc-cov-track {
+  display: block; position: relative; height: 8px; margin-top: 4px; background: var(--sunk);
+  background-image: repeating-linear-gradient(to right, var(--rule) 0 1px, transparent 1px 10%);
+}
+.oc-cov-bar { position: absolute; left: 0; top: 0; bottom: 0; }
+.oc-cov-bar.open { background: var(--ink); }
+.oc-cov-bar.closed { border: 1px solid var(--ink-2); background: transparent; }
+.oc-cov thead th { text-transform: none; letter-spacing: 0; font-size: 11.5px; }
+.oc-lic-class { font-weight: 600; white-space: nowrap; }
+.oc-lic-seen { font-family: var(--f-mono); font-size: 11.5px; }
+.oc-lic-example { min-width: 150px; }
+.oc-block { display: block; }
+
+/* ---- method ---- */
+.oc-method { margin: 0; padding-left: 18px; }
+.oc-method li { margin-bottom: 6px; }
+
+/* ---- phones ---- */
+@media (max-width: 620px) {
+  .oc-controls > * { flex: 1 1 100%; }
+  .oc-controls .seg, .oc-match-controls .seg { display: flex; width: 100%; }
+  .oc-controls .seg button, .oc-match-controls .seg button { flex: 1 1 0; padding-left: 4px; padding-right: 4px; }
+  .oc-target { width: auto; }
+  .oc-parity .oc-col-cost, .oc-parity .oc-col-ratio { display: none; }
+  .oc-parity .oc-m-only { display: block; }
+  .oc-parity .oc-d-only { display: none; }
+  .oc-parity th { white-space: normal; }
+  .oc-m-ratio { font-family: var(--f-mono); font-size: 10px; color: var(--ink-2); white-space: nowrap; }
+  .oc-m-cost { font-size: 12px; }
+  .oc-match-frame { display: none; }
+  .oc-match-cards {
+    display: block; list-style: none; margin: 14px 0 0; padding: 0; border-top: 1px solid var(--rule);
+  }
+  .oc-match-cards li { padding: 8px 0; border-bottom: 1px solid var(--rule-soft); font-size: 13px; }
+  .oc-pair td, .oc-pair th { font-size: 12px; }
+  .oc-pair tbody th, .oc-cov tbody th { min-width: 78px; font-size: 9.5px; }
+  .oc-cov { table-layout: fixed; }
+  .oc-cov thead th { white-space: normal; }
+  .oc-cov thead th:first-child { width: 30%; }
+  .oc-cov-cell { min-width: 0; }
+  .oc-cov .oc-d-only { display: none; }
+}
+
+/* Forced colours: keep every mark and line visible, dashes intact. */
+@media (forced-colors: active) {
+  .oc-chart .oc-mark, .oc-sw-fill, .oc-shape { fill: CanvasText; }
+  .oc-chart .oc-pt.cheaper .oc-mark, .oc-sw-cheaper { fill: Highlight; }
+  .oc-chart .oc-front-line, .oc-chart .oc-ring, .oc-chart .oc-bracket path, .oc-chart .oc-pt-dom, .oc-run .oc-lag path,
+  .oc-self .oc-device line, .oc-self .oc-ref, .oc-self .oc-whisker, .oc-sw-line, .oc-sw-ring, .oc-sw-hollow,
+  .oc-sw-dotted, .oc-sw-whisker, .oc-sw-device { stroke: CanvasText; }
+  .oc-chart text { fill: CanvasText; }
+  .oc-cov-bar.open { background: CanvasText; }
+  .oc-cov-bar.closed { border-color: CanvasText; }
+}

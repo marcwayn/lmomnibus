@@ -11,3 +11,7 @@
 # Open data: refreshed with each catalog update.
 /catalog.json
   Cache-Control: public, max-age=3600
+
+# Open-weight architecture records: refreshed with the catalog.
+/weights.json
+  Cache-Control: public, max-age=3600

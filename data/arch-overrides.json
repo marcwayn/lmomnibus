@@ -1,0 +1,379 @@
+{
+  "ByteDance-Seed/UI-TARS-1.5-7B": {
+    "note": "The checkpoint is stored in F32, twice what anyone serves; treated as BF16.",
+    "source": "Hugging Face file tree, 2026-10-06",
+    "verified_on": "2026-10-06"
+  },
+  "MiniMaxAI/MiniMax-M2": {
+    "active_b": 10,
+    "card_total_b": 230,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "MiniMaxAI/MiniMax-Text-01": {
+    "active_b": 45.9,
+    "card_total_b": 456,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "MiniMaxAI/Minimax-M3": {
+    "active_b": 23,
+    "card_total_b": 428,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "Qwen/Qwen3-235B-A22B": {
+    "active_b": 22,
+    "card_total_b": 235,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "Qwen/Qwen3-235B-A22B-Instruct-2507": {
+    "active_b": 22,
+    "card_total_b": 235,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "Qwen/Qwen3-235B-A22B-Thinking-2507": {
+    "active_b": 22,
+    "card_total_b": 235,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "Qwen/Qwen3-30B-A3B": {
+    "active_b": 3.3,
+    "card_total_b": 30.5,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "Qwen/Qwen3-30B-A3B-Instruct-2507": {
+    "active_b": 3.3,
+    "card_total_b": 30.5,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "Qwen/Qwen3-30B-A3B-Thinking-2507": {
+    "active_b": 3.3,
+    "card_total_b": 30.5,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "Qwen/Qwen3-Coder-30B-A3B-Instruct": {
+    "active_b": 3.3,
+    "card_total_b": 30.5,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+    "active_b": 35,
+    "card_total_b": 480,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "Qwen/Qwen3-Coder-Next": {
+    "active_b": 3,
+    "card_total_b": 80,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "Qwen/Qwen3-Next-80B-A3B-Instruct": {
+    "active_b": 3,
+    "card_total_b": 80,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "Qwen/Qwen3-Next-80B-A3B-Thinking": {
+    "active_b": 3,
+    "card_total_b": 80,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "Qwen/Qwen3.5-122B-A10B": {
+    "active_b": 10,
+    "card_total_b": 122,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "Qwen/Qwen3.5-35B-A3B": {
+    "active_b": 3,
+    "card_total_b": 35,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "Qwen/Qwen3.5-397B-A17B": {
+    "active_b": 17,
+    "card_total_b": 397,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "Qwen/Qwen3.6-35B-A3B": {
+    "active_b": 3,
+    "card_total_b": 35,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "Qwen/Qwen3.8-2.4T-A95B": {
+    "active_b": 95,
+    "card_total_b": 2400,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "Qwen/Qwen3.8-Flash-Next": {
+    "active_b": 6,
+    "card_total_b": 125,
+    "source": "model card, 2026-10-06",
+    "verified_on": "2026-10-06",
+    "note": "The checkpoint includes 51B n-gram lookup parameters and 4B of MTP layers; the core is 125B."
+  },
+  "XiaomiMiMo/MiMo-V2.5": {
+    "active_b": 15,
+    "card_total_b": 310,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "XiaomiMiMo/MiMo-V2.5-Pro": {
+    "active_b": 42,
+    "card_total_b": 1020,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "XiaomiMiMo/MiMo-V2.6-Flash-RL": {
+    "active_b": 15,
+    "card_total_b": 309,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "XiaomiMiMo/MiMo-V2.6-Pro-RL": {
+    "active_b": 42,
+    "card_total_b": 1020,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "arcee-ai/Trinity-Large-Thinking": {
+    "active_b": 13,
+    "card_total_b": 398,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "baidu/ERNIE-4.5-VL-424B-A47B-PT": {
+    "active_b": 47,
+    "card_total_b": 424,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "deepseek-ai/DeepSeek-R1": {
+    "active_b": 37,
+    "card_total_b": 671,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "deepseek-ai/DeepSeek-V3": {
+    "active_b": 37,
+    "card_total_b": 671,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "deepseek-ai/DeepSeek-V4-Flash": {
+    "active_b": 13,
+    "card_total_b": 284,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "deepseek-ai/DeepSeek-V4-Pro": {
+    "active_b": 49,
+    "card_total_b": 1600,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "deepseek-ai/DeepSeek-V4.1-Flash": {
+    "active_b": 16,
+    "card_total_b": 552,
+    "source": "model card, 2026-10-06",
+    "verified_on": "2026-10-06",
+    "note": "The checkpoint includes Engram lookup tables, a vision tower and 3 MTP layers; the backbone is 552B."
+  },
+  "google/gemma-4-26B-A4B-it": {
+    "active_b": 3.8,
+    "card_total_b": 25.2,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "inclusionAI/Ling-3.0-flash": {
+    "active_b": 5.1,
+    "card_total_b": 124,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "inclusionAI/Ling-3.0-flash-VL": {
+    "active_b": 5.5,
+    "card_total_b": 124,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "inference-net/schematron-v2-granite-4.0-h-micro": {
+    "status": "unverified",
+    "note": "OpenRouter links a repo that is private or gone; no public copy of these weights.",
+    "source": "Hugging Face API 401, 2026-10-06",
+    "verified_on": "2026-10-06"
+  },
+  "inference-net/schematron-v2-llama-3.2-3b": {
+    "status": "unverified",
+    "note": "OpenRouter links a repo that is private or gone; only v1 (Schematron-3B) is public, and it is not the same weights.",
+    "source": "Hugging Face API 401, 2026-10-06",
+    "verified_on": "2026-10-06"
+  },
+  "meituan-longcat/LongCat-2.0": {
+    "active_b": 48,
+    "card_total_b": 1600,
+    "source": "model card and safetensors headers, 2026-10-06",
+    "verified_on": "2026-10-06",
+    "note": "Hugging Face counts about 135B lookup-only n-gram parameters in the total; the model card says 1.6T.",
+    "kv_note": "Two attention blocks per layer, from the weight names."
+  },
+  "microsoft/WizardLM-2-8x22B": {
+    "mirror": "alpindale/WizardLM-2-8x22B",
+    "note": "Microsoft pulled the repo; alpindale/WizardLM-2-8x22B has the same weights (140.62B parameters).",
+    "source": "Hugging Face, 2026-10-06 audit",
+    "verified_on": "2026-10-06"
+  },
+  "mistralai/Mistral-Large-3-675B-Instruct-2512": {
+    "donor": "FriendliAI/Mistral-Large-3-675B-Instruct-2512-BF16",
+    "note": "Mistral publishes only Mistral-format (consolidated) files; the architecture and parameter count come from a BF16 conversion in Hugging Face format (DeepSeek-V3 layout, 675.99B parameters).",
+    "source": "huggingface.co/FriendliAI/Mistral-Large-3-675B-Instruct-2512-BF16",
+    "verified_on": "2026-10-06"
+  },
+  "mistralai/Mistral-Small-4-119B-2603": {
+    "active_b": 6.5,
+    "card_total_b": 119,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "moonshotai/Kimi-K2-Instruct": {
+    "active_b": 32,
+    "card_total_b": 1000,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "moonshotai/Kimi-K2-Thinking": {
+    "active_b": 32,
+    "card_total_b": 1000,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "moonshotai/Kimi-K2.5": {
+    "active_b": 32,
+    "card_total_b": 1000,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16": {
+    "active_b": 3.5,
+    "card_total_b": 30,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-FP8": {
+    "active_b": 12,
+    "card_total_b": 120,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16": {
+    "active_b": 55,
+    "card_total_b": 550,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16": {
+    "active_b": 3,
+    "card_total_b": 30,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "openai/gpt-oss-120b": {
+    "active_b": 5.1,
+    "card_total_b": 117,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "openai/gpt-oss-20b": {
+    "active_b": 3.6,
+    "card_total_b": 21,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "poolside/Laguna-S-2.1": {
+    "active_b": 8,
+    "card_total_b": 118,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "poolside/Laguna-XS-2.1": {
+    "active_b": 3,
+    "card_total_b": 33,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "prism-ml/Ternary-Bonsai-2-27B-gguf": {
+    "donor": "Qwen/Qwen3.5-27B",
+    "note": "GGUF-only repo. Its GGUF header (qwen35, 64 blocks, 4 KV heads x 256, 16/48 linear-attention heads, full attention every 4th layer) matches Qwen3.5-27B, whose config is used for the architecture.",
+    "source": "GGUF header read 2026-10-06",
+    "verified_on": "2026-10-06"
+  },
+  "stepfun-ai/Step-3.5-Flash": {
+    "active_b": 11,
+    "card_total_b": 196.81,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "tencent/Hunyuan-A13B-Instruct": {
+    "active_b": 13,
+    "card_total_b": 80,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "tencent/Hy3": {
+    "active_b": 21,
+    "card_total_b": 295,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "tencent/Hy4-preview": {
+    "active_b": 49,
+    "card_total_b": 770,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "thinkingmachines/Inkling": {
+    "active_b": 41,
+    "card_total_b": 975,
+    "source": "model card and Hugging Face API, 2026-10-06",
+    "verified_on": "2026-10-06",
+    "note": "The model card says 975B; the checkpoint holds 952.4B."
+  },
+  "thinkingmachines/Inkling-Small": {
+    "active_b": 12,
+    "card_total_b": 276,
+    "source": "model card and safetensors headers, 2026-10-06",
+    "verified_on": "2026-10-06",
+    "note": "The model card says 276B; the checkpoint holds 266.0B."
+  },
+  "zai-org/GLM-4.5V": {
+    "active_b": 12,
+    "card_total_b": 106,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "zai-org/GLM-5": {
+    "active_b": 40,
+    "card_total_b": 744,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  },
+  "zai-org/GLM-5.3-Flash": {
+    "active_b": 18,
+    "card_total_b": 320,
+    "source": "model card on Hugging Face (transcribed in the 2026-10-06 audit)",
+    "verified_on": "2026-10-06"
+  }
+}

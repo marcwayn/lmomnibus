@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import weightsIndex from "../data/weights-index.json" with { type: "json" };
 import { trackEvent } from "./analytics.ts";
 import { CATALOG_META, snapshotAgeDays } from "./core/catalog.ts";
 import { NOTE_TEXT, type CostBreakdown, type Rate, type Workload } from "./core/cost.ts";
@@ -229,6 +230,9 @@ export function CopyButton({
   );
 }
 
+/** When scripts/hf.ts last read the Hugging Face repos (the small index every page already bundles). */
+export const WEIGHTS_READ_ON: string = weightsIndex.asOf;
+
 /** Every page: the snapshot date, its age, provenance and attribution. */
 export function SiteFooter() {
   const age = snapshotAgeDays(todayIso());
@@ -248,6 +252,7 @@ export function SiteFooter() {
             Hand-checked list prices on {CATALOG_META.firstParty} models; the rest are OpenRouter aggregates
           </span>
           <span>Capability scores: Artificial Analysis indices via OpenRouter, snapshot {CATALOG_META.asOf}</span>
+          <span>Model architectures: Hugging Face, read {WEIGHTS_READ_ON}</span>
         </p>
         <p className="site-foot-line">
           <span>List-price cost at your workload, not cost per task.</span>

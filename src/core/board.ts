@@ -1,5 +1,6 @@
 import type { Model } from "./model.ts";
 import { frontier, percentileScore, priceAll, scoreOf, type Priced } from "./frontier.ts";
+import { gapReading } from "./openclosed.ts";
 import { presetById, type Preset } from "./presets.ts";
 
 /** The home board shows only frontier models in the top quartile of scored models. */
@@ -29,10 +30,12 @@ export function buildBoard(models: readonly Model[], preset: Preset, today: stri
 }
 
 export interface Reading {
-  id: "near-top" | "under-a-dollar" | "long-context";
+  id: "near-top" | "under-a-dollar" | "long-context" | "open-best";
   /** Lead-in, e.g. "Most capable under $1 per 1K chat requests". */
   label: string;
   point: Priced | null;
+  /** The model's score, shown before its price, e.g. "AA 46.3". */
+  score?: string;
   /** Extra figure shown after the model, e.g. "47 models". */
   detail?: string;
   /** Where the reading came from. */
@@ -42,7 +45,7 @@ export interface Reading {
 const NEAR_TOP = 0.9;
 
 /**
- * Three computed one-liners for the home page. Every number is derived from
+ * Four computed one-liners for the home page. Every number is derived from
  * the catalog at render time; nothing is hand-written.
  */
 export function readings(models: readonly Model[], today: string): Reading[] {
@@ -64,6 +67,10 @@ export function readings(models: readonly Model[], today: string): Reading[] {
   const longContext = atChat.filter((p) => p.model.contextTokens >= 1_000_000);
   const cheapestLong = cheapest(longContext);
 
+  // Scores compared within this snapshot only, as on the open-vs-closed tool this links to.
+  const gap = gapReading(atAgent, "intelligence");
+  const bestOpen = gap.best.open;
+
   return [
     {
       id: "near-top",
@@ -84,7 +91,21 @@ export function readings(models: readonly Model[], today: string): Reading[] {
       detail: `${longContext.length} models have 1M+`,
       href: cheapestLong ? `/tools/cost?m=${cheapestLong.model.key.replace("/", ":")}&p=chat` : "/tools/cost?p=chat",
     },
+    {
+      id: "open-best",
+      label: "Best open-weight model as a coding agent",
+      point: bestOpen,
+      score: bestOpen ? `AA ${scoreOf(bestOpen.model, "intelligence")!.toFixed(1)}` : undefined,
+      detail: gap.gap === null ? undefined : gapText(gap.gap),
+      href: "/tools/open?p=agent",
+    },
   ];
+}
+
+/** How the best open-weight score stands against the best closed one. */
+export function gapText(gap: number): string {
+  if (gap === 0) return "level with the top closed model";
+  return `${Math.abs(gap).toFixed(1)} points ${gap > 0 ? "behind" : "ahead of"} the top closed model`;
 }
 
 function cheapest(points: Priced[]): Priced | null {
