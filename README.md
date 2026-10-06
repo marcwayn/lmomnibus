@@ -1,141 +1,104 @@
 # LMOmnibus
 
-A workbench of instruments for pricing, comparing, and choosing language models — built in Rust with [Leptos](https://leptos.dev).
+A workbench of instruments for pricing, comparing, and choosing language models — built with [React](https://react.dev) and [Vite](https://vite.dev), deployed as a static site on Cloudflare Pages.
+
+Live at **https://lmomnibus.pages.dev**.
 
 **Tool 01, live: Cost Calculator.** Search the catalog by vendor, model name, or release year, add models to a bench, and compare monthly cost for a given workload — including long-context pricing tiers (priced on the whole request, not marginally) and live promotional rates shown alongside list price.
 
-The build rationale, visual design system, and roadmap for the tools beyond the calculator are in [`SCHEMATIC.html`](./SCHEMATIC.html).
+**Speed Simulator.** Pick a throughput and an output length and watch a response stream at that pace.
+
+The build rationale, visual design system, and roadmap for the tools beyond the calculator are in [`SCHEMATIC.html`](./SCHEMATIC.html) (written for the original Rust/Leptos version; the architecture sections predate the move to React).
 
 ## How it's built
 
 ```
-crates/
-  lmo-core/    domain types, cost engine, search — no I/O, compiles to both
-               native and wasm32, so the browser and the server share one
-               implementation of the math.
-  lmo-ingest/  fetches the OpenRouter model catalog, normalizes it (folds
+src/
+  core/        domain types, cost engine, search, formatting — plain
+               TypeScript with no React or DOM dependency, unit-tested
+               with Vitest. Money is big.js decimals end to end, never
+               JS floats.
+  pages/       the three routes: home, Cost Calculator, Speed Simulator.
+  App.tsx      router + top nav (react-router).
+  styles.css   the whole stylesheet.
+scripts/
+  ingest.ts    fetches the OpenRouter model catalog, normalizes it (folds
                :batch/-fast variants into rate modes, converts pricing to
-               USD/MTok, derives release dates), applies data/overrides.json,
-               writes data/catalog.json.
-  lmo-web/     the Leptos app (SSR via Axum + hydration).
+               USD/MTok, derives release dates, drops unusable router /
+               zero-priced rows), applies data/overrides.json, writes
+               data/catalog.json.
 data/
-  catalog.json    the committed, normalized snapshot — embedded into the
-                  binary and the WASM bundle at compile time via include_str!.
-                  The running app makes no network calls to have data to show.
+  catalog.json    the committed, normalized snapshot — bundled into the app
+                  at build time, so the running site makes no network calls
+                  to have data to show.
   overrides.json  curated corrections that win over the aggregate feed
                   (e.g. distinguishing a promotional rate from list price).
+public/
+  _headers        Cloudflare Pages cache rules.
 ```
 
-Search runs entirely in the browser: the catalog (currently ~320 priced
-models, well under 300KB as JSON) ships inside the WASM bundle, so filtering
-is instant with no server round-trip. This is a deliberate simplification —
-see the "Where the data goes" section of the schematic for the
-network-crosses-only-for-search design this can grow into once the catalog
-is large enough that shipping all of it stops making sense.
+Search runs entirely in the browser: the catalog (~310 priced models) ships
+inside the JS bundle (about 100KB gzipped in total), so filtering is instant
+with no server round-trip.
+
+Promotional rates carry an `until` date and are applied only while live
+(checked against today's date in UTC) and only below any long-context tier.
+
+## Local development
+
+Requires Node 23.6 or newer (the ingest script runs as TypeScript directly).
+
+```bash
+npm install
+npm run dev        # http://localhost:5173 with hot reload
+npm test           # cost engine, formatting, search, catalog sanity
+npm run build      # typecheck + production build into dist/
+```
 
 ## Refreshing the catalog
 
-The app never fetches live pricing at runtime — it boots from
+The app never fetches live pricing at runtime — it's built from
 `data/catalog.json`. To pull current prices from OpenRouter and rebuild the
 snapshot:
 
 ```bash
-cargo run -p lmo-ingest --release
+npm run ingest
 ```
 
 This overwrites `data/catalog.json`. Review the diff, then commit it and
 redeploy. Curated corrections live in `data/overrides.json` — add an entry
-there (matched by model key) for anything the aggregate feed gets wrong,
-such as a temporary promotional rate.
+there (matched by model key) for anything the aggregate feed gets wrong, such
+as a temporary promotional rate.
 
-## Local development
+## Deploying (Cloudflare Pages)
 
-Requires a Rust toolchain via [rustup](https://rustup.rs) (not just a
-system/Homebrew `rustc` — the WASM target needs rustup-managed component
-installs) and [`cargo-leptos`](https://github.com/leptos-rs/cargo-leptos):
-
-```bash
-rustup target add wasm32-unknown-unknown
-cargo install cargo-leptos --locked
-```
-
-Then, from the repo root:
+The site is fully static, so it deploys as plain files to the `lmomnibus`
+Pages project:
 
 ```bash
-cargo leptos watch
+npx wrangler login     # once
+npm run deploy         # build + wrangler pages deploy dist
 ```
 
-This serves the app at `http://127.0.0.1:3000` with hot reload. Run
-`cargo test -p lmo-core` to run the cost-engine tests (tiered pricing,
-promo detection, cache-read math).
+`npm run preview` serves `dist/` through wrangler's local Pages emulator, so
+routing and headers behave as they will in production.
 
-## Deploying
+Routing: there is no top-level `404.html`, so Pages treats the project as a
+single-page app and serves `index.html` for any path; react-router then
+renders the right page (or "Page not found").
 
-### Docker (any host: Fly.io, Render, Railway, a plain VM, etc.)
-
-```bash
-docker build -t lmomnibus .
-docker run -p 8080:8080 lmomnibus
-```
-
-The image is a multi-stage build: it compiles the server binary and the WASM
-bundle in a `rust:bookworm` stage, then copies just the binary and
-`target/site` into a slim `debian:bookworm-slim` runtime image. No database,
-no external services, no environment variables required beyond the ones the
-image already sets — this container is the entire deployment.
-
-- **Fly.io**: `fly launch` (it will detect the Dockerfile) then `fly deploy`.
-- **Render**: New → Web Service → connect the repo → Render detects the
-  Dockerfile automatically. Set the port to `8080`.
-- **Railway**: New Project → Deploy from GitHub repo → Railway builds the
-  Dockerfile automatically.
-
-### Bare metal / a VM without Docker
-
-Build with `cargo leptos build --release`, then copy `target/release/lmo-web`
-and `target/site` to the host and run the binary with:
-
-```bash
-LEPTOS_SITE_ROOT=/path/to/site LEPTOS_SITE_ADDR=0.0.0.0:8080 ./lmo-web
-```
-
-## Pushing to GitHub
-
-```bash
-git init
-git add .
-git commit -m "Initial commit: LMOmnibus Cost Calculator"
-git branch -M main
-git remote add origin <your-repo-url>
-git push -u origin main
-```
-
-`.github/workflows/ci.yml` runs the cost-engine tests, the full
-`cargo leptos build --release`, and a Docker build on every push and pull
-request against `main`.
-
-## A note on asset caching
-
-The server sends `Cache-Control: no-cache` on every response. The WASM/JS
-bundle filenames carry no content hash (`lmo-web.wasm`, not
-`lmo-web.<hash>.wasm`), so without this a browser can serve a cached bundle
-from an older build against freshly rendered HTML — hydration then fails
-silently and the page renders but goes inert, with no console error.
-`no-cache` means "revalidate before reuse", not "don't store", so requests
-still 304 off `Last-Modified` and cost little.
-
-If you later want long-lived caching, `cargo-leptos` supports content-hashed
-filenames via `hash-files = true` in `[package.metadata.leptos]`; switch to
-that plus `immutable` rather than simply dropping the header.
+Caching: Vite content-hashes every file under `/assets`, so `_headers` marks
+them `immutable` for a year. HTML keeps Pages' default of revalidating on
+every request, so a new deploy is picked up immediately.
 
 ## What's deliberately not here yet
 
 - **No mode toggle in the bench** (batch/fast pricing) — the data model and
-  cost engine already support it (`RateMode::{Standard,Batch,Fast}`); the UI
-  always compares at `Standard` for now.
+  cost engine already support it (`RateMode` is `Standard | Batch | Fast`);
+  the UI compares each model at Standard, or at its only mode for the few
+  models listed batch- or fast-only.
+- **Cache writes aren't priced** — the cached-input share is billed at the
+  cache-read rate, but the cost of writing the cache isn't modeled yet.
 - **No database, no live-refresh background task** — the catalog is a file,
-  refreshed by re-running ingest and redeploying. Revisit once there's a
-  reason (user accounts, live price alerts) to want otherwise.
-- **Tools 02–08** from the roadmap in `SCHEMATIC.html` — the catalog and cost
-  engine are already shaped to support them without new ingest work; none
-  are built yet.
+  refreshed by re-running ingest and redeploying.
+- **Tools 02–08** from the roadmap in `SCHEMATIC.html` — none are built yet.
