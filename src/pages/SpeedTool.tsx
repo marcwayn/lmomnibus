@@ -92,11 +92,13 @@ export function SpeedTool() {
         </p>
       </div>
 
-      <div className="workload">
-        <h2>Settings</h2>
+      <section className="section" aria-label="Settings">
+        <div className="section-title">
+          <h2>Settings</h2>
+        </div>
         <div className="inputs-row">
-          <NumberField label="Speed - tokens / second" value={speed} onChange={setSpeed} min={5} max={2000} step={5} limit={U32_MAX} disabled={running} />
-          <NumberField label="Output length - tokens" value={outputTokens} onChange={setOutputTokens} min={20} max={4000} step={20} limit={U32_MAX} disabled={running} />
+          <NumberField label="Speed · tokens / second" value={speed} onChange={setSpeed} min={5} max={2000} step={5} limit={U32_MAX} disabled={running} />
+          <NumberField label="Output length · tokens" value={outputTokens} onChange={setOutputTokens} min={20} max={4000} step={20} limit={U32_MAX} disabled={running} />
         </div>
 
         <div className="cta-row" style={{ marginTop: 18 }}>
@@ -115,7 +117,9 @@ export function SpeedTool() {
             </button>
           )}
         </div>
-      </div>
+      </section>
+
+      <div className="meter section-break" aria-hidden="true" />
 
       <div className="stream-panel">
         <div className={`stream-box${running ? " running" : ""}`}>
@@ -140,9 +144,9 @@ export function SpeedTool() {
 
       <div className="callout-note">
         <p>
-          This simulates a rate you choose - it doesn't measure any real model's live throughput, which varies by
+          This simulates a rate you choose — it doesn't measure any real model's live throughput, which varies by
           provider load, batch size, and whether a fast-tier variant is in use. Real-world speeds for hosted models
-          commonly range from roughly 15-30 tok/s for large frontier models under load up past 200 tok/s for smaller or
+          commonly range from roughly 15–30 tok/s for large frontier models under load up past 200 tok/s for smaller or
           speed-optimized variants.
         </p>
       </div>

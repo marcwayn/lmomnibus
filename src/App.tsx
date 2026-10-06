@@ -21,15 +21,20 @@ export function App() {
 
 function TopNav() {
   return (
-    <div className="topnav">
-      <Link className="wordmark" to="/">
-        <span className="lm">LM</span>Omnibus
-      </Link>
-      <nav>
-        <NavLink to="/tools/cost">Cost Calculator</NavLink>
-        <NavLink to="/tools/speed">Speed Simulator</NavLink>
-      </nav>
-    </div>
+    <header>
+      <div className="topnav">
+        <Link className="wordmark" to="/">
+          <span className="lm">LM</span>Omnibus
+        </Link>
+        <nav>
+          <NavLink to="/tools/cost">Cost Calculator</NavLink>
+          <NavLink to="/tools/speed">Speed Simulator</NavLink>
+        </nav>
+      </div>
+      <div className="topnav-rule">
+        <div className="meter" aria-hidden="true" />
+      </div>
+    </header>
   );
 }
 
@@ -37,7 +42,7 @@ function NotFound() {
   return (
     <>
       <title>LMOmnibus</title>
-      <p style={{ padding: "40px 0" }}>Page not found.</p>
+      <p className="not-found">Page not found.</p>
     </>
   );
 }
