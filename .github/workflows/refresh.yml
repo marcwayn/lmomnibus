@@ -1,0 +1,69 @@
+name: Daily catalog refresh
+
+# Re-fetches the OpenRouter catalog every morning, appends what changed to
+# data/changes.jsonl, and commits the snapshot (git history is the archive of
+# daily snapshots). Deploys only if a CLOUDFLARE_API_TOKEN secret is set —
+# without one, the snapshot still lands in the repo and the next manual
+# `npm run deploy` publishes it. Scheduled workflows run from the default
+# branch, so this starts once it is merged into main.
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: catalog-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: 228f729fff526c6edfe462fe689d4c7f
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Fetch the catalog and record what changed
+        run: |
+          cp data/catalog.json "$RUNNER_TEMP/prev.json"
+          prev_as_of=$(node -p "require('./data/catalog-meta.json').as_of")
+          npm run ingest
+          node scripts/changes.ts --prev "$RUNNER_TEMP/prev.json" --since "$prev_as_of"
+
+      # Fails on an expired promo in data/overrides.json, among other things:
+      # a person should re-check the vendor's price before it's published.
+      - name: Test
+        run: npm test
+
+      - name: Commit the snapshot
+        id: commit
+        run: |
+          if git diff --quiet -- data/; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          as_of=$(node -p "require('./data/catalog-meta.json').as_of")
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/
+          git commit -m "Catalog refresh $as_of"
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Deploy to Cloudflare Pages
+        if: steps.commit.outputs.changed == 'true' && env.CLOUDFLARE_API_TOKEN != ''
+        run: |
+          npm run build
+          npx wrangler pages deploy dist --project-name lmomnibus --branch main

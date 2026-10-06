@@ -1,4 +1,4 @@
-import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
@@ -31,6 +31,7 @@ function headFor(route: RouteInfo | null, facts: CatalogFacts, preloads: string[
     `<meta name="theme-color" content="#0C110E" media="(prefers-color-scheme: dark)" />`,
     `<link rel="icon" href="/favicon.svg" type="image/svg+xml" />`,
     `<link rel="apple-touch-icon" href="/apple-touch-icon.png" />`,
+    `<link rel="alternate" type="application/atom+xml" title="LMOmnibus price ledger" href="/changes.xml" />`,
     ...preloads.map((href) => `<link rel="preload" href="${href}" as="font" type="font/woff2" crossorigin />`),
   ].join("\n    ");
 }
@@ -72,6 +73,7 @@ function routeShells(): Plugin {
       writeFileSync(join(outDir, "404.html"), render(null));
 
       writeOpenData(outDir, facts);
+      writeChangeFeeds(outDir, facts);
 
       writeFileSync(join(outDir, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${SITE_ORIGIN}/sitemap.xml\n`);
       const urls = ROUTES.map(
@@ -111,6 +113,63 @@ function writeOpenData(outDir: string, facts: CatalogFacts) {
     }),
   );
   writeFileSync(join(outDir, "llms.txt"), llmsTxt(facts));
+}
+
+interface TapeEntry {
+  date: string;
+  since: string;
+  kind: string;
+  key: string;
+  name: string;
+  mode?: string;
+  input?: [string, string];
+  output?: [string, string];
+}
+
+/** /changes.json (the tape) and /changes.xml (Atom, one entry per snapshot). */
+function writeChangeFeeds(outDir: string, facts: CatalogFacts) {
+  const tape: TapeEntry[] = existsSync("data/changes.jsonl")
+    ? readFileSync("data/changes.jsonl", "utf8").split("\n").filter(Boolean).map((l) => JSON.parse(l))
+    : [];
+  writeFileSync(join(outDir, "changes.json"), JSON.stringify({ as_of: facts.as_of, changes: tape }));
+
+  const dates = [...new Set(tape.map((c) => c.date))].sort().reverse();
+  const count = (day: TapeEntry[], kind: string) => day.filter((c) => c.kind === kind).length;
+  const entries = dates.map((date) => {
+    const day = tape.filter((c) => c.date === date);
+    const list = day.filter((c) => c.kind === "list_price");
+    const added = day.filter((c) => c.kind === "added");
+    const summary = [
+      `${list.length} vendor list-price change${list.length === 1 ? "" : "s"}, ${added.length} new, ${count(day, "removed")} delisted, ${count(day, "aggregate_move")} aggregate moves (compared with ${day[0].since}).`,
+      ...list.map((c) => `${c.name} (${c.mode}): input ${c.input![0]} → ${c.input![1]}, output ${c.output![0]} → ${c.output![1]} USD/MTok`),
+      ...(added.length ? [`New: ${added.map((c) => c.name).join(", ")}`] : []),
+    ];
+    return [
+      "  <entry>",
+      `    <id>tag:lmomnibus.pages.dev,${date}:changes</id>`,
+      `    <title>Snapshot ${date}: ${list.length} list-price change${list.length === 1 ? "" : "s"}, ${added.length} new, ${count(day, "removed")} delisted</title>`,
+      `    <updated>${date}T06:00:00Z</updated>`,
+      `    <link href="${SITE_ORIGIN}/changes#${date}" />`,
+      `    <content type="text">${escape(summary.join("\n"))}</content>`,
+      "  </entry>",
+    ].join("\n");
+  });
+  writeFileSync(
+    join(outDir, "changes.xml"),
+    [
+      '<?xml version="1.0" encoding="utf-8"?>',
+      '<feed xmlns="http://www.w3.org/2005/Atom">',
+      "  <title>LMOmnibus price ledger</title>",
+      `  <id>${SITE_ORIGIN}/changes</id>`,
+      `  <link href="${SITE_ORIGIN}/changes" />`,
+      `  <link rel="self" href="${SITE_ORIGIN}/changes.xml" />`,
+      `  <updated>${(dates[0] ?? facts.as_of)}T06:00:00Z</updated>`,
+      "  <author><name>LMOmnibus</name></author>",
+      ...entries,
+      "</feed>",
+      "",
+    ].join("\n"),
+  );
 }
 
 function llmsTxt(facts: CatalogFacts): string {

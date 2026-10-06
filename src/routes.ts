@@ -50,6 +50,14 @@ export const ROUTES: readonly RouteInfo[] = [
     description: () => "Feel what a token throughput means: pick a rate and an output length, then watch a response stream at that pace.",
     ogImage: "/og/speed.png",
   },
+  {
+    path: "/changes",
+    nav: { num: "04", label: "Ledger" },
+    title: "Price Ledger — LMOmnibus",
+    description: (f) =>
+      `What changed in language-model prices: vendor list-price moves, new listings, delistings and retirements, snapshot by snapshot. Latest ${f.as_of}.`,
+    ogImage: "/og/ledger.png",
+  },
 ];
 
 export const SITE_ORIGIN = "https://lmomnibus.pages.dev";

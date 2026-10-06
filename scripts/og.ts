@@ -175,6 +175,13 @@ const CARDS: Record<string, () => Node> = {
       body("Cost per 1,000 requests at your workload against AA Intelligence, Coding or Agentic, with the step-up ladder."),
       live,
     ),
+  "/changes": () =>
+    card(
+      eyebrow("/changes"),
+      "What changed in model prices",
+      body("Vendor list-price moves, new listings, delistings and retirements — kept apart from OpenRouter's aggregate drift."),
+      live,
+    ),
   "/tools/speed": () =>
     card(
       eyebrow("/tools/speed"),

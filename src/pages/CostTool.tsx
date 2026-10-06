@@ -15,6 +15,7 @@ import {
 } from "../components.tsx";
 import { allModels, CATALOG_META, modelByKey } from "../core/catalog.ts";
 import { costFor, NOTE_TEXT, type Rate, type Workload } from "../core/cost.ts";
+import { changesFor, relChange, type Change } from "../core/changes.ts";
 import { daysBetween, todayIso } from "../core/date.ts";
 import { fmtCompact, fmtMoney, fmtRate, fmtUsd } from "../core/fmt.ts";
 import {
@@ -38,6 +39,16 @@ import { titleFor } from "../routes.ts";
 const MODELS = allModels();
 const YEARS = availableYears(MODELS);
 const STORAGE_KEY = "lmo:bench:v1";
+/** The snapshot date the remembered bench was last priced at, for "since you last looked". */
+const ASOF_KEY = "lmo:bench-asof:v1";
+
+function readAsOf(): string | null {
+  try {
+    return localStorage.getItem(ASOF_KEY);
+  } catch {
+    return null;
+  }
+}
 const VENDOR_CHIPS = 10;
 
 type SortKey = "relevance" | "newest" | "cost" | "score" | "context";
@@ -59,8 +70,13 @@ function readStorage(): string | null {
 
 function writeStorage(value: string | null) {
   try {
-    if (value === null) localStorage.removeItem(STORAGE_KEY);
-    else localStorage.setItem(STORAGE_KEY, value);
+    if (value === null) {
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(ASOF_KEY);
+    } else {
+      localStorage.setItem(STORAGE_KEY, value);
+      localStorage.setItem(ASOF_KEY, CATALOG_META.asOf);
+    }
   } catch {
     // Storage blocked or full: the page works the same without it.
   }
@@ -110,6 +126,34 @@ export function CostTool() {
   const [filters, setFilters] = useState<Set<Filter>>(new Set());
   const [hideDominated, setHideDominated] = useState(false);
   const [allVendors, setAllVendors] = useState(false);
+
+  // "Since you last looked": a remembered bench priced at an older snapshot
+  // gets a strip of what changed for its models. The tape loads on demand.
+  const [lastAsOf] = useState(() => (init.source === "storage" ? readAsOf() : null));
+  const [since, setSince] = useState<Change[] | null>(null);
+  useEffect(() => {
+    if (!lastAsOf || lastAsOf >= CATALOG_META.asOf) return;
+    let live = true;
+    import("../tape.ts").then(({ TAPE }) => {
+      if (!live) return;
+      const found = changesFor(TAPE, new Set(init.scenario.models), lastAsOf);
+      setSince(found);
+      if (found.length) trackEvent("Bench", "Repriced strip shown");
+    });
+    return () => {
+      live = false;
+    };
+  }, [lastAsOf, init]);
+  // Pricing the bench at today's snapshot counts as having looked.
+  useEffect(() => {
+    if (lastAsOf && lastAsOf < CATALOG_META.asOf && init.source === "storage") {
+      try {
+        localStorage.setItem(ASOF_KEY, CATALOG_META.asOf);
+      } catch {
+        // Not remembered; the strip shows again next time.
+      }
+    }
+  }, [lastAsOf, init]);
 
   useEffect(() => {
     if (init.source === "url" && init.scenario.models.length && !internalArrival) trackEvent("Share", "Opened shared link");
@@ -479,6 +523,16 @@ export function CostTool() {
           )}
         </div>
 
+        {since && since.length > 0 && (
+          <div className="since-strip" role="status">
+            <strong>Since you last looked</strong> ({lastAsOf} → {CATALOG_META.asOf}):
+            <ul>
+              {since.map((c, i) => (
+                <li key={`${c.key}-${c.kind}-${i}`}>{describeChange(c)}</li>
+              ))}
+            </ul>
+          </div>
+        )}
         {restored && bench.length > 0 && (
           <p className="quiet-note">
             Restored your last bench ·{" "}
@@ -841,4 +895,34 @@ function BenchCard(props: BenchCardProps) {
       )}
     </article>
   );
+}
+
+function pct(pair: [string, string] | undefined): string {
+  const r = pair ? relChange(pair) : null;
+  if (r === null || r === 0) return "";
+  return `${r < 0 ? "−" : "+"}${Math.abs(Math.round(r * 100))}%`;
+}
+
+/** One line per change for the "since you last looked" strip. */
+function describeChange(c: Change): string {
+  switch (c.kind) {
+    case "list_price":
+      return `${c.name}: list price ${c.mode} in ${pct(c.input) || "same"}, out ${pct(c.output) || "same"}`;
+    case "aggregate_move":
+      return `${c.name}: OpenRouter aggregate price moved (in ${pct(c.input) || "same"}, out ${pct(c.output) || "same"})`;
+    case "removed":
+      return `${c.name}: no longer listed`;
+    case "retirement_scheduled":
+      return `${c.name}: retires ${c.retires_on}`;
+    case "promo_start":
+      return `${c.name}: promo started, until ${c.until}`;
+    case "promo_end":
+      return `${c.name}: promo ended`;
+    case "mode_added":
+      return `${c.name}: ${c.mode} price list added`;
+    case "mode_removed":
+      return `${c.name}: ${c.mode} price list removed`;
+    default:
+      return c.name;
+  }
 }

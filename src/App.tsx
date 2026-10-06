@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { lazy, Suspense, useEffect, useRef, type ComponentType } from "react";
 import { BrowserRouter, Link, NavLink, Route, Routes, useLocation } from "react-router";
 import { usePageViews } from "./analytics.ts";
 import { Meter, SiteFooter } from "./components.tsx";
@@ -6,14 +6,18 @@ import { CostTool } from "./pages/CostTool.tsx";
 import { FrontierTool } from "./pages/FrontierTool.tsx";
 import { HomePage } from "./pages/HomePage.tsx";
 import { SpeedTool } from "./pages/SpeedTool.tsx";
+
+// Loaded on demand: it carries the change tape, which grows every day.
+const LedgerPage = lazy(() => import("./pages/LedgerPage.tsx").then((m) => ({ default: m.LedgerPage })));
 import { ROUTES } from "./routes.ts";
 
 /** Page component per route path; every entry in ROUTES must have one (see routes.test.ts). */
-export const PAGES: Record<string, () => React.JSX.Element> = {
+export const PAGES: Record<string, ComponentType> = {
   "/": HomePage,
   "/tools/cost": CostTool,
   "/tools/frontier": FrontierTool,
   "/tools/speed": SpeedTool,
+  "/changes": LedgerPage,
 };
 
 export function App() {
@@ -23,13 +27,15 @@ export function App() {
       <RouteFocus />
       <TopNav />
       <main className="shell">
-        <Routes>
-          {ROUTES.map((r) => {
-            const Page = PAGES[r.path];
-            return <Route key={r.path} path={r.path} element={<Page />} />;
-          })}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Suspense fallback={<p className="loading">Loading…</p>}>
+          <Routes>
+            {ROUTES.map((r) => {
+              const Page = PAGES[r.path];
+              return <Route key={r.path} path={r.path} element={<Page />} />;
+            })}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </main>
       <SiteFooter />
     </BrowserRouter>
