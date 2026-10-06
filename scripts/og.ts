@@ -15,6 +15,7 @@ import { buildBoard } from "../src/core/board.ts";
 import { allModels, CATALOG_META } from "../src/core/catalog.ts";
 import { todayIso } from "../src/core/date.ts";
 import { fmtCompact, fmtInt, fmtRate as fmtRateOg, fmtUsd } from "../src/core/fmt.ts";
+import { rateCard } from "../src/core/model.ts";
 import { presetById } from "../src/core/presets.ts";
 import { ROUTES, type RouteInfo } from "../src/routes.ts";
 
@@ -135,7 +136,7 @@ function boardRows(): Node {
           "span",
           { fontSize: 26, fontWeight: 600, color: i === 0 ? C.accent : C.ink, alignItems: "baseline" },
           `${fmtUsd(p.per1k)} / 1K requests`,
-          h("span", { fontSize: 18, fontWeight: 400, color: C.ink3, marginLeft: 12 }, p.model.provenance === "FirstParty" ? "list" : "via OR"),
+          h("span", { fontSize: 18, fontWeight: 400, color: C.ink3, marginLeft: 12 }, rateCard(p.model, p.breakdown.mode)?.checked ? "list" : "via OR"),
         ),
       ),
     ),
@@ -226,7 +227,7 @@ for (const m of models) {
   const card0 = (m.rates.find(([mode]) => mode === "Standard") ?? m.rates[0])[1];
   const intel = m.scores?.intelligence ?? null;
   const facts = [
-    `${fmtRateOg(card0.input)} in · ${fmtRateOg(card0.output)} out per 1M tokens (${m.provenance === "FirstParty" ? "list" : "via OR"})`,
+    `${fmtRateOg(card0.input)} in · ${fmtRateOg(card0.output)} out per 1M tokens (${card0.checked ? "list" : "via OR"})`,
     `${fmtCompact(m.contextTokens)} context${intel !== null ? ` · AA Intelligence ${intel.toFixed(1)}` : ""}`,
   ].join("\n");
   const out = `${OUT}/og/models/${m.key}.png`;

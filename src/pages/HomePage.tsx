@@ -174,7 +174,7 @@ export function HomePage() {
                         {p.model.displayName}
                       </Link>
                       <span className="vd">
-                        {p.model.vendorName} <SourceTag model={p.model} />
+                        {p.model.vendorName} <SourceTag model={p.model} mode={p.breakdown.mode} />
                       </span>
                     </td>
                     <td className="n">{scoreOf(p.model, "intelligence")!.toFixed(1)}</td>
@@ -237,7 +237,7 @@ export function HomePage() {
                   >
                     {r.point.model.displayName} · <span className="mono">{fmtUsd(r.point.per1k)}</span> / 1K
                   </Link>{" "}
-                  <SourceTag model={r.point.model} />
+                  <SourceTag model={r.point.model} mode={r.point.breakdown.mode} />
                   {r.detail ? <span className="reading-detail"> · {r.detail}</span> : null}
                 </span>
               ) : (

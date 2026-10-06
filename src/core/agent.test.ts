@@ -52,7 +52,11 @@ describe("agent sessions", () => {
 
   it("flags the turn that outgrows the context window", () => {
     const small = fixtureModel({ ...opus, contextTokens: 13_500 });
-    expect(sessionCost(small, s, TODAY).contextExceededAt).toBe(2);
+    const r = sessionCost(small, s, TODAY);
+    expect(r.contextExceededAt).toBe(2);
+    // Only turn 1 fits, so only turn 1 is priced.
+    expect(r.turns).toHaveLength(1);
+    expect(r.perSession.toFixed(6)).toBe("0.093750");
   });
 
   it("computes how many reads earn back a write", () => {

@@ -44,7 +44,8 @@ export function switchCandidates(
       if (f.capabilities.reasoning && !m.capabilities.reasoning) return false;
       if (needsImage && !inputModalities(m).includes("image")) return false;
       if (!fits(m, workload)) return false;
-      if (m.retiresOn && m.retiresOn >= today && (!f.retiresOn || m.retiresOn <= f.retiresOn)) return false;
+      // Never suggest a model that has already retired, or one retiring no later than the one you're leaving.
+      if (m.retiresOn && (m.retiresOn < today || !f.retiresOn || m.retiresOn <= f.retiresOn)) return false;
       if (fromScore !== null) {
         const s = scoreOf(m, index);
         if (s === null || s < fromScore - SCORE_TOLERANCE) return false;

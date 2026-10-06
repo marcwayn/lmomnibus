@@ -53,7 +53,7 @@ export interface SessionCost {
   uncachedPerSession: Big;
   /** Share of the session's cost spent on cache reads (0-1). */
   readShare: number;
-  /** First turn whose request (input + output) exceeds the context window, if any. */
+  /** First turn whose request (input + output) exceeds the context window; the session stops before it. */
   contextExceededAt: number | null;
   notes: CostNote[];
 }
@@ -84,10 +84,15 @@ export function sessionCost(model: Model, s: Session, today: string, mode: RateM
         { input: new Big(input), output: new Big(s.outputTokens), read: new Big(read), write: new Big(write) },
         cache === "1h" ? "1h" : "5m",
       );
+      // A turn that doesn't fit the context window can't be sent: the
+      // session ends there, so later turns aren't priced or counted.
+      if (input + s.outputTokens > model.contextTokens) {
+        exceeded = t;
+        break;
+      }
       price.notes.forEach((n) => notes.add(n));
       cumulative = cumulative.plus(price.perRequest);
       readCost = readCost.plus(price.perRead);
-      if (exceeded === null && input + s.outputTokens > model.contextTokens) exceeded = t;
       turns.push({ turn: t, inputTokens: input, read, write, cost: price.perRequest, cumulative });
     }
     return { turns, total: cumulative, readCost, notes: [...notes], exceeded };

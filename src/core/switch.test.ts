@@ -28,6 +28,7 @@ describe("switchCandidates", () => {
     m("too-weak", "1", 40),
     m("no-tools", "2", 60, { capabilities: { tools: false, reasoning: false, structuredOutput: false } }),
     m("retiring-too", "3", 52, { retiresOn: "2026-10-15" }),
+    m("already-retired", "2.5", 53, { retiresOn: "2026-10-01" }),
     m("pricier-better", "20", 58),
   ];
   const pts = priceAll(models, W, "Standard", TODAY);

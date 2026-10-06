@@ -520,7 +520,8 @@
           "cache_write": "12.5000000",
           "tiers": [],
           "promo": null,
-          "cache_write_1h": "20.00000"
+          "cache_write_1h": "20.00000",
+          "checked": true
         }
       ],
       [
@@ -575,7 +576,8 @@
           "cache_write": "12.5000000",
           "tiers": [],
           "promo": null,
-          "cache_write_1h": "20.00000"
+          "cache_write_1h": "20.00000",
+          "checked": true
         }
       ],
       [
@@ -630,7 +632,8 @@
           "cache_write": "1.25000000",
           "tiers": [],
           "promo": null,
-          "cache_write_1h": "2.000000"
+          "cache_write_1h": "2.000000",
+          "checked": true
         }
       ],
       [
@@ -960,7 +963,8 @@
           "cache_write": "6.25000000",
           "tiers": [],
           "promo": null,
-          "cache_write_1h": "10.00000"
+          "cache_write_1h": "10.00000",
+          "checked": true
         }
       ],
       [
@@ -1015,7 +1019,8 @@
           "cache_write": "5.000000",
           "tiers": [],
           "promo": null,
-          "cache_write_1h": "8.000000"
+          "cache_write_1h": "8.000000",
+          "checked": true
         }
       ],
       [
@@ -1244,7 +1249,8 @@
           "cache_write": "2.5000000",
           "tiers": [],
           "promo": null,
-          "cache_write_1h": "4.000000"
+          "cache_write_1h": "4.000000",
+          "checked": true
         }
       ],
       [
@@ -1299,7 +1305,8 @@
           "cache_write": "2.5000000",
           "tiers": [],
           "promo": null,
-          "cache_write_1h": "4.000000"
+          "cache_write_1h": "4.000000",
+          "checked": true
         }
       ],
       [

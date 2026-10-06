@@ -16,10 +16,16 @@ export type ChangeKind =
   | "mode_added"
   | "mode_removed"
   | "list_price"
+  | "list_correction"
   | "aggregate_move"
   | "promo_start"
   | "promo_end"
+  | "promo_permanent"
+  | "promo_change"
+  | "tier_change"
   | "retirement_scheduled";
+
+type Pair = [string, string];
 
 export interface Change {
   /** Snapshot (as_of) date where the change was seen. */
@@ -31,11 +37,13 @@ export interface Change {
   name: string;
   vendor: string;
   mode?: string;
-  /** [old, new] USD per 1M tokens, as decimal strings. */
-  input?: [string, string];
-  output?: [string, string];
-  /** For removals: the last known Standard price, for the tombstone. */
-  last?: { input: string; output: string };
+  /** [old, new] USD per 1M tokens, as decimal strings — only the fields that moved. */
+  input?: Pair;
+  output?: Pair;
+  cache_read?: Pair;
+  cache_write?: Pair;
+  /** For removals: the last known price, its price list and its source. */
+  last?: { input: string; output: string; mode?: string; provenance?: "FirstParty" | "Aggregate" };
   /** For retirements: the scheduled date. */
   retires_on?: string;
   /** For promos: the promo's end date. */
@@ -45,7 +53,12 @@ export interface Change {
 interface RawCard {
   input: string;
   output: string;
+  cache_read?: string | null;
+  cache_write?: string | null;
+  tiers?: { above_input_tokens: number; input: string; output: string; cache_read: string | null }[];
   promo: { input: string; output: string; until: string } | null;
+  /** Set by ingest on a price list a person checked against the vendor. */
+  checked?: boolean;
 }
 
 export interface RawModel {
@@ -57,12 +70,29 @@ export interface RawModel {
   retires_on?: string | null;
 }
 
-/** Compare decimal strings numerically ("2.000000" equals "2.00"). */
-const same = (a: string, b: string) => Number(a) === Number(b);
+/** Compare decimal strings numerically ("2.000000" equals "2.00"); null and undefined only equal each other. */
+const same = (a: string | null | undefined, b: string | null | undefined) =>
+  a == null || b == null ? a == b : Number(a) === Number(b);
+
+/**
+ * Whether a price list was hand-checked against the vendor. Snapshots from
+ * before ingest recorded this per list are read the way overrides worked
+ * then: only the Standard list of a FirstParty model was checked.
+ */
+function checker(snapshot: RawModel[]) {
+  const legacy = !snapshot.some((m) => m.rates.some(([, c]) => "checked" in c));
+  return (m: RawModel, mode: string, card: RawCard) =>
+    legacy ? m.provenance === "FirstParty" && mode === "Standard" : card.checked === true;
+}
+
+const tierKey = (c: RawCard) =>
+  JSON.stringify((c.tiers ?? []).map((t) => [t.above_input_tokens, Number(t.input), Number(t.output), Number(t.cache_read)]));
 
 export function diffCatalogs(prev: RawModel[], next: RawModel[], since: string, date: string): Change[] {
   const before = new Map(prev.map((m) => [m.key, m]));
   const after = new Map(next.map((m) => [m.key, m]));
+  const wasChecked = checker(prev);
+  const isChecked = checker(next);
   const out: Change[] = [];
   const base = (m: RawModel) => ({ date, since, key: m.key, name: m.display_name.trim(), vendor: m.vendor_name });
 
@@ -80,18 +110,37 @@ export function diffCatalogs(prev: RawModel[], next: RawModel[], since: string, 
         out.push({ ...base(m), kind: "mode_added", mode });
         continue;
       }
-      if (!same(was.input, card.input) || !same(was.output, card.output)) {
-        const list = old.provenance === "FirstParty" && m.provenance === "FirstParty";
-        out.push({
-          ...base(m),
-          kind: list ? "list_price" : "aggregate_move",
-          mode,
-          input: [was.input, card.input],
-          output: [was.output, card.output],
-        });
+      // A promo that became the list price: the price in force didn't change.
+      const madePermanent =
+        was.promo && !card.promo && same(was.promo.input, card.input) && same(was.promo.output, card.output);
+      if (madePermanent) {
+        out.push({ ...base(m), kind: "promo_permanent", mode, input: [was.input, card.input], output: [was.output, card.output] });
+      } else {
+        const moved: Partial<Change> = {};
+        if (!same(was.input, card.input)) moved.input = [was.input, card.input];
+        if (!same(was.output, card.output)) moved.output = [was.output, card.output];
+        if ("cache_read" in was && !same(was.cache_read, card.cache_read)) moved.cache_read = [was.cache_read ?? "", card.cache_read ?? ""];
+        if ("cache_write" in was && !same(was.cache_write, card.cache_write)) moved.cache_write = [was.cache_write ?? "", card.cache_write ?? ""];
+        if (Object.keys(moved).length) {
+          const a = wasChecked(old, mode, was);
+          const b = isChecked(m, mode, card);
+          // Both sides hand-checked: a vendor list-price change. Newly checked:
+          // a hand-checked price replacing an aggregate one. Anything else is
+          // OpenRouter's aggregate moving.
+          const kind: ChangeKind = a && b ? "list_price" : !a && b ? "list_correction" : "aggregate_move";
+          out.push({ ...base(m), kind, mode, ...moved });
+        }
+        if (!was.promo && card.promo) out.push({ ...base(m), kind: "promo_start", mode, until: card.promo.until });
+        if (was.promo && !card.promo) out.push({ ...base(m), kind: "promo_end", mode, until: was.promo.until });
       }
-      if (!was.promo && card.promo) out.push({ ...base(m), kind: "promo_start", mode, until: card.promo.until });
-      if (was.promo && !card.promo) out.push({ ...base(m), kind: "promo_end", mode, until: was.promo.until });
+      if (
+        was.promo &&
+        card.promo &&
+        (!same(was.promo.input, card.promo.input) || !same(was.promo.output, card.promo.output) || was.promo.until !== card.promo.until)
+      ) {
+        out.push({ ...base(m), kind: "promo_change", mode, until: card.promo.until });
+      }
+      if (was.tiers && card.tiers && tierKey(was) !== tierKey(card)) out.push({ ...base(m), kind: "tier_change", mode });
     }
     for (const [mode] of old.rates) {
       if (!newCards.has(mode)) out.push({ ...base(m), kind: "mode_removed", mode });
@@ -104,22 +153,44 @@ export function diffCatalogs(prev: RawModel[], next: RawModel[], since: string, 
   }
   for (const m of prev) {
     if (after.has(m.key)) continue;
-    const std = new Map(m.rates).get("Standard") ?? m.rates[0]?.[1];
-    out.push({ ...base(m), kind: "removed", last: std ? { input: std.input, output: std.output } : undefined });
+    const entry = m.rates.find(([mode]) => mode === "Standard") ?? m.rates[0];
+    out.push({
+      ...base(m),
+      kind: "removed",
+      last: entry && {
+        input: entry[1].input,
+        output: entry[1].output,
+        mode: entry[0],
+        provenance: wasChecked(m, entry[0], entry[1]) ? "FirstParty" : "Aggregate",
+      },
+    });
   }
 
   const order: ChangeKind[] = [
     "list_price",
+    "list_correction",
+    "promo_permanent",
     "added",
     "removed",
     "retirement_scheduled",
     "promo_start",
     "promo_end",
+    "promo_change",
     "mode_added",
     "mode_removed",
+    "tier_change",
     "aggregate_move",
   ];
   return out.sort((a, b) => order.indexOf(a.kind) - order.indexOf(b.kind) || (a.key < b.key ? -1 : a.key > b.key ? 1 : 0));
+}
+
+/**
+ * The tape is append-only: a rerun adds only entries it doesn't already
+ * hold, so a second refresh on the same day can never erase the first.
+ */
+export function appendToTape(tape: Change[], fresh: Change[]): Change[] {
+  const have = new Set(tape.map((c) => JSON.stringify(c)));
+  return [...tape, ...fresh.filter((c) => !have.has(JSON.stringify(c)))];
 }
 
 export function parseTape(text: string): Change[] {
@@ -130,8 +201,9 @@ export function parseTape(text: string): Change[] {
     .map((l) => JSON.parse(l) as Change);
 }
 
-/** Relative change of a [old, new] price pair, e.g. -0.2 for a 20% cut; null when old is 0. */
+/** Relative change of a [old, new] price pair, e.g. -0.2 for a 20% cut; null when either side is missing or old is 0. */
 export function relChange(pair: [string, string]): number | null {
+  if (pair[0] === "" || pair[1] === "") return null;
   const [a, b] = pair.map(Number);
   return a === 0 ? null : (b - a) / a;
 }

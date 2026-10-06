@@ -20,6 +20,7 @@ interface RawRateCard {
   tiers: { above_input_tokens: number; input: string; output: string; cache_read: string | null }[];
   promo: { input: string; output: string; until: string } | null;
   cache_write_1h?: string | null;
+  checked?: boolean;
 }
 
 interface RawModel {
@@ -59,6 +60,7 @@ function parseCard(c: RawRateCard): RateCard {
     })),
     promo: c.promo && { input: big(c.promo.input), output: big(c.promo.output), until: c.promo.until },
     cacheWrite1h: bigOrNull(c.cache_write_1h ?? null),
+    checked: c.checked === true,
   };
 }
 

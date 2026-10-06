@@ -14,6 +14,7 @@ export function card(overrides: Partial<RateCard> = {}): RateCard {
     tiers: [],
     promo: null,
     cacheWrite1h: null,
+    checked: false,
     ...overrides,
   };
 }

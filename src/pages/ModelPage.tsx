@@ -1,12 +1,13 @@
 import Big from "big.js";
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router";
-import { Mark, Meter, NotRated, RetireTag, SourceTag } from "../components.tsx";
+import { FallbackMark, Mark, Meter, NotRated, RetireTag, SourceTag } from "../components.tsx";
 import { allModels, CATALOG_META, modelByKey } from "../core/catalog.ts";
 import type { Change } from "../core/changes.ts";
+import { NOTE_TEXT, type CostNote } from "../core/cost.ts";
 import { todayIso } from "../core/date.ts";
 import { fmtCompact, fmtMoney, fmtRate, fmtUsd } from "../core/fmt.ts";
-import { alternatives, frontier, INDEX_LABEL, priceAll, scoreOf, type Index } from "../core/frontier.ts";
+import { alternatives, dominatedBy, fits, frontier, INDEX_LABEL, priceAll, scoreOf, type Index } from "../core/frontier.ts";
 import { inputModalities, yearMonth, type Model, type RateCard } from "../core/model.ts";
 import { PRESETS } from "../core/presets.ts";
 import { encodeKey } from "../core/share.ts";
@@ -32,8 +33,31 @@ export function modelPath(key: string): string {
 export function ModelPage() {
   const key = useParams()["*"] ?? "";
   const model = modelByKey(key);
-  return model ? <SpecSheet model={model} /> : <Tombstone modelKey={key} />;
+  if (model) return <SpecSheet model={model} />;
+  return key ? <Tombstone modelKey={key} /> : <NoSuchModel modelKey="" />;
 }
+
+function NoSuchModel({ modelKey }: { modelKey: string }) {
+  return (
+    <div className="not-found">
+      <title>Model not found — LMOmnibus</title>
+      <span className="eyebrow">404</span>
+      <h1>{modelKey ? `No model with the key ${modelKey}.` : "Which model?"}</h1>
+      <p>
+        <Link to="/tools/cost">Search the Cost Calculator</Link>
+      </p>
+    </div>
+  );
+}
+
+/** Short cell marks for engine notes, with the full text on hover. */
+const NOTE_MARK: Record<CostNote, string> = {
+  "no-cache-price": "no cache rate",
+  "storage-fee-not-modelled": "storage fee",
+  "batch-unavailable": "no batch",
+  "tier-crossed": "tier",
+  "no-1h-write-price": "no 1h write",
+};
 
 function SpecSheet({ model }: { model: Model }) {
   const today = todayIso();
@@ -44,9 +68,12 @@ function SpecSheet({ model }: { model: Model }) {
       PRESETS.map((p) => {
         const priced = priceAll(MODELS, p.workload, p.rate, today);
         const me = priced.find((x) => x.model.key === model.key)!;
-        const rank = priced.filter((x) => x.cost < me.cost).length + 1;
-        const onFront = frontier(priced, "intelligence").some((x) => x.model.key === model.key);
-        return { preset: p, me, rank, of: priced.length, onFront, priced };
+        // Rank only among models that can take this workload at all.
+        const able = priced.filter((x) => fits(x.model, p.workload));
+        const rank = able.filter((x) => x.cost < me.cost).length + 1;
+        const onFront = frontier(able, "intelligence").some((x) => x.model.key === model.key);
+        const beatenBy = dominatedBy(me, able, "intelligence");
+        return { preset: p, me, rank, of: able.length, onFront, beatenBy, fitsIt: fits(model, p.workload), priced: able };
       }),
     [model, today],
   );
@@ -191,22 +218,45 @@ function SpecSheet({ model }: { model: Model }) {
                       {a.preset.label}
                     </Link>
                   </td>
-                  <td className="n col-cost">{fmtUsd(a.me.per1k)}</td>
-                  <td className="n">{fmtMoney(a.me.breakdown.monthlyCost)}</td>
-                  <td className="n">
-                    #{a.rank} of {a.of}
-                  </td>
-                  <td className="breaks">
-                    {a.onFront ? (
-                      <span className="down">
-                        <Mark kind="best" /> on the AA Intelligence frontier
-                      </span>
-                    ) : scoreOf(model, "intelligence") === null ? (
-                      "not rated"
-                    ) : (
-                      "something cheaper scores at least as high"
-                    )}
-                  </td>
+                  {a.fitsIt ? (
+                    <>
+                      <td className="n col-cost">
+                        {fmtUsd(a.me.per1k)}
+                        <FallbackMark breakdown={a.me.breakdown} />
+                        {a.me.breakdown.notes
+                          .filter((n) => n !== "batch-unavailable")
+                          .map((n) => (
+                            <span key={n} className="cell-mark" title={NOTE_TEXT[n]}>
+                              {NOTE_MARK[n]}
+                            </span>
+                          ))}
+                      </td>
+                      <td className="n">{fmtMoney(a.me.breakdown.monthlyCost)}</td>
+                      <td className="n">
+                        #{a.rank} of {a.of}
+                      </td>
+                      <td className="breaks">
+                        {a.onFront ? (
+                          <span className="down">
+                            <Mark kind="best" /> on the AA Intelligence frontier
+                          </span>
+                        ) : scoreOf(model, "intelligence") === null ? (
+                          "not rated"
+                        ) : a.beatenBy ? (
+                          <>
+                            <Link to={modelPath(a.beatenBy.model.key)}>{a.beatenBy.model.displayName}</Link>{" "}
+                            {a.beatenBy.cost < a.me.cost ? "costs less" : "costs the same"} and scores at least as high
+                          </>
+                        ) : (
+                          "tied on the frontier"
+                        )}
+                      </td>
+                    </>
+                  ) : (
+                    <td className="n na" colSpan={4}>
+                      doesn't fit — needs {fmtCompact(a.preset.workload.inputTokens + a.preset.workload.outputTokens)} tokens
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>
@@ -218,7 +268,8 @@ function SpecSheet({ model }: { model: Model }) {
             {alts.map((a, i) => (
               <span key={a.model.key}>
                 {i > 0 && ", "}
-                <Link to={modelPath(a.model.key)}>{a.model.displayName}</Link> ({fmtUsd(a.per1k)} / 1K)
+                <Link to={modelPath(a.model.key)}>{a.model.displayName}</Link>{" "}
+                <span className="mono">{fmtUsd(a.per1k)} / 1K</span> <SourceTag model={a.model} mode={a.breakdown.mode} />
               </span>
             ))}
             .
@@ -273,26 +324,34 @@ function Tombstone({ modelKey }: { modelKey: string }) {
   const [entry, setEntry] = useState<Change | null | undefined>(undefined);
   useEffect(() => {
     let live = true;
-    import("../tape.ts").then(({ TAPE }) => {
-      if (live) setEntry(TAPE.filter((c) => c.key === modelKey && c.kind === "removed").at(-1) ?? null);
-    });
+    import("../tape.ts")
+      .then(({ TAPE }) => {
+        if (live) setEntry(TAPE.filter((c) => c.key === modelKey && c.kind === "removed").at(-1) ?? null);
+      })
+      .catch(() => live && setEntry(null));
     return () => {
       live = false;
     };
   }, [modelKey]);
+  // The heading arrives after the tape loads; move focus there like any page change.
+  useEffect(() => {
+    if (entry === undefined) return;
+    const h = document.querySelector<HTMLElement>("main h1");
+    if (h) {
+      h.tabIndex = -1;
+      h.focus({ preventScroll: true });
+    }
+  }, [entry]);
 
-  if (entry === undefined) return <p className="loading">Loading…</p>;
-  if (entry === null)
+  if (entry === undefined)
     return (
-      <div className="not-found">
-        <title>Model not found — LMOmnibus</title>
-        <span className="eyebrow">404</span>
-        <h1>No model with the key {modelKey}.</h1>
-        <p>
-          <Link to="/tools/cost">Search the Cost Calculator</Link>
-        </p>
-      </div>
+      <>
+        <title>{`${modelKey} — LMOmnibus`}</title>
+        <h1 className="sr-only">{modelKey}</h1>
+        <p className="loading">Loading…</p>
+      </>
     );
+  if (entry === null) return <NoSuchModel modelKey={modelKey} />;
   return (
     <>
       <title>{`${entry.name} (no longer listed) — LMOmnibus`}</title>
@@ -301,7 +360,14 @@ function Tombstone({ modelKey }: { modelKey: string }) {
         <h1>{entry.name}</h1>
         <p className="model-byline mono">
           {entry.key} · delisted in the {entry.date} snapshot
-          {entry.last && ` · last seen at ${fmtRate(new Big(entry.last.input))} in / ${fmtRate(new Big(entry.last.output))} out per 1M tokens`}
+          {entry.last && (
+            <>
+              {` · last seen at ${fmtRate(new Big(entry.last.input))} in / ${fmtRate(new Big(entry.last.output))} out per 1M tokens${entry.last.mode ? ` (${entry.last.mode})` : ""} `}
+              <span className={`src-tag ${entry.last.provenance === "FirstParty" ? "list" : "agg"}`}>
+                {entry.last.provenance === "FirstParty" ? "list" : "via OR"}
+              </span>
+            </>
+          )}
         </p>
         <p className="sub">This model is no longer in the catalog. Find a replacement at your workload:</p>
         <p className="model-actions">

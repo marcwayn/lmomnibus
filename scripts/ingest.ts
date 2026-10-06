@@ -15,7 +15,7 @@
 // decimal strings end to end — never parsed into JS numbers.
 
 import Big from "big.js";
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { parseArgs } from "node:util";
 
 const FEED_URL = "https://openrouter.ai/api/v1/models";
@@ -92,6 +92,8 @@ interface CatalogRateCard {
   tiers: { above_input_tokens: number; input: string; output: string; cache_read: string | null }[];
   promo: { input: string; output: string; until: string } | null;
   cache_write_1h: string | null;
+  /** True on a price list a person checked against the vendor (data/overrides.json). */
+  checked?: boolean;
 }
 
 interface CatalogModel {
@@ -123,6 +125,7 @@ const { values: args } = parseArgs({
     out: { type: "string", default: "data/catalog.json" },
     meta: { type: "string", default: "data/catalog-meta.json" },
     "as-of": { type: "string" },
+    "allow-shrink": { type: "boolean", default: false },
   },
 });
 
@@ -136,6 +139,15 @@ async function main() {
   console.error(`normalized to ${models.length} priced models`);
 
   applyOverrides(models);
+
+  // A broken or partial feed must not replace a good catalog (the daily
+  // workflow would commit and deploy it). Allow a real shrink explicitly.
+  if (existsSync(args.out!) && !args["allow-shrink"]) {
+    const previous = (JSON.parse(readFileSync(args.out!, "utf8")) as unknown[]).length;
+    if (models.length < previous * 0.8) {
+      throw new Error(`feed gave ${models.length} models, down from ${previous}; rerun with --allow-shrink if that's real`);
+    }
+  }
 
   writeFileSync(args.out!, JSON.stringify(models, null, 2));
   console.error(`wrote ${args.out} (${models.length} models)`);
@@ -372,6 +384,8 @@ function applyOverrides(models: CatalogModel[]) {
     if (o.promo && isDecimal(o.promo.input) && isDecimal(o.promo.output)) {
       card.promo = { input: o.promo.input, output: o.promo.output, until: o.promo.until };
     }
+    // Only this price list was checked; the model's other lists stay aggregate.
+    card.checked = true;
     model.provenance = "FirstParty";
   }
 }

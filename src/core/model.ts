@@ -43,6 +43,8 @@ export interface RateCard {
   promo: Promo | null;
   /** 1-hour-TTL cache write price, where sold (otherwise the default write is ~5 minutes). */
   cacheWrite1h: UsdPerMTok | null;
+  /** This price list was checked by hand against the vendor ("list"); otherwise it's OpenRouter's aggregate. */
+  checked: boolean;
 }
 
 /**

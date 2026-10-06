@@ -16,7 +16,7 @@ import {
 import { allModels, CATALOG_META, modelByKey } from "../core/catalog.ts";
 import { costFor, NOTE_TEXT, type Rate, type Workload } from "../core/cost.ts";
 import { changesFor, relChange, type Change } from "../core/changes.ts";
-import { daysBetween, todayIso } from "../core/date.ts";
+import { daysBetween, daysLabel, todayIso } from "../core/date.ts";
 import { fmtCompact, fmtMoney, fmtRate, fmtUsd } from "../core/fmt.ts";
 import {
   alternatives,
@@ -179,12 +179,14 @@ export function CostTool() {
       // entry still isn't counted as a shared link.
       navigate(
         { pathname, search: encoded ? `?${encoded}` : "" },
-        { replace: true, state: internalArrival ? { internal: true } : null },
+        // Any arrival was counted once on mount; the calculator's own URL
+        // updates are never a new shared-link arrival (Back to them included).
+        { replace: true, state: { internal: true } },
       );
       if (benchEdited.current) writeStorage(bench.length ? encoded : null);
     }, 300);
     return () => clearTimeout(t);
-  }, [encoded, bench.length, navigate, pathname, internalArrival]);
+  }, [encoded, bench.length, navigate, pathname]);
 
   const shareUrl = () => `${window.location.origin}/tools/cost?${encoded}`;
 
@@ -301,6 +303,7 @@ export function CostTool() {
   };
   const clearBench = () => {
     benchEdited.current = true;
+    setSince(null);
     setBench([]);
     setModes(new Map());
     setRestored(false);
@@ -315,7 +318,7 @@ export function CostTool() {
           ? `+${fmtMoney(p.breakdown.monthlyCost.minus(cheapest))}`
           : "cheapest";
       const mode = p.breakdown.mode === "Standard" ? "" : ` (${p.breakdown.mode})`;
-      const src = p.model.provenance === "FirstParty" ? "vendor list" : "via OpenRouter";
+      const src = rateCard(p.model, p.breakdown.mode)?.checked ? "vendor list" : "via OpenRouter";
       return `| ${p.model.displayName}${mode} | ${fmtMoney(p.breakdown.monthlyCost)} | ${fmtUsd(p.per1k)} | ${d} | ${src} |`;
     });
     return [
@@ -523,11 +526,11 @@ export function CostTool() {
           )}
         </div>
 
-        {since && since.length > 0 && (
+        {since && since.some((c) => bench.includes(c.key)) && (
           <div className="since-strip" role="status">
             <strong>Since you last looked</strong> ({lastAsOf} to {CATALOG_META.asOf}):
             <ul>
-              {since.map((c, i) => (
+              {since.filter((c) => bench.includes(c.key)).map((c, i) => (
                 <li key={`${c.key}-${c.kind}-${i}`}>{describeChange(c)}</li>
               ))}
             </ul>
@@ -571,6 +574,7 @@ export function CostTool() {
                   benched={bench}
                   benchFull={bench.length >= MAX_BENCH}
                   today={today}
+                  scenarioQuery={encodeScenario({ models: [], preset, workload, rate, modes: new Map(), index })}
                 />
               ))}
             </div>
@@ -662,7 +666,7 @@ function MarketTable({ today, hits, byKey, bench, index, workload, sort, onSort,
                     {model.displayName}
                   </Link>
                   <span className="vd">
-                    {model.vendorName} · {yearMonth(model.released)} <SourceTag model={model} />
+                    {model.vendorName} · {yearMonth(model.released)} <SourceTag model={model} mode={b.mode} />
                     {b.mode !== "Standard" && <span className="mode-tag">{b.mode.toLowerCase()}</span>}
                     <RetireTag model={model} today={today} />
                   </span>
@@ -731,6 +735,8 @@ interface BenchCardProps {
   benched: string[];
   benchFull: boolean;
   today: string;
+  /** The bench's workload as URL params, so "Plan a switch" keeps it. */
+  scenarioQuery: string;
 }
 
 const BREAKDOWN: { name: string; cls: string; pick: (p: Priced) => Big }[] = [
@@ -741,7 +747,7 @@ const BREAKDOWN: { name: string; cls: string; pick: (p: Priced) => Big }[] = [
 ];
 
 function BenchCard(props: BenchCardProps) {
-  const { point, cheapest, pool, index, workload, rate, onMode, onRemove, onAdd, benched, benchFull, today } = props;
+  const { point, cheapest, pool, index, workload, rate, onMode, onRemove, onAdd, benched, benchFull, today, scenarioQuery } = props;
   const { model, breakdown: b } = point;
   const isCheapest = cheapest !== null && b.monthlyCost.eq(cheapest);
   const card = rateCard(model, b.mode)!;
@@ -767,12 +773,12 @@ function BenchCard(props: BenchCardProps) {
       </div>
       <div className="bv">
         {model.vendorName} · listed {yearMonth(model.released)}
-        {model.knowledgeCutoff ? ` · cutoff ${model.knowledgeCutoff.slice(0, 7)}` : ""} <SourceTag model={model} />
+        {model.knowledgeCutoff ? ` · cutoff ${model.knowledgeCutoff.slice(0, 7)}` : ""} <SourceTag model={model} mode={b.mode} />
       </div>
       {model.retiresOn && daysBetween(today, model.retiresOn) >= 0 && (
         <div className="retire-line">
-          Retires {model.retiresOn} ({daysBetween(today, model.retiresOn)} days) ·{" "}
-          <Link to={`/tools/switch?from=${encodeKey(model.key)}`} state={{ internal: true }}>
+          Retires {model.retiresOn} ({daysLabel(daysBetween(today, model.retiresOn))}) ·{" "}
+          <Link to={`/tools/switch?from=${encodeKey(model.key)}&${scenarioQuery}`} state={{ internal: true }}>
             Plan a switch
             <Mark kind="to" />
           </Link>
@@ -861,7 +867,7 @@ function BenchCard(props: BenchCardProps) {
                     <span className="mono">
                       {fmtMoney(save)}/mo (−{pct}%)
                     </span>{" "}
-                    <SourceTag model={a.model} />
+                    <SourceTag model={a.model} mode={a.breakdown.mode} />
                     {!benched.includes(a.model.key) && !benchFull && (
                       <>
                         {" "}
@@ -915,8 +921,16 @@ function describeChange(c: Change): string {
   switch (c.kind) {
     case "list_price":
       return `${c.name}: list price ${c.mode} in ${pct(c.input) || "same"}, out ${pct(c.output) || "same"}`;
+    case "list_correction":
+      return `${c.name}: now a hand-checked list price (in ${pct(c.input) || "same"}, out ${pct(c.output) || "same"})`;
+    case "promo_permanent":
+      return `${c.name}: promo price made permanent (price in force unchanged)`;
+    case "promo_change":
+      return `${c.name}: promo terms changed, until ${c.until}`;
+    case "tier_change":
+      return `${c.name}: long-context tier prices changed`;
     case "aggregate_move":
-      return `${c.name}: OpenRouter aggregate price moved (in ${pct(c.input) || "same"}, out ${pct(c.output) || "same"})`;
+      return `${c.name}: OpenRouter aggregate price moved (in ${pct(c.input) || "same"}, out ${pct(c.output) || "same"}${c.cache_read ? `, cache read ${pct(c.cache_read)}` : ""})`;
     case "removed":
       return `${c.name}: no longer listed`;
     case "retirement_scheduled":

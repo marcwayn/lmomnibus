@@ -1,5 +1,5 @@
-import { lazy, Suspense, useEffect, useRef, type ComponentType } from "react";
-import { BrowserRouter, Link, NavLink, Route, Routes, useLocation } from "react-router";
+import { Component, lazy, Suspense, useEffect, useRef, type ComponentType, type ReactNode } from "react";
+import { BrowserRouter, Link, NavLink, Route, Routes, useLocation, useNavigationType } from "react-router";
 import { usePageViews } from "./analytics.ts";
 import { Meter, SiteFooter } from "./components.tsx";
 import { CostTool } from "./pages/CostTool.tsx";
@@ -32,6 +32,7 @@ export function App() {
       <RouteFocus />
       <TopNav />
       <main className="shell">
+        <PageErrorBoundary>
         <Suspense fallback={<p className="loading">Loading…</p>}>
           <Routes>
             {ROUTES.map((r) => {
@@ -42,6 +43,7 @@ export function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
+        </PageErrorBoundary>
       </main>
       <SiteFooter />
     </BrowserRouter>
@@ -60,20 +62,45 @@ function Analytics() {
  */
 function RouteFocus() {
   const { pathname, hash } = useLocation();
+  const navType = useNavigationType();
   const first = useRef(true);
   useEffect(() => {
     if (first.current) {
       first.current = false;
       return;
     }
-    if (!hash) window.scrollTo(0, 0);
+    // Back/Forward restore the previous position; only new navigations start at the top.
+    if (!hash && navType !== "POP") window.scrollTo(0, 0);
     const h1 = document.querySelector<HTMLElement>("main h1");
     if (h1) {
       h1.tabIndex = -1;
       h1.focus({ preventScroll: true });
     }
-  }, [pathname, hash]);
+  }, [pathname, hash, navType]);
   return null;
+}
+
+/** A page that throws (or a chunk that won't load) offers a reload instead of a blank screen. */
+class PageErrorBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  render() {
+    if (!this.state.failed) return this.props.children;
+    return (
+      <div className="not-found">
+        <span className="eyebrow">Something broke</span>
+        <h1>This page didn't load.</h1>
+        <p>
+          The site may have just been updated.{" "}
+          <button type="button" className="text-btn" onClick={() => window.location.reload()}>
+            Reload
+          </button>
+        </p>
+      </div>
+    );
+  }
 }
 
 function TopNav() {

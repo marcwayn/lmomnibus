@@ -47,6 +47,10 @@ describe("fmt", () => {
 });
 
 describe("catalog", () => {
+  it("is a whole catalog, not a broken or partial feed", () => {
+    expect(allModels().length).toBeGreaterThan(200);
+  });
+
   it("has only usable rates", () => {
     for (const m of allModels()) {
       expect(m.rates.length, m.key).toBeGreaterThan(0);

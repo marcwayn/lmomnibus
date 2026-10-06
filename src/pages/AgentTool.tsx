@@ -8,7 +8,6 @@ import { allModels, CATALOG_META, modelByKey } from "../core/catalog.ts";
 import { NOTE_TEXT } from "../core/cost.ts";
 import { todayIso } from "../core/date.ts";
 import { fmtCompact, fmtMoney, fmtUsd } from "../core/fmt.ts";
-import { logTicks } from "../core/frontier.ts";
 import { search } from "../core/query.ts";
 import { decodeKey, encodeKey } from "../core/share.ts";
 import { NumberField } from "../NumberField.tsx";
@@ -42,7 +41,8 @@ function decode(params: URLSearchParams): { models: string[]; session: Session }
     .split(",")
     .map((x) => decodeKey(x.trim()))
     .filter((k) => k && modelByKey(k));
-  return { models: m.length ? [...new Set(m)].slice(0, MAX_MODELS) : DEFAULT_MODELS, session };
+  // Defaults only when m= is absent; an empty m= means "no models", not "the defaults".
+  return { models: params.has("m") ? [...new Set(m)].slice(0, MAX_MODELS) : DEFAULT_MODELS, session };
 }
 
 function encode(models: string[], s: Session): string {
@@ -63,6 +63,9 @@ export function AgentTool() {
   const [models, setModels] = useState<string[]>(init.models);
   const [session, setSession] = useState<Session>(init.session);
   const [query, setQuery] = useState("");
+  const [status, setStatus] = useState("");
+  const chipsRef = useRef<HTMLDivElement>(null);
+  const addRef = useRef<HTMLInputElement>(null);
 
   const encoded = encode(models, session);
   const synced = useRef(params.toString() ? "" : encoded);
@@ -113,7 +116,7 @@ export function AgentTool() {
           <NumberField label="Tool-result tokens / turn" value={session.toolTokens} onChange={set("toolTokens")} min={0} max={2_000_000} step={500} />
           <NumberField label="Output tokens / turn" value={session.outputTokens} onChange={set("outputTokens")} min={0} max={2_000_000} step={100} />
           <NumberField label="Sessions / month" value={session.sessionsPerMonth} onChange={set("sessionsPerMonth")} min={0} max={100_000_000} step={100} />
-          <div className="inp rate-field">
+          <div className="inp rate-field wide">
             <span className="il" id="cache-label">
               Prompt caching
             </span>
@@ -146,14 +149,25 @@ export function AgentTool() {
         <div className="section-title">
           <h2 id="models-h">Models ({models.length})</h2>
         </div>
-        <div className="chips">
-          {models.map((k) => (
+        <p className="sr-only" role="status">
+          {status}
+        </p>
+        <div className="chips" ref={chipsRef}>
+          {models.map((k, i) => (
             <button
               key={k}
               type="button"
               className="chip on"
               aria-label={`Remove ${modelByKey(k)!.displayName}`}
-              onClick={() => setModels((ms) => ms.filter((x) => x !== k))}
+              onClick={() => {
+                setModels((ms) => ms.filter((x) => x !== k));
+                setStatus(`Removed ${modelByKey(k)!.displayName}`);
+                // Keep focus near: the next chip, else the add field.
+                requestAnimationFrame(() => {
+                  const chips = chipsRef.current?.querySelectorAll<HTMLButtonElement>("button");
+                  (chips?.[Math.min(i, (chips?.length ?? 1) - 1)] ?? addRef.current)?.focus();
+                });
+              }}
             >
               {modelByKey(k)!.displayName} ×
             </button>
@@ -162,6 +176,7 @@ export function AgentTool() {
         {models.length < MAX_MODELS && (
           <div className="searchfield" style={{ marginTop: 10 }}>
             <input
+              ref={addRef}
               type="search"
               aria-label="Add a model"
               placeholder={`Add a model (up to ${MAX_MODELS}) — try "sonnet" or "deepseek"`}
@@ -181,6 +196,8 @@ export function AgentTool() {
                   onClick={() => {
                     setModels((ms) => (ms.includes(m.key) || ms.length >= MAX_MODELS ? ms : [...ms, m.key]));
                     setQuery("");
+                    setStatus(`Added ${m.displayName}`);
+                    requestAnimationFrame(() => addRef.current?.focus());
                   }}
                 >
                   {m.displayName}
@@ -221,16 +238,23 @@ export function AgentTool() {
                     <td>
                       <span className="nm">{r.model.displayName}</span>
                       <span className="vd">
-                        {r.model.vendorName} · {fmtCompact(r.model.contextTokens)} ctx <SourceTag model={r.model} />
+                        {r.model.vendorName} · {fmtCompact(r.model.contextTokens)} ctx <SourceTag model={r.model} mode={r.mode} />
                       </span>
                     </td>
                     <td className="n col-cost">{fmtUsd(r.perSession)}</td>
                     <td className="n">{fmtMoney(r.monthly)}</td>
-                    <td className="n">{session.cache === "off" ? "—" : `${Math.round(saving * 100)}%`}</td>
+                    <td className="n">
+                      {session.cache === "off"
+                        ? "—"
+                        : saving >= 0
+                          ? `${Math.round(saving * 100)}%`
+                          : `costs +${Math.round(-saving * 100)}% more`}
+                    </td>
                     <td className="n">{session.cache === "off" ? "—" : `${Math.round(r.readShare * 100)}% of bill`}</td>
                     <td className="breaks">
                       {[
-                        r.contextExceededAt !== null && `exceeds context at turn ${r.contextExceededAt}`,
+                        r.contextExceededAt !== null &&
+                          `stops at turn ${r.contextExceededAt - 1}: turn ${r.contextExceededAt} exceeds the ${fmtCompact(r.model.contextTokens)} context`,
                         session.cache !== "off" &&
                           (be === null
                             ? "no cache discount published"
@@ -249,6 +273,7 @@ export function AgentTool() {
             </tbody>
           </table>
         </div>
+        {results.length === 0 && <div className="empty-note">Add a model above to price a session.</div>}
         <SessionChart results={results} />
         <p className="fine">
           List-price cost at prices as of {CATALOG_META.asOf}, not cost per task. A write "pays off" once the reads it
@@ -262,7 +287,7 @@ export function AgentTool() {
 
 const W = 880;
 const H = 300;
-const M = { top: 14, right: 150, bottom: 36, left: 64 };
+const M = { top: 22, right: 170, bottom: 36, left: 64 };
 
 function SessionChart({ results }: { results: ReturnType<typeof sessionCost>[] }) {
   if (!results.length) return null;
@@ -271,7 +296,19 @@ function SessionChart({ results }: { results: ReturnType<typeof sessionCost>[] }
   const x = (t: number) => M.left + ((t - 1) / Math.max(turns - 1, 1)) * (W - M.left - M.right);
   const y = (v: number) => M.top + (1 - v / max) * (H - M.top - M.bottom);
   const yTicks = niceTicks(max);
-  const xTicks = turns <= 12 ? Array.from({ length: turns }, (_, i) => i + 1) : logTicks(1, turns).map((t) => t.value).concat(turns);
+  const xTicks = niceTicks(turns)
+    .map((t) => Math.max(1, t))
+    .filter((t, i, a) => t <= turns && a.indexOf(t) === i);
+  // End labels: in order of height, each at least 13 units below the one above.
+  const labelY = new Map<string, number>();
+  [...results]
+    .map((r) => ({ key: r.model.key, y: y(Number(r.turns.at(-1)?.cumulative ?? 0)) + 4 }))
+    .sort((a, b) => a.y - b.y)
+    .reduce((prev, l) => {
+      const at = Math.max(l.y, prev + 13);
+      labelY.set(l.key, at);
+      return at;
+    }, -Infinity);
   return (
     <div className="chart-frame" style={{ marginTop: 14 }}>
       <svg
@@ -300,14 +337,22 @@ function SessionChart({ results }: { results: ReturnType<typeof sessionCost>[] }
         <text className="axis-title" x={W - M.right} y={H - 4} textAnchor="end">
           turn
         </text>
+        <text className="axis-title" x={M.left} y={M.top - 2}>
+          $ per session, cumulative
+        </text>
         {results.map((r, i) => {
           const d = r.turns.map((t, j) => `${j ? "L" : "M"}${x(t.turn)},${y(Number(t.cumulative))}`).join(" ");
           const last = r.turns[r.turns.length - 1];
+          if (!last) return null;
+          const name = r.model.displayName;
+          const short = name.length > 20 ? `${name.slice(0, 19)}…` : name;
           return (
             <g key={r.model.key} className={`session-line ${LINES[i]}`}>
               <path d={d} />
-              <text x={x(last.turn) + 8} y={y(Number(last.cumulative)) + 4}>
-                {r.model.displayName}
+              <line className="swatch-line" x1={x(last.turn) + 6} x2={x(last.turn) + 20} y1={labelY.get(r.model.key)! - 4} y2={labelY.get(r.model.key)! - 4} />
+              <text x={x(last.turn) + 24} y={labelY.get(r.model.key)}>
+                <title>{name}</title>
+                {short}
               </text>
             </g>
           );

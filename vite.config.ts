@@ -14,9 +14,11 @@ const escape = (s: string) =>
 interface PageMeta {
   title: string;
   description: string;
-  /** Site path for the canonical URL; null for pages that shouldn't be indexed. */
+  /** Site path for og:url and the canonical link; null only for the 404 page. */
   path: string | null;
   image: string;
+  /** Keep out of search results (404, tombstones), but still point og:url at the page. */
+  noindex?: boolean;
 }
 
 const routeMeta = (route: RouteInfo | null, facts: CatalogFacts): PageMeta =>
@@ -31,7 +33,7 @@ function headFor(page: PageMeta, preloads: string[]): string {
   return [
     `<title>${escape(title)}</title>`,
     `<meta name="description" content="${escape(description)}" />`,
-    page.path ? `<link rel="canonical" href="${url}" />` : `<meta name="robots" content="noindex" />`,
+    page.path && !page.noindex ? `<link rel="canonical" href="${url}" />` : `<meta name="robots" content="noindex" />`,
     `<meta property="og:type" content="website" />`,
     `<meta property="og:site_name" content="LMOmnibus" />`,
     `<meta property="og:title" content="${escape(title)}" />`,
@@ -97,8 +99,9 @@ function routeShells(): Plugin {
         write(`/models/${c.key}`, {
           title: `${c.name} (no longer listed) — LMOmnibus`,
           description: `${c.name} is no longer in the LMOmnibus catalog (delisted in the ${c.date} snapshot). Find a replacement at your workload.`,
-          path: null,
+          path: `/models/${c.key}`,
           image: "/og/home.png",
+          noindex: true,
         });
       }
 
@@ -132,7 +135,7 @@ function writeOpenData(outDir: string, facts: CatalogFacts) {
     JSON.stringify({
       schema_version: 1,
       as_of: facts.as_of,
-      source: "OpenRouter /api/v1/models (aggregate prices) + vendor list prices checked by hand (provenance: FirstParty)",
+      source: "OpenRouter /api/v1/models (aggregate prices), with price lists marked checked: true verified by hand against the vendor",
       attribution: `LMOmnibus, ${SITE_ORIGIN} — MIT. Prices are USD per 1M tokens, exact decimal strings.`,
       notes: [
         "rates: [mode, card] pairs; mode is Standard, Batch or Fast.",
@@ -151,14 +154,14 @@ interface CatalogRow {
   vendor_name: string;
   context_tokens: number;
   provenance: "FirstParty" | "Aggregate";
-  rates: [string, { input: string; output: string }][];
+  rates: [string, { input: string; output: string; checked?: boolean }][];
 }
 
 const usd = (s: string) => fmtRate(new Big(s));
 
 function modelMeta(m: CatalogRow, facts: CatalogFacts): PageMeta {
   const card = (m.rates.find(([mode]) => mode === "Standard") ?? m.rates[0])[1];
-  const source = m.provenance === "FirstParty" ? "vendor list price" : "OpenRouter aggregate";
+  const source = card.checked ? "vendor list price" : "OpenRouter aggregate";
   const ctx = m.context_tokens >= 1_000_000 ? `${Math.round(m.context_tokens / 100_000) / 10}M` : `${Math.round(m.context_tokens / 1000)}K`;
   return {
     title: `${m.display_name.trim()} pricing and specs — LMOmnibus`,
@@ -262,10 +265,28 @@ Frontier — ${SITE_ORIGIN}/tools/frontier?p=agent&y=coding&min=60&f=tools,img
 - min: minimum score (0-100)
 - f: filters — img, aud, tools, reasoning, open
 
+Price Ledger — ${SITE_ORIGIN}/changes
+- What changed between catalog snapshots: vendor list-price changes (hand-checked), OpenRouter aggregate moves, listings, delistings, promos, retirements.
+- Feeds: ${SITE_ORIGIN}/changes.xml (Atom, one entry per snapshot) and ${SITE_ORIGIN}/changes.json (every change as JSON).
+
+Switch Planner — ${SITE_ORIGIN}/tools/switch?from=google:gemini-2.5-pro&p=agent
+- from: the model being replaced (vendor:slug)
+- p, i, o, r, c, w, rate, idx: as for the Cost Calculator
+- Replacements keep tools / reasoning / image input, fit the workload, and score within 5 points on the chosen index.
+
+Agent Loop — ${SITE_ORIGIN}/tools/agent?m=anthropic:claude-opus-5.5,openai:gpt-6-sol&t=20&cache=5m
+- m: up to 4 model keys
+- t: turns per session · pf: system + tool-definition tokens · u: user tokens per turn · tr: tool-result tokens per turn · o: output tokens per turn · s: sessions per month
+- cache: off | 5m | 1h (1h uses the 1-hour cache-write price where sold)
+
+Model pages — ${SITE_ORIGIN}/models/anthropic/claude-opus-5.5
+- The path is the OpenRouter id with its "/" kept as-is (not ":").
+- Spec, price lists per mode, AA scores with rank, cost at each preset. Delisted models keep a "no longer listed" page.
+
 ## Data
 
 - [catalog.json](${SITE_ORIGIN}/catalog.json): every model with its rate cards (USD per 1M tokens as exact decimal strings), context, modalities, capabilities and provenance.
-- Prices are OpenRouter aggregates unless provenance is FirstParty (checked against the vendor). Capability scores are Artificial Analysis indices via OpenRouter and are not included in catalog.json.
+- Prices are OpenRouter aggregates unless a price list has "checked": true (verified by hand against the vendor; usually only a model's Standard list). Capability scores are Artificial Analysis indices via OpenRouter and are not included in catalog.json.
 `;
 }
 

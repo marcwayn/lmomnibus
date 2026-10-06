@@ -4,7 +4,7 @@ import { trackEvent } from "../analytics.ts";
 import { Mark, Meter, NotRated, SourceTag, WorkloadPanel } from "../components.tsx";
 import { allModels, modelByKey } from "../core/catalog.ts";
 import type { Rate, Workload } from "../core/cost.ts";
-import { daysBetween, todayIso } from "../core/date.ts";
+import { daysBetween, daysLabel, todayIso } from "../core/date.ts";
 import { fmtMoney, fmtUsd } from "../core/fmt.ts";
 import { INDEX_LABEL, priceAll, scoreOf, type Index } from "../core/frontier.ts";
 import { DEFAULT_PRESET, matchingPreset, type PresetId } from "../core/presets.ts";
@@ -37,6 +37,7 @@ export function SwitchTool() {
   const [index, setIndex] = useState<Index>(init.index);
   const [query, setQuery] = useState("");
   const [showAll, setShowAll] = useState(false);
+  const fromHeading = useRef<HTMLHeadingElement>(null);
 
   const encoded = [
     fromKey ? `from=${encodeKey(fromKey)}` : "",
@@ -83,16 +84,18 @@ export function SwitchTool() {
 
       <section className="section" aria-labelledby="from-h">
         <div className="section-title">
-          <h2 id="from-h">Switching from</h2>
+          <h2 id="from-h" ref={fromHeading} tabIndex={-1}>
+            Switching from
+          </h2>
         </div>
         {from && (
           <div className="from-card">
             <div className="bn">{from.model.displayName}</div>
             <div className="bv">
-              {from.model.vendorName} <SourceTag model={from.model} />
+              {from.model.vendorName} <SourceTag model={from.model} mode={from.breakdown.mode} />
               {from.model.retiresOn && daysBetween(today, from.model.retiresOn) >= 0 && (
                 <span className="retire-tag">
-                  retires {from.model.retiresOn} ({daysBetween(today, from.model.retiresOn)} days)
+                  retires {from.model.retiresOn} ({daysLabel(daysBetween(today, from.model.retiresOn))})
                 </span>
               )}
             </div>
@@ -123,6 +126,8 @@ export function SwitchTool() {
                     trackEvent("Switch", "Pick", m.key);
                     setFromKey(m.key);
                     setQuery("");
+                    // The picked button disappears with the list; land on what changed.
+                    requestAnimationFrame(() => fromHeading.current?.focus());
                   }}
                 >
                   {m.displayName}
@@ -165,6 +170,9 @@ export function SwitchTool() {
             ))}
           </div>
         </div>
+        <p className="sr-only" role="status">
+          {from ? `Switching from ${from.model.displayName}: ${candidates.length} replacements` : ""}
+        </p>
         {!from ? (
           <div className="empty-bench">Pick the model you're leaving to see its replacements.</div>
         ) : (
@@ -179,9 +187,9 @@ export function SwitchTool() {
                 <thead>
                   <tr>
                     <th>Model</th>
-                    <th className="n">Δ AA {label}</th>
+                    <th className="n">AA {label} change</th>
                     <th className="n">$ / 1K req</th>
-                    <th className="n">Saving / mo</th>
+                    <th className="n">Change / mo</th>
                     <th>You'd give up</th>
                     <th>
                       <span className="sr-only">Compare</span>
@@ -190,7 +198,7 @@ export function SwitchTool() {
                 </thead>
                 <tbody>
                   {(showAll ? candidates : candidates.slice(0, SHOWN)).map((c) => {
-                    const saves = c.saving.gt(0);
+                    const dir = c.saving.gt(0) ? "saves" : c.saving.lt(0) ? "costs" : "same";
                     return (
                       <tr key={c.point.model.key}>
                         <td>
@@ -198,16 +206,32 @@ export function SwitchTool() {
                             {c.point.model.displayName}
                           </Link>
                           <span className="vd">
-                            {c.point.model.vendorName} <SourceTag model={c.point.model} />
+                            {c.point.model.vendorName} <SourceTag model={c.point.model} mode={c.point.breakdown.mode} />
                           </span>
                         </td>
                         <td className="n">
-                          {c.scoreDelta === null ? <NotRated /> : `${c.scoreDelta > 0 ? "+" : ""}${c.scoreDelta.toFixed(1)}`}
+                          {scoreOf(c.point.model, index) === null ? (
+                            <NotRated />
+                          ) : c.scoreDelta === null ? (
+                            <span className="na" title="The model you're leaving has no score to compare">
+                              —<span className="sr-only">no comparison</span>
+                            </span>
+                          ) : (
+                            `${c.scoreDelta > 0 ? "+" : c.scoreDelta < 0 ? "−" : ""}${Math.abs(c.scoreDelta).toFixed(1)}`
+                          )}
                         </td>
                         <td className="n">{fmtUsd(c.point.per1k)}</td>
-                        <td className={`n ${saves ? "down" : "up"}`}>
-                          <Mark kind={saves ? "down" : "up"} />
-                          {fmtMoney(c.saving.abs())} ({Math.abs(Math.round(c.savingPct * 100))}%)
+                        <td className={`n ${dir === "saves" ? "down" : dir === "costs" ? "up" : ""}`}>
+                          {dir === "same" ? (
+                            "same cost"
+                          ) : (
+                            <>
+                              <Mark kind={dir === "saves" ? "down" : "up"} />
+                              <span className="sr-only">{dir === "saves" ? "saves " : "costs more by "}</span>
+                              {fmtMoney(c.saving.abs())} ({dir === "saves" ? "−" : "+"}
+                              {Math.abs(Math.round(c.savingPct * 100))}%)
+                            </>
+                          )}
                         </td>
                         <td className="breaks">{c.breaks.length ? c.breaks.join(" · ") : "—"}</td>
                         <td>

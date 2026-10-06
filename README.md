@@ -92,6 +92,46 @@ workflows only run from the default branch.
 ## Refreshing the catalog by hand
 
 The app never fetches live pricing at runtime — it's built from
+`data/catalog.json`. To pull current prices from OpenRouter, record what
+changed, and rebuild the snapshot:
+
+```bash
+npm run refresh
+```
+
+This runs `scripts/ingest.ts` (overwrites `data/catalog.json` and
+`data/catalog-meta.json`; refuses a feed that shrinks the catalog by more
+than 20% unless you pass `-- --allow-shrink`) and then `scripts/changes.ts`
+(appends the diff to `data/changes.jsonl`, which feeds the Ledger, the feeds
+and the delisted-model pages). Review the diff, run `npm test`, then commit
+and redeploy. Hand-checked list prices live in `data/overrides.json` — add
+an entry there (matched by model key and price list) for anything the
+aggregate feed gets wrong; ingest marks that price list `checked: true`.
+
+## Local development
+
+Requires Node 23.6 or newer (the ingest script runs as TypeScript directly).
+
+```bash
+npm install
+npm run dev        # http://localhost:5173 with hot reload
+npm test           # cost engine, formatting, search, catalog sanity
+npm run build      # typecheck + production build into dist/
+```
+
+## Daily refresh
+
+`.github/workflows/refresh.yml` runs every day at 06:00 UTC (and on demand):
+ingest, append what changed to `data/changes.jsonl` (`scripts/changes.ts`),
+run the tests, and commit the snapshot — git history is the archive of daily
+snapshots. It deploys too when the repository has a `CLOUDFLARE_API_TOKEN`
+secret (a Cloudflare API token with Pages edit permission); without one, the
+snapshot still lands and the next `npm run deploy` publishes it. Scheduled
+workflows only run from the default branch.
+
+## Refreshing the catalog by hand
+
+The app never fetches live pricing at runtime — it's built from
 `data/catalog.json`. To pull current prices from OpenRouter and rebuild the
 snapshot:
 
