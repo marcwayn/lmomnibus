@@ -2377,9 +2377,9 @@
       [
         "Standard",
         {
-          "input": "0.0001000000",
+          "input": "0.03000000",
           "output": "1.28000000",
-          "cache_read": "0.0001000000",
+          "cache_read": "0.03000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2421,9 +2421,9 @@
       [
         "Standard",
         {
-          "input": "0.0053000000",
+          "input": "0.018000000",
           "output": "1.28000000",
-          "cache_read": "0.0053000000",
+          "cache_read": "0.018000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2597,9 +2597,9 @@
       [
         "Standard",
         {
-          "input": "0.03103000000",
+          "input": "0.05000000",
           "output": "1.2000000",
-          "cache_read": "0.015000000",
+          "cache_read": "0.02000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -3923,9 +3923,9 @@
       [
         "Standard",
         {
-          "input": "0.0765000000",
-          "output": "0.255000000",
-          "cache_read": "0.0425000000",
+          "input": "0.09000000",
+          "output": "0.3000000",
+          "cache_read": "0.05000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -4411,46 +4411,6 @@
     "retires_on": null,
     "open_weights": true,
     "hf_id": "inference-net/schematron-v2-granite-4.0-h-micro",
-    "reasoning_mandatory": false
-  },
-  {
-    "key": "kwaipilot/kat-coder-pro-v2.5",
-    "display_name": "KAT-Coder-Pro V2.5",
-    "vendor_key": "kwaipilot",
-    "vendor_name": "Kwaipilot",
-    "released": {
-      "year": 2026,
-      "month": 7
-    },
-    "knowledge_cutoff": null,
-    "context_tokens": 262144,
-    "max_output_tokens": 235929,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": true,
-      "reasoning": false,
-      "structured_output": true
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.74000000",
-          "output": "2.96000000",
-          "cache_read": "0.15000000",
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate",
-    "listed_on": "2026-07-10",
-    "retires_on": null,
-    "open_weights": false,
-    "hf_id": null,
     "reasoning_mandatory": false
   },
   {
@@ -6705,9 +6665,9 @@
       [
         "Standard",
         {
-          "input": "0.95000000",
-          "output": "4.000000",
-          "cache_read": "0.16000000",
+          "input": "0.465000000",
+          "output": "2.45000000",
+          "cache_read": "0.0975000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -6793,9 +6753,9 @@
       [
         "Standard",
         {
-          "input": "0.69000000",
+          "input": "0.62000000",
           "output": "15.000000",
-          "cache_read": "0.23000000",
+          "cache_read": "0.43000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -11673,7 +11633,7 @@
     },
     "knowledge_cutoff": "2025-06-30",
     "context_tokens": 262144,
-    "max_output_tokens": 235929,
+    "max_output_tokens": 32000,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -11689,8 +11649,8 @@
       [
         "Standard",
         {
-          "input": "0.1000000",
-          "output": "0.3000000",
+          "input": "0.04815000000",
+          "output": "0.19305000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -12685,7 +12645,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 32768,
+    "max_output_tokens": 235929,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -12701,9 +12661,9 @@
       [
         "Standard",
         {
-          "input": "0.08000000",
-          "output": "0.75000000",
-          "cache_read": "0.04000000",
+          "input": "0.15000000",
+          "output": "1.000000",
+          "cache_read": "0.05000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -12951,7 +12911,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 262140,
+    "max_output_tokens": 65536,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -12967,8 +12927,8 @@
       [
         "Standard",
         {
-          "input": "0.32000000",
-          "output": "3.25000000",
+          "input": "0.3000000",
+          "output": "2.000000",
           "cache_read": "0.03000000",
           "cache_write": null,
           "tiers": [],
@@ -14306,9 +14266,9 @@
       [
         "Standard",
         {
-          "input": "0.0825000000",
-          "output": "0.33000000",
-          "cache_read": "0.020625000000",
+          "input": "0.132000000",
+          "output": "0.528000000",
+          "cache_read": "0.033000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -14390,9 +14350,9 @@
       [
         "Standard",
         {
-          "input": "0.7506000000",
-          "output": "2.2509000000",
-          "cache_read": "0.0378000000",
+          "input": "0.834000000",
+          "output": "2.501000000",
+          "cache_read": "0.042000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -14538,7 +14498,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 524288,
-    "max_output_tokens": 262144,
+    "max_output_tokens": 471859,
     "modality": "text+image+audio->text",
     "capabilities": {
       "tools": true,
@@ -14554,9 +14514,9 @@
       [
         "Standard",
         {
-          "input": "0.95000000",
+          "input": "1.000000",
           "output": "4.05000000",
-          "cache_read": "0.16000000",
+          "cache_read": "0.17000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15902,7 +15862,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 204800,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 128000,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -15918,9 +15878,9 @@
       [
         "Standard",
         {
-          "input": "1.4000000",
-          "output": "4.4000000",
-          "cache_read": "0.26000000",
+          "input": "0.966000000",
+          "output": "3.036000000",
+          "cache_read": "0.1794000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15962,9 +15922,9 @@
       [
         "Standard",
         {
-          "input": "0.152000000",
-          "output": "12.000000",
-          "cache_read": "0.15000000",
+          "input": "0.171000000",
+          "output": "7.2000000",
+          "cache_read": "0.162000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
