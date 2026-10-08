@@ -672,6 +672,76 @@
     "reasoning_mandatory": false
   },
   {
+    "key": "anthropic/claude-haiku-5.5",
+    "display_name": "Claude Haiku 5.5",
+    "vendor_key": "anthropic",
+    "vendor_name": "Anthropic",
+    "released": {
+      "year": 2026,
+      "month": 10
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1000000,
+    "max_output_tokens": 128000,
+    "modality": "text+image+file->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 43.4,
+      "coding": null,
+      "agentic": null
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.1000000",
+          "output": "0.5000000",
+          "cache_read": "0.01000000",
+          "cache_write": "0.125000000",
+          "tiers": [
+            {
+              "above_input_tokens": 100000,
+              "input": "0.5000000",
+              "output": "2.5000000",
+              "cache_read": "0.05000000"
+            }
+          ],
+          "promo": null,
+          "cache_write_1h": "0.2000000"
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "0.05000000",
+          "output": "0.25000000",
+          "cache_read": "0.005000000",
+          "cache_write": "0.0625000000",
+          "tiers": [
+            {
+              "above_input_tokens": 100000,
+              "input": "0.25000000",
+              "output": "1.25000000",
+              "cache_read": "0.025000000"
+            }
+          ],
+          "promo": null,
+          "cache_write_1h": "0.1000000"
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-10-07",
+    "retires_on": null,
+    "open_weights": false,
+    "hf_id": null,
+    "reasoning_mandatory": false
+  },
+  {
     "key": "anthropic/claude-opus-4.1",
     "display_name": "Claude Opus 4.1",
     "vendor_key": "anthropic",
@@ -1328,7 +1398,7 @@
         {
           "input": "2.00",
           "output": "10.00",
-          "cache_read": "0.2000000",
+          "cache_read": "0.1000000",
           "cache_write": "2.5000000",
           "tiers": [],
           "promo": null,
@@ -1341,7 +1411,7 @@
         {
           "input": "1.000000",
           "output": "5.000000",
-          "cache_read": "0.1000000",
+          "cache_read": "0.05000000",
           "cache_write": "1.25000000",
           "tiers": [],
           "promo": null,
@@ -2273,7 +2343,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 163840,
-    "max_output_tokens": 65536,
+    "max_output_tokens": 147456,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -2289,9 +2359,9 @@
       [
         "Standard",
         {
-          "input": "0.28000000",
+          "input": "0.259000000",
           "output": "0.42000000",
-          "cache_read": "0.028000000",
+          "cache_read": "0.135000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2377,9 +2447,9 @@
       [
         "Standard",
         {
-          "input": "0.03000000",
+          "input": "0.0131000000",
           "output": "1.28000000",
-          "cache_read": "0.03000000",
+          "cache_read": "0.0131000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2421,9 +2491,9 @@
       [
         "Standard",
         {
-          "input": "0.018000000",
+          "input": "0.0104000000",
           "output": "1.28000000",
-          "cache_read": "0.018000000",
+          "cache_read": "0.0104000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2509,9 +2579,9 @@
       [
         "Standard",
         {
-          "input": "0.2088000000",
-          "output": "0.4176000000",
-          "cache_read": "0.0174000000",
+          "input": "0.95526000000",
+          "output": "1.91052000000",
+          "cache_read": "0.079605000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2597,9 +2667,9 @@
       [
         "Standard",
         {
-          "input": "0.05000000",
-          "output": "1.2000000",
-          "cache_read": "0.02000000",
+          "input": "0.0356000000",
+          "output": "1.000000",
+          "cache_read": "0.01000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -4700,9 +4770,9 @@
       [
         "Standard",
         {
-          "input": "0.22000000",
-          "output": "0.5000000",
-          "cache_read": "0.11000000",
+          "input": "0.1000000",
+          "output": "0.32000000",
+          "cache_read": null,
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -6754,7 +6824,7 @@
         "Standard",
         {
           "input": "0.62000000",
-          "output": "15.000000",
+          "output": "12.3000000",
           "cache_read": "0.43000000",
           "cache_write": null,
           "tiers": [],
@@ -7101,9 +7171,9 @@
       [
         "Standard",
         {
-          "input": "0.05000000",
-          "output": "0.2000000",
-          "cache_read": "0.03000000",
+          "input": "0.06000000",
+          "output": "0.24000000",
+          "cache_read": null,
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -7129,7 +7199,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 235929,
+    "max_output_tokens": 16384,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -7145,8 +7215,8 @@
       [
         "Standard",
         {
-          "input": "0.08000000",
-          "output": "0.45000000",
+          "input": "0.085000000",
+          "output": "0.4000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -7257,7 +7327,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 32768,
+    "max_output_tokens": 131072,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -7273,9 +7343,9 @@
       [
         "Standard",
         {
-          "input": "0.06000000",
-          "output": "0.16000000",
-          "cache_read": "0.03000000",
+          "input": "0.049000000",
+          "output": "0.14000000",
+          "cache_read": "0.0245000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -12161,7 +12231,7 @@
     },
     "knowledge_cutoff": "2025-09-30",
     "context_tokens": 262144,
-    "max_output_tokens": 235929,
+    "max_output_tokens": 32768,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -12177,9 +12247,9 @@
       [
         "Standard",
         {
-          "input": "0.1000000",
-          "output": "1.1000000",
-          "cache_read": "0.07000000",
+          "input": "0.15000000",
+          "output": "1.5000000",
+          "cache_read": null,
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -12189,7 +12259,7 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2025-09-11",
-    "retires_on": null,
+    "retires_on": "2026-10-08",
     "open_weights": true,
     "hf_id": "Qwen/Qwen3-Next-80B-A3B-Instruct",
     "reasoning_mandatory": false
@@ -12601,7 +12671,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 65536,
+    "max_output_tokens": 81920,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -12617,8 +12687,8 @@
       [
         "Standard",
         {
-          "input": "0.195000000",
-          "output": "1.56000000",
+          "input": "0.26000000",
+          "output": "2.6000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -12761,7 +12831,7 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2026-03-10",
-    "retires_on": null,
+    "retires_on": "2026-10-21",
     "open_weights": true,
     "hf_id": "Qwen/Qwen3.5-9B",
     "reasoning_mandatory": false
@@ -12927,9 +12997,9 @@
       [
         "Standard",
         {
-          "input": "0.3000000",
-          "output": "2.000000",
-          "cache_read": "0.03000000",
+          "input": "0.45000000",
+          "output": "2.7000000",
+          "cache_read": null,
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15660,7 +15730,7 @@
         {
           "input": "0.3000000",
           "output": "0.9000000",
-          "cache_read": "0.05000000",
+          "cache_read": "0.055000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15922,9 +15992,9 @@
       [
         "Standard",
         {
-          "input": "0.171000000",
-          "output": "7.2000000",
-          "cache_read": "0.162000000",
+          "input": "0.03000000",
+          "output": "10.00000",
+          "cache_read": "0.03000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15966,9 +16036,9 @@
       [
         "Standard",
         {
-          "input": "0.07000000",
-          "output": "7.000000",
-          "cache_read": "0.065000000",
+          "input": "0.049000000",
+          "output": "3.39000000",
+          "cache_read": "0.048000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
