@@ -1471,46 +1471,6 @@
     "reasoning_mandatory": true
   },
   {
-    "key": "baidu/ernie-4.5-vl-424b-a47b",
-    "display_name": "ERNIE 4.5 VL 424B A47B",
-    "vendor_key": "baidu",
-    "vendor_name": "Baidu",
-    "released": {
-      "year": 2025,
-      "month": 6
-    },
-    "knowledge_cutoff": "2025-03-31",
-    "context_tokens": 123000,
-    "max_output_tokens": 16000,
-    "modality": "text+image->text",
-    "capabilities": {
-      "tools": false,
-      "reasoning": true,
-      "structured_output": false
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.42000000",
-          "output": "1.25000000",
-          "cache_read": null,
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate",
-    "listed_on": "2025-06-30",
-    "retires_on": "2026-10-08",
-    "open_weights": true,
-    "hf_id": "baidu/ERNIE-4.5-VL-424B-A47B-PT",
-    "reasoning_mandatory": false
-  },
-  {
     "key": "bytedance-seed/seed-1.6",
     "display_name": "Seed 1.6",
     "vendor_key": "bytedance-seed",
@@ -2083,7 +2043,7 @@
     },
     "knowledge_cutoff": "2024-07-31",
     "context_tokens": 163840,
-    "max_output_tokens": 16000,
+    "max_output_tokens": 16384,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -2095,8 +2055,8 @@
       [
         "Standard",
         {
-          "input": "0.2574000000",
-          "output": "1.0287000000",
+          "input": "0.32000000",
+          "output": "0.89000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -2447,9 +2407,9 @@
       [
         "Standard",
         {
-          "input": "0.0131000000",
+          "input": "0.0099000000",
           "output": "1.28000000",
-          "cache_read": "0.0131000000",
+          "cache_read": "0.0099000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2491,9 +2451,9 @@
       [
         "Standard",
         {
-          "input": "0.0104000000",
+          "input": "0.0046000000",
           "output": "1.28000000",
-          "cache_read": "0.0104000000",
+          "cache_read": "0.0046000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2667,9 +2627,9 @@
       [
         "Standard",
         {
-          "input": "0.0356000000",
-          "output": "1.000000",
-          "cache_read": "0.01000000",
+          "input": "0.3000000",
+          "output": "1.2000000",
+          "cache_read": "0.006000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -4360,6 +4320,46 @@
     "openness_source": "huggingface.co/inclusionAI/Ling-3.0-flash-Fin (checked 2026-10-06)"
   },
   {
+    "key": "inclusionai/ling-3.0-flash-sante",
+    "display_name": "Ling 3.0 Flash Sante",
+    "vendor_key": "inclusionai",
+    "vendor_name": "InclusionAI",
+    "released": {
+      "year": 2026,
+      "month": 9
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 262144,
+    "max_output_tokens": 32768,
+    "modality": "text->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": false
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.042000000",
+          "output": "0.1232000000",
+          "cache_read": "0.0084000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-09-04",
+    "retires_on": null,
+    "open_weights": false,
+    "hf_id": null,
+    "reasoning_mandatory": false
+  },
+  {
     "key": "inclusionai/ling-3.0-flash-vl",
     "display_name": "Ling 3.0 Flash VL",
     "vendor_key": "inclusionai",
@@ -4770,9 +4770,9 @@
       [
         "Standard",
         {
-          "input": "0.1000000",
-          "output": "0.32000000",
-          "cache_read": null,
+          "input": "0.22000000",
+          "output": "0.5000000",
+          "cache_read": "0.11000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -5997,7 +5997,7 @@
       "month": 10
     },
     "knowledge_cutoff": null,
-    "context_tokens": 524288,
+    "context_tokens": 1048576,
     "max_output_tokens": 262144,
     "modality": "text+image->text",
     "capabilities": {
@@ -6207,7 +6207,7 @@
       [
         "Standard",
         {
-          "input": "0.019000000",
+          "input": "0.029000000",
           "output": "0.03000000",
           "cache_read": null,
           "cache_write": null,
@@ -6823,9 +6823,9 @@
       [
         "Standard",
         {
-          "input": "0.62000000",
-          "output": "12.3000000",
-          "cache_read": "0.43000000",
+          "input": "0.5000000",
+          "output": "12.000000",
+          "cache_read": "0.3000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -7199,7 +7199,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 16384,
+    "max_output_tokens": 235929,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -7215,8 +7215,8 @@
       [
         "Standard",
         {
-          "input": "0.085000000",
-          "output": "0.4000000",
+          "input": "0.08000000",
+          "output": "0.45000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -7343,9 +7343,9 @@
       [
         "Standard",
         {
-          "input": "0.049000000",
-          "output": "0.14000000",
-          "cache_read": "0.0245000000",
+          "input": "0.0469000000",
+          "output": "0.134000000",
+          "cache_read": "0.02345000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -10086,6 +10086,25 @@
           "promo": null,
           "cache_write_1h": null
         }
+      ],
+      [
+        "Batch",
+        {
+          "input": "1.000000",
+          "output": "5.000000",
+          "cache_read": "0.05000000",
+          "cache_write": "1.25000000",
+          "tiers": [
+            {
+              "above_input_tokens": 272000,
+              "input": "2.000000",
+              "output": "7.5000000",
+              "cache_read": "0.1000000"
+            }
+          ],
+          "promo": null,
+          "cache_write_1h": null
+        }
       ]
     ],
     "provenance": "Aggregate",
@@ -10128,6 +10147,25 @@
               "input": "4.000000",
               "output": "15.000000",
               "cache_read": "0.2000000"
+            }
+          ],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "1.000000",
+          "output": "5.000000",
+          "cache_read": "0.05000000",
+          "cache_write": "1.25000000",
+          "tiers": [
+            {
+              "above_input_tokens": 272000,
+              "input": "2.000000",
+              "output": "7.5000000",
+              "cache_read": "0.1000000"
             }
           ],
           "promo": null,
@@ -11703,7 +11741,7 @@
     },
     "knowledge_cutoff": "2025-06-30",
     "context_tokens": 262144,
-    "max_output_tokens": 32000,
+    "max_output_tokens": 235929,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -11719,8 +11757,8 @@
       [
         "Standard",
         {
-          "input": "0.04815000000",
-          "output": "0.19305000000",
+          "input": "0.1000000",
+          "output": "0.3000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -12231,7 +12269,7 @@
     },
     "knowledge_cutoff": "2025-09-30",
     "context_tokens": 262144,
-    "max_output_tokens": 32768,
+    "max_output_tokens": 235929,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -12247,9 +12285,9 @@
       [
         "Standard",
         {
-          "input": "0.15000000",
-          "output": "1.5000000",
-          "cache_read": null,
+          "input": "0.1000000",
+          "output": "1.1000000",
+          "cache_read": "0.07000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -12259,7 +12297,7 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2025-09-11",
-    "retires_on": "2026-10-08",
+    "retires_on": null,
     "open_weights": true,
     "hf_id": "Qwen/Qwen3-Next-80B-A3B-Instruct",
     "reasoning_mandatory": false
@@ -12715,7 +12753,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 235929,
+    "max_output_tokens": 32768,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -12731,9 +12769,9 @@
       [
         "Standard",
         {
-          "input": "0.15000000",
-          "output": "1.000000",
-          "cache_read": "0.05000000",
+          "input": "0.08000000",
+          "output": "0.75000000",
+          "cache_read": "0.04000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -12759,7 +12797,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 81920,
+    "max_output_tokens": 235929,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -12775,9 +12813,9 @@
       [
         "Standard",
         {
-          "input": "0.45000000",
-          "output": "3.000000",
-          "cache_read": "0.22000000",
+          "input": "0.55000000",
+          "output": "3.5000000",
+          "cache_read": "0.225000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -13999,7 +14037,7 @@
     "max_output_tokens": 16384,
     "modality": "text->text",
     "capabilities": {
-      "tools": true,
+      "tools": false,
       "reasoning": false,
       "structured_output": true
     },
@@ -14151,6 +14189,46 @@
     "retires_on": null,
     "open_weights": true,
     "hf_id": "stepfun-ai/Step-3.7-Flash",
+    "reasoning_mandatory": true
+  },
+  {
+    "key": "stepfun/step-5-preview",
+    "display_name": "Step 5 Preview",
+    "vendor_key": "stepfun",
+    "vendor_name": "Stepfun",
+    "released": {
+      "year": 2026,
+      "month": 10
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1000000,
+    "max_output_tokens": 64000,
+    "modality": "text+image+video->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "1.000000",
+          "output": "2.7000000",
+          "cache_read": "0.05000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-10-08",
+    "retires_on": null,
+    "open_weights": false,
+    "hf_id": null,
     "reasoning_mandatory": true
   },
   {
@@ -15976,7 +16054,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 943718,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -15992,9 +16070,9 @@
       [
         "Standard",
         {
-          "input": "0.03000000",
-          "output": "10.00000",
-          "cache_read": "0.03000000",
+          "input": "0.06000000",
+          "output": "6.000000",
+          "cache_read": "0.059000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -16036,9 +16114,9 @@
       [
         "Standard",
         {
-          "input": "0.049000000",
-          "output": "3.39000000",
-          "cache_read": "0.048000000",
+          "input": "0.039000000",
+          "output": "4.8000000",
+          "cache_read": "0.038000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,

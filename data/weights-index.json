@@ -1,8 +1,7 @@
-{"asOf":"2026-10-08","models":{
+{"asOf":"2026-10-09","models":{
 "aion-labs/aion-rp-llama-3.1-8b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8030261248,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "anthracite-org/magnum-v4-72b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":72706203648,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "arcee-ai/trinity-large-thinking":{"status":"open","licence":"permissive","licenceLabel":"openmdw-1.1","total":398635286016,"active":13000000000,"moe":true,"gated":false,"native":"bf16"},
-"baidu/ernie-4.5-vl-424b-a47b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":423526285184,"active":47000000000,"moe":true,"gated":false,"native":"bf16"},
 "bytedance/ui-tars-1.5-7b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8292166656,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "cognitivecomputations/dolphin-mistral-24b-venice-edition":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":24011361280,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "cohere/command-a":{"status":"open","licence":"noncommercial","licenceLabel":"CC BY-NC 4.0","total":111057580032,"active":null,"moe":false,"gated":true,"native":"bf16"},
