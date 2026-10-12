@@ -2451,9 +2451,9 @@
       [
         "Standard",
         {
-          "input": "0.018000000",
+          "input": "0.016000000",
           "output": "0.64000000",
-          "cache_read": "0.018000000",
+          "cache_read": "0.016000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2539,9 +2539,9 @@
       [
         "Standard",
         {
-          "input": "0.2088000000",
-          "output": "0.4176000000",
-          "cache_read": "0.0174000000",
+          "input": "0.442656000000",
+          "output": "0.885312000000",
+          "cache_read": "0.036888000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2611,7 +2611,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 943718,
+    "max_output_tokens": 393216,
     "modality": "text+image->text",
     "capabilities": {
       "tools": true,
@@ -2627,9 +2627,9 @@
       [
         "Standard",
         {
-          "input": "0.3000000",
-          "output": "1.2000000",
-          "cache_read": "0.006000000",
+          "input": "0.15000000",
+          "output": "0.6000000",
+          "cache_read": "0.003000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -3953,9 +3953,9 @@
       [
         "Standard",
         {
-          "input": "0.0675000000",
-          "output": "0.225000000",
-          "cache_read": "0.0375000000",
+          "input": "0.09000000",
+          "output": "0.3000000",
+          "cache_read": "0.05000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -4842,7 +4842,7 @@
     },
     "knowledge_cutoff": "2024-08-31",
     "context_tokens": 1310720,
-    "max_output_tokens": 16384,
+    "max_output_tokens": 117964,
     "modality": "text+image->text",
     "capabilities": {
       "tools": true,
@@ -4858,8 +4858,8 @@
       [
         "Standard",
         {
-          "input": "0.1000000",
-          "output": "0.3000000",
+          "input": "0.18000000",
+          "output": "0.59000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -6823,7 +6823,7 @@
       [
         "Standard",
         {
-          "input": "0.8000000",
+          "input": "0.73000000",
           "output": "10.00000",
           "cache_read": "0.55000000",
           "cache_write": null,
@@ -15279,7 +15279,7 @@
         {
           "input": "0.3000000",
           "output": "0.9000000",
-          "cache_read": "0.055000000",
+          "cache_read": "0.05000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15585,9 +15585,9 @@
       [
         "Standard",
         {
-          "input": "0.039000000",
+          "input": "0.079000000",
           "output": "4.8000000",
-          "cache_read": "0.038000000",
+          "cache_read": "0.059000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15625,7 +15625,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 943717,
+    "max_output_tokens": 943718,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -15641,9 +15641,9 @@
       [
         "Standard",
         {
-          "input": "0.15000000",
-          "output": "0.5000000",
-          "cache_read": "0.03000000",
+          "input": "0.0232000000",
+          "output": "1.2000000",
+          "cache_read": "0.0232000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
