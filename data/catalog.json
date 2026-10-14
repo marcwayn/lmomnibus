@@ -2391,7 +2391,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 943718,
+    "max_output_tokens": 943717,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -2407,9 +2407,9 @@
       [
         "Standard",
         {
-          "input": "0.05000000",
-          "output": "1.28000000",
-          "cache_read": "0.05000000",
+          "input": "0.091000000",
+          "output": "0.182000000",
+          "cache_read": "0.0182000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2539,9 +2539,9 @@
       [
         "Standard",
         {
-          "input": "0.446136000000",
-          "output": "0.892272000000",
-          "cache_read": "0.037178000000",
+          "input": "0.95526000000",
+          "output": "1.91052000000",
+          "cache_read": "0.079605000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2611,7 +2611,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 393216,
+    "max_output_tokens": 943718,
     "modality": "text+image->text",
     "capabilities": {
       "tools": true,
@@ -2627,9 +2627,9 @@
       [
         "Standard",
         {
-          "input": "0.0438000000",
-          "output": "0.1752000000",
-          "cache_read": "0.000876000000",
+          "input": "0.02016000000",
+          "output": "0.891000000",
+          "cache_read": "0.0054000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -3715,6 +3715,62 @@
     "reasoning_mandatory": true
   },
   {
+    "key": "google/gemini-4-argon",
+    "display_name": "Gemini 4 Argon",
+    "vendor_key": "google",
+    "vendor_name": "Google",
+    "released": {
+      "year": 2026,
+      "month": 10
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1048576,
+    "max_output_tokens": 65536,
+    "modality": "text+image+file+audio+video->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 52.6,
+      "coding": null,
+      "agentic": null
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "2.000000",
+          "output": "10.00000",
+          "cache_read": "0.1000000",
+          "cache_write": "0.1875000000",
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "1.000000",
+          "output": "5.000000",
+          "cache_read": "0.05000000",
+          "cache_write": "0.1875000000",
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-10-13",
+    "retires_on": null,
+    "open_weights": false,
+    "hf_id": null,
+    "reasoning_mandatory": true
+  },
+  {
     "key": "google/gemini-nano-banana-2.1",
     "display_name": "Nano Banana 2.1",
     "vendor_key": "google",
@@ -4275,91 +4331,6 @@
     "reasoning_mandatory": false
   },
   {
-    "key": "inclusionai/ling-3.0-flash-fin",
-    "display_name": "Ling 3.0 Flash Fin",
-    "vendor_key": "inclusionai",
-    "vendor_name": "InclusionAI",
-    "released": {
-      "year": 2026,
-      "month": 8
-    },
-    "knowledge_cutoff": null,
-    "context_tokens": 262144,
-    "max_output_tokens": 32768,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": true,
-      "reasoning": true,
-      "structured_output": false
-    },
-    "scores": {
-      "intelligence": 22.6,
-      "coding": 55.6,
-      "agentic": 27.9
-    },
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.042000000",
-          "output": "0.1232000000",
-          "cache_read": "0.0084000000",
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate",
-    "listed_on": "2026-08-27",
-    "retires_on": null,
-    "open_weights": true,
-    "hf_id": "inclusionAI/Ling-3.0-flash-Fin",
-    "reasoning_mandatory": false,
-    "openness_source": "huggingface.co/inclusionAI/Ling-3.0-flash-Fin (checked 2026-10-06)"
-  },
-  {
-    "key": "inclusionai/ling-3.0-flash-sante",
-    "display_name": "Ling 3.0 Flash Sante",
-    "vendor_key": "inclusionai",
-    "vendor_name": "InclusionAI",
-    "released": {
-      "year": 2026,
-      "month": 9
-    },
-    "knowledge_cutoff": null,
-    "context_tokens": 262144,
-    "max_output_tokens": 32768,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": true,
-      "reasoning": true,
-      "structured_output": false
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.042000000",
-          "output": "0.1232000000",
-          "cache_read": "0.0084000000",
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate",
-    "listed_on": "2026-09-04",
-    "retires_on": null,
-    "open_weights": false,
-    "hf_id": null,
-    "reasoning_mandatory": false
-  },
-  {
     "key": "inclusionai/ling-3.0-flash-vl",
     "display_name": "Ling 3.0 Flash VL",
     "vendor_key": "inclusionai",
@@ -4369,7 +4340,7 @@
       "month": 9
     },
     "knowledge_cutoff": null,
-    "context_tokens": 262144,
+    "context_tokens": 131072,
     "max_output_tokens": 32768,
     "modality": "text+image+video->text",
     "capabilities": {
@@ -4386,9 +4357,9 @@
       [
         "Standard",
         {
-          "input": "0.021000000",
-          "output": "0.0616000000",
-          "cache_read": "0.0042000000",
+          "input": "0.06000000",
+          "output": "0.18000000",
+          "cache_read": "0.012000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -4401,6 +4372,50 @@
     "retires_on": null,
     "open_weights": true,
     "hf_id": "inclusionAI/Ling-3.0-flash-VL",
+    "reasoning_mandatory": false
+  },
+  {
+    "key": "inclusionai/ling-3.1-flash",
+    "display_name": "Ling 3.1 Flash",
+    "vendor_key": "inclusionai",
+    "vendor_name": "InclusionAI",
+    "released": {
+      "year": 2026,
+      "month": 10
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 262144,
+    "max_output_tokens": 235929,
+    "modality": "text->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": false
+    },
+    "scores": {
+      "intelligence": 41.1,
+      "coding": null,
+      "agentic": null
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.075000000",
+          "output": "0.225000000",
+          "cache_read": "0.015000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-10-02",
+    "retires_on": null,
+    "open_weights": false,
+    "hf_id": null,
     "reasoning_mandatory": false
   },
   {
@@ -4482,6 +4497,46 @@
     "open_weights": true,
     "hf_id": "inference-net/schematron-v2-granite-4.0-h-micro",
     "reasoning_mandatory": false
+  },
+  {
+    "key": "liquid/lfm-2.5-24b-a2b",
+    "display_name": "LFM2.5-24B-A2B",
+    "vendor_key": "liquid",
+    "vendor_name": "Liquid",
+    "released": {
+      "year": 2026,
+      "month": 10
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 128000,
+    "max_output_tokens": 8192,
+    "modality": "text->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.05000000",
+          "output": "0.7000000",
+          "cache_read": "0.025000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-10-13",
+    "retires_on": null,
+    "open_weights": true,
+    "hf_id": "LiquidAI/LFM2.5-24B-A2B",
+    "reasoning_mandatory": true
   },
   {
     "key": "mancer/weaver",
@@ -5391,7 +5446,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 204800,
-    "max_output_tokens": 176947,
+    "max_output_tokens": 131072,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -5407,8 +5462,8 @@
       [
         "Standard",
         {
-          "input": "0.3000000",
-          "output": "1.2000000",
+          "input": "0.255000000",
+          "output": "1.02000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -6863,9 +6918,9 @@
       [
         "Standard",
         {
-          "input": "0.73000000",
-          "output": "10.00000",
-          "cache_read": "0.55000000",
+          "input": "0.62000000",
+          "output": "15.000000",
+          "cache_read": "0.32000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -10351,7 +10406,7 @@
     },
     "knowledge_cutoff": "2024-06-30",
     "context_tokens": 131072,
-    "max_output_tokens": 65536,
+    "max_output_tokens": 117964,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -10367,9 +10422,9 @@
       [
         "Standard",
         {
-          "input": "0.15000000",
-          "output": "0.6000000",
-          "cache_read": "0.075000000",
+          "input": "0.037000000",
+          "output": "0.17000000",
+          "cache_read": null,
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -12315,7 +12370,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 32768,
+    "max_output_tokens": 16384,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -12331,9 +12386,9 @@
       [
         "Standard",
         {
-          "input": "0.08000000",
-          "output": "0.75000000",
-          "cache_read": "0.04000000",
+          "input": "0.15000000",
+          "output": "1.000000",
+          "cache_read": "0.05000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -12375,9 +12430,9 @@
       [
         "Standard",
         {
-          "input": "0.55000000",
-          "output": "3.5000000",
-          "cache_read": "0.225000000",
+          "input": "0.5000000",
+          "output": "3.6000000",
+          "cache_read": "0.3000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -14315,46 +14370,6 @@
     "reasoning_mandatory": false
   },
   {
-    "key": "unbiased/pareto",
-    "display_name": "Pareto",
-    "vendor_key": "unbiased",
-    "vendor_name": "Unbiased",
-    "released": {
-      "year": 2026,
-      "month": 9
-    },
-    "knowledge_cutoff": null,
-    "context_tokens": 262144,
-    "max_output_tokens": 131072,
-    "modality": "text+image->text",
-    "capabilities": {
-      "tools": true,
-      "reasoning": false,
-      "structured_output": true
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "2.5000000",
-          "output": "7.5000000",
-          "cache_read": "0.25000000",
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate",
-    "listed_on": "2026-09-17",
-    "retires_on": null,
-    "open_weights": false,
-    "hf_id": null,
-    "reasoning_mandatory": false
-  },
-  {
     "key": "unbiased/pareto-26.10-preview",
     "display_name": "Pareto 26.10 Preview",
     "vendor_key": "unbiased",
@@ -14389,6 +14404,46 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2026-10-01",
+    "retires_on": "2026-10-15",
+    "open_weights": false,
+    "hf_id": null,
+    "reasoning_mandatory": false
+  },
+  {
+    "key": "unbiased/pareto-26.9",
+    "display_name": "Pareto 26.9",
+    "vendor_key": "unbiased",
+    "vendor_name": "Unbiased",
+    "released": {
+      "year": 2026,
+      "month": 10
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 262144,
+    "max_output_tokens": 131072,
+    "modality": "text+image->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": false,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "2.5000000",
+          "output": "7.5000000",
+          "cache_read": "0.25000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-10-13",
     "retires_on": null,
     "open_weights": false,
     "hf_id": null,
@@ -15601,7 +15656,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 204800,
-    "max_output_tokens": 128000,
+    "max_output_tokens": 131072,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -15617,9 +15672,9 @@
       [
         "Standard",
         {
-          "input": "0.966000000",
-          "output": "3.036000000",
-          "cache_read": "0.1794000000",
+          "input": "1.33000000",
+          "output": "4.18000000",
+          "cache_read": "0.247000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15661,9 +15716,9 @@
       [
         "Standard",
         {
-          "input": "0.06000000",
+          "input": "0.05000000",
           "output": "7.000000",
-          "cache_read": "0.059000000",
+          "cache_read": "0.049000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15761,7 +15816,7 @@
       [
         "Standard",
         {
-          "input": "0.0261000000",
+          "input": "0.036000000",
           "output": "0.9000000",
           "cache_read": "0.0108000000",
           "cache_write": null,
