@@ -1181,7 +1181,7 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2025-05-22",
-    "retires_on": null,
+    "retires_on": "2026-10-15",
     "open_weights": false,
     "hf_id": null,
     "reasoning_mandatory": false
@@ -2627,8 +2627,8 @@
       [
         "Standard",
         {
-          "input": "0.02016000000",
-          "output": "0.891000000",
+          "input": "0.02376000000",
+          "output": "0.72000000",
           "cache_read": "0.0054000000",
           "cache_write": null,
           "tiers": [],
@@ -4053,9 +4053,9 @@
       [
         "Standard",
         {
-          "input": "0.09000000",
-          "output": "0.34000000",
-          "cache_read": "0.05000000",
+          "input": "0.2000000",
+          "output": "0.4000000",
+          "cache_read": null,
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -4390,7 +4390,7 @@
     "capabilities": {
       "tools": true,
       "reasoning": true,
-      "structured_output": false
+      "structured_output": true
     },
     "scores": {
       "intelligence": 41.1,
@@ -5574,7 +5574,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 204800,
-    "max_output_tokens": 128000,
+    "max_output_tokens": 32768,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -5591,8 +5591,8 @@
         "Standard",
         {
           "input": "0.27000000",
-          "output": "1.08000000",
-          "cache_read": "0.027000000",
+          "output": "0.95000000",
+          "cache_read": "0.03000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -6100,7 +6100,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 38.4,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -6526,8 +6530,8 @@
       [
         "Standard",
         {
-          "input": "0.09375000000",
-          "output": "0.25000000",
+          "input": "0.075000000",
+          "output": "0.2000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -6918,9 +6922,9 @@
       [
         "Standard",
         {
-          "input": "0.62000000",
+          "input": "0.45000000",
           "output": "15.000000",
-          "cache_read": "0.32000000",
+          "cache_read": "0.28000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -7125,11 +7129,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 7.4,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -9486,6 +9486,25 @@
       [
         "Standard",
         {
+          "input": "4.000000",
+          "output": "20.00000",
+          "cache_read": "0.4000000",
+          "cache_write": "5.000000",
+          "tiers": [
+            {
+              "above_input_tokens": 272000,
+              "input": "8.000000",
+              "output": "30.00000",
+              "cache_read": "0.8000000"
+            }
+          ],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ],
+      [
+        "Batch",
+        {
           "input": "2.000000",
           "output": "10.00000",
           "cache_read": "0.2000000",
@@ -9496,25 +9515,6 @@
               "input": "4.000000",
               "output": "15.000000",
               "cache_read": "0.4000000"
-            }
-          ],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ],
-      [
-        "Batch",
-        {
-          "input": "1.000000",
-          "output": "5.000000",
-          "cache_read": "0.1000000",
-          "cache_write": "1.25000000",
-          "tiers": [
-            {
-              "above_input_tokens": 272000,
-              "input": "2.000000",
-              "output": "7.5000000",
-              "cache_read": "0.2000000"
             }
           ],
           "promo": null,
@@ -9552,6 +9552,25 @@
       [
         "Standard",
         {
+          "input": "4.000000",
+          "output": "20.00000",
+          "cache_read": "0.4000000",
+          "cache_write": "5.000000",
+          "tiers": [
+            {
+              "above_input_tokens": 272000,
+              "input": "8.000000",
+              "output": "30.00000",
+              "cache_read": "0.8000000"
+            }
+          ],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ],
+      [
+        "Batch",
+        {
           "input": "2.000000",
           "output": "10.00000",
           "cache_read": "0.2000000",
@@ -9562,25 +9581,6 @@
               "input": "4.000000",
               "output": "15.000000",
               "cache_read": "0.4000000"
-            }
-          ],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ],
-      [
-        "Batch",
-        {
-          "input": "1.000000",
-          "output": "5.000000",
-          "cache_read": "0.1000000",
-          "cache_write": "1.25000000",
-          "tiers": [
-            {
-              "above_input_tokens": 272000,
-              "input": "2.000000",
-              "output": "7.5000000",
-              "cache_read": "0.2000000"
             }
           ],
           "promo": null,
@@ -10406,7 +10406,7 @@
     },
     "knowledge_cutoff": "2024-06-30",
     "context_tokens": 131072,
-    "max_output_tokens": 117964,
+    "max_output_tokens": 65536,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -10422,9 +10422,9 @@
       [
         "Standard",
         {
-          "input": "0.037000000",
-          "output": "0.17000000",
-          "cache_read": null,
+          "input": "0.15000000",
+          "output": "0.6000000",
+          "cache_read": "0.075000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -12680,7 +12680,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 65536,
+    "max_output_tokens": 235929,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -12696,9 +12696,9 @@
       [
         "Standard",
         {
-          "input": "0.1000000",
-          "output": "0.95000000",
-          "cache_read": "0.1000000",
+          "input": "0.15000000",
+          "output": "1.000000",
+          "cache_read": "0.05000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -13030,9 +13030,9 @@
       [
         "Standard",
         {
-          "input": "0.04000000",
-          "output": "2.3000000",
-          "cache_read": "0.0198000000",
+          "input": "0.24000000",
+          "output": "2.2000000",
+          "cache_read": "0.05000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -13847,7 +13847,7 @@
       "month": 10
     },
     "knowledge_cutoff": null,
-    "context_tokens": 1000000,
+    "context_tokens": 1048576,
     "max_output_tokens": 64000,
     "modality": "text+image+video->text",
     "capabilities": {
@@ -13855,7 +13855,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 43.7,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -13873,8 +13877,8 @@
     "provenance": "Aggregate",
     "listed_on": "2026-10-08",
     "retires_on": null,
-    "open_weights": false,
-    "hf_id": null,
+    "open_weights": true,
+    "hf_id": "stepfun-ai/Step-5-Preview",
     "reasoning_mandatory": true
   },
   {
@@ -15568,7 +15572,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 204800,
-    "max_output_tokens": 128000,
+    "max_output_tokens": 131072,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -15584,9 +15588,9 @@
       [
         "Standard",
         {
-          "input": "0.6000000",
-          "output": "1.92000000",
-          "cache_read": "0.12000000",
+          "input": "1.000000",
+          "output": "3.2000000",
+          "cache_read": "0.2000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15656,7 +15660,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 204800,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 128000,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -15672,9 +15676,9 @@
       [
         "Standard",
         {
-          "input": "1.33000000",
-          "output": "4.18000000",
-          "cache_read": "0.247000000",
+          "input": "0.966000000",
+          "output": "3.036000000",
+          "cache_read": "0.1794000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15716,9 +15720,9 @@
       [
         "Standard",
         {
-          "input": "0.05000000",
+          "input": "0.02000000",
           "output": "7.000000",
-          "cache_read": "0.049000000",
+          "cache_read": "0.019000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15760,9 +15764,9 @@
       [
         "Standard",
         {
-          "input": "0.079000000",
+          "input": "0.03000000",
           "output": "4.8000000",
-          "cache_read": "0.059000000",
+          "cache_read": "0.029000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15800,7 +15804,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 943718,
+    "max_output_tokens": 943717,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -15816,9 +15820,9 @@
       [
         "Standard",
         {
-          "input": "0.036000000",
-          "output": "0.9000000",
-          "cache_read": "0.0108000000",
+          "input": "0.15000000",
+          "output": "0.5000000",
+          "cache_read": "0.03000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,

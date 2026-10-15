@@ -1,4 +1,4 @@
-{"asOf":"2026-10-14","models":{
+{"asOf":"2026-10-15","models":{
 "aion-labs/aion-rp-llama-3.1-8b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8030261248,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "anthracite-org/magnum-v4-72b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":72706203648,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "arcee-ai/trinity-large-thinking":{"status":"open","licence":"permissive","licenceLabel":"openmdw-1.1","total":398635286016,"active":13000000000,"moe":true,"gated":false,"native":"bf16"},
@@ -129,6 +129,7 @@
 "sao10k/l3.3-euryale-70b":{"status":"open","licence":"custom","licenceLabel":"Llama 3 licence","total":70553706496,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "stepfun/step-3.5-flash":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":199384301376,"active":11000000000,"moe":true,"gated":false,"native":"bf16"},
 "stepfun/step-3.7-flash":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":201365316160,"active":12012489792,"moe":true,"gated":false,"native":"bf16"},
+"stepfun/step-5-preview":{"status":"open","licence":"unclassified","licenceLabel":"other (see the repo)","total":604339504832,"active":28502929216,"moe":true,"gated":false,"native":"fp8"},
 "tencent/hunyuan-a13b-instruct":{"status":"open","licence":"custom","licenceLabel":"tencent-hunyuan-a13b","total":80393183232,"active":13000000000,"moe":true,"gated":false,"native":"bf16"},
 "tencent/hy-mt2-1.8b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":2038515712,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "tencent/hy-mt2-30b-a3b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":30064725888,"active":3000000000,"moe":true,"gated":false,"native":"bf16"},
