@@ -1136,57 +1136,6 @@
     "reasoning_mandatory": true
   },
   {
-    "key": "anthropic/claude-sonnet-4",
-    "display_name": "Claude Sonnet 4",
-    "vendor_key": "anthropic",
-    "vendor_name": "Anthropic",
-    "released": {
-      "year": 2025,
-      "month": 5
-    },
-    "knowledge_cutoff": "2025-01-31",
-    "context_tokens": 200000,
-    "max_output_tokens": 64000,
-    "modality": "text+image+file->text",
-    "capabilities": {
-      "tools": true,
-      "reasoning": true,
-      "structured_output": false
-    },
-    "scores": {
-      "intelligence": 18.9,
-      "coding": 37.6,
-      "agentic": null
-    },
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "3.000000",
-          "output": "15.000000",
-          "cache_read": "0.3000000",
-          "cache_write": "3.75000000",
-          "tiers": [
-            {
-              "above_input_tokens": 200000,
-              "input": "6.000000",
-              "output": "22.5000000",
-              "cache_read": "0.6000000"
-            }
-          ],
-          "promo": null,
-          "cache_write_1h": "6.000000"
-        }
-      ]
-    ],
-    "provenance": "Aggregate",
-    "listed_on": "2025-05-22",
-    "retires_on": "2026-10-15",
-    "open_weights": false,
-    "hf_id": null,
-    "reasoning_mandatory": false
-  },
-  {
     "key": "anthropic/claude-sonnet-4.5",
     "display_name": "Claude Sonnet 4.5",
     "vendor_key": "anthropic",
@@ -2043,7 +1992,7 @@
     },
     "knowledge_cutoff": "2024-07-31",
     "context_tokens": 163840,
-    "max_output_tokens": 16384,
+    "max_output_tokens": 16000,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -2055,8 +2004,8 @@
       [
         "Standard",
         {
-          "input": "0.32000000",
-          "output": "0.89000000",
+          "input": "0.2574000000",
+          "output": "1.0287000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -2451,9 +2400,9 @@
       [
         "Standard",
         {
-          "input": "0.016000000",
-          "output": "0.64000000",
-          "cache_read": "0.016000000",
+          "input": "0.0111000000",
+          "output": "1.28000000",
+          "cache_read": "0.0111000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2627,8 +2576,8 @@
       [
         "Standard",
         {
-          "input": "0.02376000000",
-          "output": "0.72000000",
+          "input": "0.036000000",
+          "output": "0.684000000",
           "cache_read": "0.0054000000",
           "cache_write": null,
           "tiers": [],
@@ -3685,9 +3634,9 @@
       [
         "Standard",
         {
-          "input": "0.75000000",
-          "output": "3.75000000",
-          "cache_read": "0.075000000",
+          "input": "0.825000000",
+          "output": "4.125000000",
+          "cache_read": "0.0825000000",
           "cache_write": "0.0416666666666667000000",
           "tiers": [],
           "promo": null,
@@ -4217,7 +4166,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 13.8,
+      "intelligence": 10.8,
       "coding": 31.1,
       "agentic": 1.6
     },
@@ -4809,7 +4758,7 @@
     },
     "knowledge_cutoff": "2023-12-31",
     "context_tokens": 131072,
-    "max_output_tokens": 32768,
+    "max_output_tokens": 16384,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -4825,9 +4774,9 @@
       [
         "Standard",
         {
-          "input": "0.59000000",
-          "output": "0.79000000",
-          "cache_read": "0.295000000",
+          "input": "0.1000000",
+          "output": "0.32000000",
+          "cache_read": null,
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -4861,7 +4810,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 10,
+      "intelligence": 9.3,
       "coding": 16.3,
       "agentic": 0.6
     },
@@ -4905,7 +4854,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 8.1,
+      "intelligence": 6.5,
       "coding": 8.2,
       "agentic": 0.5
     },
@@ -5224,6 +5173,46 @@
     "retires_on": null,
     "open_weights": false,
     "hf_id": null,
+    "reasoning_mandatory": true
+  },
+  {
+    "key": "meta/muse-spark-open",
+    "display_name": "Muse Spark Open",
+    "vendor_key": "meta",
+    "vendor_name": "Meta",
+    "released": {
+      "year": 2026,
+      "month": 10
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1048576,
+    "max_output_tokens": 943718,
+    "modality": "text+image+file+audio+video->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "1.25000000",
+          "output": "4.25000000",
+          "cache_read": "0.15000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-10-15",
+    "retires_on": null,
+    "open_weights": true,
+    "hf_id": "meta-models/Muse-Spark-Open-816B-A42B",
     "reasoning_mandatory": true
   },
   {
@@ -6530,8 +6519,8 @@
       [
         "Standard",
         {
-          "input": "0.075000000",
-          "output": "0.2000000",
+          "input": "0.09375000000",
+          "output": "0.25000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -6629,6 +6618,86 @@
     "retires_on": null,
     "open_weights": true,
     "hf_id": "mistralai/Voxtral-Small-24B-2507",
+    "reasoning_mandatory": false
+  },
+  {
+    "key": "moondream/moondream3-preview",
+    "display_name": "Moondream 3 Preview",
+    "vendor_key": "moondream",
+    "vendor_name": "Moondream",
+    "released": {
+      "year": 2026,
+      "month": 10
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 32000,
+    "max_output_tokens": 4096,
+    "modality": "text+image->text",
+    "capabilities": {
+      "tools": false,
+      "reasoning": true,
+      "structured_output": false
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.3000000",
+          "output": "2.5000000",
+          "cache_read": null,
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-10-15",
+    "retires_on": null,
+    "open_weights": true,
+    "hf_id": "moondream/moondream3-preview",
+    "reasoning_mandatory": false
+  },
+  {
+    "key": "moondream/moondream3.1-9b-a2b",
+    "display_name": "Moondream 3.1",
+    "vendor_key": "moondream",
+    "vendor_name": "Moondream",
+    "released": {
+      "year": 2026,
+      "month": 10
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 32000,
+    "max_output_tokens": 4096,
+    "modality": "text+image->text",
+    "capabilities": {
+      "tools": false,
+      "reasoning": true,
+      "structured_output": false
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.3000000",
+          "output": "2.5000000",
+          "cache_read": null,
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-10-15",
+    "retires_on": null,
+    "open_weights": true,
+    "hf_id": "moondream/moondream3.1-9B-A2B",
     "reasoning_mandatory": false
   },
   {
@@ -6922,9 +6991,9 @@
       [
         "Standard",
         {
-          "input": "0.45000000",
-          "output": "15.000000",
-          "cache_read": "0.28000000",
+          "input": "0.304000000",
+          "output": "11.936000000",
+          "cache_read": "0.21000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -7453,6 +7522,50 @@
     "retires_on": null,
     "open_weights": true,
     "hf_id": "nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16",
+    "reasoning_mandatory": false
+  },
+  {
+    "key": "nvidia/nemotron-3.5-super-vl",
+    "display_name": "Nemotron 3.5 Super VL",
+    "vendor_key": "nvidia",
+    "vendor_name": "NVIDIA",
+    "released": {
+      "year": 2026,
+      "month": 10
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1048576,
+    "max_output_tokens": 235929,
+    "modality": "text+image+video->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 26.5,
+      "coding": null,
+      "agentic": null
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.15000000",
+          "output": "0.5000000",
+          "cache_read": "0.02000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-10-15",
+    "retires_on": null,
+    "open_weights": true,
+    "hf_id": "nvidia/NVIDIA-Nemotron-3.5-Super-VL",
     "reasoning_mandatory": false
   },
   {
@@ -8661,7 +8774,7 @@
     "retires_on": null,
     "open_weights": false,
     "hf_id": null,
-    "reasoning_mandatory": false
+    "reasoning_mandatory": true
   },
   {
     "key": "openai/gpt-5.2",
@@ -10589,7 +10702,7 @@
     "retires_on": null,
     "open_weights": false,
     "hf_id": null,
-    "reasoning_mandatory": false
+    "reasoning_mandatory": true
   },
   {
     "key": "openai/o1-pro",
@@ -10633,7 +10746,7 @@
     "retires_on": null,
     "open_weights": false,
     "hf_id": null,
-    "reasoning_mandatory": false
+    "reasoning_mandatory": true
   },
   {
     "key": "openai/o3",
@@ -10689,7 +10802,7 @@
     "retires_on": null,
     "open_weights": false,
     "hf_id": null,
-    "reasoning_mandatory": false
+    "reasoning_mandatory": true
   },
   {
     "key": "openai/o3-mini",
@@ -10745,7 +10858,7 @@
     "retires_on": null,
     "open_weights": false,
     "hf_id": null,
-    "reasoning_mandatory": false
+    "reasoning_mandatory": true
   },
   {
     "key": "openai/o3-mini-high",
@@ -10833,7 +10946,7 @@
     "retires_on": null,
     "open_weights": false,
     "hf_id": null,
-    "reasoning_mandatory": false
+    "reasoning_mandatory": true
   },
   {
     "key": "openai/o4-mini",
@@ -10889,7 +11002,7 @@
     "retires_on": null,
     "open_weights": false,
     "hf_id": null,
-    "reasoning_mandatory": false
+    "reasoning_mandatory": true
   },
   {
     "key": "openai/o4-mini-high",
@@ -11093,7 +11206,7 @@
     "retires_on": null,
     "open_weights": false,
     "hf_id": null,
-    "reasoning_mandatory": false
+    "reasoning_mandatory": true
   },
   {
     "key": "perplexity/sonar-pro",
@@ -11221,7 +11334,7 @@
     "retires_on": null,
     "open_weights": false,
     "hf_id": null,
-    "reasoning_mandatory": false
+    "reasoning_mandatory": true
   },
   {
     "key": "poolside/laguna-s-2.1",
@@ -11577,9 +11690,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 8.2,
-      "coding": 13.8,
-      "agentic": 0.9
+      "intelligence": 6.7,
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -11797,9 +11910,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 8.6,
-      "coding": 15.3,
-      "agentic": 0.9
+      "intelligence": 7.3,
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -12018,7 +12131,7 @@
     },
     "knowledge_cutoff": "2025-09-30",
     "context_tokens": 262144,
-    "max_output_tokens": 235929,
+    "max_output_tokens": 16384,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -12034,9 +12147,9 @@
       [
         "Standard",
         {
-          "input": "0.1000000",
+          "input": "0.09000000",
           "output": "1.1000000",
-          "cache_read": "0.07000000",
+          "cache_read": null,
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -12636,7 +12749,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 81920,
+    "max_output_tokens": 65536,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -12652,9 +12765,9 @@
       [
         "Standard",
         {
-          "input": "0.32000000",
-          "output": "3.2000000",
-          "cache_read": null,
+          "input": "0.25000000",
+          "output": "2.000000",
+          "cache_read": "0.025000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -13866,7 +13979,7 @@
         {
           "input": "1.000000",
           "output": "2.7000000",
-          "cache_read": "0.05000000",
+          "cache_read": "0.1000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -14371,46 +14484,6 @@
     "retires_on": null,
     "open_weights": true,
     "hf_id": "thinkingmachines/Inkling-Small",
-    "reasoning_mandatory": false
-  },
-  {
-    "key": "unbiased/pareto-26.10-preview",
-    "display_name": "Pareto 26.10 Preview",
-    "vendor_key": "unbiased",
-    "vendor_name": "Unbiased",
-    "released": {
-      "year": 2026,
-      "month": 10
-    },
-    "knowledge_cutoff": null,
-    "context_tokens": 1048576,
-    "max_output_tokens": 131072,
-    "modality": "text+image->text",
-    "capabilities": {
-      "tools": true,
-      "reasoning": false,
-      "structured_output": false
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.8000000",
-          "output": "3.2000000",
-          "cache_read": "0.03000000",
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate",
-    "listed_on": "2026-10-01",
-    "retires_on": "2026-10-15",
-    "open_weights": false,
-    "hf_id": null,
     "reasoning_mandatory": false
   },
   {
@@ -15056,7 +15129,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 25.2,
+      "intelligence": 21.8,
       "coding": 56.8,
       "agentic": 15.8
     },
@@ -15720,9 +15793,9 @@
       [
         "Standard",
         {
-          "input": "0.02000000",
-          "output": "7.000000",
-          "cache_read": "0.019000000",
+          "input": "0.037000000",
+          "output": "9.000000",
+          "cache_read": "0.036000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15764,9 +15837,9 @@
       [
         "Standard",
         {
-          "input": "0.03000000",
+          "input": "0.079000000",
           "output": "4.8000000",
-          "cache_read": "0.029000000",
+          "cache_read": "0.078000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15804,7 +15877,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 943717,
+    "max_output_tokens": 943718,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -15820,9 +15893,9 @@
       [
         "Standard",
         {
-          "input": "0.15000000",
-          "output": "0.5000000",
-          "cache_read": "0.03000000",
+          "input": "0.0171000000",
+          "output": "0.9000000",
+          "cache_read": "0.01125000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15832,9 +15905,9 @@
       [
         "Batch",
         {
-          "input": "0.06000000",
-          "output": "0.2000000",
-          "cache_read": "0.012000000",
+          "input": "0.05000000",
+          "output": "0.18000000",
+          "cache_read": "0.01000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
