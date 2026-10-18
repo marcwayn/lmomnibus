@@ -2400,9 +2400,9 @@
       [
         "Standard",
         {
-          "input": "0.0087000000",
-          "output": "0.2829000000",
-          "cache_read": "0.0087000000",
+          "input": "0.0114000000",
+          "output": "0.45000000",
+          "cache_read": "0.0114000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2516,7 +2516,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 393216,
+    "max_output_tokens": 384000,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -2560,7 +2560,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 393216,
+    "max_output_tokens": 943718,
     "modality": "text+image->text",
     "capabilities": {
       "tools": true,
@@ -2568,7 +2568,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 39.5,
+      "intelligence": 24.7,
       "coding": null,
       "agentic": null
     },
@@ -2576,9 +2576,9 @@
       [
         "Standard",
         {
-          "input": "0.15000000",
-          "output": "0.6000000",
-          "cache_read": "0.003000000",
+          "input": "0.0648000000",
+          "output": "0.144000000",
+          "cache_read": "0.0016000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2623,7 +2623,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 39.5,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -3951,7 +3955,7 @@
         "Standard",
         {
           "input": "0.08000000",
-          "output": "0.45000000",
+          "output": "0.35000000",
           "cache_read": "0.04000000",
           "cache_write": null,
           "tiers": [],
@@ -11954,7 +11958,7 @@
       [
         "Standard",
         {
-          "input": "0.1000000",
+          "input": "0.09000000",
           "output": "0.3000000",
           "cache_read": null,
           "cache_write": null,
@@ -12563,7 +12567,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 16384,
+    "max_output_tokens": 235929,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -14619,6 +14623,46 @@
     "reasoning_mandatory": false
   },
   {
+    "key": "unbiased/pareto-26.10",
+    "display_name": "Pareto 26.10",
+    "vendor_key": "unbiased",
+    "vendor_name": "Unbiased",
+    "released": {
+      "year": 2026,
+      "month": 10
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1048576,
+    "max_output_tokens": 131072,
+    "modality": "text+image->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": false,
+      "structured_output": false
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.8000000",
+          "output": "3.2000000",
+          "cache_read": "0.03000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-10-15",
+    "retires_on": null,
+    "open_weights": false,
+    "hf_id": null,
+    "reasoning_mandatory": false
+  },
+  {
     "key": "unbiased/pareto-26.9",
     "display_name": "Pareto 26.9",
     "vendor_key": "unbiased",
@@ -15970,7 +16014,7 @@
         "Standard",
         {
           "input": "0.079000000",
-          "output": "4.8000000",
+          "output": "2.5000000",
           "cache_read": "0.078000000",
           "cache_write": null,
           "tiers": [],
@@ -16009,7 +16053,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 943718,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -16025,9 +16069,9 @@
       [
         "Standard",
         {
-          "input": "0.0264000000",
-          "output": "0.3966000000",
-          "cache_read": "0.0084000000",
+          "input": "0.048000000",
+          "output": "0.2000000",
+          "cache_read": "0.006000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
