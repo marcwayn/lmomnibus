@@ -2110,50 +2110,6 @@
     "reasoning_mandatory": false
   },
   {
-    "key": "deepseek/deepseek-r1",
-    "display_name": "R1",
-    "vendor_key": "deepseek",
-    "vendor_name": "DeepSeek",
-    "released": {
-      "year": 2025,
-      "month": 1
-    },
-    "knowledge_cutoff": "2024-07-31",
-    "context_tokens": 64000,
-    "max_output_tokens": 16000,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": true,
-      "reasoning": true,
-      "structured_output": true
-    },
-    "scores": {
-      "intelligence": 11.4,
-      "coding": 24.6,
-      "agentic": 1.1
-    },
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.7000000",
-          "output": "2.5000000",
-          "cache_read": null,
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate",
-    "listed_on": "2025-01-20",
-    "retires_on": null,
-    "open_weights": true,
-    "hf_id": "deepseek-ai/DeepSeek-R1",
-    "reasoning_mandatory": true
-  },
-  {
     "key": "deepseek/deepseek-r1-0528",
     "display_name": "R1 0528",
     "vendor_key": "deepseek",
@@ -2400,9 +2356,9 @@
       [
         "Standard",
         {
-          "input": "0.0114000000",
-          "output": "0.45000000",
-          "cache_read": "0.0114000000",
+          "input": "0.15000000",
+          "output": "0.15000000",
+          "cache_read": "0.042000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2488,9 +2444,9 @@
       [
         "Standard",
         {
-          "input": "0.2088000000",
-          "output": "0.4176000000",
-          "cache_read": "0.0174000000",
+          "input": "0.95526000000",
+          "output": "1.91052000000",
+          "cache_read": "0.079605000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2576,8 +2532,8 @@
       [
         "Standard",
         {
-          "input": "0.0648000000",
-          "output": "0.144000000",
+          "input": "0.04000000",
+          "output": "0.08000000",
           "cache_read": "0.0016000000",
           "cache_write": null,
           "tiers": [],
@@ -3758,7 +3714,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 65536,
+    "max_output_tokens": 943718,
     "modality": "text+image+file+audio+video->text",
     "capabilities": {
       "tools": true,
@@ -4042,9 +3998,9 @@
       [
         "Standard",
         {
-          "input": "0.0675000000",
-          "output": "0.225000000",
-          "cache_read": "0.0375000000",
+          "input": "0.09000000",
+          "output": "0.3000000",
+          "cache_read": "0.05000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -4798,7 +4754,7 @@
     },
     "knowledge_cutoff": "2023-12-31",
     "context_tokens": 131072,
-    "max_output_tokens": 117964,
+    "max_output_tokens": 72000,
     "modality": "text->text",
     "capabilities": {
       "tools": false,
@@ -4814,8 +4770,8 @@
       [
         "Standard",
         {
-          "input": "0.05000000",
-          "output": "0.33000000",
+          "input": "0.0509000000",
+          "output": "0.335000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -4885,7 +4841,7 @@
       "month": 4
     },
     "knowledge_cutoff": "2024-08-31",
-    "context_tokens": 1048576,
+    "context_tokens": 524288,
     "max_output_tokens": 16384,
     "modality": "text+image->text",
     "capabilities": {
@@ -5381,46 +5337,6 @@
     "retires_on": null,
     "open_weights": true,
     "hf_id": "microsoft/phi-4",
-    "reasoning_mandatory": false
-  },
-  {
-    "key": "microsoft/wizardlm-2-8x22b",
-    "display_name": "WizardLM-2 8x22B",
-    "vendor_key": "microsoft",
-    "vendor_name": "Microsoft",
-    "released": {
-      "year": 2024,
-      "month": 4
-    },
-    "knowledge_cutoff": "2024-04-30",
-    "context_tokens": 65535,
-    "max_output_tokens": 8000,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": false,
-      "reasoning": false,
-      "structured_output": true
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.62000000",
-          "output": "0.62000000",
-          "cache_read": null,
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate",
-    "listed_on": "2024-04-16",
-    "retires_on": null,
-    "open_weights": true,
-    "hf_id": "microsoft/WizardLM-2-8x22B",
     "reasoning_mandatory": false
   },
   {
@@ -7075,7 +6991,7 @@
       [
         "Standard",
         {
-          "input": "0.304000000",
+          "input": "0.239000000",
           "output": "11.936000000",
           "cache_read": "0.21000000",
           "cache_write": null,
@@ -7114,13 +7030,13 @@
       "month": 7
     },
     "knowledge_cutoff": null,
-    "context_tokens": 81920,
-    "max_output_tokens": 38000,
+    "context_tokens": 262144,
+    "max_output_tokens": 131072,
     "modality": "text->text",
     "capabilities": {
       "tools": false,
       "reasoning": false,
-      "structured_output": false
+      "structured_output": true
     },
     "scores": null,
     "rates": [
@@ -12523,7 +12439,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 81920,
+    "max_output_tokens": 65536,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -12539,9 +12455,9 @@
       [
         "Standard",
         {
-          "input": "0.26000000",
-          "output": "2.6000000",
-          "cache_read": null,
+          "input": "0.27000000",
+          "output": "2.16000000",
+          "cache_read": "0.27000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -13876,46 +13792,6 @@
     "retires_on": null,
     "open_weights": true,
     "hf_id": "Sao10K/L3.1-70B-Euryale-v2.2",
-    "reasoning_mandatory": false
-  },
-  {
-    "key": "sao10k/l3.3-euryale-70b",
-    "display_name": "Llama 3.3 Euryale 70B",
-    "vendor_key": "sao10k",
-    "vendor_name": "Sao10k",
-    "released": {
-      "year": 2024,
-      "month": 12
-    },
-    "knowledge_cutoff": "2023-12-31",
-    "context_tokens": 131072,
-    "max_output_tokens": 16384,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": false,
-      "reasoning": false,
-      "structured_output": true
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.65000000",
-          "output": "0.75000000",
-          "cache_read": null,
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate",
-    "listed_on": "2024-12-18",
-    "retires_on": null,
-    "open_weights": true,
-    "hf_id": "Sao10K/L3.3-70B-Euryale-v2.3",
     "reasoning_mandatory": false
   },
   {
@@ -15661,9 +15537,9 @@
       [
         "Standard",
         {
-          "input": "0.5000000",
-          "output": "2.000000",
-          "cache_read": "0.1000000",
+          "input": "0.55000000",
+          "output": "2.2000000",
+          "cache_read": "0.11000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -16014,7 +15890,7 @@
         "Standard",
         {
           "input": "0.079000000",
-          "output": "2.5000000",
+          "output": "1.4000000",
           "cache_read": "0.078000000",
           "cache_write": null,
           "tiers": [],
@@ -16070,7 +15946,7 @@
         "Standard",
         {
           "input": "0.048000000",
-          "output": "0.2000000",
+          "output": "0.16000000",
           "cache_read": "0.006000000",
           "cache_write": null,
           "tiers": [],
