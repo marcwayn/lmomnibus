@@ -2532,9 +2532,9 @@
       [
         "Standard",
         {
-          "input": "0.056000000",
-          "output": "0.12000000",
-          "cache_read": "0.0016000000",
+          "input": "0.049000000",
+          "output": "0.375000000",
+          "cache_read": "0.001000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2720,23 +2720,11 @@
           "promo": null,
           "cache_write_1h": null
         }
-      ],
-      [
-        "Batch",
-        {
-          "input": "0.15000000",
-          "output": "1.25000000",
-          "cache_read": "0.03000000",
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
       ]
     ],
     "provenance": "Aggregate",
     "listed_on": "2025-06-17",
-    "retires_on": "2026-10-20",
+    "retires_on": null,
     "open_weights": false,
     "hf_id": null,
     "reasoning_mandatory": false
@@ -2832,7 +2820,7 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2025-07-22",
-    "retires_on": "2026-10-20",
+    "retires_on": null,
     "open_weights": false,
     "hf_id": null,
     "reasoning_mandatory": false
@@ -2879,30 +2867,11 @@
           "promo": null,
           "cache_write_1h": null
         }
-      ],
-      [
-        "Batch",
-        {
-          "input": "0.625000000",
-          "output": "5.000000",
-          "cache_read": "0.125000000",
-          "cache_write": null,
-          "tiers": [
-            {
-              "above_input_tokens": 200000,
-              "input": "1.25000000",
-              "output": "7.5000000",
-              "cache_read": "0.25000000"
-            }
-          ],
-          "promo": null,
-          "cache_write_1h": null
-        }
       ]
     ],
     "provenance": "Aggregate",
     "listed_on": "2025-06-17",
-    "retires_on": "2026-10-20",
+    "retires_on": null,
     "open_weights": false,
     "hf_id": null,
     "reasoning_mandatory": true
@@ -6138,9 +6107,9 @@
       [
         "Standard",
         {
-          "input": "0.68000000",
-          "output": "2.09000000",
-          "cache_read": "0.07000000",
+          "input": "1.36000000",
+          "output": "4.18000000",
+          "cache_read": "0.14000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -7419,9 +7388,9 @@
       [
         "Standard",
         {
-          "input": "0.08000000",
-          "output": "0.45000000",
-          "cache_read": null,
+          "input": "0.3000000",
+          "output": "2.4000000",
+          "cache_read": "0.15000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -12523,7 +12492,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 235929,
+    "max_output_tokens": 81920,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -12539,7 +12508,7 @@
       [
         "Standard",
         {
-          "input": "0.15000000",
+          "input": "0.14000000",
           "output": "1.000000",
           "cache_read": "0.05000000",
           "cache_write": null,
@@ -12611,7 +12580,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 32768,
+    "max_output_tokens": 65536,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -12627,9 +12596,9 @@
       [
         "Standard",
         {
-          "input": "0.1000000",
-          "output": "0.15000000",
-          "cache_read": null,
+          "input": "0.08000000",
+          "output": "0.13000000",
+          "cache_read": "0.04000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -12639,7 +12608,7 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2026-03-10",
-    "retires_on": "2026-10-21",
+    "retires_on": null,
     "open_weights": true,
     "hf_id": "Qwen/Qwen3.5-9B",
     "reasoning_mandatory": false
@@ -13135,7 +13104,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 909000,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -15213,7 +15182,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1050000,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 945000,
     "modality": "text+image+audio+video->text",
     "capabilities": {
       "tools": true,
@@ -15229,9 +15198,9 @@
       [
         "Standard",
         {
-          "input": "0.14000000",
-          "output": "0.28000000",
-          "cache_read": "0.0028000000",
+          "input": "0.119000000",
+          "output": "0.238000000",
+          "cache_read": "0.00255000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15241,7 +15210,7 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2026-04-22",
-    "retires_on": "2026-10-21",
+    "retires_on": null,
     "open_weights": true,
     "hf_id": "XiaomiMiMo/MiMo-V2.5",
     "reasoning_mandatory": false
@@ -15257,7 +15226,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1050000,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 945000,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -15273,9 +15242,9 @@
       [
         "Standard",
         {
-          "input": "0.435000000",
-          "output": "0.87000000",
-          "cache_read": "0.0036000000",
+          "input": "0.3045000000",
+          "output": "0.609000000",
+          "cache_read": "0.0028000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15285,7 +15254,7 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2026-04-22",
-    "retires_on": "2026-10-21",
+    "retires_on": null,
     "open_weights": true,
     "hf_id": "XiaomiMiMo/MiMo-V2.5-Pro",
     "reasoning_mandatory": false
@@ -15737,7 +15706,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 204800,
-    "max_output_tokens": 128000,
+    "max_output_tokens": 131072,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -15753,9 +15722,9 @@
       [
         "Standard",
         {
-          "input": "0.6000000",
-          "output": "1.92000000",
-          "cache_read": "0.12000000",
+          "input": "1.000000",
+          "output": "3.2000000",
+          "cache_read": "0.2000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15825,7 +15794,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 204800,
-    "max_output_tokens": 128000,
+    "max_output_tokens": 131072,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -15841,9 +15810,9 @@
       [
         "Standard",
         {
-          "input": "0.966000000",
-          "output": "3.036000000",
-          "cache_read": "0.1794000000",
+          "input": "1.4000000",
+          "output": "4.4000000",
+          "cache_read": "0.26000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15885,9 +15854,9 @@
       [
         "Standard",
         {
-          "input": "0.62000000",
-          "output": "2.42000000",
-          "cache_read": "0.14000000",
+          "input": "0.0341000000",
+          "output": "7.000000",
+          "cache_read": "0.033000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15985,9 +15954,9 @@
       [
         "Standard",
         {
-          "input": "0.037476000000",
-          "output": "0.16000000",
-          "cache_read": "0.006000000",
+          "input": "0.041191000000",
+          "output": "0.12000000",
+          "cache_read": "0.00375000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
