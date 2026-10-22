@@ -2472,7 +2472,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 384000,
+    "max_output_tokens": 393216,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -2532,9 +2532,9 @@
       [
         "Standard",
         {
-          "input": "0.049000000",
-          "output": "0.375000000",
-          "cache_read": "0.001000000",
+          "input": "0.3000000",
+          "output": "1.2000000",
+          "cache_read": "0.006000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2800,18 +2800,6 @@
           "output": "0.4000000",
           "cache_read": "0.01000000",
           "cache_write": "0.0833333333333333000000",
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ],
-      [
-        "Batch",
-        {
-          "input": "0.05000000",
-          "output": "0.2000000",
-          "cache_read": "0.01000000",
-          "cache_write": null,
           "tiers": [],
           "promo": null,
           "cache_write_1h": null
@@ -12420,8 +12408,8 @@
       [
         "Standard",
         {
-          "input": "0.26000000",
-          "output": "2.08000000",
+          "input": "0.4000000",
+          "output": "3.2000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -12536,7 +12524,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 65536,
+    "max_output_tokens": 235929,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -12552,9 +12540,9 @@
       [
         "Standard",
         {
-          "input": "0.39000000",
-          "output": "2.34000000",
-          "cache_read": null,
+          "input": "0.5000000",
+          "output": "3.6000000",
+          "cache_read": "0.3000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15954,9 +15942,9 @@
       [
         "Standard",
         {
-          "input": "0.041191000000",
-          "output": "0.12000000",
-          "cache_read": "0.00375000000",
+          "input": "0.0052000000",
+          "output": "0.1985000000",
+          "cache_read": "0.0052000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
