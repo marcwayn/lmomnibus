@@ -1414,7 +1414,7 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2026-04-01",
-    "retires_on": null,
+    "retires_on": "2026-10-26",
     "open_weights": true,
     "hf_id": "arcee-ai/Trinity-Large-Thinking",
     "reasoning_mandatory": true
@@ -5682,6 +5682,50 @@
     "reasoning_mandatory": false
   },
   {
+    "key": "minimax/minimax-m3.1-flash",
+    "display_name": "MiniMax M3.1 Flash",
+    "vendor_key": "minimax",
+    "vendor_name": "MiniMax",
+    "released": {
+      "year": 2026,
+      "month": 10
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1048576,
+    "max_output_tokens": 524288,
+    "modality": "text+image+video->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 42.7,
+      "coding": null,
+      "agentic": null
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.15000000",
+          "output": "0.6000000",
+          "cache_read": "0.015000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-10-19",
+    "retires_on": null,
+    "open_weights": true,
+    "hf_id": "MiniMaxAI/MiniMax-M3.1-Flash",
+    "reasoning_mandatory": true
+  },
+  {
     "key": "mistralai/codestral-2508",
     "display_name": "Codestral 2508",
     "vendor_key": "mistralai",
@@ -6516,8 +6560,8 @@
       [
         "Standard",
         {
-          "input": "0.09375000000",
-          "output": "0.25000000",
+          "input": "0.075000000",
+          "output": "0.2000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -12568,7 +12612,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 65536,
+    "max_output_tokens": 235929,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -12584,9 +12628,9 @@
       [
         "Standard",
         {
-          "input": "0.08000000",
-          "output": "0.13000000",
-          "cache_read": "0.04000000",
+          "input": "0.17000000",
+          "output": "0.25000000",
+          "cache_read": null,
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -13136,7 +13180,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1000000,
-    "max_output_tokens": 65536,
+    "max_output_tokens": 235929,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -13152,9 +13196,9 @@
       [
         "Standard",
         {
-          "input": "0.04000000",
-          "output": "1.35000000",
-          "cache_read": "0.018000000",
+          "input": "0.2000000",
+          "output": "2.5000000",
+          "cache_read": "0.09000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -13344,7 +13388,7 @@
     },
     "knowledge_cutoff": "2026-06-30",
     "context_tokens": 1048576,
-    "max_output_tokens": 943718,
+    "max_output_tokens": 131072,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -13356,9 +13400,9 @@
       [
         "Standard",
         {
-          "input": "0.3000000",
+          "input": "0.25000000",
           "output": "1.000000",
-          "cache_read": "0.04000000",
+          "cache_read": "0.05000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,

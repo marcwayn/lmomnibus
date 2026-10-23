@@ -1,4 +1,4 @@
-{"asOf":"2026-10-22","models":{
+{"asOf":"2026-10-23","models":{
 "aion-labs/aion-rp-llama-3.1-8b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8030261248,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "anthracite-org/magnum-v4-72b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":72706203648,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "arcee-ai/trinity-large-thinking":{"status":"open","licence":"permissive","licenceLabel":"openmdw-1.1","total":398635286016,"active":13000000000,"moe":true,"gated":false,"native":"bf16"},
@@ -55,6 +55,7 @@
 "minimax/minimax-m2.5":{"status":"open","licence":"custom","licenceLabel":"modified MIT","total":228703644928,"active":11044433152,"moe":true,"gated":false,"native":"fp8"},
 "minimax/minimax-m2.7":{"status":"open","licence":"unclassified","licenceLabel":"other","total":228689764864,"active":11030553088,"moe":true,"gated":false,"native":"fp8"},
 "minimax/minimax-m3":{"status":"open","licence":"custom","licenceLabel":"minimax-community","total":427040140160,"active":23000000000,"moe":true,"gated":false,"native":"bf16"},
+"minimax/minimax-m3.1-flash":{"status":"open","licence":"custom","licenceLabel":"minimax-community","total":220490854016,"active":8595089780,"moe":true,"gated":false,"native":"fp4"},
 "mistralai/devstral-2512":{"status":"open","licence":"unclassified","licenceLabel":"other (see the repo)","total":125025989840,"active":null,"moe":false,"gated":false,"native":"fp8"},
 "mistralai/ministral-14b-2512":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":13945032240,"active":null,"moe":false,"gated":false,"native":"fp8"},
 "mistralai/ministral-3b-2512":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":3849090048,"active":null,"moe":false,"gated":false,"native":"fp8"},
