@@ -2356,9 +2356,9 @@
       [
         "Standard",
         {
-          "input": "0.44000000",
-          "output": "1.32000000",
-          "cache_read": "0.014000000",
+          "input": "0.04444000000",
+          "output": "0.13332000000",
+          "cache_read": "0.001414000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2444,9 +2444,9 @@
       [
         "Standard",
         {
-          "input": "0.95526000000",
-          "output": "1.91052000000",
-          "cache_read": "0.079605000000",
+          "input": "0.378276000000",
+          "output": "0.756552000000",
+          "cache_read": "0.031523000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2532,9 +2532,9 @@
       [
         "Standard",
         {
-          "input": "0.3000000",
-          "output": "1.2000000",
-          "cache_read": "0.006000000",
+          "input": "0.02000000",
+          "output": "1.000000",
+          "cache_read": "0.015000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -3955,9 +3955,9 @@
       [
         "Standard",
         {
-          "input": "0.09000000",
-          "output": "0.3000000",
-          "cache_read": "0.05000000",
+          "input": "0.0675000000",
+          "output": "0.225000000",
+          "cache_read": "0.0375000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -6990,7 +6990,7 @@
         {
           "input": "0.6712000000",
           "output": "3.35000000",
-          "cache_read": "0.18000000",
+          "cache_read": "0.15000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -7033,7 +7033,7 @@
         "Standard",
         {
           "input": "0.239000000",
-          "output": "11.936000000",
+          "output": "10.8000000",
           "cache_read": "0.21000000",
           "cache_write": null,
           "tiers": [],
@@ -7059,6 +7059,50 @@
     "retires_on": null,
     "open_weights": true,
     "hf_id": "moonshotai/Kimi-K3",
+    "reasoning_mandatory": false
+  },
+  {
+    "key": "moonshotai/kimi-k3.1-pro",
+    "display_name": "Kimi K3.1 Pro",
+    "vendor_key": "moonshotai",
+    "vendor_name": "Moonshot AI",
+    "released": {
+      "year": 2026,
+      "month": 10
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1048576,
+    "max_output_tokens": 943718,
+    "modality": "text+image+video->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 55.1,
+      "coding": null,
+      "agentic": null
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "2.000000",
+          "output": "10.00000",
+          "cache_read": "0.2000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-10-23",
+    "retires_on": null,
+    "open_weights": false,
+    "hf_id": null,
     "reasoning_mandatory": false
   },
   {
@@ -15970,7 +16014,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 943718,
+    "max_output_tokens": 943717,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -15986,9 +16030,9 @@
       [
         "Standard",
         {
-          "input": "0.0052000000",
-          "output": "0.1985000000",
-          "cache_read": "0.0052000000",
+          "input": "0.15000000",
+          "output": "0.5000000",
+          "cache_read": "0.03000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
