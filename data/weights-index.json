@@ -1,4 +1,4 @@
-{"asOf":"2026-10-24","models":{
+{"asOf":"2026-10-25","models":{
 "aion-labs/aion-rp-llama-3.1-8b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8030261248,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "anthracite-org/magnum-v4-72b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":72706203648,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "arcee-ai/trinity-large-thinking":{"status":"open","licence":"permissive","licenceLabel":"openmdw-1.1","total":398635286016,"active":13000000000,"moe":true,"gated":false,"native":"bf16"},
@@ -35,6 +35,7 @@
 "inclusionai/ling-3.0-flash-vl":{"status":"open","licence":"permissive","licenceLabel":"MIT","total":124848460496,"active":5500000000,"moe":true,"gated":false,"native":"bf16"},
 "inference-net/schematron-v2-small":{"status":"unverified","licence":"unclassified","licenceLabel":"no licence named","total":0,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "inference-net/schematron-v2-turbo":{"status":"unverified","licence":"unclassified","licenceLabel":"no licence named","total":0,"active":null,"moe":false,"gated":false,"native":"bf16"},
+"liquid/lfm-2.5-2.6b":{"status":"open","licence":"unclassified","licenceLabel":"lfm1.0","total":2697198592,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "liquid/lfm-2.5-24b-a2b":{"status":"open","licence":"unclassified","licenceLabel":"lfm1.0","total":23971585280,"active":2000000000,"moe":true,"gated":false,"native":"bf16"},
 "meituan/longcat-2.0":{"status":"open","licence":"permissive","licenceLabel":"MIT","total":1775560491136,"active":48000000000,"moe":true,"gated":false,"native":"bf16"},
 "meta-llama/llama-3.1-70b-instruct":{"status":"open","licence":"custom","licenceLabel":"Llama 3.1 licence","total":70553706496,"active":null,"moe":false,"gated":true,"native":"bf16"},

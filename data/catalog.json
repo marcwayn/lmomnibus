@@ -2340,7 +2340,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 943718,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -2356,9 +2356,9 @@
       [
         "Standard",
         {
-          "input": "0.04444000000",
-          "output": "0.13332000000",
-          "cache_read": "0.001414000000",
+          "input": "0.0422000000",
+          "output": "0.1694000000",
+          "cache_read": "0.028000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2444,9 +2444,9 @@
       [
         "Standard",
         {
-          "input": "0.378276000000",
-          "output": "0.756552000000",
-          "cache_read": "0.031523000000",
+          "input": "0.2088000000",
+          "output": "0.4176000000",
+          "cache_read": "0.0174000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -4485,6 +4485,50 @@
     "reasoning_mandatory": false
   },
   {
+    "key": "liquid/lfm-2.5-2.6b",
+    "display_name": "LFM2.5-2.6B",
+    "vendor_key": "liquid",
+    "vendor_name": "Liquid",
+    "released": {
+      "year": 2026,
+      "month": 8
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 128000,
+    "max_output_tokens": 8192,
+    "modality": "text->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 8.4,
+      "coding": 7.7,
+      "agentic": null
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.35000000",
+          "output": "0.5000000",
+          "cache_read": "0.04000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-08-11",
+    "retires_on": null,
+    "open_weights": true,
+    "hf_id": "LiquidAI/LFM2.5-2.6B",
+    "reasoning_mandatory": true
+  },
+  {
     "key": "liquid/lfm-2.5-24b-a2b",
     "display_name": "LFM2.5-24B-A2B",
     "vendor_key": "liquid",
@@ -4751,7 +4795,7 @@
     },
     "knowledge_cutoff": "2023-12-31",
     "context_tokens": 131072,
-    "max_output_tokens": 72000,
+    "max_output_tokens": 117964,
     "modality": "text->text",
     "capabilities": {
       "tools": false,
@@ -4767,8 +4811,8 @@
       [
         "Standard",
         {
-          "input": "0.0509000000",
-          "output": "0.335000000",
+          "input": "0.05000000",
+          "output": "0.33000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -5560,7 +5604,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 204800,
-    "max_output_tokens": 32768,
+    "max_output_tokens": 131072,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -5576,8 +5620,8 @@
       [
         "Standard",
         {
-          "input": "0.27000000",
-          "output": "0.95000000",
+          "input": "0.3000000",
+          "output": "1.2000000",
           "cache_read": "0.03000000",
           "cache_write": null,
           "tiers": [],
@@ -7654,62 +7698,6 @@
     "reasoning_mandatory": false
   },
   {
-    "key": "openai/gpt-3.5-turbo",
-    "display_name": "GPT-3.5 Turbo",
-    "vendor_key": "openai",
-    "vendor_name": "OpenAI",
-    "released": {
-      "year": 2023,
-      "month": 5
-    },
-    "knowledge_cutoff": "2021-09-30",
-    "context_tokens": 16385,
-    "max_output_tokens": 4096,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": true,
-      "reasoning": false,
-      "structured_output": true
-    },
-    "scores": {
-      "intelligence": 5.5,
-      "coding": 10.7,
-      "agentic": null
-    },
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.5000000",
-          "output": "1.5000000",
-          "cache_read": null,
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ],
-      [
-        "Batch",
-        {
-          "input": "0.25000000",
-          "output": "0.75000000",
-          "cache_read": null,
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate",
-    "listed_on": "2023-05-28",
-    "retires_on": null,
-    "open_weights": false,
-    "hf_id": null,
-    "reasoning_mandatory": false
-  },
-  {
     "key": "openai/gpt-3.5-turbo-0613",
     "display_name": "GPT-3.5 Turbo (older v0613)",
     "vendor_key": "openai",
@@ -7784,46 +7772,6 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2023-08-28",
-    "retires_on": null,
-    "open_weights": false,
-    "hf_id": null,
-    "reasoning_mandatory": false
-  },
-  {
-    "key": "openai/gpt-3.5-turbo-instruct",
-    "display_name": "GPT-3.5 Turbo Instruct",
-    "vendor_key": "openai",
-    "vendor_name": "OpenAI",
-    "released": {
-      "year": 2023,
-      "month": 9
-    },
-    "knowledge_cutoff": "2021-09-30",
-    "context_tokens": 4095,
-    "max_output_tokens": 3685,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": false,
-      "reasoning": false,
-      "structured_output": true
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "1.5000000",
-          "output": "2.000000",
-          "cache_read": null,
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate",
-    "listed_on": "2023-09-28",
     "retires_on": null,
     "open_weights": false,
     "hf_id": null,
@@ -15590,7 +15538,7 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2025-08-11",
-    "retires_on": null,
+    "retires_on": "2026-12-31",
     "open_weights": true,
     "hf_id": "zai-org/GLM-4.5V",
     "reasoning_mandatory": false
@@ -15668,7 +15616,7 @@
         {
           "input": "0.3000000",
           "output": "0.9000000",
-          "cache_read": "0.055000000",
+          "cache_read": "0.05000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
