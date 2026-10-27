@@ -1,7 +1,6 @@
-{"asOf":"2026-10-26","models":{
+{"asOf":"2026-10-27","models":{
 "aion-labs/aion-rp-llama-3.1-8b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8030261248,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "anthracite-org/magnum-v4-72b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":72706203648,"active":null,"moe":false,"gated":false,"native":"bf16"},
-"arcee-ai/trinity-large-thinking":{"status":"open","licence":"permissive","licenceLabel":"openmdw-1.1","total":398635286016,"active":13000000000,"moe":true,"gated":false,"native":"bf16"},
 "bytedance/ui-tars-1.5-7b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8292166656,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "cognitivecomputations/dolphin-mistral-24b-venice-edition":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":24011361280,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "cohere/command-a":{"status":"open","licence":"noncommercial","licenceLabel":"CC BY-NC 4.0","total":111057580032,"active":null,"moe":false,"gated":true,"native":"bf16"},
@@ -29,7 +28,6 @@
 "google/gemma-4-26b-a4b-it":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":25805936206,"active":3800000000,"moe":true,"gated":false,"native":"bf16"},
 "google/gemma-4-31b-it":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":31273088876,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "gryphe/mythomax-l2-13b":{"status":"open","licence":"unclassified","licenceLabel":"other (see the repo)","total":13015925221,"active":null,"moe":false,"gated":false,"native":"bf16"},
-"ibm-granite/granite-4.0-h-micro":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":3191396096,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "ibm-granite/granite-4.2-8b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8791592960,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "inclusionai/ling-3.0-flash":{"status":"open","licence":"permissive","licenceLabel":"MIT","total":127486405600,"active":5100000000,"moe":true,"gated":false,"native":"bf16"},
 "inclusionai/ling-3.0-flash-vl":{"status":"open","licence":"permissive","licenceLabel":"MIT","total":124848460496,"active":5500000000,"moe":true,"gated":false,"native":"bf16"},
