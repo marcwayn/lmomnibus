@@ -259,7 +259,7 @@
       "structured_output": false
     },
     "scores": {
-      "intelligence": 13.4,
+      "intelligence": null,
       "coding": 23,
       "agentic": null
     },
@@ -302,11 +302,7 @@
       "reasoning": false,
       "structured_output": false
     },
-    "scores": {
-      "intelligence": 6.7,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -346,11 +342,7 @@
       "reasoning": false,
       "structured_output": false
     },
-    "scores": {
-      "intelligence": 5.9,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -390,11 +382,7 @@
       "reasoning": false,
       "structured_output": false
     },
-    "scores": {
-      "intelligence": 9.2,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -434,11 +422,7 @@
       "reasoning": false,
       "structured_output": false
     },
-    "scores": {
-      "intelligence": 7,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -519,7 +503,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 49.6,
+      "intelligence": null,
       "coding": 76.5,
       "agentic": 50.7
     },
@@ -576,9 +560,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 53.4,
-      "coding": 81.6,
-      "agentic": 57.9
+      "intelligence": 49.7,
+      "coding": 80.7,
+      "agentic": 57.2
     },
     "rates": [
       [
@@ -633,7 +617,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 16.9,
+      "intelligence": null,
       "coding": 43.9,
       "agentic": 8
     },
@@ -690,7 +674,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 43.4,
+      "intelligence": 36.2,
       "coding": null,
       "agentic": null
     },
@@ -759,11 +743,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 22.8,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -815,11 +795,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 29.1,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -871,11 +847,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 31.9,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -928,7 +900,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 40.7,
+      "intelligence": null,
       "coding": 73.6,
       "agentic": 38.6
     },
@@ -984,7 +956,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 41.8,
+      "intelligence": null,
       "coding": 74.3,
       "agentic": 41.9
     },
@@ -1040,7 +1012,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 50.8,
+      "intelligence": null,
       "coding": 78,
       "agentic": 56.5
     },
@@ -1097,7 +1069,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 57.6,
+      "intelligence": 58.4,
       "coding": null,
       "agentic": null
     },
@@ -1154,7 +1126,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 20.7,
+      "intelligence": null,
       "coding": 52.1,
       "agentic": 15.8
     },
@@ -1224,7 +1196,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 30.1,
+      "intelligence": null,
       "coding": 63,
       "agentic": 31.8
     },
@@ -1280,7 +1252,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 38.2,
+      "intelligence": null,
       "coding": 71.5,
       "agentic": 43.6
     },
@@ -1337,7 +1309,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 56,
+      "intelligence": 54.2,
       "coding": null,
       "agentic": null
     },
@@ -1748,11 +1720,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 7,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -1793,7 +1761,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 13.1,
+      "intelligence": 6.2,
       "coding": 27.8,
       "agentic": 1
     },
@@ -2000,7 +1968,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 9.7,
+      "intelligence": null,
       "coding": 21.2,
       "agentic": 0.8
     },
@@ -2036,18 +2004,14 @@
     },
     "knowledge_cutoff": "2025-03-31",
     "context_tokens": 163840,
-    "max_output_tokens": 32768,
+    "max_output_tokens": 147456,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 13.7,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -2087,11 +2051,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 13.1,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -2132,7 +2092,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 14.8,
+      "intelligence": null,
       "coding": 43.5,
       "agentic": 6.8
     },
@@ -2176,7 +2136,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 21.5,
+      "intelligence": null,
       "coding": 44.2,
       "agentic": null
     },
@@ -2219,11 +2179,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 16.6,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -2264,9 +2220,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 24.4,
-      "coding": 52,
-      "agentic": 26.3
+      "intelligence": null,
+      "coding": 56.2,
+      "agentic": 22.2
     },
     "rates": [
       [
@@ -2308,7 +2264,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 34.3,
+      "intelligence": null,
       "coding": 69.1,
       "agentic": 41
     },
@@ -2352,7 +2308,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 34.8,
+      "intelligence": null,
       "coding": 65,
       "agentic": 47.5
     },
@@ -2396,7 +2352,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 30.4,
+      "intelligence": null,
       "coding": 59.4,
       "agentic": 26.3
     },
@@ -2440,7 +2396,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 36,
+      "intelligence": 23.1,
       "coding": 68.8,
       "agentic": 41.3
     },
@@ -2476,25 +2432,21 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 943718,
     "modality": "text+image->text",
     "capabilities": {
       "tools": true,
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 24.7,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
         {
-          "input": "0.14000000",
-          "output": "0.42000000",
-          "cache_read": "0.0042000000",
+          "input": "0.045000000",
+          "output": "0.5000000",
+          "cache_read": "0.006000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2539,11 +2491,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 39.5,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -2663,11 +2611,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 15.5,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -2747,11 +2691,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 10.4,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -2792,7 +2732,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 16.1,
+      "intelligence": null,
       "coding": 33.3,
       "agentic": 1.6
     },
@@ -2889,11 +2829,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 26.3,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -3198,7 +3134,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 15.6,
+      "intelligence": null,
       "coding": 34.7,
       "agentic": 1.6
     },
@@ -3242,7 +3178,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 29.7,
+      "intelligence": null,
       "coding": 68.8,
       "agentic": 8.2
     },
@@ -3359,9 +3295,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 33.6,
-      "coding": null,
-      "agentic": null
+      "intelligence": null,
+      "coding": 70.1,
+      "agentic": 26
     },
     "rates": [
       [
@@ -3415,7 +3351,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 22.2,
+      "intelligence": 11.7,
       "coding": 49.3,
       "agentic": 14.3
     },
@@ -3471,7 +3407,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 34,
+      "intelligence": null,
       "coding": 69.2,
       "agentic": 29
     },
@@ -3527,9 +3463,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 39.6,
-      "coding": 71.5,
-      "agentic": null
+      "intelligence": null,
+      "coding": 76.1,
+      "agentic": 35.2
     },
     "rates": [
       [
@@ -3583,7 +3519,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 40.9,
+      "intelligence": 30.5,
       "coding": 76.3,
       "agentic": 40.2
     },
@@ -3639,7 +3575,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 52.6,
+      "intelligence": 50.4,
       "coding": null,
       "agentic": null
     },
@@ -3775,7 +3711,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 3.8,
+      "intelligence": null,
       "coding": 5.8,
       "agentic": 0.1
     },
@@ -3819,7 +3755,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 4.9,
+      "intelligence": null,
       "coding": 10.1,
       "agentic": 0.1
     },
@@ -3863,7 +3799,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 4.8,
+      "intelligence": null,
       "coding": 2.7,
       "agentic": null
     },
@@ -3907,7 +3843,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 16.7,
+      "intelligence": null,
       "coding": 39.3,
       "agentic": 2.9
     },
@@ -3951,7 +3887,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 14.7,
+      "intelligence": null,
       "coding": 43.4,
       "agentic": 4.2
     },
@@ -4035,7 +3971,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 11.1,
+      "intelligence": null,
       "coding": 22.4,
       "agentic": 1.3
     },
@@ -4044,7 +3980,7 @@
         "Standard",
         {
           "input": "0.06000000",
-          "output": "0.25000000",
+          "output": "0.15000000",
           "cache_read": "0.015000000",
           "cache_write": null,
           "tiers": [],
@@ -4079,7 +4015,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 10.8,
+      "intelligence": null,
       "coding": 31.1,
       "agentic": 1.6
     },
@@ -4122,11 +4058,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 12.3,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -4207,7 +4139,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 20.1,
+      "intelligence": null,
       "coding": 50.6,
       "agentic": 19.3
     },
@@ -4251,7 +4183,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 24.6,
+      "intelligence": null,
       "coding": 57,
       "agentic": 28.7
     },
@@ -4294,11 +4226,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 41.1,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -4419,7 +4347,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 8.4,
+      "intelligence": null,
       "coding": 7.7,
       "agentic": null
     },
@@ -4543,7 +4471,7 @@
       "structured_output": false
     },
     "scores": {
-      "intelligence": 19.1,
+      "intelligence": null,
       "coding": 45.3,
       "agentic": 14
     },
@@ -4586,11 +4514,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 6.6,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -4623,7 +4547,7 @@
     },
     "knowledge_cutoff": "2023-12-31",
     "context_tokens": 131072,
-    "max_output_tokens": 16384,
+    "max_output_tokens": 117964,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -4631,7 +4555,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 6.9,
+      "intelligence": null,
       "coding": 5.4,
       "agentic": null
     },
@@ -4639,9 +4563,9 @@
       [
         "Standard",
         {
-          "input": "0.02000000",
-          "output": "0.04000000",
-          "cache_read": null,
+          "input": "0.05000000",
+          "output": "0.08000000",
+          "cache_read": "0.025000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -4674,11 +4598,7 @@
       "reasoning": false,
       "structured_output": false
     },
-    "scores": {
-      "intelligence": 4.8,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -4718,11 +4638,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 5.7,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -4763,7 +4679,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 7.7,
+      "intelligence": null,
       "coding": 11.9,
       "agentic": null
     },
@@ -4807,7 +4723,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 9.3,
+      "intelligence": null,
       "coding": 16.3,
       "agentic": 0.6
     },
@@ -4851,7 +4767,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 6.5,
+      "intelligence": null,
       "coding": 8.2,
       "agentic": 0.5
     },
@@ -4935,7 +4851,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 17.5,
+      "intelligence": 6.3,
       "coding": 49,
       "agentic": 8.5
     },
@@ -4979,7 +4895,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 33.7,
+      "intelligence": null,
       "coding": 71.3,
       "agentic": 25.8
     },
@@ -5023,7 +4939,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 39.6,
+      "intelligence": null,
       "coding": 72.2,
       "agentic": 43.2
     },
@@ -5107,7 +5023,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 48.1,
+      "intelligence": 36.4,
       "coding": 75.8,
       "agentic": 55.5
     },
@@ -5183,7 +5099,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 943718,
+    "max_output_tokens": 131072,
     "modality": "text+image+file+audio+video->text",
     "capabilities": {
       "tools": true,
@@ -5270,11 +5186,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 5.9,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -5354,11 +5266,7 @@
       "reasoning": true,
       "structured_output": false
     },
-    "scores": {
-      "intelligence": 11.7,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -5397,13 +5305,9 @@
     "capabilities": {
       "tools": true,
       "reasoning": true,
-      "structured_output": true
+      "structured_output": false
     },
-    "scores": {
-      "intelligence": 18.6,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -5483,11 +5387,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 20.9,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -5527,11 +5427,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 22.8,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -5572,7 +5468,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 22.8,
+      "intelligence": null,
       "coding": 52.6,
       "agentic": 15.3
     },
@@ -5616,7 +5512,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 29.2,
+      "intelligence": 18.7,
       "coding": 58.6,
       "agentic": 29.5
     },
@@ -5660,7 +5556,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 42.7,
+      "intelligence": 28.9,
       "coding": null,
       "agentic": null
     },
@@ -5744,7 +5640,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 8.6,
+      "intelligence": null,
       "coding": 31.3,
       "agentic": 2.3
     },
@@ -5788,7 +5684,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 6,
+      "intelligence": null,
       "coding": 14.4,
       "agentic": 1.1
     },
@@ -5832,7 +5728,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 4.8,
+      "intelligence": null,
       "coding": 4.8,
       "agentic": 0.8
     },
@@ -5876,7 +5772,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 5.5,
+      "intelligence": null,
       "coding": 9.7,
       "agentic": 0.6
     },
@@ -5919,11 +5815,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 5.8,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -5964,11 +5856,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 7.6,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -6010,7 +5898,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 9.3,
+      "intelligence": null,
       "coding": 20.1,
       "agentic": 1
     },
@@ -6055,7 +5943,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 38.4,
+      "intelligence": 25.3,
       "coding": null,
       "agentic": null
     },
@@ -6098,11 +5986,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 9,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -6143,7 +6027,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 14.2,
+      "intelligence": null,
       "coding": 46.9,
       "agentic": 7
     },
@@ -6200,7 +6084,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 9.2,
+      "intelligence": null,
       "coding": 20.5,
       "agentic": 1.9
     },
@@ -6283,11 +6167,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 6.5,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -6327,11 +6207,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 6.7,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -6372,7 +6248,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 11.3,
+      "intelligence": null,
       "coding": 26.6,
       "agentic": 0.8
     },
@@ -6495,11 +6371,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 5.7,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -6659,11 +6531,7 @@
       "reasoning": false,
       "structured_output": false
     },
-    "scores": {
-      "intelligence": 12.7,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -6703,11 +6571,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 15.3,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -6748,8 +6612,8 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 22,
-      "coding": null,
+      "intelligence": null,
+      "coding": 21,
       "agentic": null
     },
     "rates": [
@@ -6792,7 +6656,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 23.5,
+      "intelligence": null,
       "coding": 46.8,
       "agentic": null
     },
@@ -6836,7 +6700,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 27,
+      "intelligence": null,
       "coding": 61.8,
       "agentic": 20.5
     },
@@ -6880,7 +6744,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 25.8,
+      "intelligence": null,
       "coding": 60.8,
       "agentic": 21
     },
@@ -6888,7 +6752,7 @@
       [
         "Standard",
         {
-          "input": "0.6725000000",
+          "input": "0.56000000",
           "output": "3.1000000",
           "cache_read": "0.15000000",
           "cache_write": null,
@@ -6924,7 +6788,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 43.6,
+      "intelligence": null,
       "coding": 76.2,
       "agentic": 50
     },
@@ -6932,9 +6796,9 @@
       [
         "Standard",
         {
-          "input": "0.15000000",
-          "output": "20.00000",
-          "cache_read": "0.14000000",
+          "input": "0.239000000",
+          "output": "10.8000000",
+          "cache_read": "0.21000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -6980,7 +6844,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 55.1,
+      "intelligence": 46,
       "coding": null,
       "agentic": null
     },
@@ -7223,11 +7087,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 6,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -7267,11 +7127,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 7.5,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -7312,7 +7168,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 8.9,
+      "intelligence": null,
       "coding": 14.4,
       "agentic": 1
     },
@@ -7347,8 +7203,8 @@
       "month": 3
     },
     "knowledge_cutoff": null,
-    "context_tokens": 262144,
-    "max_output_tokens": 235929,
+    "context_tokens": 1048576,
+    "max_output_tokens": 262144,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -7356,7 +7212,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 12.8,
+      "intelligence": null,
       "coding": 37.7,
       "agentic": 1.7
     },
@@ -7400,7 +7256,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 22.9,
+      "intelligence": 11.8,
       "coding": 49.3,
       "agentic": 20.1
     },
@@ -7484,7 +7340,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 12.9,
+      "intelligence": null,
       "coding": 26.8,
       "agentic": 3.5
     },
@@ -7528,7 +7384,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 26.5,
+      "intelligence": 13.6,
       "coding": null,
       "agentic": null
     },
@@ -7652,7 +7508,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 6.7,
+      "intelligence": null,
       "coding": 13.1,
       "agentic": null
     },
@@ -7679,7 +7535,7 @@
   },
   {
     "key": "openai/gpt-4-turbo",
-    "display_name": "GPT-4 Turbo",
+    "display_name": "GPT-4 Turbo (batch)",
     "vendor_key": "openai",
     "vendor_name": "OpenAI",
     "released": {
@@ -7696,23 +7552,11 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 7,
+      "intelligence": null,
       "coding": 21.5,
       "agentic": null
     },
     "rates": [
-      [
-        "Standard",
-        {
-          "input": "10.00000",
-          "output": "30.00000",
-          "cache_read": null,
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ],
       [
         "Batch",
         {
@@ -7751,11 +7595,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 12.7,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -7808,7 +7648,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 10.2,
+      "intelligence": null,
       "coding": 20.2,
       "agentic": null
     },
@@ -7864,7 +7704,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 7.8,
+      "intelligence": null,
       "coding": 11.1,
       "agentic": null
     },
@@ -7972,7 +7812,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 7.3,
+      "intelligence": null,
       "coding": 24.2,
       "agentic": null
     },
@@ -8015,11 +7855,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 7.7,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -8059,11 +7895,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 8.4,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -8104,7 +7936,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 6.7,
+      "intelligence": null,
       "coding": 11.4,
       "agentic": null
     },
@@ -8200,7 +8032,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 23,
+      "intelligence": null,
       "coding": 37.8,
       "agentic": null
     },
@@ -8336,9 +8168,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 20.6,
-      "coding": null,
-      "agentic": null
+      "intelligence": null,
+      "coding": 15.6,
+      "agentic": 6.8
     },
     "rates": [
       [
@@ -8391,11 +8223,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 13,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -8500,7 +8328,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 24.7,
+      "intelligence": null,
       "coding": 49.4,
       "agentic": null
     },
@@ -8555,11 +8383,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 23.7,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -8639,11 +8463,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 20.4,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -8683,11 +8503,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 30.4,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -8779,11 +8595,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 28.5,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -8875,11 +8687,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 32.5,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -8920,7 +8728,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 39,
+      "intelligence": null,
       "coding": 71.1,
       "agentic": null
     },
@@ -9030,7 +8838,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 24.1,
+      "intelligence": null,
       "coding": 56.1,
       "agentic": 17.9
     },
@@ -9086,7 +8894,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 20.7,
+      "intelligence": null,
       "coding": 56.1,
       "agentic": 16
     },
@@ -9208,7 +9016,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 38.4,
+      "intelligence": null,
       "coding": 74.9,
       "agentic": 36.4
     },
@@ -9344,7 +9152,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 37.3,
+      "intelligence": null,
       "coding": 71.4,
       "agentic": 42.1
     },
@@ -9480,9 +9288,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 47,
-      "coding": 77.4,
-      "agentic": 50.2
+      "intelligence": null,
+      "coding": 78.3,
+      "agentic": 47.4
     },
     "rates": [
       [
@@ -9616,7 +9424,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 42.1,
+      "intelligence": null,
       "coding": 76.7,
       "agentic": 43.2
     },
@@ -9752,7 +9560,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 52.7,
+      "intelligence": 56.9,
       "coding": 76.9,
       "agentic": 51
     },
@@ -9888,7 +9696,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 38.1,
+      "intelligence": 27.8,
       "coding": null,
       "agentic": null
     },
@@ -10023,11 +9831,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 47.6,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -10160,7 +9964,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 51.8,
+      "intelligence": 54.5,
       "coding": null,
       "agentic": null
     },
@@ -10296,7 +10100,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 48.1,
+      "intelligence": 51,
       "coding": null,
       "agentic": null
     },
@@ -10552,7 +10356,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 11.6,
+      "intelligence": null,
       "coding": 30.4,
       "agentic": 3.7
     },
@@ -10608,9 +10412,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 10,
-      "coding": null,
-      "agentic": null
+      "intelligence": null,
+      "coding": 20.7,
+      "agentic": 1.2
     },
     "rates": [
       [
@@ -10686,94 +10490,6 @@
     "reasoning_mandatory": true
   },
   {
-    "key": "openai/o1",
-    "display_name": "o1",
-    "vendor_key": "openai",
-    "vendor_name": "OpenAI",
-    "released": {
-      "year": 2024,
-      "month": 12
-    },
-    "knowledge_cutoff": "2023-10-31",
-    "context_tokens": 200000,
-    "max_output_tokens": 100000,
-    "modality": "text+image+file->text",
-    "capabilities": {
-      "tools": true,
-      "reasoning": true,
-      "structured_output": true
-    },
-    "scores": {
-      "intelligence": 15.2,
-      "coding": 39.7,
-      "agentic": null
-    },
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "15.000000",
-          "output": "60.00000",
-          "cache_read": "7.5000000",
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate",
-    "listed_on": "2024-12-17",
-    "retires_on": null,
-    "open_weights": false,
-    "hf_id": null,
-    "reasoning_mandatory": true
-  },
-  {
-    "key": "openai/o1-pro",
-    "display_name": "o1-pro",
-    "vendor_key": "openai",
-    "vendor_name": "OpenAI",
-    "released": {
-      "year": 2025,
-      "month": 3
-    },
-    "knowledge_cutoff": "2023-10-31",
-    "context_tokens": 200000,
-    "max_output_tokens": 100000,
-    "modality": "text+image+file->text",
-    "capabilities": {
-      "tools": false,
-      "reasoning": true,
-      "structured_output": true
-    },
-    "scores": {
-      "intelligence": 12.4,
-      "coding": null,
-      "agentic": null
-    },
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "150.00000",
-          "output": "600.0000",
-          "cache_read": null,
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate",
-    "listed_on": "2025-03-19",
-    "retires_on": null,
-    "open_weights": false,
-    "hf_id": null,
-    "reasoning_mandatory": true
-  },
-  {
     "key": "openai/o3",
     "display_name": "o3",
     "vendor_key": "openai",
@@ -10791,11 +10507,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 20.2,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -10831,7 +10543,7 @@
   },
   {
     "key": "openai/o3-mini",
-    "display_name": "o3 Mini",
+    "display_name": "o3 Mini (batch)",
     "vendor_key": "openai",
     "vendor_name": "OpenAI",
     "released": {
@@ -10847,24 +10559,8 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 12.5,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
-      [
-        "Standard",
-        {
-          "input": "1.1000000",
-          "output": "4.4000000",
-          "cache_read": "0.55000000",
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ],
       [
         "Batch",
         {
@@ -10880,50 +10576,6 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2025-01-31",
-    "retires_on": null,
-    "open_weights": false,
-    "hf_id": null,
-    "reasoning_mandatory": true
-  },
-  {
-    "key": "openai/o3-mini-high",
-    "display_name": "o3 Mini High",
-    "vendor_key": "openai",
-    "vendor_name": "OpenAI",
-    "released": {
-      "year": 2025,
-      "month": 2
-    },
-    "knowledge_cutoff": "2023-10-31",
-    "context_tokens": 200000,
-    "max_output_tokens": 100000,
-    "modality": "text+file->text",
-    "capabilities": {
-      "tools": true,
-      "reasoning": true,
-      "structured_output": true
-    },
-    "scores": {
-      "intelligence": 11,
-      "coding": 16.3,
-      "agentic": 0.9
-    },
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "1.1000000",
-          "output": "4.4000000",
-          "cache_read": "0.55000000",
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate",
-    "listed_on": "2025-02-12",
     "retires_on": null,
     "open_weights": false,
     "hf_id": null,
@@ -10947,11 +10599,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 21.9,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -10975,7 +10623,7 @@
   },
   {
     "key": "openai/o4-mini",
-    "display_name": "o4 Mini",
+    "display_name": "o4 Mini (batch)",
     "vendor_key": "openai",
     "vendor_name": "OpenAI",
     "released": {
@@ -10991,24 +10639,8 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 16.7,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
-      [
-        "Standard",
-        {
-          "input": "1.1000000",
-          "output": "4.4000000",
-          "cache_read": "0.275000000",
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ],
       [
         "Batch",
         {
@@ -11030,18 +10662,18 @@
     "reasoning_mandatory": true
   },
   {
-    "key": "openai/o4-mini-high",
-    "display_name": "o4 Mini High",
-    "vendor_key": "openai",
-    "vendor_name": "OpenAI",
+    "key": "particle-ai/particle-1",
+    "display_name": "Particle-1",
+    "vendor_key": "particle-ai",
+    "vendor_name": "Particle Ai",
     "released": {
-      "year": 2025,
-      "month": 4
+      "year": 2026,
+      "month": 10
     },
-    "knowledge_cutoff": "2024-06-30",
-    "context_tokens": 200000,
-    "max_output_tokens": 100000,
-    "modality": "text+image+file->text",
+    "knowledge_cutoff": null,
+    "context_tokens": 1048576,
+    "max_output_tokens": 131072,
+    "modality": "text+image->text",
     "capabilities": {
       "tools": true,
       "reasoning": true,
@@ -11052,9 +10684,9 @@
       [
         "Standard",
         {
-          "input": "1.1000000",
-          "output": "4.4000000",
-          "cache_read": "0.275000000",
+          "input": "0.25000000",
+          "output": "1.000000",
+          "cache_read": "0.03000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -11063,11 +10695,11 @@
       ]
     ],
     "provenance": "Aggregate",
-    "listed_on": "2025-04-16",
+    "listed_on": "2026-10-28",
     "retires_on": null,
     "open_weights": false,
     "hf_id": null,
-    "reasoning_mandatory": true
+    "reasoning_mandatory": false
   },
   {
     "key": "perceptron/perceptron-mk1",
@@ -11167,11 +10799,7 @@
       "reasoning": false,
       "structured_output": false
     },
-    "scores": {
-      "intelligence": 7.7,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -11251,11 +10879,7 @@
       "reasoning": false,
       "structured_output": false
     },
-    "scores": {
-      "intelligence": 7.6,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -11335,11 +10959,7 @@
       "reasoning": true,
       "structured_output": false
     },
-    "scores": {
-      "intelligence": 11.8,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -11539,11 +11159,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 7.7,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -11623,11 +11239,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 6.7,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -11755,9 +11367,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 6.7,
-      "coding": null,
-      "agentic": null
+      "intelligence": null,
+      "coding": 13.8,
+      "agentic": 0.9
     },
     "rates": [
       [
@@ -11798,11 +11410,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 12,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -11843,7 +11451,7 @@
       "structured_output": false
     },
     "scores": {
-      "intelligence": 12.7,
+      "intelligence": null,
       "coding": 22.1,
       "agentic": 1.3
     },
@@ -11886,11 +11494,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 7.6,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -11930,11 +11534,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 7.5,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -11975,9 +11575,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 7.3,
-      "coding": null,
-      "agentic": null
+      "intelligence": null,
+      "coding": 15.3,
+      "agentic": 0.9
     },
     "rates": [
       [
@@ -12018,11 +11618,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 11.9,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -12062,11 +11658,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 9.6,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -12160,7 +11752,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 9.2,
+      "intelligence": null,
       "coding": 36.2,
       "agentic": 0.9
     },
@@ -12203,11 +11795,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 9.6,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -12230,50 +11818,6 @@
     "reasoning_mandatory": false
   },
   {
-    "key": "qwen/qwen3-next-80b-a3b-thinking",
-    "display_name": "Qwen3 Next 80B A3B Thinking",
-    "vendor_key": "qwen",
-    "vendor_name": "Qwen",
-    "released": {
-      "year": 2025,
-      "month": 9
-    },
-    "knowledge_cutoff": "2025-09-30",
-    "context_tokens": 262144,
-    "max_output_tokens": 235929,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": true,
-      "reasoning": true,
-      "structured_output": true
-    },
-    "scores": {
-      "intelligence": 11.2,
-      "coding": 17.4,
-      "agentic": null
-    },
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.15000000",
-          "output": "1.2000000",
-          "cache_read": null,
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate",
-    "listed_on": "2025-09-11",
-    "retires_on": null,
-    "open_weights": true,
-    "hf_id": "Qwen/Qwen3-Next-80B-A3B-Thinking",
-    "reasoning_mandatory": true
-  },
-  {
     "key": "qwen/qwen3-vl-235b-a22b-instruct",
     "display_name": "Qwen3 VL 235B A22B Instruct",
     "vendor_key": "qwen",
@@ -12291,11 +11835,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 9.9,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -12335,11 +11875,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 7.9,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -12379,11 +11915,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 9.5,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -12423,11 +11955,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 7.3,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -12468,9 +11996,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 17.7,
-      "coding": 43.3,
-      "agentic": null
+      "intelligence": null,
+      "coding": 45.7,
+      "agentic": 7.6
     },
     "rates": [
       [
@@ -12511,11 +12039,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 22.9,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -12556,8 +12080,8 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 19.3,
-      "coding": null,
+      "intelligence": null,
+      "coding": 37,
       "agentic": null
     },
     "rates": [
@@ -12600,9 +12124,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 21.4,
-      "coding": null,
-      "agentic": null
+      "intelligence": null,
+      "coding": 48.2,
+      "agentic": 8.3
     },
     "rates": [
       [
@@ -12644,9 +12168,9 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 13.3,
-      "coding": 23.5,
-      "agentic": null
+      "intelligence": null,
+      "coding": 28.7,
+      "agentic": 1.2
     },
     "rates": [
       [
@@ -12822,7 +12346,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 21.4,
+      "intelligence": null,
       "coding": 53.7,
       "agentic": 18.5
     },
@@ -12866,7 +12390,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 18.2,
+      "intelligence": null,
       "coding": 41.9,
       "agentic": 13.1
     },
@@ -12957,7 +12481,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 27,
+      "intelligence": null,
       "coding": 54.5,
       "agentic": null
     },
@@ -13061,7 +12585,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 29.5,
+      "intelligence": null,
       "coding": 66,
       "agentic": 22.5
     },
@@ -13105,7 +12629,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 25.2,
+      "intelligence": null,
       "coding": 55.9,
       "agentic": 17.5
     },
@@ -13168,7 +12692,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 39.9,
+      "intelligence": null,
       "coding": 71.9,
       "agentic": 50.1
     },
@@ -13212,7 +12736,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 33.7,
+      "intelligence": 20.1,
       "coding": 68.1,
       "agentic": 45.8
     },
@@ -13296,7 +12820,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 45.4,
+      "intelligence": 33.6,
       "coding": 76.2,
       "agentic": 56
     },
@@ -13499,11 +13023,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 6.4,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -13957,11 +13477,7 @@
       "reasoning": true,
       "structured_output": false
     },
-    "scores": {
-      "intelligence": 17,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -14002,7 +13518,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 19.5,
+      "intelligence": null,
       "coding": 39.6,
       "agentic": null
     },
@@ -14037,7 +13553,7 @@
       "month": 10
     },
     "knowledge_cutoff": null,
-    "context_tokens": 1048576,
+    "context_tokens": 1000000,
     "max_output_tokens": 64000,
     "modality": "text+image+video->text",
     "capabilities": {
@@ -14046,7 +13562,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 43.7,
+      "intelligence": 28.5,
       "coding": null,
       "agentic": null
     },
@@ -14290,7 +13806,7 @@
       "structured_output": false
     },
     "scores": {
-      "intelligence": 25.3,
+      "intelligence": null,
       "coding": 58.8,
       "agentic": 24.1
     },
@@ -14494,7 +14010,7 @@
       "structured_output": false
     },
     "scores": {
-      "intelligence": 25,
+      "intelligence": 12.5,
       "coding": 52.1,
       "agentic": 22.5
     },
@@ -14538,7 +14054,7 @@
       "structured_output": false
     },
     "scores": {
-      "intelligence": 25.7,
+      "intelligence": 12.9,
       "coding": 52.9,
       "agentic": 23.5
     },
@@ -14701,11 +14217,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 24.1,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -14746,7 +14258,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 7.8,
+      "intelligence": null,
       "coding": 16.2,
       "agentic": 1.4
     },
@@ -14873,11 +14385,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 25.7,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -14972,7 +14480,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 24.9,
+      "intelligence": null,
       "coding": 42.2,
       "agentic": 15.5
     },
@@ -15042,7 +14550,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 38.8,
+      "intelligence": null,
       "coding": 72.4,
       "agentic": 41.2
     },
@@ -15093,7 +14601,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 44.3,
+      "intelligence": null,
       "coding": 76.8,
       "agentic": 53
     },
@@ -15144,7 +14652,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 46.4,
+      "intelligence": 35,
       "coding": null,
       "agentic": null
     },
@@ -15195,7 +14703,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 27.2,
+      "intelligence": null,
       "coding": 51.5,
       "agentic": null
     },
@@ -15246,7 +14754,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 21.8,
+      "intelligence": null,
       "coding": 56.8,
       "agentic": 15.8
     },
@@ -15290,7 +14798,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 26,
+      "intelligence": null,
       "coding": 60.2,
       "agentic": 21.3
     },
@@ -15334,7 +14842,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 37.9,
+      "intelligence": 26.7,
       "coding": null,
       "agentic": null
     },
@@ -15378,7 +14886,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 46.3,
+      "intelligence": 29.9,
       "coding": null,
       "agentic": null
     },
@@ -15461,11 +14969,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 12.8,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -15505,11 +15009,7 @@
       "reasoning": true,
       "structured_output": false
     },
-    "scores": {
-      "intelligence": 11.1,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -15549,11 +15049,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 7.6,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -15594,7 +15090,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 18.5,
+      "intelligence": null,
       "coding": 45.8,
       "agentic": null
     },
@@ -15602,9 +15098,9 @@
       [
         "Standard",
         {
-          "input": "0.55000000",
-          "output": "2.2000000",
-          "cache_read": "0.11000000",
+          "input": "0.5000000",
+          "output": "2.000000",
+          "cache_read": "0.1000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15637,11 +15133,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 11.2,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -15682,7 +15174,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 22.2,
+      "intelligence": null,
       "coding": 45.3,
       "agentic": null
     },
@@ -15725,11 +15217,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 14.9,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -15769,11 +15257,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 27.9,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -15813,11 +15297,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 26.6,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -15858,7 +15338,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 26.1,
+      "intelligence": null,
       "coding": 55.8,
       "agentic": 23.9
     },
@@ -15902,7 +15382,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 33.7,
+      "intelligence": null,
       "coding": 68.8,
       "agentic": 38.4
     },
@@ -15910,9 +15390,9 @@
       [
         "Standard",
         {
-          "input": "0.014000000",
+          "input": "0.006000000",
           "output": "7.000000",
-          "cache_read": "0.013000000",
+          "cache_read": "0.005000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15946,7 +15426,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 44.8,
+      "intelligence": 31.7,
       "coding": 74.8,
       "agentic": 53.1
     },
@@ -15994,7 +15474,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 943717,
+    "max_output_tokens": 131072,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -16002,7 +15482,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 41.8,
+      "intelligence": null,
       "coding": 71.5,
       "agentic": 50.9
     },
@@ -16010,8 +15490,8 @@
       [
         "Standard",
         {
-          "input": "0.15000000",
-          "output": "0.5000000",
+          "input": "0.0457000000",
+          "output": "0.0742000000",
           "cache_read": "0.03000000",
           "cache_write": null,
           "tiers": [],
@@ -16137,11 +15617,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": 23.5,
-      "coding": null,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
