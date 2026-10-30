@@ -2360,9 +2360,9 @@
       [
         "Standard",
         {
-          "input": "0.95526000000",
-          "output": "1.91052000000",
-          "cache_read": "0.079605000000",
+          "input": "0.816234000000",
+          "output": "1.632468000000",
+          "cache_read": "0.0680195000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -5943,7 +5943,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 25.3,
+      "intelligence": 26,
       "coding": null,
       "agentic": null
     },
@@ -5951,9 +5951,9 @@
       [
         "Standard",
         {
-          "input": "1.36000000",
-          "output": "4.18000000",
-          "cache_read": "0.14000000",
+          "input": "0.7000000",
+          "output": "2.1000000",
+          "cache_read": "0.07000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -5964,8 +5964,8 @@
     "provenance": "Aggregate",
     "listed_on": "2026-10-06",
     "retires_on": null,
-    "open_weights": false,
-    "hf_id": null,
+    "open_weights": true,
+    "hf_id": "mistralai/Mistral-Large-4-1T-A52B",
     "reasoning_mandatory": false
   },
   {
@@ -6248,7 +6248,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": null,
+      "intelligence": 4.3,
       "coding": 26.6,
       "agentic": 0.8
     },
@@ -6788,17 +6788,17 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": null,
-      "coding": 76.2,
-      "agentic": 50
+      "intelligence": 17.4,
+      "coding": 72,
+      "agentic": 29.3
     },
     "rates": [
       [
         "Standard",
         {
-          "input": "0.239000000",
-          "output": "10.8000000",
-          "cache_read": "0.21000000",
+          "input": "0.192000000",
+          "output": "15.000000",
+          "cache_read": "0.182000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -7340,7 +7340,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": null,
+      "intelligence": 5.5,
       "coding": 26.8,
       "agentic": 3.5
     },
@@ -10686,7 +10686,7 @@
         {
           "input": "0.25000000",
           "output": "1.000000",
-          "cache_read": "0.03000000",
+          "cache_read": "0.003000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -12338,7 +12338,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 65536,
+    "max_output_tokens": 81920,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -12354,8 +12354,8 @@
       [
         "Standard",
         {
-          "input": "0.45000000",
-          "output": "2.7000000",
+          "input": "0.32000000",
+          "output": "3.2000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -12684,7 +12684,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 909000,
+    "max_output_tokens": 131072,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -12728,7 +12728,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1000000,
-    "max_output_tokens": 65536,
+    "max_output_tokens": 235929,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -12744,9 +12744,9 @@
       [
         "Standard",
         {
-          "input": "0.039000000",
-          "output": "1.25000000",
-          "cache_read": "0.0039000000",
+          "input": "0.15000000",
+          "output": "1.875000000",
+          "cache_read": "0.0375000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -13553,7 +13553,7 @@
       "month": 10
     },
     "knowledge_cutoff": null,
-    "context_tokens": 1000000,
+    "context_tokens": 1048576,
     "max_output_tokens": 64000,
     "modality": "text+image+video->text",
     "capabilities": {
@@ -14235,50 +14235,6 @@
     "provenance": "Aggregate",
     "listed_on": "2026-09-23",
     "retires_on": null,
-    "open_weights": false,
-    "hf_id": null,
-    "reasoning_mandatory": false
-  },
-  {
-    "key": "upstage/solar-pro-3",
-    "display_name": "Solar Pro 3",
-    "vendor_key": "upstage",
-    "vendor_name": "Upstage",
-    "released": {
-      "year": 2026,
-      "month": 1
-    },
-    "knowledge_cutoff": null,
-    "context_tokens": 131072,
-    "max_output_tokens": 117964,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": true,
-      "reasoning": true,
-      "structured_output": true
-    },
-    "scores": {
-      "intelligence": null,
-      "coding": 16.2,
-      "agentic": 1.4
-    },
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.15000000",
-          "output": "0.6000000",
-          "cache_read": "0.015000000",
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate",
-    "listed_on": "2026-01-27",
-    "retires_on": "2026-10-30",
     "open_weights": false,
     "hf_id": null,
     "reasoning_mandatory": false
@@ -15140,7 +15096,7 @@
         {
           "input": "0.3000000",
           "output": "0.9000000",
-          "cache_read": "0.05000000",
+          "cache_read": "0.055000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15434,9 +15390,9 @@
       [
         "Standard",
         {
-          "input": "0.0699000000",
-          "output": "1.4000000",
-          "cache_read": "0.0689000000",
+          "input": "0.08000000",
+          "output": "3.6000000",
+          "cache_read": "0.076000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15474,7 +15430,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 943717,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -15482,7 +15438,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": null,
+      "intelligence": 27.8,
       "coding": 71.5,
       "agentic": 50.9
     },
@@ -15490,8 +15446,8 @@
       [
         "Standard",
         {
-          "input": "0.0457000000",
-          "output": "0.0742000000",
+          "input": "0.15000000",
+          "output": "0.5000000",
           "cache_read": "0.03000000",
           "cache_write": null,
           "tiers": [],
