@@ -1,4 +1,4 @@
-{"asOf":"2026-10-31","models":{
+{"asOf":"2026-11-01","models":{
 "aion-labs/aion-rp-llama-3.1-8b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8030261248,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "anthracite-org/magnum-v4-72b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":72706203648,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "bytedance/ui-tars-1.5-7b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8292166656,"active":null,"moe":false,"gated":false,"native":"bf16"},
@@ -91,8 +91,6 @@
 "openai/gpt-oss-120b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":116829156672,"active":5100000000,"moe":true,"gated":false,"native":"mxfp4"},
 "openai/gpt-oss-20b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":20914757184,"active":3600000000,"moe":true,"gated":false,"native":"mxfp4"},
 "openai/gpt-oss-safeguard-20b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":21511953984,"active":4790443584,"moe":true,"gated":false,"native":"mxfp4"},
-"poolside/laguna-s-2.1":{"status":"open","licence":"permissive","licenceLabel":"openmdw-1.1","total":117561977600,"active":8000000000,"moe":true,"gated":false,"native":"bf16"},
-"poolside/laguna-xs-2.1":{"status":"open","licence":"permissive","licenceLabel":"openmdw-1.1","total":33442617088,"active":3000000000,"moe":true,"gated":false,"native":"bf16"},
 "prism-ml/ternary-bonsai-2-27b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":26895998464,"active":null,"moe":false,"gated":false,"native":"gguf"},
 "qwen/qwen-2.5-72b-instruct":{"status":"open","licence":"custom","licenceLabel":"qwen","total":72706203648,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "qwen/qwen-2.5-7b-instruct":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":7615616512,"active":null,"moe":false,"gated":false,"native":"bf16"},

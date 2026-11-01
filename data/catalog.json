@@ -2388,7 +2388,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 393216,
+    "max_output_tokens": 943718,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -2404,9 +2404,9 @@
       [
         "Standard",
         {
-          "input": "0.66000000",
-          "output": "1.98000000",
-          "cache_read": "0.022000000",
+          "input": "0.115000000",
+          "output": "4.000000",
+          "cache_read": "0.11000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -10364,9 +10364,9 @@
       [
         "Standard",
         {
-          "input": "0.15000000",
-          "output": "0.6000000",
-          "cache_read": "0.075000000",
+          "input": "0.017000000",
+          "output": "0.064000000",
+          "cache_read": null,
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -10404,7 +10404,7 @@
     },
     "knowledge_cutoff": "2024-06-30",
     "context_tokens": 131072,
-    "max_output_tokens": 32768,
+    "max_output_tokens": 117964,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -10420,9 +10420,9 @@
       [
         "Standard",
         {
-          "input": "0.018000000",
-          "output": "0.09000000",
-          "cache_read": "0.009000000",
+          "input": "0.03000000",
+          "output": "0.13000000",
+          "cache_read": "0.03000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -10980,86 +10980,6 @@
     "open_weights": false,
     "hf_id": null,
     "reasoning_mandatory": true
-  },
-  {
-    "key": "poolside/laguna-s-2.1",
-    "display_name": "Laguna S 2.1",
-    "vendor_key": "poolside",
-    "vendor_name": "Poolside",
-    "released": {
-      "year": 2026,
-      "month": 7
-    },
-    "knowledge_cutoff": null,
-    "context_tokens": 1048576,
-    "max_output_tokens": 131072,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": true,
-      "reasoning": true,
-      "structured_output": false
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.09000000",
-          "output": "0.18000000",
-          "cache_read": "0.009000000",
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate",
-    "listed_on": "2026-07-21",
-    "retires_on": "2026-10-31",
-    "open_weights": true,
-    "hf_id": "poolside/Laguna-S-2.1",
-    "reasoning_mandatory": false
-  },
-  {
-    "key": "poolside/laguna-xs-2.1",
-    "display_name": "Laguna XS 2.1",
-    "vendor_key": "poolside",
-    "vendor_name": "Poolside",
-    "released": {
-      "year": 2026,
-      "month": 7
-    },
-    "knowledge_cutoff": null,
-    "context_tokens": 262144,
-    "max_output_tokens": 32768,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": true,
-      "reasoning": true,
-      "structured_output": false
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.06000000",
-          "output": "0.12000000",
-          "cache_read": "0.03000000",
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate",
-    "listed_on": "2026-07-02",
-    "retires_on": "2026-10-31",
-    "open_weights": true,
-    "hf_id": "poolside/Laguna-XS-2.1",
-    "reasoning_mandatory": false
   },
   {
     "key": "prism-ml/ternary-bonsai-2-27b",
@@ -12744,9 +12664,9 @@
       [
         "Standard",
         {
-          "input": "0.04000000",
-          "output": "2.3000000",
-          "cache_read": "0.02000000",
+          "input": "0.15000000",
+          "output": "1.875000000",
+          "cache_read": "0.0375000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15138,9 +15058,9 @@
       [
         "Standard",
         {
-          "input": "0.54000000",
-          "output": "1.98000000",
-          "cache_read": "0.099000000",
+          "input": "0.6000000",
+          "output": "2.2000000",
+          "cache_read": "0.11000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15150,7 +15070,7 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2025-12-22",
-    "retires_on": null,
+    "retires_on": "2026-12-31",
     "open_weights": true,
     "hf_id": "zai-org/GLM-4.7",
     "reasoning_mandatory": false
@@ -15390,9 +15310,9 @@
       [
         "Standard",
         {
-          "input": "0.0699000000",
-          "output": "1.4000000",
-          "cache_read": "0.0689000000",
+          "input": "0.08000000",
+          "output": "3.6000000",
+          "cache_read": "0.076000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15446,9 +15366,9 @@
       [
         "Standard",
         {
-          "input": "0.0163000000",
-          "output": "0.1479000000",
-          "cache_read": "0.0163000000",
+          "input": "0.0285000000",
+          "output": "0.0923000000",
+          "cache_read": "0.0285000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
