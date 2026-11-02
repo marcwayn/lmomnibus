@@ -1,4 +1,4 @@
-{"asOf":"2026-11-01","models":{
+{"asOf":"2026-11-02","models":{
 "aion-labs/aion-rp-llama-3.1-8b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8030261248,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "anthracite-org/magnum-v4-72b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":72706203648,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "bytedance/ui-tars-1.5-7b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8292166656,"active":null,"moe":false,"gated":false,"native":"bf16"},
@@ -79,8 +79,6 @@
 "moonshotai/kimi-k3":{"status":"open","licence":"unclassified","licenceLabel":"kimi-k3","total":2779931837184,"active":105364019968,"moe":true,"gated":false,"native":"mxfp4"},
 "nex-agi/nex-n2.5-mini":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":35107181936,"active":3454988928,"moe":true,"gated":false,"native":"bf16"},
 "nex-agi/nex-n2.5-pro":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":396802360816,"active":17349040896,"moe":true,"gated":false,"native":"fp8"},
-"nousresearch/hermes-3-llama-3.1-405b":{"status":"open","licence":"custom","licenceLabel":"Llama 3 licence","total":405853388800,"active":null,"moe":false,"gated":false,"native":"bf16"},
-"nousresearch/hermes-3-llama-3.1-70b":{"status":"open","licence":"custom","licenceLabel":"Llama 3 licence","total":70553706496,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "nousresearch/hermes-4-405b":{"status":"open","licence":"custom","licenceLabel":"Llama 3 licence","total":405853388800,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "nvidia/nemotron-3-nano-30b-a3b":{"status":"open","licence":"custom","licenceLabel":"nvidia-nemotron-open-model-license","total":31577937344,"active":3500000000,"moe":true,"gated":false,"native":"bf16"},
 "nvidia/nemotron-3-super-120b-a12b":{"status":"open","licence":"custom","licenceLabel":"nvidia-nemotron-open-model-license","total":123611012096,"active":12000000000,"moe":true,"gated":false,"native":"fp8"},

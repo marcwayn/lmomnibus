@@ -3835,7 +3835,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 235929,
+    "max_output_tokens": 32768,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -3851,9 +3851,9 @@
       [
         "Standard",
         {
-          "input": "0.0675000000",
-          "output": "0.225000000",
-          "cache_read": "0.0375000000",
+          "input": "0.062000000",
+          "output": "0.185000000",
+          "cache_read": "0.031000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -4631,7 +4631,7 @@
     },
     "knowledge_cutoff": "2023-12-31",
     "context_tokens": 131072,
-    "max_output_tokens": 117964,
+    "max_output_tokens": 72000,
     "modality": "text->text",
     "capabilities": {
       "tools": false,
@@ -4643,8 +4643,8 @@
       [
         "Standard",
         {
-          "input": "0.05000000",
-          "output": "0.33000000",
+          "input": "0.0509000000",
+          "output": "0.335000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -5099,7 +5099,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 943718,
     "modality": "text+image+file+audio+video->text",
     "capabilities": {
       "tools": true,
@@ -7027,86 +7027,6 @@
     "retires_on": null,
     "open_weights": true,
     "hf_id": "nex-agi/Nex-N2.5-Pro",
-    "reasoning_mandatory": false
-  },
-  {
-    "key": "nousresearch/hermes-3-llama-3.1-405b",
-    "display_name": "Hermes 3 405B Instruct",
-    "vendor_key": "nousresearch",
-    "vendor_name": "Nousresearch",
-    "released": {
-      "year": 2024,
-      "month": 8
-    },
-    "knowledge_cutoff": "2023-12-31",
-    "context_tokens": 131072,
-    "max_output_tokens": 16384,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": false,
-      "reasoning": false,
-      "structured_output": true
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "1.000000",
-          "output": "1.000000",
-          "cache_read": null,
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate",
-    "listed_on": "2024-08-16",
-    "retires_on": "2026-11-02",
-    "open_weights": true,
-    "hf_id": "NousResearch/Hermes-3-Llama-3.1-405B",
-    "reasoning_mandatory": false
-  },
-  {
-    "key": "nousresearch/hermes-3-llama-3.1-70b",
-    "display_name": "Hermes 3 70B Instruct",
-    "vendor_key": "nousresearch",
-    "vendor_name": "Nousresearch",
-    "released": {
-      "year": 2024,
-      "month": 8
-    },
-    "knowledge_cutoff": "2023-12-31",
-    "context_tokens": 131072,
-    "max_output_tokens": 16384,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": false,
-      "reasoning": false,
-      "structured_output": true
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.7000000",
-          "output": "0.7000000",
-          "cache_read": null,
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate",
-    "listed_on": "2024-08-18",
-    "retires_on": "2026-11-02",
-    "open_weights": true,
-    "hf_id": "NousResearch/Hermes-3-Llama-3.1-70B",
     "reasoning_mandatory": false
   },
   {
@@ -10364,9 +10284,9 @@
       [
         "Standard",
         {
-          "input": "0.017000000",
-          "output": "0.064000000",
-          "cache_read": null,
+          "input": "0.15000000",
+          "output": "0.6000000",
+          "cache_read": "0.075000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -12647,7 +12567,7 @@
       "month": 8
     },
     "knowledge_cutoff": null,
-    "context_tokens": 1000000,
+    "context_tokens": 1024000,
     "max_output_tokens": 235929,
     "modality": "text+image+video->text",
     "capabilities": {
@@ -15430,6 +15350,46 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2026-09-18",
+    "retires_on": null,
+    "open_weights": false,
+    "hf_id": null,
+    "reasoning_mandatory": true
+  },
+  {
+    "key": "z-ai/glm-5.3-flashx-legal",
+    "display_name": "GLM 5.3 FlashX Legal",
+    "vendor_key": "z-ai",
+    "vendor_name": "Z.ai",
+    "released": {
+      "year": 2026,
+      "month": 11
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1048576,
+    "max_output_tokens": 131072,
+    "modality": "text+image+video->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.37000000",
+          "output": "1.25000000",
+          "cache_read": "0.09000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-11-02",
     "retires_on": null,
     "open_weights": false,
     "hf_id": null,
