@@ -2272,9 +2272,9 @@
       [
         "Standard",
         {
-          "input": "0.119000000",
-          "output": "0.238000000",
-          "cache_read": "0.0238000000",
+          "input": "0.059000000",
+          "output": "0.3000000",
+          "cache_read": "0.035000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2446,7 +2446,7 @@
         {
           "input": "0.045000000",
           "output": "0.5000000",
-          "cache_read": "0.006000000",
+          "cache_read": "0.012000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2491,7 +2491,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 28.5,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -3851,9 +3855,9 @@
       [
         "Standard",
         {
-          "input": "0.062000000",
-          "output": "0.185000000",
-          "cache_read": "0.031000000",
+          "input": "0.082000000",
+          "output": "0.245000000",
+          "cache_read": "0.041000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -3971,7 +3975,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": null,
+      "intelligence": 5.1,
       "coding": 22.4,
       "agentic": 1.3
     },
@@ -4507,20 +4511,20 @@
     },
     "knowledge_cutoff": "2023-12-31",
     "context_tokens": 131072,
-    "max_output_tokens": 16384,
+    "max_output_tokens": 8192,
     "modality": "text->text",
     "capabilities": {
-      "tools": true,
+      "tools": false,
       "reasoning": false,
-      "structured_output": true
+      "structured_output": false
     },
     "scores": null,
     "rates": [
       [
         "Standard",
         {
-          "input": "0.4000000",
-          "output": "0.4000000",
+          "input": "0.72000000",
+          "output": "0.72000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -4531,7 +4535,7 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2024-07-23",
-    "retires_on": "2026-11-03",
+    "retires_on": null,
     "open_weights": true,
     "hf_id": "meta-llama/Meta-Llama-3.1-70B-Instruct",
     "reasoning_mandatory": false
@@ -4671,7 +4675,7 @@
     },
     "knowledge_cutoff": "2023-12-31",
     "context_tokens": 131072,
-    "max_output_tokens": 16384,
+    "max_output_tokens": 128000,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -4687,9 +4691,9 @@
       [
         "Standard",
         {
-          "input": "0.1000000",
-          "output": "0.32000000",
-          "cache_read": null,
+          "input": "0.2000000",
+          "output": "0.52000000",
+          "cache_read": "0.1000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -5106,7 +5110,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 24.7,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -5146,7 +5154,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 43.3,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -11503,8 +11515,8 @@
       [
         "Standard",
         {
-          "input": "0.07000000",
-          "output": "0.28000000",
+          "input": "0.15000000",
+          "output": "0.6000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -11628,7 +11640,7 @@
     },
     "knowledge_cutoff": "2025-09-30",
     "context_tokens": 262144,
-    "max_output_tokens": 16384,
+    "max_output_tokens": 235929,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -11640,9 +11652,9 @@
       [
         "Standard",
         {
-          "input": "0.09000000",
+          "input": "0.1000000",
           "output": "1.1000000",
-          "cache_read": null,
+          "cache_read": "0.07000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -12783,7 +12795,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 17.7,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -15286,9 +15302,9 @@
       [
         "Standard",
         {
-          "input": "0.0285000000",
-          "output": "0.0923000000",
-          "cache_read": "0.0285000000",
+          "input": "0.0313000000",
+          "output": "0.0846000000",
+          "cache_read": "0.03000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15340,7 +15356,7 @@
         {
           "input": "0.37000000",
           "output": "1.25000000",
-          "cache_read": "0.09000000",
+          "cache_read": "0.075000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15380,7 +15396,7 @@
         {
           "input": "0.37000000",
           "output": "1.25000000",
-          "cache_read": "0.09000000",
+          "cache_read": "0.075000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
