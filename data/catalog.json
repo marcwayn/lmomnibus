@@ -560,7 +560,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 49.7,
+      "intelligence": 50,
       "coding": 80.7,
       "agentic": 57.2
     },
@@ -674,7 +674,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 36.2,
+      "intelligence": 36.5,
       "coding": null,
       "agentic": null
     },
@@ -1069,7 +1069,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 58.4,
+      "intelligence": 59.1,
       "coding": null,
       "agentic": null
     },
@@ -1309,7 +1309,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 54.2,
+      "intelligence": 54.5,
       "coding": null,
       "agentic": null
     },
@@ -2405,7 +2405,7 @@
         "Standard",
         {
           "input": "0.115000000",
-          "output": "4.000000",
+          "output": "4.6000000",
           "cache_read": "0.11000000",
           "cache_write": null,
           "tiers": [],
@@ -2446,7 +2446,7 @@
         {
           "input": "0.045000000",
           "output": "0.5000000",
-          "cache_read": "0.012000000",
+          "cache_read": "0.018000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2492,7 +2492,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 28.5,
+      "intelligence": 28.6,
       "coding": null,
       "agentic": null
     },
@@ -3138,7 +3138,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": null,
+      "intelligence": 6.2,
       "coding": 34.7,
       "agentic": 1.6
     },
@@ -3523,7 +3523,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 30.5,
+      "intelligence": 30.8,
       "coding": 76.3,
       "agentic": 40.2
     },
@@ -3855,9 +3855,9 @@
       [
         "Standard",
         {
-          "input": "0.082000000",
-          "output": "0.245000000",
-          "cache_read": "0.041000000",
+          "input": "0.072000000",
+          "output": "0.217000000",
+          "cache_read": "0.036000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -3984,7 +3984,7 @@
         "Standard",
         {
           "input": "0.06000000",
-          "output": "0.15000000",
+          "output": "0.25000000",
           "cache_read": "0.015000000",
           "cache_write": null,
           "tiers": [],
@@ -4039,7 +4039,7 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2026-03-04",
-    "retires_on": null,
+    "retires_on": "2026-11-08",
     "open_weights": false,
     "hf_id": null,
     "reasoning_mandatory": false
@@ -4079,7 +4079,7 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2026-09-08",
-    "retires_on": null,
+    "retires_on": "2026-11-08",
     "open_weights": false,
     "hf_id": null,
     "reasoning_mandatory": false
@@ -4119,7 +4119,7 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2026-10-16",
-    "retires_on": null,
+    "retires_on": "2026-11-08",
     "open_weights": false,
     "hf_id": null,
     "reasoning_mandatory": false
@@ -4675,7 +4675,7 @@
     },
     "knowledge_cutoff": "2023-12-31",
     "context_tokens": 131072,
-    "max_output_tokens": 128000,
+    "max_output_tokens": 16384,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -4691,9 +4691,9 @@
       [
         "Standard",
         {
-          "input": "0.2000000",
-          "output": "0.52000000",
-          "cache_read": "0.1000000",
+          "input": "0.1000000",
+          "output": "0.32000000",
+          "cache_read": null,
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -5027,7 +5027,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 36.4,
+      "intelligence": 36.6,
       "coding": 75.8,
       "agentic": 55.5
     },
@@ -5111,7 +5111,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 24.7,
+      "intelligence": 24.9,
       "coding": null,
       "agentic": null
     },
@@ -5155,7 +5155,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 43.3,
+      "intelligence": 43.6,
       "coding": null,
       "agentic": null
     },
@@ -5255,7 +5255,7 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2025-01-15",
-    "retires_on": null,
+    "retires_on": "2026-11-05",
     "open_weights": true,
     "hf_id": "MiniMaxAI/MiniMax-Text-01",
     "reasoning_mandatory": false
@@ -5336,7 +5336,7 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2025-10-23",
-    "retires_on": null,
+    "retires_on": "2026-11-05",
     "open_weights": true,
     "hf_id": "MiniMaxAI/MiniMax-M2",
     "reasoning_mandatory": true
@@ -5376,7 +5376,7 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2026-01-23",
-    "retires_on": null,
+    "retires_on": "2026-11-05",
     "open_weights": false,
     "hf_id": null,
     "reasoning_mandatory": false
@@ -5416,7 +5416,7 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2025-12-23",
-    "retires_on": null,
+    "retires_on": "2026-11-05",
     "open_weights": true,
     "hf_id": "MiniMaxAI/MiniMax-M2.1",
     "reasoning_mandatory": true
@@ -5500,7 +5500,7 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2026-03-18",
-    "retires_on": null,
+    "retires_on": "2026-11-05",
     "open_weights": true,
     "hf_id": "MiniMaxAI/MiniMax-M2.7",
     "reasoning_mandatory": true
@@ -5524,7 +5524,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 18.7,
+      "intelligence": 18.9,
       "coding": 58.6,
       "agentic": 29.5
     },
@@ -5568,7 +5568,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 28.9,
+      "intelligence": 29.1,
       "coding": null,
       "agentic": null
     },
@@ -5955,7 +5955,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 26,
+      "intelligence": 26.1,
       "coding": null,
       "agentic": null
     },
@@ -6809,7 +6809,7 @@
         "Standard",
         {
           "input": "0.192000000",
-          "output": "15.000000",
+          "output": "16.000000",
           "cache_read": "0.182000000",
           "cache_write": null,
           "tiers": [],
@@ -6856,7 +6856,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 46,
+      "intelligence": 46.5,
       "coding": null,
       "agentic": null
     },
@@ -7308,7 +7308,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 235929,
+    "max_output_tokens": 943718,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -9356,7 +9356,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": null,
+      "intelligence": 32.3,
       "coding": 76.7,
       "agentic": 43.2
     },
@@ -9628,7 +9628,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 27.8,
+      "intelligence": 27.9,
       "coding": null,
       "agentic": null
     },
@@ -9763,7 +9763,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 44.2,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -9896,7 +9900,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 54.5,
+      "intelligence": 54.6,
       "coding": null,
       "agentic": null
     },
@@ -10032,7 +10036,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 51,
+      "intelligence": 51.3,
       "coding": null,
       "agentic": null
     },
@@ -10296,9 +10300,9 @@
       [
         "Standard",
         {
-          "input": "0.15000000",
-          "output": "0.6000000",
-          "cache_read": "0.075000000",
+          "input": "0.025000000",
+          "output": "0.092000000",
+          "cache_read": "0.022000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -11255,7 +11259,7 @@
     },
     "knowledge_cutoff": "2025-06-30",
     "context_tokens": 262144,
-    "max_output_tokens": 16384,
+    "max_output_tokens": 117964,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -11267,9 +11271,9 @@
       [
         "Standard",
         {
-          "input": "0.09000000",
-          "output": "0.55000000",
-          "cache_read": null,
+          "input": "0.14000000",
+          "output": "0.8000000",
+          "cache_read": "0.05000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -12672,7 +12676,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 33.6,
+      "intelligence": 33.7,
       "coding": 76.2,
       "agentic": 56
     },
@@ -13688,6 +13692,46 @@
     "reasoning_mandatory": false
   },
   {
+    "key": "tencent/hy4",
+    "display_name": "Hy4",
+    "vendor_key": "tencent",
+    "vendor_name": "Tencent",
+    "released": {
+      "year": 2026,
+      "month": 11
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1048576,
+    "max_output_tokens": 65536,
+    "modality": "text+image->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.417000000",
+          "output": "1.2505000000",
+          "cache_read": "0.021000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-11-04",
+    "retires_on": null,
+    "open_weights": true,
+    "hf_id": "tencent/Hy4",
+    "reasoning_mandatory": false
+  },
+  {
     "key": "tencent/hy4-preview",
     "display_name": "Hy4 preview",
     "vendor_key": "tencent",
@@ -14436,6 +14480,25 @@
           "promo": null,
           "cache_write_1h": null
         }
+      ],
+      [
+        "Batch",
+        {
+          "input": "1.6000000",
+          "output": "4.8000000",
+          "cache_read": "0.4000000",
+          "cache_write": null,
+          "tiers": [
+            {
+              "above_input_tokens": 200000,
+              "input": "3.2000000",
+              "output": "9.6000000",
+              "cache_read": "0.8000000"
+            }
+          ],
+          "promo": null,
+          "cache_write_1h": null
+        }
       ]
     ],
     "provenance": "Aggregate",
@@ -14464,7 +14527,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 35,
+      "intelligence": 35.5,
       "coding": null,
       "agentic": null
     },
@@ -14482,6 +14545,25 @@
               "input": "4.000000",
               "output": "12.000000",
               "cache_read": "1.000000"
+            }
+          ],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "1.6000000",
+          "output": "4.8000000",
+          "cache_read": "0.4000000",
+          "cache_write": null,
+          "tiers": [
+            {
+              "above_input_tokens": 200000,
+              "input": "3.2000000",
+              "output": "9.6000000",
+              "cache_read": "0.8000000"
             }
           ],
           "promo": null,
@@ -14557,7 +14639,7 @@
       "month": 4
     },
     "knowledge_cutoff": null,
-    "context_tokens": 1050000,
+    "context_tokens": 1000000,
     "max_output_tokens": 65536,
     "modality": "text+image+audio+video->text",
     "capabilities": {
@@ -15302,9 +15384,9 @@
       [
         "Standard",
         {
-          "input": "0.0313000000",
-          "output": "0.0846000000",
-          "cache_read": "0.03000000",
+          "input": "0.0269000000",
+          "output": "0.0996000000",
+          "cache_read": "0.0269000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,

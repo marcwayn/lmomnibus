@@ -1,4 +1,4 @@
-{"asOf":"2026-11-03","models":{
+{"asOf":"2026-11-04","models":{
 "aion-labs/aion-rp-llama-3.1-8b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8030261248,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "anthracite-org/magnum-v4-72b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":72706203648,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "bytedance/ui-tars-1.5-7b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8292166656,"active":null,"moe":false,"gated":false,"native":"bf16"},
@@ -132,6 +132,7 @@
 "tencent/hy-mt2-7b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8029540352,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "tencent/hy3":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":298786155776,"active":21000000000,"moe":true,"gated":false,"native":"bf16"},
 "tencent/hy3-preview":{"status":"open","licence":"unclassified","licenceLabel":"other (see the repo)","total":298786155776,"active":20675730240,"moe":true,"gated":false,"native":"bf16"},
+"tencent/hy4":{"status":"unverified","licence":"unclassified","licenceLabel":"no licence named","total":0,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "tencent/hy4-preview":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":779960992733,"active":49000000000,"moe":true,"gated":false,"native":"bf16"},
 "thedrummer/cydonia-24b-v4.1":{"status":"open","licence":"unclassified","licenceLabel":"no licence named","total":23572403200,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "thedrummer/skyfall-36b-v2":{"status":"open","licence":"unclassified","licenceLabel":"other (see the repo)","total":36910535680,"active":null,"moe":false,"gated":false,"native":"bf16"},

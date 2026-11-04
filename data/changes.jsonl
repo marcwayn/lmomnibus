@@ -554,3 +554,23 @@
 {"date":"2026-11-03","since":"2026-11-02","key":"z-ai/glm-5.3-flash","name":"GLM 5.3 Flash","vendor":"Z.ai","kind":"aggregate_move","mode":"Standard","input":["0.0285000000","0.0313000000"],"output":["0.0923000000","0.0846000000"],"cache_read":["0.0285000000","0.03000000"]}
 {"date":"2026-11-03","since":"2026-11-02","key":"z-ai/glm-5.3-flashx","name":"GLM 5.3 FlashX","vendor":"Z.ai","kind":"aggregate_move","mode":"Standard","cache_read":["0.09000000","0.075000000"]}
 {"date":"2026-11-03","since":"2026-11-02","key":"z-ai/glm-5.3-flashx-legal","name":"GLM 5.3 FlashX Legal","vendor":"Z.ai","kind":"aggregate_move","mode":"Standard","cache_read":["0.09000000","0.075000000"]}
+{"date":"2026-11-04","since":"2026-11-03","key":"tencent/hy4","name":"Hy4","vendor":"Tencent","kind":"added"}
+{"date":"2026-11-04","since":"2026-11-03","key":"inception/mercury-2","name":"Mercury 2","vendor":"Inception","kind":"retirement_scheduled","retires_on":"2026-11-08"}
+{"date":"2026-11-04","since":"2026-11-03","key":"inception/mercury-2.5","name":"Mercury 2.5","vendor":"Inception","kind":"retirement_scheduled","retires_on":"2026-11-08"}
+{"date":"2026-11-04","since":"2026-11-03","key":"inception/mercury-3","name":"Mercury 3","vendor":"Inception","kind":"retirement_scheduled","retires_on":"2026-11-08"}
+{"date":"2026-11-04","since":"2026-11-03","key":"minimax/minimax-01","name":"MiniMax-01","vendor":"MiniMax","kind":"retirement_scheduled","retires_on":"2026-11-05"}
+{"date":"2026-11-04","since":"2026-11-03","key":"minimax/minimax-m2","name":"MiniMax M2","vendor":"MiniMax","kind":"retirement_scheduled","retires_on":"2026-11-05"}
+{"date":"2026-11-04","since":"2026-11-03","key":"minimax/minimax-m2-her","name":"MiniMax M2-her","vendor":"MiniMax","kind":"retirement_scheduled","retires_on":"2026-11-05"}
+{"date":"2026-11-04","since":"2026-11-03","key":"minimax/minimax-m2.1","name":"MiniMax M2.1","vendor":"MiniMax","kind":"retirement_scheduled","retires_on":"2026-11-05"}
+{"date":"2026-11-04","since":"2026-11-03","key":"minimax/minimax-m2.7","name":"MiniMax M2.7","vendor":"MiniMax","kind":"retirement_scheduled","retires_on":"2026-11-05"}
+{"date":"2026-11-04","since":"2026-11-03","key":"x-ai/grok-4.6","name":"Grok 4.6","vendor":"xAI","kind":"mode_added","mode":"Batch"}
+{"date":"2026-11-04","since":"2026-11-03","key":"x-ai/grok-4.7","name":"Grok 4.7","vendor":"xAI","kind":"mode_added","mode":"Batch"}
+{"date":"2026-11-04","since":"2026-11-03","key":"deepseek/deepseek-v4-pro-0813","name":"DeepSeek V4 Pro 0813","vendor":"DeepSeek","kind":"aggregate_move","mode":"Standard","output":["4.000000","4.6000000"]}
+{"date":"2026-11-04","since":"2026-11-03","key":"deepseek/deepseek-v4.1-flash","name":"DeepSeek V4.1 Flash","vendor":"DeepSeek","kind":"aggregate_move","mode":"Standard","cache_read":["0.012000000","0.018000000"]}
+{"date":"2026-11-04","since":"2026-11-03","key":"google/gemma-4-26b-a4b-it","name":"Gemma 4 26B A4B","vendor":"Google","kind":"aggregate_move","mode":"Standard","input":["0.082000000","0.072000000"],"output":["0.245000000","0.217000000"],"cache_read":["0.041000000","0.036000000"]}
+{"date":"2026-11-04","since":"2026-11-03","key":"ibm-granite/granite-4.2-8b","name":"Granite 4.2 8B","vendor":"Ibm Granite","kind":"aggregate_move","mode":"Standard","output":["0.15000000","0.25000000"]}
+{"date":"2026-11-04","since":"2026-11-03","key":"meta-llama/llama-3.3-70b-instruct","name":"Llama 3.3 70B Instruct","vendor":"Meta","kind":"aggregate_move","mode":"Standard","input":["0.2000000","0.1000000"],"output":["0.52000000","0.32000000"],"cache_read":["0.1000000",""]}
+{"date":"2026-11-04","since":"2026-11-03","key":"moonshotai/kimi-k3","name":"Kimi K3","vendor":"Moonshot AI","kind":"aggregate_move","mode":"Standard","output":["15.000000","16.000000"]}
+{"date":"2026-11-04","since":"2026-11-03","key":"openai/gpt-oss-120b","name":"gpt-oss-120b","vendor":"OpenAI","kind":"aggregate_move","mode":"Standard","input":["0.15000000","0.025000000"],"output":["0.6000000","0.092000000"],"cache_read":["0.075000000","0.022000000"]}
+{"date":"2026-11-04","since":"2026-11-03","key":"qwen/qwen3-235b-a22b-2507","name":"Qwen3 235B A22B Instruct 2507","vendor":"Qwen","kind":"aggregate_move","mode":"Standard","input":["0.09000000","0.14000000"],"output":["0.55000000","0.8000000"],"cache_read":["","0.05000000"]}
+{"date":"2026-11-04","since":"2026-11-03","key":"z-ai/glm-5.3-flash","name":"GLM 5.3 Flash","vendor":"Z.ai","kind":"aggregate_move","mode":"Standard","input":["0.0313000000","0.0269000000"],"output":["0.0846000000","0.0996000000"],"cache_read":["0.03000000","0.0269000000"]}
