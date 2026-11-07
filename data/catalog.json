@@ -469,7 +469,7 @@
         {
           "input": "2.5000000",
           "output": "5.000000",
-          "cache_read": null,
+          "cache_read": "2.5000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -1716,7 +1716,7 @@
     "max_output_tokens": 8192,
     "modality": "text->text",
     "capabilities": {
-      "tools": false,
+      "tools": true,
       "reasoning": false,
       "structured_output": true
     },
@@ -1882,7 +1882,7 @@
     "max_output_tokens": 4000,
     "modality": "text->text",
     "capabilities": {
-      "tools": false,
+      "tools": true,
       "reasoning": false,
       "structured_output": true
     },
@@ -2272,9 +2272,21 @@
       [
         "Standard",
         {
-          "input": "0.059000000",
+          "input": "0.0487000000",
           "output": "0.3000000",
           "cache_read": "0.035000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "0.048000000",
+          "output": "0.144000000",
+          "cache_read": "0.012000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2360,9 +2372,9 @@
       [
         "Standard",
         {
-          "input": "0.894012000000",
-          "output": "1.788024000000",
-          "cache_read": "0.074501000000",
+          "input": "0.738282000000",
+          "output": "1.476564000000",
+          "cache_read": "0.0615235000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -3935,9 +3947,9 @@
       [
         "Standard",
         {
-          "input": "0.09000000",
-          "output": "0.3000000",
-          "cache_read": "0.05000000",
+          "input": "0.0675000000",
+          "output": "0.225000000",
+          "cache_read": "0.0375000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -4359,9 +4371,9 @@
       [
         "Standard",
         {
-          "input": "0.075000000",
-          "output": "0.225000000",
-          "cache_read": "0.015000000",
+          "input": "0.045000000",
+          "output": "0.135000000",
+          "cache_read": "0.009000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -4495,7 +4507,7 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2026-08-11",
-    "retires_on": null,
+    "retires_on": "2026-11-13",
     "open_weights": true,
     "hf_id": "LiquidAI/LFM2.5-2.6B",
     "reasoning_mandatory": true
@@ -4541,6 +4553,46 @@
     "reasoning_mandatory": true
   },
   {
+    "key": "liquid/lfm-3-1.7b",
+    "display_name": "LFM3-1.7B",
+    "vendor_key": "liquid",
+    "vendor_name": "Liquid",
+    "released": {
+      "year": 2026,
+      "month": 11
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 262144,
+    "max_output_tokens": 8192,
+    "modality": "text->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.08000000",
+          "output": "0.2000000",
+          "cache_read": "0.02000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-11-06",
+    "retires_on": null,
+    "open_weights": true,
+    "hf_id": "LiquidAI/LFM3-1.7B",
+    "reasoning_mandatory": true
+  },
+  {
     "key": "mancer/weaver",
     "display_name": "Weaver (alpha)",
     "vendor_key": "mancer",
@@ -4565,7 +4617,7 @@
         {
           "input": "0.4000000",
           "output": "0.75000000",
-          "cache_read": null,
+          "cache_read": "0.4000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -4743,7 +4795,7 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2024-09-25",
-    "retires_on": "2026-11-15",
+    "retires_on": "2026-11-20",
     "open_weights": true,
     "hf_id": "meta-llama/Llama-3.2-1B-Instruct",
     "reasoning_mandatory": false
@@ -4783,7 +4835,7 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2024-09-25",
-    "retires_on": "2026-11-15",
+    "retires_on": "2026-11-20",
     "open_weights": true,
     "hf_id": "meta-llama/Llama-3.2-3B-Instruct",
     "reasoning_mandatory": false
@@ -4990,6 +5042,18 @@
           "input": "0.3000000",
           "output": "1.2000000",
           "cache_read": "0.04000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "0.24000000",
+          "output": "0.96000000",
+          "cache_read": "0.032000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -5396,7 +5460,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 204800,
-    "max_output_tokens": 32768,
+    "max_output_tokens": 58982,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -5408,9 +5472,9 @@
       [
         "Standard",
         {
-          "input": "0.27000000",
-          "output": "0.95000000",
-          "cache_read": "0.03000000",
+          "input": "0.3000000",
+          "output": "1.2000000",
+          "cache_read": "0.06000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -5499,6 +5563,18 @@
           "input": "0.3000000",
           "output": "1.2000000",
           "cache_read": "0.06000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "0.224000000",
+          "output": "0.88000000",
+          "cache_read": "0.0448000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -10264,9 +10340,9 @@
       [
         "Standard",
         {
-          "input": "0.023000000",
-          "output": "0.085000000",
-          "cache_read": "0.021000000",
+          "input": "0.017000000",
+          "output": "0.061000000",
+          "cache_read": "0.015000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -12572,6 +12648,18 @@
           "promo": null,
           "cache_write_1h": null
         }
+      ],
+      [
+        "Batch",
+        {
+          "input": "0.16000000",
+          "output": "2.000000",
+          "cache_read": "0.04000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
       ]
     ],
     "provenance": "Aggregate",
@@ -12951,7 +13039,7 @@
   },
   {
     "key": "ricursiveai/ripple-65b-preview",
-    "display_name": "ricursiveAI/Ripple-65B-Preview",
+    "display_name": "Ripple 65B Preview",
     "vendor_key": "ricursiveai",
     "vendor_name": "Ricursiveai",
     "released": {
@@ -13978,6 +14066,18 @@
           "promo": null,
           "cache_write_1h": null
         }
+      ],
+      [
+        "Batch",
+        {
+          "input": "0.36000000",
+          "output": "0.96000000",
+          "cache_read": "0.08000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
       ]
     ],
     "provenance": "Aggregate",
@@ -14092,7 +14192,7 @@
         {
           "input": "0.35000000",
           "output": "0.65000000",
-          "cache_read": null,
+          "cache_read": "0.35000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
