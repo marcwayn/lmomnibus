@@ -1,4 +1,4 @@
-{"asOf":"2026-11-09","models":{
+{"asOf":"2026-11-10","models":{
 "aion-labs/aion-rp-llama-3.1-8b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8030261248,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "anthracite-org/magnum-v4-72b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":72706203648,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "bytedance/ui-tars-1.5-7b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8292166656,"active":null,"moe":false,"gated":false,"native":"bf16"},
@@ -49,7 +49,6 @@
 "meta/muse-glimmer-30b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":29776626688,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "meta/muse-spark-open":{"status":"open","licence":"unclassified","licenceLabel":"muse-model-license","total":822036529664,"active":42000000000,"moe":true,"gated":true,"native":"bf16"},
 "microsoft/phi-4":{"status":"open","licence":"permissive","licenceLabel":"MIT","total":14659507200,"active":null,"moe":false,"gated":false,"native":"bf16"},
-"minimax/minimax-m1":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":456089655296,"active":null,"moe":true,"gated":false,"native":"bf16"},
 "minimax/minimax-m2.5":{"status":"open","licence":"custom","licenceLabel":"modified MIT","total":228689764864,"active":11030553088,"moe":true,"gated":false,"native":"fp8"},
 "minimax/minimax-m2.7":{"status":"open","licence":"unclassified","licenceLabel":"other","total":228689764864,"active":11030553088,"moe":true,"gated":false,"native":"fp8"},
 "minimax/minimax-m3":{"status":"open","licence":"custom","licenceLabel":"minimax-community","total":427040140160,"active":23000000000,"moe":true,"gated":false,"native":"bf16"},
@@ -79,6 +78,7 @@
 "moonshotai/kimi-k3.1-pro":{"status":"open","licence":"unclassified","licenceLabel":"kimi-k3.1-pro","total":2780110363392,"active":105542546176,"moe":true,"gated":false,"native":"mxfp4"},
 "nex-agi/nex-n2.5-mini":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":35107181936,"active":3454988928,"moe":true,"gated":false,"native":"bf16"},
 "nex-agi/nex-n2.5-pro":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":396802360816,"active":17349040896,"moe":true,"gated":false,"native":"fp8"},
+"nex-agi/nex-n2.6":{"status":"unverified","licence":"unclassified","licenceLabel":"no licence named","total":0,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "nousresearch/hermes-4-405b":{"status":"open","licence":"custom","licenceLabel":"Llama 3 licence","total":405853388800,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "nvidia/nemotron-3-nano-30b-a3b":{"status":"open","licence":"custom","licenceLabel":"nvidia-nemotron-open-model-license","total":31577937344,"active":3500000000,"moe":true,"gated":false,"native":"bf16"},
 "nvidia/nemotron-3-super-120b-a12b":{"status":"open","licence":"custom","licenceLabel":"nvidia-nemotron-open-model-license","total":123611012096,"active":12000000000,"moe":true,"gated":false,"native":"fp8"},
@@ -121,6 +121,7 @@
 "reflection/beam-1.0-501b-a23b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":501267612352,"active":23000000000,"moe":true,"gated":false,"native":"bf16"},
 "rekaai/reka-edge":{"status":"open","licence":"unclassified","licenceLabel":"reka-edge-2603-license","total":7128509568,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "rekaai/reka-flash-3":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":20905482240,"active":null,"moe":false,"gated":false,"native":"bf16"},
+"ricursiveai/ripple-65b-preview":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":64782689360,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "sao10k/l3-lunaris-8b":{"status":"open","licence":"custom","licenceLabel":"Llama 3 licence","total":8030261248,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "sao10k/l3.1-euryale-70b":{"status":"open","licence":"noncommercial","licenceLabel":"CC BY-NC 4.0","total":70553837092,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "stepfun/step-3.5-flash":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":199384301376,"active":11000000000,"moe":true,"gated":false,"native":"bf16"},

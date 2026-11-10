@@ -599,6 +599,62 @@
     "reasoning_mandatory": true
   },
   {
+    "key": "anthropic/claude-fable-5.2",
+    "display_name": "Claude Fable 5.2",
+    "vendor_key": "anthropic",
+    "vendor_name": "Anthropic",
+    "released": {
+      "year": 2026,
+      "month": 11
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1000000,
+    "max_output_tokens": 128000,
+    "modality": "text+image+file->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 64.6,
+      "coding": null,
+      "agentic": null
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "8.000000",
+          "output": "40.00000",
+          "cache_read": "0.2000000",
+          "cache_write": "10.00000",
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": "16.000000"
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "4.000000",
+          "output": "20.00000",
+          "cache_read": "0.1000000",
+          "cache_write": "5.000000",
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": "8.000000"
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-11-09",
+    "retires_on": null,
+    "open_weights": false,
+    "hf_id": null,
+    "reasoning_mandatory": true
+  },
+  {
     "key": "anthropic/claude-haiku-4.5",
     "display_name": "Claude Haiku 4.5",
     "vendor_key": "anthropic",
@@ -2372,9 +2428,9 @@
       [
         "Standard",
         {
-          "input": "0.894012000000",
-          "output": "1.788024000000",
-          "cache_read": "0.074501000000",
+          "input": "0.95526000000",
+          "output": "1.91052000000",
+          "cache_read": "0.079605000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2456,9 +2512,9 @@
       [
         "Standard",
         {
-          "input": "0.051000000",
-          "output": "0.567000000",
-          "cache_read": "0.018000000",
+          "input": "0.006000000",
+          "output": "0.5000000",
+          "cache_read": "0.005000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2468,9 +2524,9 @@
       [
         "Batch",
         {
-          "input": "0.011000000",
-          "output": "0.2000000",
-          "cache_read": "0.002000000",
+          "input": "0.112000000",
+          "output": "0.336000000",
+          "cache_read": "0.00336000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -3943,7 +3999,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 235929,
+    "max_output_tokens": 128000,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -3959,9 +4015,9 @@
       [
         "Standard",
         {
-          "input": "0.09000000",
-          "output": "0.3000000",
-          "cache_read": "0.05000000",
+          "input": "0.08000000",
+          "output": "0.1000000",
+          "cache_read": "0.046000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -4739,7 +4795,7 @@
     },
     "knowledge_cutoff": "2023-12-31",
     "context_tokens": 131072,
-    "max_output_tokens": 32768,
+    "max_output_tokens": 115200,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -4755,9 +4811,9 @@
       [
         "Standard",
         {
-          "input": "0.59000000",
-          "output": "0.79000000",
-          "cache_read": "0.295000000",
+          "input": "0.71000000",
+          "output": "0.71000000",
+          "cache_read": "0.71000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -4899,6 +4955,46 @@
     "open_weights": true,
     "hf_id": "meta-llama/Llama-Guard-4-12B",
     "reasoning_mandatory": false
+  },
+  {
+    "key": "meta/muse-ember",
+    "display_name": "Muse Ember",
+    "vendor_key": "meta",
+    "vendor_name": "Meta",
+    "released": {
+      "year": 2026,
+      "month": 11
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1048576,
+    "max_output_tokens": 943718,
+    "modality": "text+image+file+audio+video->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.1000000",
+          "output": "0.5000000",
+          "cache_read": "0.004000000",
+          "cache_write": "0.125000000",
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-11-09",
+    "retires_on": null,
+    "open_weights": false,
+    "hf_id": null,
+    "reasoning_mandatory": true
   },
   {
     "key": "meta/muse-glimmer-30b",
@@ -5297,47 +5393,6 @@
     "reasoning_mandatory": false
   },
   {
-    "key": "minimax/minimax-m1",
-    "display_name": "MiniMax M1",
-    "vendor_key": "minimax",
-    "vendor_name": "MiniMax",
-    "released": {
-      "year": 2025,
-      "month": 6
-    },
-    "knowledge_cutoff": "2024-06-30",
-    "context_tokens": 1000000,
-    "max_output_tokens": 40000,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": true,
-      "reasoning": true,
-      "structured_output": false
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.55000000",
-          "output": "2.2000000",
-          "cache_read": null,
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate",
-    "listed_on": "2025-06-17",
-    "retires_on": null,
-    "open_weights": true,
-    "hf_id": "MiniMaxAI/MiniMax-M1-80k",
-    "reasoning_mandatory": false,
-    "openness_source": "huggingface.co/MiniMaxAI/MiniMax-M1-80k (M1 ships as 40k and 80k thinking-budget checkpoints with the same architecture) (checked 2026-10-06)"
-  },
-  {
     "key": "minimax/minimax-m2.5",
     "display_name": "MiniMax M2.5",
     "vendor_key": "minimax",
@@ -5347,7 +5402,7 @@
       "month": 2
     },
     "knowledge_cutoff": null,
-    "context_tokens": 204800,
+    "context_tokens": 200000,
     "max_output_tokens": 58982,
     "modality": "text->text",
     "capabilities": {
@@ -5387,7 +5442,7 @@
       "month": 3
     },
     "knowledge_cutoff": null,
-    "context_tokens": 204800,
+    "context_tokens": 196608,
     "max_output_tokens": 176947,
     "modality": "text->text",
     "capabilities": {
@@ -6748,9 +6803,9 @@
       [
         "Batch",
         {
-          "input": "0.883000000",
-          "output": "6.000000",
-          "cache_read": "0.218000000",
+          "input": "2.28000000",
+          "output": "11.4000000",
+          "cache_read": "0.228000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -7020,6 +7075,46 @@
     "open_weights": true,
     "hf_id": "nex-agi/Nex-N2.5-Pro",
     "reasoning_mandatory": false
+  },
+  {
+    "key": "nex-agi/nex-n2.6",
+    "display_name": "Nex-N2.6",
+    "vendor_key": "nex-agi",
+    "vendor_name": "Nex Agi",
+    "released": {
+      "year": 2026,
+      "month": 11
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 262144,
+    "max_output_tokens": 235929,
+    "modality": "text+image->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.12000000",
+          "output": "0.4000000",
+          "cache_read": "0.024000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-11-10",
+    "retires_on": null,
+    "open_weights": true,
+    "hf_id": "nex-agi/Nex-N2.6",
+    "reasoning_mandatory": true
   },
   {
     "key": "nousresearch/hermes-4-405b",
@@ -7305,7 +7400,7 @@
         "Standard",
         {
           "input": "0.15000000",
-          "output": "0.5000000",
+          "output": "0.47000000",
           "cache_read": "0.02000000",
           "cache_write": null,
           "tiers": [],
@@ -10272,7 +10367,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": null,
+      "intelligence": 3.8,
       "coding": 30.4,
       "agentic": 3.7
     },
@@ -11195,7 +11290,7 @@
     },
     "knowledge_cutoff": "2025-03-31",
     "context_tokens": 40960,
-    "max_output_tokens": 16384,
+    "max_output_tokens": 36864,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -11211,8 +11306,8 @@
       [
         "Standard",
         {
-          "input": "0.12000000",
-          "output": "0.24000000",
+          "input": "0.1000000",
+          "output": "0.22000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -12563,7 +12658,7 @@
       "month": 8
     },
     "knowledge_cutoff": null,
-    "context_tokens": 1024000,
+    "context_tokens": 1048575,
     "max_output_tokens": 235929,
     "modality": "text+image+video->text",
     "capabilities": {
@@ -13004,7 +13099,7 @@
     "modality": "text->text",
     "capabilities": {
       "tools": true,
-      "reasoning": false,
+      "reasoning": true,
       "structured_output": true
     },
     "scores": null,
@@ -13025,8 +13120,8 @@
     "provenance": "Aggregate",
     "listed_on": "2026-11-04",
     "retires_on": null,
-    "open_weights": false,
-    "hf_id": null,
+    "open_weights": true,
+    "hf_id": "ricursiveAI/Ripple-65B-Preview",
     "reasoning_mandatory": false
   },
   {
@@ -13457,7 +13552,7 @@
       "month": 10
     },
     "knowledge_cutoff": null,
-    "context_tokens": 1048576,
+    "context_tokens": 1000000,
     "max_output_tokens": 64000,
     "modality": "text+image+video->text",
     "capabilities": {
@@ -14743,7 +14838,7 @@
       "month": 4
     },
     "knowledge_cutoff": null,
-    "context_tokens": 1050000,
+    "context_tokens": 1024000,
     "max_output_tokens": 235929,
     "modality": "text->text",
     "capabilities": {
@@ -15344,9 +15439,9 @@
       [
         "Standard",
         {
-          "input": "0.006000000",
+          "input": "0.01000000",
           "output": "6.8000000",
-          "cache_read": "0.005000000",
+          "cache_read": "0.009000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15356,9 +15451,9 @@
       [
         "Batch",
         {
-          "input": "0.623000000",
-          "output": "1.271000000",
-          "cache_read": "0.21000000",
+          "input": "0.527000000",
+          "output": "1.075000000",
+          "cache_read": "0.178000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15440,7 +15535,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 943717,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -15456,8 +15551,8 @@
       [
         "Standard",
         {
-          "input": "0.0335000000",
-          "output": "0.083000000",
+          "input": "0.15000000",
+          "output": "0.5000000",
           "cache_read": "0.03000000",
           "cache_write": null,
           "tiers": [],
@@ -15468,9 +15563,9 @@
       [
         "Batch",
         {
-          "input": "0.05000000",
-          "output": "0.18000000",
-          "cache_read": "0.01000000",
+          "input": "0.03000000",
+          "output": "0.061000000",
+          "cache_read": "0.013000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
