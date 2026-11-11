@@ -237,8 +237,7 @@
     "retires_on": null,
     "open_weights": true,
     "hf_id": "aion-labs/Aion-RP-Llama-3.1-8B",
-    "reasoning_mandatory": false,
-    "openness_source": "huggingface.co/aion-labs/Aion-RP-Llama-3.1-8B (checked 2026-10-06)"
+    "reasoning_mandatory": false
   },
   {
     "key": "amazon/nova-2-lite-v1",
@@ -1404,6 +1403,46 @@
     "reasoning_mandatory": true
   },
   {
+    "key": "baidu/ernie-light-dt-1.0-intl",
+    "display_name": "ERNIE-Light-DT-1.0",
+    "vendor_key": "baidu",
+    "vendor_name": "Baidu",
+    "released": {
+      "year": 2026,
+      "month": 11
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1024000,
+    "max_output_tokens": 131072,
+    "modality": "text->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "1.13000000",
+          "output": "3.94000000",
+          "cache_read": "0.113000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-11-10",
+    "retires_on": null,
+    "open_weights": false,
+    "hf_id": null,
+    "reasoning_mandatory": false
+  },
+  {
     "key": "bytedance-seed/seed-1.6",
     "display_name": "Seed 1.6",
     "vendor_key": "bytedance-seed",
@@ -1838,8 +1877,8 @@
     "provenance": "Aggregate",
     "listed_on": "2026-09-22",
     "retires_on": null,
-    "open_weights": false,
-    "hf_id": null,
+    "open_weights": true,
+    "hf_id": "CohereLabs/command-a-plus-05-2026-bf16",
     "reasoning_mandatory": false
   },
   {
@@ -1880,8 +1919,7 @@
     "retires_on": null,
     "open_weights": true,
     "hf_id": "CohereLabs/c4ai-command-r-08-2024",
-    "reasoning_mandatory": false,
-    "openness_source": "huggingface.co/CohereLabs/c4ai-command-r-08-2024 (checked 2026-10-06)"
+    "reasoning_mandatory": false
   },
   {
     "key": "cohere/command-r-plus-08-2024",
@@ -1921,8 +1959,7 @@
     "retires_on": null,
     "open_weights": true,
     "hf_id": "CohereLabs/c4ai-command-r-plus-08-2024",
-    "reasoning_mandatory": false,
-    "openness_source": "huggingface.co/CohereLabs/c4ai-command-r-plus-08-2024 (checked 2026-10-06)"
+    "reasoning_mandatory": false
   },
   {
     "key": "cohere/command-r7b-12-2024",
@@ -1962,8 +1999,7 @@
     "retires_on": null,
     "open_weights": true,
     "hf_id": "CohereLabs/c4ai-command-r7b-12-2024",
-    "reasoning_mandatory": false,
-    "openness_source": "huggingface.co/CohereLabs/c4ai-command-r7b-12-2024 (checked 2026-10-06)"
+    "reasoning_mandatory": false
   },
   {
     "key": "deepseek/deepseek-chat",
@@ -2268,7 +2304,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 943717,
+    "max_output_tokens": 393216,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -2284,9 +2320,9 @@
       [
         "Standard",
         {
-          "input": "0.091000000",
-          "output": "0.182000000",
-          "cache_read": "0.0182000000",
+          "input": "0.09000000",
+          "output": "0.18000000",
+          "cache_read": "0.018000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2428,9 +2464,9 @@
       [
         "Standard",
         {
-          "input": "0.95526000000",
-          "output": "1.91052000000",
-          "cache_read": "0.079605000000",
+          "input": "0.897318000000",
+          "output": "1.794636000000",
+          "cache_read": "0.0747765000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2512,9 +2548,9 @@
       [
         "Standard",
         {
-          "input": "0.006000000",
-          "output": "0.5000000",
-          "cache_read": "0.005000000",
+          "input": "0.051000000",
+          "output": "0.567000000",
+          "cache_read": "0.018000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -3697,6 +3733,62 @@
     "reasoning_mandatory": true
   },
   {
+    "key": "google/gemini-4-carbon",
+    "display_name": "Gemini 4 Carbon",
+    "vendor_key": "google",
+    "vendor_name": "Google",
+    "released": {
+      "year": 2026,
+      "month": 11
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1048576,
+    "max_output_tokens": 943718,
+    "modality": "text+image+file+audio+video->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 60,
+      "coding": null,
+      "agentic": null
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "2.000000",
+          "output": "10.00000",
+          "cache_read": "0.1000000",
+          "cache_write": "0.1875000000",
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "1.000000",
+          "output": "5.000000",
+          "cache_read": "0.05000000",
+          "cache_write": "0.1875000000",
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-11-10",
+    "retires_on": null,
+    "open_weights": false,
+    "hf_id": null,
+    "reasoning_mandatory": true
+  },
+  {
     "key": "google/gemini-nano-banana-2.1",
     "display_name": "Nano Banana 2.1",
     "vendor_key": "google",
@@ -4328,8 +4420,8 @@
     "provenance": "Aggregate",
     "listed_on": "2026-10-02",
     "retires_on": null,
-    "open_weights": false,
-    "hf_id": null,
+    "open_weights": true,
+    "hf_id": "inclusionAI/Ling-3.1-flash",
     "reasoning_mandatory": false
   },
   {
@@ -4410,6 +4502,46 @@
     "retires_on": null,
     "open_weights": true,
     "hf_id": "inference-net/schematron-v2-granite-4.0-h-micro",
+    "reasoning_mandatory": false
+  },
+  {
+    "key": "kt/midm-k-3.0-pro",
+    "display_name": "Mi:dm K 3.0 Pro",
+    "vendor_key": "kt",
+    "vendor_name": "Kt",
+    "released": {
+      "year": 2026,
+      "month": 11
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 261795,
+    "max_output_tokens": 235615,
+    "modality": "text->text",
+    "capabilities": {
+      "tools": false,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.2000000",
+          "output": "0.8000000",
+          "cache_read": "0.04000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-11-05",
+    "retires_on": null,
+    "open_weights": false,
+    "hf_id": null,
     "reasoning_mandatory": false
   },
   {
@@ -4559,9 +4691,9 @@
       [
         "Standard",
         {
-          "input": "0.4000000",
-          "output": "0.75000000",
-          "cache_read": "0.4000000",
+          "input": "0.3000000",
+          "output": "0.5000000",
+          "cache_read": "0.3000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -5275,7 +5407,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 131072,
+    "max_output_tokens": 262144,
     "modality": "text+image+file+audio+video->text",
     "capabilities": {
       "tools": true,
@@ -5403,7 +5535,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 200000,
-    "max_output_tokens": 58982,
+    "max_output_tokens": 128000,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -5415,9 +5547,9 @@
       [
         "Standard",
         {
-          "input": "0.3000000",
-          "output": "1.2000000",
-          "cache_read": "0.06000000",
+          "input": "0.27000000",
+          "output": "1.08000000",
+          "cache_read": "0.027000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -5871,8 +6003,7 @@
     "retires_on": null,
     "open_weights": true,
     "hf_id": "mistralai/Mistral-Large-Instruct-2407",
-    "reasoning_mandatory": false,
-    "openness_source": "huggingface.co/mistralai/Mistral-Large-Instruct-2407 (checked 2026-10-06)"
+    "reasoning_mandatory": false
   },
   {
     "key": "mistralai/mistral-large-2512",
@@ -5916,8 +6047,7 @@
     "retires_on": null,
     "open_weights": true,
     "hf_id": "mistralai/Mistral-Large-3-675B-Instruct-2512",
-    "reasoning_mandatory": false,
-    "openness_source": "huggingface.co/mistralai/Mistral-Large-3-675B-Instruct-2512 (checked 2026-10-06)"
+    "reasoning_mandatory": false
   },
   {
     "key": "mistralai/mistral-large-4-0",
@@ -6057,8 +6187,7 @@
     "retires_on": null,
     "open_weights": true,
     "hf_id": "mistralai/Mistral-Medium-3.5-128B",
-    "reasoning_mandatory": false,
-    "openness_source": "huggingface.co/mistralai/Mistral-Medium-3.5-128B (model card: Mistral Medium 3.5, 128B dense, 256K context) (checked 2026-10-06)"
+    "reasoning_mandatory": false
   },
   {
     "key": "mistralai/mistral-medium-3.1",
@@ -6997,6 +7126,50 @@
     "reasoning_mandatory": false
   },
   {
+    "key": "motif-technologies/motif-3",
+    "display_name": "Motif 3",
+    "vendor_key": "motif-technologies",
+    "vendor_name": "Motif Technologies",
+    "released": {
+      "year": 2026,
+      "month": 11
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 262144,
+    "max_output_tokens": 235929,
+    "modality": "text->text",
+    "capabilities": {
+      "tools": false,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": null,
+      "coding": 63.5,
+      "agentic": 28.4
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "0.3000000",
+          "output": "1.2000000",
+          "cache_read": "0.06000000",
+          "cache_write": null,
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-11-02",
+    "retires_on": null,
+    "open_weights": true,
+    "hf_id": "Motif-Technologies/Motif-3",
+    "reasoning_mandatory": false
+  },
+  {
     "key": "nex-agi/nex-n2.5-mini",
     "display_name": "Nex-N2.5-Mini",
     "vendor_key": "nex-agi",
@@ -7210,7 +7383,7 @@
       "month": 3
     },
     "knowledge_cutoff": null,
-    "context_tokens": 1048576,
+    "context_tokens": 262144,
     "max_output_tokens": 16384,
     "modality": "text->text",
     "capabilities": {
@@ -7413,7 +7586,7 @@
     "listed_on": "2026-10-15",
     "retires_on": null,
     "open_weights": true,
-    "hf_id": "nvidia/NVIDIA-Nemotron-3.5-Super-VL",
+    "hf_id": "nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16",
     "reasoning_mandatory": false
   },
   {
@@ -11113,46 +11286,6 @@
     "reasoning_mandatory": false
   },
   {
-    "key": "qwen/qwen-2.5-7b-instruct",
-    "display_name": "Qwen2.5 7B Instruct",
-    "vendor_key": "qwen",
-    "vendor_name": "Qwen",
-    "released": {
-      "year": 2024,
-      "month": 10
-    },
-    "knowledge_cutoff": "2024-06-30",
-    "context_tokens": 32768,
-    "max_output_tokens": 29491,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": true,
-      "reasoning": false,
-      "structured_output": true
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.1000000",
-          "output": "0.2000000",
-          "cache_read": null,
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate",
-    "listed_on": "2024-10-16",
-    "retires_on": null,
-    "open_weights": true,
-    "hf_id": "Qwen/Qwen2.5-7B-Instruct",
-    "reasoning_mandatory": false
-  },
-  {
     "key": "qwen/qwen-2.5-coder-32b-instruct",
     "display_name": "Qwen2.5 Coder 32B Instruct",
     "vendor_key": "qwen",
@@ -14237,9 +14370,9 @@
       [
         "Standard",
         {
-          "input": "0.35000000",
-          "output": "0.65000000",
-          "cache_read": "0.35000000",
+          "input": "0.3000000",
+          "output": "0.5000000",
+          "cache_read": "0.2000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15395,9 +15528,9 @@
       [
         "Standard",
         {
-          "input": "1.4000000",
-          "output": "4.4000000",
-          "cache_read": "0.26000000",
+          "input": "1.33000000",
+          "output": "4.18000000",
+          "cache_read": "0.247000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15439,9 +15572,9 @@
       [
         "Standard",
         {
-          "input": "0.01000000",
+          "input": "0.007000000",
           "output": "6.8000000",
-          "cache_read": "0.009000000",
+          "cache_read": "0.006000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15478,7 +15611,7 @@
       "month": 8
     },
     "knowledge_cutoff": null,
-    "context_tokens": 1048576,
+    "context_tokens": 1050000,
     "max_output_tokens": 943718,
     "modality": "text->text",
     "capabilities": {
@@ -15535,7 +15668,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 943717,
+    "max_output_tokens": 131072,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -15551,8 +15684,8 @@
       [
         "Standard",
         {
-          "input": "0.15000000",
-          "output": "0.5000000",
+          "input": "0.0399000000",
+          "output": "0.0784000000",
           "cache_read": "0.03000000",
           "cache_write": null,
           "tiers": [],
@@ -15563,9 +15696,9 @@
       [
         "Batch",
         {
-          "input": "0.03000000",
+          "input": "0.047000000",
           "output": "0.061000000",
-          "cache_read": "0.013000000",
+          "cache_read": "0.02000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,

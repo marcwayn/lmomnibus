@@ -1,9 +1,9 @@
 {
-  "as_of": "2026-11-10",
+  "as_of": "2026-11-11",
   "source": "OpenRouter /api/v1/models",
-  "models": 342,
-  "vendors": 53,
-  "scored_intelligence": 53,
+  "models": 345,
+  "vendors": 56,
+  "scored_intelligence": 54,
   "first_party": 7,
-  "aggregate": 335
+  "aggregate": 338
 }
