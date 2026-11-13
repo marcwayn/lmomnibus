@@ -1,4 +1,4 @@
-{"asOf":"2026-11-12","models":{
+{"asOf":"2026-11-13","models":{
 "aion-labs/aion-rp-llama-3.1-8b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8030261248,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "anthracite-org/magnum-v4-72b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":72706203648,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "bytedance/ui-tars-1.5-7b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8292166656,"active":null,"moe":false,"gated":false,"native":"bf16"},
@@ -36,7 +36,6 @@
 "inclusionai/ling-3.1-flash":{"status":"open","licence":"permissive","licenceLabel":"MIT","total":572120680768,"active":24894533440,"moe":true,"gated":false,"native":"fp8"},
 "inference-net/schematron-v2-small":{"status":"unverified","licence":"unclassified","licenceLabel":"no licence named","total":0,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "inference-net/schematron-v2-turbo":{"status":"unverified","licence":"unclassified","licenceLabel":"no licence named","total":0,"active":null,"moe":false,"gated":false,"native":"bf16"},
-"liquid/lfm-2.5-2.6b":{"status":"open","licence":"unclassified","licenceLabel":"lfm1.0","total":2697198592,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "liquid/lfm-2.5-24b-a2b":{"status":"open","licence":"unclassified","licenceLabel":"lfm1.0","total":23971585280,"active":2000000000,"moe":true,"gated":false,"native":"bf16"},
 "liquid/lfm-3-1.7b":{"status":"open","licence":"unclassified","licenceLabel":"lfm1.0","total":1728801536,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "meituan/longcat-2.0":{"status":"open","licence":"permissive","licenceLabel":"MIT","total":1775560491136,"active":48000000000,"moe":true,"gated":false,"native":"bf16"},
@@ -141,6 +140,7 @@
 "thedrummer/skyfall-36b-v2":{"status":"open","licence":"unclassified","licenceLabel":"other (see the repo)","total":36910535680,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "thedrummer/unslopnemo-12b":{"status":"open","licence":"unclassified","licenceLabel":"no licence named","total":12247782400,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "thinkingmachines/inkling":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":952377623626,"active":41000000000,"moe":true,"gated":false,"native":"bf16"},
+"thinkingmachines/inkling-2-small":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":383072987216,"active":null,"moe":true,"gated":false,"native":"fp8"},
 "thinkingmachines/inkling-small":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":265956439090,"active":12000000000,"moe":true,"gated":false,"native":"bf16"},
 "undi95/remm-slerp-l2-13b":{"status":"open","licence":"noncommercial","licenceLabel":"CC BY-NC 4.0","total":13015895702,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "xiaomi/mimo-v2.5":{"status":"open","licence":"permissive","licenceLabel":"MIT","total":310756322688,"active":15000000000,"moe":true,"gated":false,"native":"fp8"},
