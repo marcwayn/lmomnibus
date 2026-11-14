@@ -1,4 +1,4 @@
-{"asOf":"2026-11-13","models":{
+{"asOf":"2026-11-14","models":{
 "aion-labs/aion-rp-llama-3.1-8b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8030261248,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "anthracite-org/magnum-v4-72b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":72706203648,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "bytedance/ui-tars-1.5-7b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8292166656,"active":null,"moe":false,"gated":false,"native":"bf16"},
@@ -140,7 +140,7 @@
 "thedrummer/skyfall-36b-v2":{"status":"open","licence":"unclassified","licenceLabel":"other (see the repo)","total":36910535680,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "thedrummer/unslopnemo-12b":{"status":"open","licence":"unclassified","licenceLabel":"no licence named","total":12247782400,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "thinkingmachines/inkling":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":952377623626,"active":41000000000,"moe":true,"gated":false,"native":"bf16"},
-"thinkingmachines/inkling-2-small":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":383072987216,"active":null,"moe":true,"gated":false,"native":"fp8"},
+"thinkingmachines/inkling-2-small":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":594050672720,"active":null,"moe":true,"gated":false,"native":"fp4"},
 "thinkingmachines/inkling-small":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":265956439090,"active":12000000000,"moe":true,"gated":false,"native":"bf16"},
 "undi95/remm-slerp-l2-13b":{"status":"open","licence":"noncommercial","licenceLabel":"CC BY-NC 4.0","total":13015895702,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "xiaomi/mimo-v2.5":{"status":"open","licence":"permissive","licenceLabel":"MIT","total":310756322688,"active":15000000000,"moe":true,"gated":false,"native":"fp8"},

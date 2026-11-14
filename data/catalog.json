@@ -1871,7 +1871,7 @@
     },
     "knowledge_cutoff": "2024-07-31",
     "context_tokens": 163840,
-    "max_output_tokens": 16384,
+    "max_output_tokens": 16000,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -1883,8 +1883,8 @@
       [
         "Standard",
         {
-          "input": "0.32000000",
-          "output": "0.89000000",
+          "input": "0.2574000000",
+          "output": "1.0287000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -2315,7 +2315,7 @@
       "structured_output": true
     },
     "scores": {
-      "intelligence": 12.6,
+      "intelligence": 20.8,
       "coding": null,
       "agentic": null
     },
@@ -3665,7 +3665,11 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 53.9,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -4018,9 +4022,9 @@
       [
         "Standard",
         {
-          "input": "0.09000000",
-          "output": "0.3000000",
-          "cache_read": "0.05000000",
+          "input": "0.0675000000",
+          "output": "0.225000000",
+          "cache_read": "0.0375000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -4313,7 +4317,11 @@
       "reasoning": true,
       "structured_output": false
     },
-    "scores": null,
+    "scores": {
+      "intelligence": 29.6,
+      "coding": null,
+      "agentic": null
+    },
     "rates": [
       [
         "Standard",
@@ -4754,7 +4762,7 @@
     },
     "knowledge_cutoff": "2023-12-31",
     "context_tokens": 131072,
-    "max_output_tokens": 117964,
+    "max_output_tokens": 72000,
     "modality": "text->text",
     "capabilities": {
       "tools": false,
@@ -4766,8 +4774,8 @@
       [
         "Standard",
         {
-          "input": "0.05000000",
-          "output": "0.33000000",
+          "input": "0.0509000000",
+          "output": "0.335000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -4778,7 +4786,7 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2024-09-25",
-    "retires_on": null,
+    "retires_on": "2026-11-20",
     "open_weights": true,
     "hf_id": "meta-llama/Llama-3.2-3B-Instruct",
     "reasoning_mandatory": false
@@ -6787,9 +6795,9 @@
       [
         "Standard",
         {
-          "input": "0.2000000",
+          "input": "0.192000000",
           "output": "16.000000",
-          "cache_read": "0.19000000",
+          "cache_read": "0.182000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -9355,16 +9363,16 @@
       [
         "Standard",
         {
-          "input": "4.4000000",
-          "output": "22.000000",
-          "cache_read": "0.44000000",
-          "cache_write": "5.5000000",
+          "input": "4.000000",
+          "output": "20.00000",
+          "cache_read": "0.4000000",
+          "cache_write": "5.000000",
           "tiers": [
             {
               "above_input_tokens": 272000,
-              "input": "8.8000000",
-              "output": "33.000000",
-              "cache_read": "0.88000000"
+              "input": "8.000000",
+              "output": "30.00000",
+              "cache_read": "0.8000000"
             }
           ],
           "promo": null,
@@ -12119,9 +12127,9 @@
       [
         "Standard",
         {
-          "input": "0.024000000",
-          "output": "0.035000000",
-          "cache_read": "0.022000000",
+          "input": "0.17000000",
+          "output": "0.25000000",
+          "cache_read": "0.153000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -12670,7 +12678,7 @@
       "month": 8
     },
     "knowledge_cutoff": null,
-    "context_tokens": 1048575,
+    "context_tokens": 1024000,
     "max_output_tokens": 235929,
     "modality": "text+image+video->text",
     "capabilities": {
