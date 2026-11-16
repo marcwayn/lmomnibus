@@ -2207,7 +2207,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 943718,
+    "max_output_tokens": 384000,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -2223,9 +2223,9 @@
       [
         "Standard",
         {
-          "input": "0.0434000000",
-          "output": "0.3000000",
-          "cache_read": "0.035000000",
+          "input": "0.06000000",
+          "output": "0.18000000",
+          "cache_read": "0.015000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2475,8 +2475,8 @@
       [
         "Batch",
         {
-          "input": "0.038000000",
-          "output": "0.333000000",
+          "input": "0.037000000",
+          "output": "0.328000000",
           "cache_read": "0.004000000",
           "cache_write": null,
           "tiers": [],
@@ -4022,9 +4022,9 @@
       [
         "Standard",
         {
-          "input": "0.0675000000",
-          "output": "0.225000000",
-          "cache_read": "0.0375000000",
+          "input": "0.09000000",
+          "output": "0.3000000",
+          "cache_read": "0.05000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -5410,7 +5410,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 198000,
-    "max_output_tokens": 32768,
+    "max_output_tokens": 176947,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -5422,9 +5422,9 @@
       [
         "Standard",
         {
-          "input": "0.27000000",
-          "output": "0.95000000",
-          "cache_read": "0.03000000",
+          "input": "0.295000000",
+          "output": "1.2000000",
+          "cache_read": "0.06000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -6863,9 +6863,9 @@
       [
         "Batch",
         {
-          "input": "0.275000000",
-          "output": "4.125000000",
-          "cache_read": "0.088000000",
+          "input": "0.7000000",
+          "output": "6.000000",
+          "cache_read": "0.1000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -9363,16 +9363,16 @@
       [
         "Standard",
         {
-          "input": "4.4000000",
-          "output": "22.000000",
-          "cache_read": "0.44000000",
-          "cache_write": "5.5000000",
+          "input": "4.000000",
+          "output": "20.00000",
+          "cache_read": "0.4000000",
+          "cache_write": "5.000000",
           "tiers": [
             {
               "above_input_tokens": 272000,
-              "input": "8.8000000",
-              "output": "33.000000",
-              "cache_read": "0.88000000"
+              "input": "8.000000",
+              "output": "30.00000",
+              "cache_read": "0.8000000"
             }
           ],
           "promo": null,
@@ -10491,9 +10491,9 @@
       [
         "Standard",
         {
-          "input": "0.03000000",
-          "output": "0.13000000",
-          "cache_read": "0.03000000",
+          "input": "0.018000000",
+          "output": "0.09000000",
+          "cache_read": "0.009000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -11607,7 +11607,7 @@
     "capabilities": {
       "tools": true,
       "reasoning": false,
-      "structured_output": true
+      "structured_output": false
     },
     "scores": null,
     "rates": [
@@ -11849,46 +11849,6 @@
     "reasoning_mandatory": false
   },
   {
-    "key": "qwen/qwen3-vl-30b-a3b-thinking",
-    "display_name": "Qwen3 VL 30B A3B Thinking",
-    "vendor_key": "qwen",
-    "vendor_name": "Qwen",
-    "released": {
-      "year": 2025,
-      "month": 10
-    },
-    "knowledge_cutoff": "2025-03-31",
-    "context_tokens": 262144,
-    "max_output_tokens": 235929,
-    "modality": "text+image->text",
-    "capabilities": {
-      "tools": true,
-      "reasoning": true,
-      "structured_output": true
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.29000000",
-          "output": "1.000000",
-          "cache_read": null,
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate",
-    "listed_on": "2025-10-06",
-    "retires_on": "2026-11-15",
-    "open_weights": true,
-    "hf_id": "Qwen/Qwen3-VL-30B-A3B-Thinking",
-    "reasoning_mandatory": true
-  },
-  {
     "key": "qwen/qwen3-vl-8b-instruct",
     "display_name": "Qwen3 VL 8B Instruct",
     "vendor_key": "qwen",
@@ -12067,7 +12027,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 64000,
+    "max_output_tokens": 81920,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
@@ -12083,9 +12043,9 @@
       [
         "Standard",
         {
-          "input": "0.6000000",
-          "output": "3.6000000",
-          "cache_read": "0.12000000",
+          "input": "0.45000000",
+          "output": "3.000000",
+          "cache_read": "0.22000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -12127,9 +12087,9 @@
       [
         "Standard",
         {
-          "input": "0.021000000",
-          "output": "0.031000000",
-          "cache_read": "0.019000000",
+          "input": "0.074000000",
+          "output": "0.109000000",
+          "cache_read": "0.066000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -12901,6 +12861,46 @@
     "reasoning_mandatory": false
   },
   {
+    "key": "qwen/qwen4-max",
+    "display_name": "Qwen4 Max",
+    "vendor_key": "qwen",
+    "vendor_name": "Qwen",
+    "released": {
+      "year": 2026,
+      "month": 11
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1000000,
+    "max_output_tokens": 131072,
+    "modality": "text+image+video->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": null,
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "1.5000000",
+          "output": "4.5000000",
+          "cache_read": "0.075000000",
+          "cache_write": "1.875000000",
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-11-16",
+    "retires_on": null,
+    "open_weights": false,
+    "hf_id": null,
+    "reasoning_mandatory": false
+  },
+  {
     "key": "reflection/beam-1.0-501b-a23b",
     "display_name": "Beam 1.0 501B A23B",
     "vendor_key": "reflection",
@@ -13479,46 +13479,6 @@
     "reasoning_mandatory": false
   },
   {
-    "key": "stepfun/step-3.5-flash",
-    "display_name": "Step 3.5 Flash",
-    "vendor_key": "stepfun",
-    "vendor_name": "Stepfun",
-    "released": {
-      "year": 2026,
-      "month": 1
-    },
-    "knowledge_cutoff": null,
-    "context_tokens": 262144,
-    "max_output_tokens": 65536,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": true,
-      "reasoning": true,
-      "structured_output": false
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.1000000",
-          "output": "0.3000000",
-          "cache_read": null,
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate",
-    "listed_on": "2026-01-29",
-    "retires_on": "2026-11-15",
-    "open_weights": true,
-    "hf_id": "stepfun-ai/Step-3.5-Flash",
-    "reasoning_mandatory": true
-  },
-  {
     "key": "stepfun/step-3.7-flash",
     "display_name": "Step 3.7 Flash",
     "vendor_key": "stepfun",
@@ -13605,46 +13565,6 @@
     "open_weights": true,
     "hf_id": "stepfun-ai/Step-5-Preview",
     "reasoning_mandatory": true
-  },
-  {
-    "key": "tencent/hunyuan-a13b-instruct",
-    "display_name": "Hunyuan A13B Instruct",
-    "vendor_key": "tencent",
-    "vendor_name": "Tencent",
-    "released": {
-      "year": 2025,
-      "month": 7
-    },
-    "knowledge_cutoff": "2025-03-31",
-    "context_tokens": 131072,
-    "max_output_tokens": 117964,
-    "modality": "text->text",
-    "capabilities": {
-      "tools": false,
-      "reasoning": true,
-      "structured_output": true
-    },
-    "scores": null,
-    "rates": [
-      [
-        "Standard",
-        {
-          "input": "0.14000000",
-          "output": "0.57000000",
-          "cache_read": null,
-          "cache_write": null,
-          "tiers": [],
-          "promo": null,
-          "cache_write_1h": null
-        }
-      ]
-    ],
-    "provenance": "Aggregate",
-    "listed_on": "2025-07-08",
-    "retires_on": "2026-11-15",
-    "open_weights": true,
-    "hf_id": "tencent/Hunyuan-A13B-Instruct",
-    "reasoning_mandatory": false
   },
   {
     "key": "tencent/hy-mt2-1.8b",
@@ -15167,9 +15087,9 @@
       [
         "Standard",
         {
-          "input": "0.2000000",
-          "output": "1.1000000",
-          "cache_read": "0.03000000",
+          "input": "0.13000000",
+          "output": "0.85000000",
+          "cache_read": "0.025000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15587,9 +15507,9 @@
       [
         "Standard",
         {
-          "input": "0.084000000",
-          "output": "3.6000000",
-          "cache_read": "0.079000000",
+          "input": "0.0699000000",
+          "output": "1.4000000",
+          "cache_read": "0.0689000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15599,9 +15519,9 @@
       [
         "Batch",
         {
-          "input": "0.322000000",
-          "output": "0.989000000",
-          "cache_read": "0.109000000",
+          "input": "0.45000000",
+          "output": "2.000000",
+          "cache_read": "0.1000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,

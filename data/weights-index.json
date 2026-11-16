@@ -1,4 +1,4 @@
-{"asOf":"2026-11-15","models":{
+{"asOf":"2026-11-16","models":{
 "aion-labs/aion-rp-llama-3.1-8b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8030261248,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "anthracite-org/magnum-v4-72b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":72706203648,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "bytedance/ui-tars-1.5-7b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8292166656,"active":null,"moe":false,"gated":false,"native":"bf16"},
@@ -107,7 +107,6 @@
 "qwen/qwen3-next-80b-a3b-instruct":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":81324862720,"active":3000000000,"moe":true,"gated":false,"native":"bf16"},
 "qwen/qwen3-vl-235b-a22b-instruct":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":235670022896,"active":22000000000,"moe":true,"gated":false,"native":"bf16"},
 "qwen/qwen3-vl-30b-a3b-instruct":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":31070754032,"active":3000000000,"moe":true,"gated":false,"native":"bf16"},
-"qwen/qwen3-vl-30b-a3b-thinking":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":31070754032,"active":3000000000,"moe":true,"gated":false,"native":"bf16"},
 "qwen/qwen3-vl-8b-instruct":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8767123696,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "qwen/qwen3.5-122b-a10b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":125086497008,"active":10000000000,"moe":true,"gated":false,"native":"bf16"},
 "qwen/qwen3.5-27b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":27781427952,"active":null,"moe":false,"gated":false,"native":"bf16"},
@@ -125,10 +124,8 @@
 "ricursiveai/ripple-65b-preview":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":64782689360,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "sao10k/l3-lunaris-8b":{"status":"open","licence":"custom","licenceLabel":"Llama 3 licence","total":8030261248,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "sao10k/l3.1-euryale-70b":{"status":"open","licence":"noncommercial","licenceLabel":"CC BY-NC 4.0","total":70553837092,"active":null,"moe":false,"gated":false,"native":"bf16"},
-"stepfun/step-3.5-flash":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":199384301376,"active":11000000000,"moe":true,"gated":false,"native":"bf16"},
 "stepfun/step-3.7-flash":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":201365316160,"active":12012489792,"moe":true,"gated":false,"native":"bf16"},
 "stepfun/step-5-preview":{"status":"open","licence":"unclassified","licenceLabel":"other (see the repo)","total":604339504832,"active":28502929216,"moe":true,"gated":false,"native":"fp8"},
-"tencent/hunyuan-a13b-instruct":{"status":"open","licence":"custom","licenceLabel":"tencent-hunyuan-a13b","total":80393183232,"active":13000000000,"moe":true,"gated":false,"native":"bf16"},
 "tencent/hy-mt2-1.8b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":2038515712,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "tencent/hy-mt2-30b-a3b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":30064725888,"active":3000000000,"moe":true,"gated":false,"native":"bf16"},
 "tencent/hy-mt2-7b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8029540352,"active":null,"moe":false,"gated":false,"native":"bf16"},
