@@ -257,11 +257,7 @@
       "reasoning": true,
       "structured_output": false
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 23,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -501,11 +497,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 76.5,
-      "agentic": 50.7
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -560,8 +552,8 @@
     },
     "scores": {
       "intelligence": 50,
-      "coding": 80.7,
-      "agentic": 57.2
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -673,8 +665,8 @@
     },
     "scores": {
       "intelligence": 7.4,
-      "coding": 43.9,
-      "agentic": 8
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -954,11 +946,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 73.6,
-      "agentic": 38.6
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -1010,11 +998,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 74.3,
-      "agentic": 41.9
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -1068,8 +1052,8 @@
     },
     "scores": {
       "intelligence": 44.2,
-      "coding": 78,
-      "agentic": 56.5
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -1180,11 +1164,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 52.1,
-      "agentic": 15.8
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -1250,11 +1230,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 63,
-      "agentic": 31.8
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -1306,11 +1282,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 71.5,
-      "agentic": 43.6
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -1716,8 +1688,8 @@
     },
     "scores": {
       "intelligence": 6.2,
-      "coding": 27.8,
-      "agentic": 1
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -1918,11 +1890,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 21.2,
-      "agentic": 0.8
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -2042,11 +2010,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 43.5,
-      "agentic": 6.8
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -2086,11 +2050,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 44.2,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -2170,11 +2130,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 56.2,
-      "agentic": 22.2
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -2207,25 +2163,21 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 384000,
+    "max_output_tokens": 943718,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 69.1,
-      "agentic": 41
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
         {
-          "input": "0.06000000",
-          "output": "0.18000000",
-          "cache_read": "0.015000000",
+          "input": "0.062000000",
+          "output": "0.3000000",
+          "cache_read": "0.035000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2270,11 +2222,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 65,
-      "agentic": 47.5
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -2360,8 +2308,8 @@
     },
     "scores": {
       "intelligence": 23.1,
-      "coding": 68.8,
-      "agentic": 41.3
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -2447,7 +2395,7 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 1048576,
-    "max_output_tokens": 943718,
+    "max_output_tokens": 393216,
     "modality": "text+image->text",
     "capabilities": {
       "tools": true,
@@ -2463,9 +2411,9 @@
       [
         "Standard",
         {
-          "input": "0.036000000",
-          "output": "0.5000000",
-          "cache_read": "0.01000000",
+          "input": "0.15000000",
+          "output": "0.6000000",
+          "cache_read": "0.003000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -2710,11 +2658,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 33.3,
-      "agentic": 1.6
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -3114,8 +3058,8 @@
     },
     "scores": {
       "intelligence": 6.2,
-      "coding": 34.7,
-      "agentic": 1.6
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -3156,11 +3100,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 68.8,
-      "agentic": 8.2
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -3273,11 +3213,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 70.1,
-      "agentic": 26
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -3331,8 +3267,8 @@
     },
     "scores": {
       "intelligence": 11.7,
-      "coding": 49.3,
-      "agentic": 14.3
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -3385,11 +3321,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 69.2,
-      "agentic": 29
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -3441,11 +3373,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 76.1,
-      "agentic": 35.2
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -3499,8 +3427,8 @@
     },
     "scores": {
       "intelligence": 30.8,
-      "coding": 76.3,
-      "agentic": 40.2
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -3704,6 +3632,62 @@
     "reasoning_mandatory": true
   },
   {
+    "key": "google/gemini-4-neon",
+    "display_name": "Gemini 4 Neon",
+    "vendor_key": "google",
+    "vendor_name": "Google",
+    "released": {
+      "year": 2026,
+      "month": 11
+    },
+    "knowledge_cutoff": null,
+    "context_tokens": 1048576,
+    "max_output_tokens": 943718,
+    "modality": "text+image+file+audio+video->text",
+    "capabilities": {
+      "tools": true,
+      "reasoning": true,
+      "structured_output": true
+    },
+    "scores": {
+      "intelligence": 61.4,
+      "coding": null,
+      "agentic": null
+    },
+    "rates": [
+      [
+        "Standard",
+        {
+          "input": "3.000000",
+          "output": "15.000000",
+          "cache_read": "0.15000000",
+          "cache_write": "0.0833333333333333000000",
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ],
+      [
+        "Batch",
+        {
+          "input": "1.5000000",
+          "output": "7.5000000",
+          "cache_read": "0.075000000",
+          "cache_write": "0.0833333333333333000000",
+          "tiers": [],
+          "promo": null,
+          "cache_write_1h": null
+        }
+      ]
+    ],
+    "provenance": "Aggregate",
+    "listed_on": "2026-11-18",
+    "retires_on": null,
+    "open_weights": false,
+    "hf_id": null,
+    "reasoning_mandatory": true
+  },
+  {
     "key": "google/gemini-nano-banana-2.1",
     "display_name": "Nano Banana 2.1",
     "vendor_key": "google",
@@ -3881,11 +3865,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 5.8,
-      "agentic": 0.1
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -3918,25 +3898,21 @@
     },
     "knowledge_cutoff": "2024-08-31",
     "context_tokens": 131072,
-    "max_output_tokens": 117964,
+    "max_output_tokens": 16384,
     "modality": "text+image->text",
     "capabilities": {
       "tools": true,
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 10.1,
-      "agentic": 0.1
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
         {
           "input": "0.08000000",
-          "output": "0.45000000",
-          "cache_read": "0.04000000",
+          "output": "0.16000000",
+          "cache_read": null,
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -3969,11 +3945,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 2.7,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -4013,11 +3985,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 39.3,
-      "agentic": 2.9
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -4059,8 +4027,8 @@
     },
     "scores": {
       "intelligence": 4.4,
-      "coding": 43.4,
-      "agentic": 4.2
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -4143,8 +4111,8 @@
     },
     "scores": {
       "intelligence": 5.1,
-      "coding": 22.4,
-      "agentic": 1.3
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -4185,11 +4153,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 50.6,
-      "agentic": 19.3
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -4229,11 +4193,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 57,
-      "agentic": 28.7
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -4273,11 +4233,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 26.5,
-      "agentic": 4.4
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -4605,11 +4561,7 @@
       "reasoning": true,
       "structured_output": false
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 45.3,
-      "agentic": 14
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -4689,11 +4641,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 5.4,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -4813,11 +4761,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 11.9,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -4857,11 +4801,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 16.3,
-      "agentic": 0.6
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -4901,11 +4841,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 8.2,
-      "agentic": 0.5
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -5031,8 +4967,8 @@
     },
     "scores": {
       "intelligence": 6.3,
-      "coding": 49,
-      "agentic": 8.5
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -5085,11 +5021,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 71.3,
-      "agentic": 25.8
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -5129,11 +5061,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 72.2,
-      "agentic": 43.2
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -5215,8 +5143,8 @@
     },
     "scores": {
       "intelligence": 36.6,
-      "coding": 75.8,
-      "agentic": 55.5
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -5465,11 +5393,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 52.6,
-      "agentic": 15.3
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -5511,8 +5435,8 @@
     },
     "scores": {
       "intelligence": 18.9,
-      "coding": 58.6,
-      "agentic": 29.5
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -5649,11 +5573,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 31.3,
-      "agentic": 2.3
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -5693,11 +5613,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 14.4,
-      "agentic": 1.1
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -5737,11 +5653,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 4.8,
-      "agentic": 0.8
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -5781,11 +5693,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 9.7,
-      "agentic": 0.6
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -5906,11 +5814,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 20.1,
-      "agentic": 1
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -6036,8 +5940,8 @@
     },
     "scores": {
       "intelligence": 4.6,
-      "coding": 46.9,
-      "agentic": 7
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -6090,11 +5994,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 20.5,
-      "agentic": 1.9
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -6256,8 +6156,8 @@
     },
     "scores": {
       "intelligence": 4.3,
-      "coding": 26.6,
-      "agentic": 0.8
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -6618,11 +6518,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 21,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -6662,11 +6558,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 46.8,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -6706,11 +6598,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 61.8,
-      "agentic": 20.5
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -6750,18 +6638,14 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 60.8,
-      "agentic": 21
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
         {
-          "input": "0.7000000",
-          "output": "3.75000000",
-          "cache_read": "0.17000000",
+          "input": "0.65000000",
+          "output": "3.5000000",
+          "cache_read": "0.16000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -6796,8 +6680,8 @@
     },
     "scores": {
       "intelligence": 17.4,
-      "coding": 72,
-      "agentic": 29.3
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -6859,9 +6743,9 @@
       [
         "Standard",
         {
-          "input": "0.2403000000",
-          "output": "8.4023000000",
-          "cache_read": "0.2000000",
+          "input": "0.253000000",
+          "output": "8.8000000",
+          "cache_read": "0.18000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -7038,11 +6922,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 63.5,
-      "agentic": 28.4
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -7242,11 +7122,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 14.4,
-      "agentic": 1
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -7286,11 +7162,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 37.7,
-      "agentic": 1.7
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -7332,8 +7204,8 @@
     },
     "scores": {
       "intelligence": 11.8,
-      "coding": 49.3,
-      "agentic": 20.1
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -7416,8 +7288,8 @@
     },
     "scores": {
       "intelligence": 5.5,
-      "coding": 26.8,
-      "agentic": 3.5
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -7582,11 +7454,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 13.1,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -7626,11 +7494,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 21.5,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Batch",
@@ -7722,11 +7586,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 20.2,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -7778,11 +7638,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 11.1,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -7886,11 +7742,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 24.2,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -8010,11 +7862,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 11.4,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -8106,11 +7954,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 37.8,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -8242,11 +8086,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 15.6,
-      "agentic": 6.8
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -8402,11 +8242,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 49.4,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -8802,11 +8638,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 71.1,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -8912,11 +8744,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 56.1,
-      "agentic": 17.9
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -8968,11 +8796,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 56.1,
-      "agentic": 16
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -9090,11 +8914,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 74.9,
-      "agentic": 36.4
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -9228,8 +9048,8 @@
     },
     "scores": {
       "intelligence": 23.8,
-      "coding": 71.4,
-      "agentic": 42.1
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -9362,11 +9182,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 78.3,
-      "agentic": 47.4
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -9500,8 +9316,8 @@
     },
     "scores": {
       "intelligence": 32.3,
-      "coding": 76.7,
-      "agentic": 43.2
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -9636,8 +9452,8 @@
     },
     "scores": {
       "intelligence": 56.9,
-      "coding": 76.9,
-      "agentic": 51
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -10708,8 +10524,8 @@
     },
     "scores": {
       "intelligence": 3.8,
-      "coding": 30.4,
-      "agentic": 3.7
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -10762,11 +10578,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 20.7,
-      "agentic": 1.2
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -11597,11 +11409,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 13.8,
-      "agentic": 0.9
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -11681,11 +11489,7 @@
       "reasoning": true,
       "structured_output": false
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 22.1,
-      "agentic": 1.3
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -11805,11 +11609,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 15.3,
-      "agentic": 0.9
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -11982,11 +11782,7 @@
       "reasoning": false,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 36.2,
-      "agentic": 0.9
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -12186,11 +11982,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 45.7,
-      "agentic": 7.6
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -12235,8 +12027,8 @@
       [
         "Standard",
         {
-          "input": "0.3000000",
-          "output": "2.4000000",
+          "input": "0.195000000",
+          "output": "1.56000000",
           "cache_read": null,
           "cache_write": null,
           "tiers": [],
@@ -12270,11 +12062,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 37,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -12314,11 +12102,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 48.2,
-      "agentic": 8.3
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -12351,25 +12135,21 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 262144,
-    "max_output_tokens": 40960,
+    "max_output_tokens": 235929,
     "modality": "text+image+video->text",
     "capabilities": {
       "tools": true,
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 28.7,
-      "agentic": 1.2
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
         {
           "input": "0.17000000",
           "output": "0.25000000",
-          "cache_read": "0.153000000",
+          "cache_read": null,
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -12536,11 +12316,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 53.7,
-      "agentic": 18.5
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -12580,11 +12356,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 41.9,
-      "agentic": 13.1
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -12671,11 +12443,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 54.5,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -12775,11 +12543,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 66,
-      "agentic": 22.5
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -12819,11 +12583,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 55.9,
-      "agentic": 17.5
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -12882,11 +12642,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 71.9,
-      "agentic": 50.1
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -12928,8 +12684,8 @@
     },
     "scores": {
       "intelligence": 20.1,
-      "coding": 68.1,
-      "agentic": 45.8
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -12984,8 +12740,8 @@
     },
     "scores": {
       "intelligence": 28.6,
-      "coding": 73.1,
-      "agentic": 53.6
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -13028,8 +12784,8 @@
     },
     "scores": {
       "intelligence": 33.7,
-      "coding": 76.2,
-      "agentic": 56
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -13199,7 +12955,7 @@
     },
     "knowledge_cutoff": "2026-06-30",
     "context_tokens": 1048576,
-    "max_output_tokens": 943718,
+    "max_output_tokens": 131072,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
@@ -13215,9 +12971,9 @@
       [
         "Standard",
         {
-          "input": "0.3000000",
+          "input": "0.25000000",
           "output": "1.000000",
-          "cache_read": "0.04000000",
+          "cache_read": "0.05000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -13784,11 +13540,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 39.6,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -14032,11 +13784,7 @@
       "reasoning": true,
       "structured_output": false
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 58.8,
-      "agentic": 24.1
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -14322,8 +14070,8 @@
     },
     "scores": {
       "intelligence": 12.5,
-      "coding": 52.1,
-      "agentic": 22.5
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -14410,8 +14158,8 @@
     },
     "scores": {
       "intelligence": 12.9,
-      "coding": 52.9,
-      "agentic": 23.5
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -14667,7 +14415,7 @@
     "scores": {
       "intelligence": 14.2,
       "coding": null,
-      "agentic": 28.8
+      "agentic": null
     },
     "rates": [
       [
@@ -14842,11 +14590,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 42.2,
-      "agentic": 15.5
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -14912,11 +14656,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 72.4,
-      "agentic": 41.2
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -14965,8 +14705,8 @@
     },
     "scores": {
       "intelligence": 31,
-      "coding": 75.9,
-      "agentic": 52.5
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -15103,11 +14843,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 51.5,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -15154,11 +14890,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 56.8,
-      "agentic": 15.8
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -15198,11 +14930,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 60.2,
-      "agentic": 21.3
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -15490,11 +15218,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 45.8,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -15574,11 +15298,7 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 45.3,
-      "agentic": null
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
@@ -15731,25 +15451,21 @@
     },
     "knowledge_cutoff": null,
     "context_tokens": 204800,
-    "max_output_tokens": 182476,
+    "max_output_tokens": 131072,
     "modality": "text->text",
     "capabilities": {
       "tools": true,
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 55.8,
-      "agentic": 23.9
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
         {
-          "input": "1.4000000",
-          "output": "4.4000000",
-          "cache_read": "0.26000000",
+          "input": "1.19000000",
+          "output": "3.74000000",
+          "cache_read": "0.6000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15759,7 +15475,7 @@
     ],
     "provenance": "Aggregate",
     "listed_on": "2026-04-07",
-    "retires_on": "2026-11-20",
+    "retires_on": null,
     "open_weights": true,
     "hf_id": "zai-org/GLM-5.1",
     "reasoning_mandatory": false
@@ -15782,18 +15498,14 @@
       "reasoning": true,
       "structured_output": true
     },
-    "scores": {
-      "intelligence": null,
-      "coding": 68.8,
-      "agentic": 38.4
-    },
+    "scores": null,
     "rates": [
       [
         "Standard",
         {
-          "input": "0.007000000",
-          "output": "6.8000000",
-          "cache_read": "0.006000000",
+          "input": "0.62000000",
+          "output": "2.42000000",
+          "cache_read": "0.14000000",
           "cache_write": null,
           "tiers": [],
           "promo": null,
@@ -15840,8 +15552,8 @@
     },
     "scores": {
       "intelligence": 31.7,
-      "coding": 74.8,
-      "agentic": 53.1
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
@@ -15896,8 +15608,8 @@
     },
     "scores": {
       "intelligence": 27.8,
-      "coding": 71.5,
-      "agentic": 50.9
+      "coding": null,
+      "agentic": null
     },
     "rates": [
       [
