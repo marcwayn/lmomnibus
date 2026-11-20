@@ -1,4 +1,4 @@
-{"asOf":"2026-11-19","models":{
+{"asOf":"2026-11-20","models":{
 "aion-labs/aion-rp-llama-3.1-8b":{"status":"open","licence":"custom","licenceLabel":"Llama 3.1 licence","total":8030261248,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "anthracite-org/magnum-v4-72b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":72706203648,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "bytedance/ui-tars-1.5-7b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8292166656,"active":null,"moe":false,"gated":false,"native":"bf16"},
@@ -41,7 +41,6 @@
 "meituan/longcat-2.0":{"status":"open","licence":"permissive","licenceLabel":"MIT","total":1775560491136,"active":48000000000,"moe":true,"gated":false,"native":"bf16"},
 "meta-llama/llama-3.1-70b-instruct":{"status":"open","licence":"custom","licenceLabel":"Llama 3.1 licence","total":70553706496,"active":null,"moe":false,"gated":true,"native":"bf16"},
 "meta-llama/llama-3.1-8b-instruct":{"status":"open","licence":"custom","licenceLabel":"Llama 3.1 licence","total":8030261248,"active":null,"moe":false,"gated":true,"native":"bf16"},
-"meta-llama/llama-3.2-1b-instruct":{"status":"open","licence":"custom","licenceLabel":"Llama 3.2 licence","total":1235814400,"active":null,"moe":false,"gated":true,"native":"bf16"},
 "meta-llama/llama-3.2-3b-instruct":{"status":"open","licence":"custom","licenceLabel":"Llama 3.2 licence","total":3212749824,"active":null,"moe":false,"gated":true,"native":"bf16"},
 "meta-llama/llama-3.3-70b-instruct":{"status":"open","licence":"custom","licenceLabel":"Llama 3.3 licence","total":70553706496,"active":null,"moe":false,"gated":true,"native":"bf16"},
 "meta-llama/llama-4-maverick":{"status":"open","licence":"custom","licenceLabel":"Llama 4 licence","total":401583781376,"active":17000000000,"moe":true,"gated":true,"native":"bf16"},
@@ -131,7 +130,7 @@
 "tencent/hy-mt2-7b":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":8029540352,"active":null,"moe":false,"gated":false,"native":"bf16"},
 "tencent/hy3":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":298786155776,"active":21000000000,"moe":true,"gated":false,"native":"bf16"},
 "tencent/hy3-preview":{"status":"open","licence":"unclassified","licenceLabel":"other (see the repo)","total":298786155776,"active":20675730240,"moe":true,"gated":false,"native":"bf16"},
-"tencent/hy4":{"status":"unverified","licence":"unclassified","licenceLabel":"no licence named","total":0,"active":null,"moe":false,"gated":false,"native":"bf16"},
+"tencent/hy4":{"status":"open","licence":"unclassified","licenceLabel":"tencent-hy-license","total":774434002142,"active":52273496798,"moe":true,"gated":false,"native":"bf16"},
 "tencent/hy4-flash":{"status":"open","licence":"unclassified","licenceLabel":"tencent-hy-license","total":220251201958,"active":-56339169195,"moe":true,"gated":false,"native":"bf16"},
 "tencent/hy4-preview":{"status":"open","licence":"permissive","licenceLabel":"Apache-2.0","total":779960992733,"active":49000000000,"moe":true,"gated":false,"native":"bf16"},
 "thedrummer/cydonia-24b-v4.1":{"status":"open","licence":"unclassified","licenceLabel":"no licence named","total":23572403200,"active":null,"moe":false,"gated":false,"native":"bf16"},
